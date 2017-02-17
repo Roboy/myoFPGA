@@ -6,7 +6,7 @@ JedecChain;
 	P ActionCode(Ign)
 		Device PartName(SOCVHPS) MfrSpec(OpMask(0));
 	P ActionCode(Cfg)
-		Device PartName(5CSEMA4U23) Path("/home/letrend/workspace/myoFPGA/output_files/") File("myoFPGA.sof") MfrSpec(OpMask(1));
+		Device PartName(5CSEMA4U23) Path("/home/letrend/workspace/myoFpga/output_files/") File("myoFPGA.sof") MfrSpec(OpMask(1));
 
 ChainEnd;
 

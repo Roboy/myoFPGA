@@ -1,11 +1,11 @@
-Analysis & Synthesis Status : Successful - Mon Feb 13 19:22:54 2017
+Analysis & Synthesis Status : Successful - Thu Feb 16 22:23:55 2017
 Quartus Prime Version : 15.1.0 Build 185 10/21/2015 SJ Lite Edition
 Revision Name : myoFPGA
-Top-level Entity Name : myoFPGA_top
+Top-level Entity Name : spi_system
 Family : Cyclone V
 Logic utilization (in ALMs) : N/A
-Total registers : 307
-Total pins : 100
+Total registers : 129
+Total pins : 19
 Total virtual pins : 0
 Total block memory bits : 0
 Total DSP Blocks : 0
@@ -14,4 +14,4 @@ Total HSSI PMA RX Deserializers : 0
 Total HSSI TX PCSs : 0
 Total HSSI PMA TX Serializers : 0
 Total PLLs : 0
-Total DLLs : 1
+Total DLLs : 0

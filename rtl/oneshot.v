@@ -1,11 +1,13 @@
 module oneshot (
-    input clk,
-    input [3:0] edge_sig,
-    output [3:0] level_sig
-);
+	 input clk,
+	 input [width-1:0] edge_sig,
+	 output [width-1:0] level_sig
+	);
+	
+parameter width = 4;
 
-reg [3:0] cur_value;
-reg [3:0] last_value;
+reg [width-1:0] cur_value;
+reg [width-1:0] last_value;
 
 assign level_sig = ~cur_value & last_value;
 
