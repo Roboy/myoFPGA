@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<pinplan
- variation_name="module_0"
- megafunction_name="MISSING_MODULE"
- specifies="all_ports">
- <global/>
-</pinplan>
