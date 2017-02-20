@@ -1,12 +1,4 @@
-/*
- * spi.h
- *
- *  Created on: Feb 19, 2017
- *      Author: letrend
- */
-
-#ifndef SPI_H_
-#define SPI_H_
+#pragma once
 
 #include <stdint.h>
 
@@ -58,7 +50,3 @@
 #define ALTERA_AVALON_SPI_SLAVE_SEL_REG               5
 #define IORD_ALTERA_AVALON_SPI_SLAVE_SEL(base)        IORD(base, ALTERA_AVALON_SPI_SLAVE_SEL_REG)
 #define IOWR_ALTERA_AVALON_SPI_SLAVE_SEL(base, data)  IOWR(base, ALTERA_AVALON_SPI_SLAVE_SEL_REG, data)
-
-
-
-#endif /* SPI_H_ */

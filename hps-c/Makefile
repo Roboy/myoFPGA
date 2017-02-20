@@ -5,20 +5,24 @@ HWLIBS_ROOT = $(SOCEDS_DEST_ROOT)/ip/altera/hps/altera_hps/hwlib
 
 #
 CROSS_COMPILE = arm-linux-gnueabihf-
-CFLAGS = -static -g -Wall  -I${HWLIBS_ROOT}/include -I$(HWLIBS_ROOT)/include/$(ALT_DEVICE_FAMILY) -D$(ALT_DEVICE_FAMILY) 
+CFLAGS = -static -g -Wall -std=c++11 -I${HWLIBS_ROOT}/include -I$(HWLIBS_ROOT)/include/$(ALT_DEVICE_FAMILY) -D$(ALT_DEVICE_FAMILY) -Iinclude/
 LDFLAGS =  -g -Wall  
 CC = $(CROSS_COMPILE)gcc
+CPP = $(CROSS_COMPILE)g++
 ARCH= arm
+
+CPP_FILES := $(wildcard src/*.cpp)
+OBJ_FILES := $(addprefix build/,$(notdir $(CPP_FILES:.cpp=.o)))
 
 .PHONY : all
 all : $(TARGET)
 
 build: $(TARGET)
-$(TARGET): main.o 
-	$(CC) $(LDFLAGS)   $^ -o $@  
-%.o : %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+$(TARGET): $(OBJ_FILES)
+	$(CPP) $(LDFLAGS) -o $@ $^
+$(OBJ_FILES): build/%.o : src/%.cpp
+	$(CPP) $(CFLAGS) -c -o $@ $<
 
 .PHONY: clean
 clean:
-	rm -f $(TARGET) *.a *.o *~ 
+	rm -f $(TARGET) build/*.a build/*.o build/*~ 

@@ -1,36 +1,4 @@
-/*
- * myoSPI.h
- *
- *  Created on: Feb 20, 2017
- *      Author: letrend
- */
-
-#include <inttypes.h>
-#include <stdint.h>
-#include "spi.h"
-
-#define WRITE_DATA      1
-#define READ_DATA       0
-
-typedef struct struct_SPISTREAM {
-      union {
-        struct {
-          uint16_t startOfFrame;
-          int16_t pwmRef;
-          uint16_t controlFlags1 : 16;
-          uint16_t controlFlags2 : 16;
-          uint16_t dummy : 16;
-          int32_t actualPosition : 32;
-          int16_t actualVelocity : 16;
-          int16_t actualCurrent : 16;
-          int16_t springDisplacement : 16;
-          int16_t sensor1 : 16;
-          int16_t sensor2 : 16;
-        };
-        uint8_t TxBuffer[24];
-        uint16_t TxBuffer2[12];
-      };
-    }SPISTREAM;
+#include "myoSPI.hpp"
 
 void swap(uint8_t *source, uint8_t *target)
 {
@@ -47,9 +15,12 @@ void prepareData(SPISTREAM *spistream, int datatype)
 	{
 	spistream->TxBuffer[0] = 0x80;
 	spistream->TxBuffer[1] = 0x00;
-	int i = 0;
-	for( i =2; i< 8; i = i+2)
-	  spistream->TxBuffer[i] &= ~(1<<7);
+	if(spistream->pwmRef<0){
+		spistream->pwmRef |= 0xC000;
+	}
+//	int i = 0;
+//	for( i =2; i< 8; i = i+2)
+//	  spistream->TxBuffer[i] &= ~(1<<7);
   }
   else if(datatype == READ_DATA)
   {
@@ -121,3 +92,5 @@ void exchangeFrame( uint32_t *base, uint32_t slave, SPISTREAM *frame){
 	IOWR_ALTERA_AVALON_SPI_CONTROL(base, 0);
 	convertEndianess(&spi_in, frame);
 }
+
+
