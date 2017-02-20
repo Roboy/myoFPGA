@@ -15,9 +15,7 @@ void prepareData(SPISTREAM *spistream, int datatype)
 	{
 	spistream->TxBuffer[0] = 0x80;
 	spistream->TxBuffer[1] = 0x00;
-	if(spistream->pwmRef<0){
-		spistream->pwmRef |= 0xC000;
-	}
+	spistream->pwmRef &= 0x7FFF;
 //	int i = 0;
 //	for( i =2; i< 8; i = i+2)
 //	  spistream->TxBuffer[i] &= ~(1<<7);
@@ -35,7 +33,7 @@ void prepareData(SPISTREAM *spistream, int datatype)
 
 void convertEndianess(SPISTREAM *frame_in, SPISTREAM *frame_out){
 	frame_out->startOfFrame = 		(frame_in->TxBuffer[0] << 8) | frame_in->TxBuffer[1];
-	frame_out->pwmRef = 			(frame_in->TxBuffer[2] << 8) | frame_in->TxBuffer[3];
+	frame_out->pwmRef = 			(frame_in->TxBuffer[3] << 8) | frame_in->TxBuffer[2];
 	frame_out->controlFlags1 = 		(frame_in->TxBuffer[4] << 8) | frame_in->TxBuffer[5];
 	frame_out->controlFlags2 = 		(frame_in->TxBuffer[6] << 8) | frame_in->TxBuffer[7];
 	frame_out->dummy = 				(frame_in->TxBuffer[8] << 8) | frame_in->TxBuffer[9];

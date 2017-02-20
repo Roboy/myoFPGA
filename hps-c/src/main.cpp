@@ -68,7 +68,7 @@ int main() {
 	controlparams.spNegMax = -1000; // float32
 
 	controlparams.params.pidParameters.integral = 0;             // float32
-	controlparams.params.pidParameters.pgain = 10.0;                   // float32
+	controlparams.params.pidParameters.pgain = 100.0;                   // float32
 	controlparams.params.pidParameters.igain = 0;                   // float32
 	controlparams.params.pidParameters.dgain = 0;                   // float32
 	controlparams.params.pidParameters.forwardGain = 0;       // float32
@@ -77,7 +77,7 @@ int main() {
 	controlparams.params.pidParameters.IntegralNegMax = 0; // float32
 
 	pidController controller(&controlparams);
-	float setPoint = 1;
+	float setPoint = 10;
 	float pos = setPoint, vel = setPoint;
 	short control;
 
