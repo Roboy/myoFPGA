@@ -10,8 +10,8 @@
 
 #include <stdint.h>
 
-#define IORD(base,reg) (*((volatile uint32_t*)(base+reg)))
-#define IOWR(base,reg,data) (*((volatile uint32_t*)(base+reg))=data)
+#define IORD(base,reg) (*(((volatile uint32_t*)base)+reg))
+#define IOWR(base,reg,data) (*(((volatile uint32_t*)base)+reg)=data)
 
 #define ALTERA_AVALON_SPI_RXDATA_REG                  0
 #define IORD_ALTERA_AVALON_SPI_RXDATA(base)           IORD(base, ALTERA_AVALON_SPI_RXDATA_REG)

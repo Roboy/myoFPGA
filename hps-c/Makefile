@@ -1,5 +1,5 @@
 #
-TARGET = my_first_hps-fpga
+TARGET = spi_control
 ALT_DEVICE_FAMILY ?= soc_cv_av
 HWLIBS_ROOT = $(SOCEDS_DEST_ROOT)/ip/altera/hps/altera_hps/hwlib
 
@@ -10,6 +10,8 @@ LDFLAGS =  -g -Wall
 CC = $(CROSS_COMPILE)gcc
 ARCH= arm
 
+.PHONY : all
+all : $(TARGET)
 
 build: $(TARGET)
 $(TARGET): main.o 

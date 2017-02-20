@@ -7,7 +7,7 @@
 #include "socal/hps.h"
 #include "socal/alt_gpio.h"
 #include "hps_0.h"
-#include "spi.h"
+#include "myoSPI.h"
 
 #define HW_REGS_BASE ( ALT_STM_OFST )
 #define HW_REGS_SPAN ( 0x04000000 )
@@ -47,6 +47,9 @@ int main() {
 	loop_count = 0;
 	led_mask = 0x01;
 	led_direction = 0; // 0: left to right direction
+
+	SPISTREAM frame;
+
 	while( loop_count < 60 ) {
 		
 		// control led
@@ -68,7 +71,30 @@ int main() {
 			}
 		}
 		
-		IOWR_ALTERA_AVALON_SPI_TXDATA(h2p_lw_spi_addr,1); 
+//		IOWR_ALTERA_AVALON_SPI_TXDATA(h2p_lw_spi_addr,0b0101010101010101);
+		printf("===================================\n");
+			  int i = 0;
+			  for(i = 0; i<24;i++)
+				  frame.TxBuffer[i] = 0;
+			  frame.pwmRef = -20;
+			  prepareData(&frame, WRITE_DATA);
+			  exchangeFrame(h2p_lw_spi_addr, 0, &frame);
+
+			  prepareData(&frame, READ_DATA);
+			  printf( "startOfFrame:         %d\n"
+					  "pwmRef:               %d\n"
+					  "controlFlags1:        %d\n"
+					  "controlFlags2:        %d\n"
+					  "dummy:                %d\n"
+					  "actualPosition:       %d\n"
+					   "actualVelocity:      %d\n"
+					   "actualCurrent:       %d\n"
+					   "springDisplacement:  %d\n"
+					   "sensor1:             %d\n"
+					   "sensor2:             %d\n",
+					   frame.startOfFrame, frame.pwmRef, frame.controlFlags1, frame.controlFlags2, frame.dummy,
+					   frame.actualPosition, frame.actualVelocity, frame.actualCurrent, frame.springDisplacement,
+		frame.sensor1, frame.sensor2);
 
 	} // while
 	
