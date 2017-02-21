@@ -1,4 +1,8 @@
 	soc_system u0 (
+		.adc_0_external_interface_sclk         (<connected-to-adc_0_external_interface_sclk>),         //    adc_0_external_interface.sclk
+		.adc_0_external_interface_cs_n         (<connected-to-adc_0_external_interface_cs_n>),         //                            .cs_n
+		.adc_0_external_interface_dout         (<connected-to-adc_0_external_interface_dout>),         //                            .dout
+		.adc_0_external_interface_din          (<connected-to-adc_0_external_interface_din>),          //                            .din
 		.clk_clk                               (<connected-to-clk_clk>),                               //                         clk.clk
 		.hps_0_f2h_cold_reset_req_reset_n      (<connected-to-hps_0_f2h_cold_reset_req_reset_n>),      //    hps_0_f2h_cold_reset_req.reset_n
 		.hps_0_f2h_debug_reset_req_reset_n     (<connected-to-hps_0_f2h_debug_reset_req_reset_n>),     //   hps_0_f2h_debug_reset_req.reset_n

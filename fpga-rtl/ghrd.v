@@ -147,10 +147,14 @@ module ghrd(
 
 
  soc_system u0 (
-		.spi_0_external_MISO(GPIO_0[3]),
-		.spi_0_external_MOSI(GPIO_0[5]),
-		.spi_0_external_SS_n(GPIO_0[7]),
-		.spi_0_external_SCLK(GPIO_0[9]),
+		.adc_0_external_interface_sclk(ADC_SCK),
+		.adc_0_external_interface_cs_n(ADC_CONVST),
+		.adc_0_external_interface_dout(ADC_SDO),
+		.adc_0_external_interface_din(ADC_SDI),       
+		.spi_0_external_MISO(GPIO_0[2]),
+		.spi_0_external_MOSI(GPIO_0[1]),
+		.spi_0_external_SCLK(GPIO_0[0]),
+		.spi_0_external_SS_n(GPIO_0[33:3]),
       .pio_led_external_connection_export(LED),
 		//Clock&Reset
 	  .clk_clk                               (FPGA_CLK1_50 ),                        //  clk.clk

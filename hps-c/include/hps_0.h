@@ -75,11 +75,22 @@
 #define SPI_0_INSERT_SYNC 1
 #define SPI_0_ISMASTER 1
 #define SPI_0_LSBFIRST 0
-#define SPI_0_NUMSLAVES 1
+#define SPI_0_NUMSLAVES 32
 #define SPI_0_PREFIX "spi_"
 #define SPI_0_SYNC_REG_DEPTH 2
 #define SPI_0_TARGETCLOCK 2000000
 #define SPI_0_TARGETSSDELAY "1200.0"
+
+/*
+ * Macros for device 'adc_0', class 'altera_up_avalon_adc'
+ * The macros are prefixed with 'ADC_0_'.
+ * The prefix is the slave descriptor.
+ */
+#define ADC_0_COMPONENT_TYPE altera_up_avalon_adc
+#define ADC_0_COMPONENT_NAME adc_0
+#define ADC_0_BASE 0x20
+#define ADC_0_SPAN 32
+#define ADC_0_END 0x3f
 
 /*
  * Macros for device 'pio_led', class 'altera_avalon_pio'
@@ -88,9 +99,9 @@
  */
 #define PIO_LED_COMPONENT_TYPE altera_avalon_pio
 #define PIO_LED_COMPONENT_NAME pio_led
-#define PIO_LED_BASE 0x20
+#define PIO_LED_BASE 0x40
 #define PIO_LED_SPAN 16
-#define PIO_LED_END 0x2f
+#define PIO_LED_END 0x4f
 #define PIO_LED_BIT_CLEARING_EDGE_REGISTER 0
 #define PIO_LED_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define PIO_LED_CAPTURE 0
@@ -116,7 +127,7 @@
 #define SYSID_QSYS_SPAN 8
 #define SYSID_QSYS_END 0x10007
 #define SYSID_QSYS_ID 2899645186
-#define SYSID_QSYS_TIMESTAMP 1487586940
+#define SYSID_QSYS_TIMESTAMP 1487690666
 
 /*
  * Macros for device 'jtag_uart', class 'altera_avalon_jtag_uart'

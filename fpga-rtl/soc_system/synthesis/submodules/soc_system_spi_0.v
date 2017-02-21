@@ -31,7 +31,7 @@
 //ISMASTER: 1
 //DATABITS: 16
 //TARGETCLOCK: 2000000
-//NUMSLAVES: 1
+//NUMSLAVES: 32
 //CPOL: 0
 //CPHA: 1
 //LSBFIRST: 0
@@ -63,7 +63,7 @@ module soc_system_spi_0 (
 
   output           MOSI;
   output           SCLK;
-  output           SS_n;
+  output  [ 31: 0] SS_n;
   output  [ 15: 0] data_to_cpu;
   output           dataavailable;
   output           endofpacket;
@@ -88,7 +88,7 @@ reg              RRDY;
 wire             SCLK;
 reg              SCLK_reg;
 reg              SSO_reg;
-wire             SS_n;
+wire    [ 31: 0] SS_n;
 wire             TMT;
 reg              TOE;
 wire             TRDY;
@@ -101,7 +101,7 @@ reg     [  2: 0] delayCounter;
 wire             ds_MISO;
 wire             enableSS;
 wire             endofpacket;
-reg     [ 15: 0] endofpacketvalue_reg;
+reg     [ 31: 0] endofpacketvalue_reg;
 wire             endofpacketvalue_wr_strobe;
 reg              iEOP_reg;
 reg              iE_reg;
@@ -126,8 +126,8 @@ wire             slaveselect_wr_strobe;
 wire             slowclock;
 reg     [  3: 0] slowcount;
 wire    [ 10: 0] spi_control;
-reg     [ 15: 0] spi_slave_select_holding_reg;
-reg     [ 15: 0] spi_slave_select_reg;
+reg     [ 31: 0] spi_slave_select_holding_reg;
+reg     [ 31: 0] spi_slave_select_reg;
 wire    [ 10: 0] spi_status;
 reg     [  5: 0] state;
 wire             status_wr_strobe;
@@ -329,7 +329,7 @@ wire             write_tx_holding;
 
   assign enableSS = transmitting & (delayCounter != 4);
   assign MOSI = shift_reg[15];
-  assign SS_n = (enableSS | SSO_reg) ? ~spi_slave_select_reg : {1 {1'b1} };
+  assign SS_n = (enableSS | SSO_reg) ? ~spi_slave_select_reg : {32 {1'b1} };
   assign SCLK = SCLK_reg;
   // As long as there's an empty spot somewhere,
   //it's safe to write data.

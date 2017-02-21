@@ -1,5 +1,9 @@
 	component soc_system is
 		port (
+			adc_0_external_interface_sclk         : out   std_logic;                                        -- sclk
+			adc_0_external_interface_cs_n         : out   std_logic;                                        -- cs_n
+			adc_0_external_interface_dout         : in    std_logic                     := 'X';             -- dout
+			adc_0_external_interface_din          : out   std_logic;                                        -- din
 			clk_clk                               : in    std_logic                     := 'X';             -- clk
 			hps_0_f2h_cold_reset_req_reset_n      : in    std_logic                     := 'X';             -- reset_n
 			hps_0_f2h_debug_reset_req_reset_n     : in    std_logic                     := 'X';             -- reset_n
@@ -75,12 +79,16 @@
 			spi_0_external_MISO                   : in    std_logic                     := 'X';             -- MISO
 			spi_0_external_MOSI                   : out   std_logic;                                        -- MOSI
 			spi_0_external_SCLK                   : out   std_logic;                                        -- SCLK
-			spi_0_external_SS_n                   : out   std_logic                                         -- SS_n
+			spi_0_external_SS_n                   : out   std_logic_vector(31 downto 0)                     -- SS_n
 		);
 	end component soc_system;
 
 	u0 : component soc_system
 		port map (
+			adc_0_external_interface_sclk         => CONNECTED_TO_adc_0_external_interface_sclk,         --    adc_0_external_interface.sclk
+			adc_0_external_interface_cs_n         => CONNECTED_TO_adc_0_external_interface_cs_n,         --                            .cs_n
+			adc_0_external_interface_dout         => CONNECTED_TO_adc_0_external_interface_dout,         --                            .dout
+			adc_0_external_interface_din          => CONNECTED_TO_adc_0_external_interface_din,          --                            .din
 			clk_clk                               => CONNECTED_TO_clk_clk,                               --                         clk.clk
 			hps_0_f2h_cold_reset_req_reset_n      => CONNECTED_TO_hps_0_f2h_cold_reset_req_reset_n,      --    hps_0_f2h_cold_reset_req.reset_n
 			hps_0_f2h_debug_reset_req_reset_n     => CONNECTED_TO_hps_0_f2h_debug_reset_req_reset_n,     --   hps_0_f2h_debug_reset_req.reset_n

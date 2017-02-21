@@ -1,5 +1,9 @@
 
 module soc_system (
+	adc_0_external_interface_sclk,
+	adc_0_external_interface_cs_n,
+	adc_0_external_interface_dout,
+	adc_0_external_interface_din,
 	clk_clk,
 	hps_0_f2h_cold_reset_req_reset_n,
 	hps_0_f2h_debug_reset_req_reset_n,
@@ -77,6 +81,10 @@ module soc_system (
 	spi_0_external_SCLK,
 	spi_0_external_SS_n);	
 
+	output		adc_0_external_interface_sclk;
+	output		adc_0_external_interface_cs_n;
+	input		adc_0_external_interface_dout;
+	output		adc_0_external_interface_din;
 	input		clk_clk;
 	input		hps_0_f2h_cold_reset_req_reset_n;
 	input		hps_0_f2h_debug_reset_req_reset_n;
@@ -152,5 +160,5 @@ module soc_system (
 	input		spi_0_external_MISO;
 	output		spi_0_external_MOSI;
 	output		spi_0_external_SCLK;
-	output		spi_0_external_SS_n;
+	output	[31:0]	spi_0_external_SS_n;
 endmodule

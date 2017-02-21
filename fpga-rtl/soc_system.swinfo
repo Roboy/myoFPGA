@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SopcSystem>
  <!-- An entire SOPC Builder system -->
- <!-- 2017.02.20.15:32:19 -->
+ <!-- 2017.02.21.23:29:13 -->
  <name>soc_system</name>
  <version>1.0</version>
  <sopcVersion>1.0</sopcVersion>
  <deviceFamily>Cyclone V</deviceFamily>
  <sopcSimulationEnabled>false</sopcSimulationEnabled>
+ <module>
+  <name>adc_0</name>
+  <version>16.1</version>
+  <className>altera_up_avalon_adc</className>
+  <clockConnection>
+   <moduleName>adc_0</moduleName>
+   <localSlaveName>clk</localSlaveName>
+   <systemConnectionName>adc_0.clk</systemConnectionName>
+   <frequency>50000000</frequency>
+  </clockConnection>
+  <path>adc_0</path>
+ </module>
  <module>
   <name>clk_0</name>
   <version>16.1</version>
@@ -296,6 +308,41 @@
     <interruptControllerID>-1</interruptControllerID>
    </connectedDevice>
    <connectedDevice>
+    <moduleName>adc_0</moduleName>
+    <slaveDesc>adc_0</slaveDesc>
+    <slave>
+     <name>adc_slave</name>
+     <version>16.1</version>
+     <assignment>
+      <name>embeddedsw.configuration.isMemoryDevice</name>
+      <value>false</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isNonVolatileStorage</name>
+      <value>false</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isPrintableDevice</name>
+      <value>false</value>
+     </assignment>
+     <systemSlaveName>adc_0.adc_slave</systemSlaveName>
+     <addressGroup>0</addressGroup>
+    </slave>
+    <baseAddress>32</baseAddress>
+    <basePhysicalAddress>32</basePhysicalAddress>
+    <span>32</span>
+    <isBigEndian>false</isBigEndian>
+    <isInstructionAccessible>false</isInstructionAccessible>
+    <isDataAccessible>false</isDataAccessible>
+    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
+    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
+    <hasIrq>false</hasIrq>
+    <irqNumber>-1</irqNumber>
+    <irqInterruptControllerID>-1</irqInterruptControllerID>
+    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
+    <interruptControllerID>-1</interruptControllerID>
+   </connectedDevice>
+   <connectedDevice>
     <moduleName>pio_led</moduleName>
     <slaveDesc>pio_led</slaveDesc>
     <slave>
@@ -320,8 +367,8 @@
      <systemSlaveName>pio_led.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
-    <baseAddress>32</baseAddress>
-    <basePhysicalAddress>32</basePhysicalAddress>
+    <baseAddress>64</baseAddress>
+    <basePhysicalAddress>64</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -609,6 +656,41 @@
     <interruptControllerID>-1</interruptControllerID>
    </connectedDevice>
    <connectedDevice>
+    <moduleName>adc_0</moduleName>
+    <slaveDesc>adc_0</slaveDesc>
+    <slave>
+     <name>adc_slave</name>
+     <version>16.1</version>
+     <assignment>
+      <name>embeddedsw.configuration.isMemoryDevice</name>
+      <value>false</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isNonVolatileStorage</name>
+      <value>false</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isPrintableDevice</name>
+      <value>false</value>
+     </assignment>
+     <systemSlaveName>adc_0.adc_slave</systemSlaveName>
+     <addressGroup>0</addressGroup>
+    </slave>
+    <baseAddress>32</baseAddress>
+    <basePhysicalAddress>32</basePhysicalAddress>
+    <span>32</span>
+    <isBigEndian>false</isBigEndian>
+    <isInstructionAccessible>false</isInstructionAccessible>
+    <isDataAccessible>false</isDataAccessible>
+    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
+    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
+    <hasIrq>false</hasIrq>
+    <irqNumber>-1</irqNumber>
+    <irqInterruptControllerID>-1</irqInterruptControllerID>
+    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
+    <interruptControllerID>-1</interruptControllerID>
+   </connectedDevice>
+   <connectedDevice>
     <moduleName>pio_led</moduleName>
     <slaveDesc>pio_led</slaveDesc>
     <slave>
@@ -633,8 +715,8 @@
      <systemSlaveName>pio_led.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
-    <baseAddress>32</baseAddress>
-    <basePhysicalAddress>32</basePhysicalAddress>
+    <baseAddress>64</baseAddress>
+    <basePhysicalAddress>64</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -1983,6 +2065,41 @@
     <interruptControllerID>-1</interruptControllerID>
    </connectedDevice>
    <connectedDevice>
+    <moduleName>adc_0</moduleName>
+    <slaveDesc>adc_0</slaveDesc>
+    <slave>
+     <name>adc_slave</name>
+     <version>16.1</version>
+     <assignment>
+      <name>embeddedsw.configuration.isMemoryDevice</name>
+      <value>false</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isNonVolatileStorage</name>
+      <value>false</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isPrintableDevice</name>
+      <value>false</value>
+     </assignment>
+     <systemSlaveName>adc_0.adc_slave</systemSlaveName>
+     <addressGroup>0</addressGroup>
+    </slave>
+    <baseAddress>4280287264</baseAddress>
+    <basePhysicalAddress>4280287264</basePhysicalAddress>
+    <span>32</span>
+    <isBigEndian>false</isBigEndian>
+    <isInstructionAccessible>false</isInstructionAccessible>
+    <isDataAccessible>false</isDataAccessible>
+    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
+    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
+    <hasIrq>false</hasIrq>
+    <irqNumber>-1</irqNumber>
+    <irqInterruptControllerID>-1</irqInterruptControllerID>
+    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
+    <interruptControllerID>-1</interruptControllerID>
+   </connectedDevice>
+   <connectedDevice>
     <moduleName>pio_led</moduleName>
     <slaveDesc>pio_led</slaveDesc>
     <slave>
@@ -2007,8 +2124,8 @@
      <systemSlaveName>pio_led.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
-    <baseAddress>4280287264</baseAddress>
-    <basePhysicalAddress>4280287264</basePhysicalAddress>
+    <baseAddress>4280287296</baseAddress>
+    <basePhysicalAddress>4280287296</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -3324,6 +3441,41 @@
     <interruptControllerID>-1</interruptControllerID>
    </connectedDevice>
    <connectedDevice>
+    <moduleName>adc_0</moduleName>
+    <slaveDesc>adc_0</slaveDesc>
+    <slave>
+     <name>adc_slave</name>
+     <version>16.1</version>
+     <assignment>
+      <name>embeddedsw.configuration.isMemoryDevice</name>
+      <value>false</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isNonVolatileStorage</name>
+      <value>false</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isPrintableDevice</name>
+      <value>false</value>
+     </assignment>
+     <systemSlaveName>adc_0.adc_slave</systemSlaveName>
+     <addressGroup>0</addressGroup>
+    </slave>
+    <baseAddress>4280287264</baseAddress>
+    <basePhysicalAddress>4280287264</basePhysicalAddress>
+    <span>32</span>
+    <isBigEndian>false</isBigEndian>
+    <isInstructionAccessible>false</isInstructionAccessible>
+    <isDataAccessible>false</isDataAccessible>
+    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
+    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
+    <hasIrq>false</hasIrq>
+    <irqNumber>-1</irqNumber>
+    <irqInterruptControllerID>-1</irqInterruptControllerID>
+    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
+    <interruptControllerID>-1</interruptControllerID>
+   </connectedDevice>
+   <connectedDevice>
     <moduleName>pio_led</moduleName>
     <slaveDesc>pio_led</slaveDesc>
     <slave>
@@ -3348,8 +3500,8 @@
      <systemSlaveName>pio_led.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
-    <baseAddress>4280287264</baseAddress>
-    <basePhysicalAddress>4280287264</basePhysicalAddress>
+    <baseAddress>4280287296</baseAddress>
+    <basePhysicalAddress>4280287296</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -7566,7 +7718,7 @@
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.NUMSLAVES</name>
-   <value>1</value>
+   <value>32</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.PREFIX</name>
@@ -7618,7 +7770,7 @@
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1487586940</value>
+   <value>1487690666</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -7638,7 +7790,7 @@
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1487586940</value>
+   <value>1487690666</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
