@@ -42,13 +42,13 @@ void MyoControl::update(){
 	for(uint motor=0;motor<numberOfMotors;motor++){
 		switch(control_mode[motor]){
 		case Position:
-			pwm_control[motor] = position_controller[motor].outputCalc(pos_setPoint[motor], pos[motor]);
+			pwm_control[motor] = position_controller[motor].outputCalc(pos[motor],pos_setPoint[motor]);
 			break;
 		case Velocity:
-			pwm_control[motor] = velocity_controller[motor].outputCalc(vel_setPoint[motor], vel[motor]);
+			pwm_control[motor] = velocity_controller[motor].outputCalc(vel[motor],vel_setPoint[motor]);
 			break;
 		case Force:
-			pwm_control[motor] = force_controller[motor].outputCalc(force_setPoint[motor], force[motor]);
+			pwm_control[motor] = force_controller[motor].outputCalc(force[motor],force_setPoint[motor]);
 			break;
 		default:
 			cout << "currently only supporting Position, Velocity or Force control" << endl;
@@ -64,10 +64,13 @@ void MyoControl::update(){
 		pos[motor] = frame.actualPosition*radPerEncoderCount;
 		vel[motor] = frame.actualVelocity*radPerEncoderCount;
 		displacement[motor] = frame.springDisplacement;
+		force[motor] = polyPar[0]+polyPar[1]*displacement[motor] +
+				polyPar[2]*powf(displacement[motor],2.0f)+
+				polyPar[3]*powf(displacement[motor],3.0f);
 		current[motor] = frame.actualCurrent;
 
 #ifdef DEBUG
-		if(iter%100==0){
+		if(iter%1000==0 && (motor>=0 && motor<=7)){
 		printf("============motor %d=============\n", motor);
 					printf( "startOfFrame:         %d\n"
 						  "pwmRef:               %d\n"
@@ -79,9 +82,10 @@ void MyoControl::update(){
 						   "actualCurrent:       %d\n"
 						   "springDisplacement:  %d\n"
 						   "sensor1:             %d\n"
-						   "sensor2:             %d\n",
+						   "sensor2:             %d\n"
+						   "force:               %f\n",
 						   frame.startOfFrame, pwm_control[motor], frame.controlFlags1, frame.controlFlags2, frame.dummy,
-						   pos[motor], vel[motor], frame.actualCurrent, frame.springDisplacement, frame.sensor1, frame.sensor2);
+						   pos[motor], vel[motor], frame.actualCurrent, frame.springDisplacement, frame.sensor1, frame.sensor2, force[motor]);
 		}
 #endif
 	}

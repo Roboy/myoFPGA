@@ -154,7 +154,7 @@ module ghrd(
 		.spi_0_external_MISO(GPIO_0[2]),
 		.spi_0_external_MOSI(GPIO_0[1]),
 		.spi_0_external_SCLK(GPIO_0[0]),
-		.spi_0_external_SS_n(GPIO_0[33:3]),
+		.spi_0_external_SS_n(GPIO_0[34:4]),
       .pio_led_external_connection_export(LED),
 		//Clock&Reset
 	  .clk_clk                               (FPGA_CLK1_50 ),                        //  clk.clk

@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <iostream>
+#include <math.h>
 #include "myoSPI.hpp"
 #include "pidController.hpp"
 
@@ -78,6 +79,6 @@ private:
 	vector<int> control_mode;
 	uint numberOfMotors;
 	float radPerEncoderCount = 2 * 3.14159265359 / (2000.0 * 53.0);
-	float polyPar[4]= {2, 1,-0.000117,0};
+	float polyPar[4]= {0, 0.023,-0.000032,0};
 	int iter = 0;
 };

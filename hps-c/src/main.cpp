@@ -45,21 +45,17 @@ int main() {
 	h2p_lw_spi_addr=virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + SPI_0_BASE ) & ( unsigned long)( HW_REGS_MASK ) );
 	h2p_lw_adc_addr=virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + ADC_0_BASE ) & ( unsigned long)( HW_REGS_MASK ) );
 	
-	MyoControl myoControl(7,(uint32_t*)h2p_lw_spi_addr);
-	myoControl.changeControl(1,Position);
-	myoControl.changeControl(2,Position);
-	myoControl.changeControl(3,Position);
-	myoControl.changeControl(4,Position);
-	myoControl.changeControl(5,Position);
-	myoControl.changeControl(6,Position);
-	myoControl.changeControl(7,Position);
-	myoControl.setPosition(1,10);
-	myoControl.setPosition(2,10);
-	myoControl.setPosition(3,10);
-	myoControl.setPosition(4,10);
-	myoControl.setPosition(5,10);
-	myoControl.setPosition(6,10);
-	myoControl.setPosition(7,10);
+	MyoControl myoControl(5,(uint32_t*)h2p_lw_spi_addr);
+	myoControl.changeControl(0,Force);
+	myoControl.changeControl(1,Force);
+	myoControl.changeControl(2,Force);
+	myoControl.changeControl(3,Force);
+	myoControl.changeControl(4,Force);
+	myoControl.setForce(0,10);
+	myoControl.setForce(1,10);
+	myoControl.setForce(2,10);
+	myoControl.setForce(3,10);
+	myoControl.setForce(4,10);
 	int iter = 0;
 	while( true ) {
 		myoControl.update();

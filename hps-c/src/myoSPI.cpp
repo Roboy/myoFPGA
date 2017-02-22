@@ -66,7 +66,6 @@ void exchangeFrame( uint32_t *base, uint32_t slave, SPISTREAM *frame){
 			status = IORD_ALTERA_AVALON_SPI_STATUS(base);
 		}while((status & ALTERA_AVALON_SPI_STATUS_TRDY_MSK) == 0 &&
 				(status & ALTERA_AVALON_SPI_STATUS_RRDY_MSK) == 0 );
-
 		if (write_data < write_end)
 			IOWR_ALTERA_AVALON_SPI_TXDATA(base, *write_data++);
 
@@ -77,7 +76,7 @@ void exchangeFrame( uint32_t *base, uint32_t slave, SPISTREAM *frame){
 			break;
 
 //		IOWR_ALTERA_AVALON_SPI_CONTROL(base, 0);
-//		usleep(1);
+		usleep(1);
 	}
 
 //	IOWR_ALTERA_AVALON_SPI_CONTROL(base, 0);
@@ -88,7 +87,7 @@ void exchangeFrame( uint32_t *base, uint32_t slave, SPISTREAM *frame){
 	}while ((status & ALTERA_AVALON_SPI_STATUS_TMT_MSK) == 0);
 
 	/* Clear SSO (release chipselect) */
-//	IOWR_ALTERA_AVALON_SPI_CONTROL(base, 0);
+	IOWR_ALTERA_AVALON_SPI_CONTROL(base, 0);
 	convertEndianess(&spi_in, frame);
 }
 

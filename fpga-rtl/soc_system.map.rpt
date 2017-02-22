@@ -1,5 +1,5 @@
 Analysis & Synthesis report for soc_system
-Tue Feb 21 23:08:19 2017
+Wed Feb 22 14:05:43 2017
 Quartus Prime Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
 
 
@@ -597,7 +597,7 @@ agreement for further details.
 +-------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                  ;
 +---------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Tue Feb 21 23:08:19 2017       ;
+; Analysis & Synthesis Status     ; Successful - Wed Feb 22 14:05:42 2017       ;
 ; Quartus Prime Version           ; 16.1.0 Build 196 10/24/2016 SJ Lite Edition ;
 ; Revision Name                   ; soc_system                                  ;
 ; Top-level Entity Name           ; ghrd                                        ;
@@ -13554,7 +13554,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
-    Info: Processing started: Tue Feb 21 23:03:22 2017
+    Info: Processing started: Wed Feb 22 14:00:19 2017
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off soc_system -c soc_system
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 2 of the 2 processors detected
@@ -14124,7 +14124,7 @@ Info (12128): Elaborating entity "altera_edge_detector" for hierarchy "altera_ed
 Warning (12010): Port "probe" on the entity instantiation of "altsource_probe_component" is connected to a signal of width 1. The formal width of the signal in the module is 2.  The extra bits will be driven by GND. File: /home/letrend/workspace/myoFpga/fpga-rtl/ip/altsource_probe/hps_reset.v Line: 75
 Warning (12010): Port "ir_out" on the entity instantiation of "node" is connected to a signal of width 1. The formal width of the signal in the module is 3.  The extra bits will be driven by GND. File: /home/letrend/workspace/myoFpga/fpga-rtl/soc_system/synthesis/submodules/altera_avalon_st_jtag_interface.v Line: 101
 Info (11170): Starting IP generation for the debug fabric: alt_sld_fab.
-Info (11172): 2017.02.21.23:04:02 Progress: Loading sldce0f4758/alt_sld_fab_wrapper_hw.tcl
+Info (11172): 2017.02.22.14:01:03 Progress: Loading sldce0f4758/alt_sld_fab_wrapper_hw.tcl
 Info (11172): Alt_sld_fab.alt_sld_fab: SLD fabric agents which did not specify prefer_host were connected to JTAG
 Info (11172): Alt_sld_fab: Generating alt_sld_fab "alt_sld_fab" for QUARTUS_SYNTH
 Info (11172): Alt_sld_fab: "alt_sld_fab" instantiated alt_sld_fab "alt_sld_fab"
@@ -14203,7 +14203,6 @@ Warning (12241): 40 hierarchies have connectivity warnings - see the Connectivit
 Warning (13034): The following nodes have both tri-state and non-tri-state drivers
     Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_0[0]" and its non-tri-state driver. File: /home/letrend/workspace/myoFpga/fpga-rtl/ghrd.v Line: 61
     Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_0[1]" and its non-tri-state driver. File: /home/letrend/workspace/myoFpga/fpga-rtl/ghrd.v Line: 61
-    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_0[3]" and its non-tri-state driver. File: /home/letrend/workspace/myoFpga/fpga-rtl/ghrd.v Line: 61
     Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_0[4]" and its non-tri-state driver. File: /home/letrend/workspace/myoFpga/fpga-rtl/ghrd.v Line: 61
     Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_0[5]" and its non-tri-state driver. File: /home/letrend/workspace/myoFpga/fpga-rtl/ghrd.v Line: 61
     Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_0[6]" and its non-tri-state driver. File: /home/letrend/workspace/myoFpga/fpga-rtl/ghrd.v Line: 61
@@ -14219,6 +14218,7 @@ Warning (13034): The following nodes have both tri-state and non-tri-state drive
     Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_0[16]" and its non-tri-state driver. File: /home/letrend/workspace/myoFpga/fpga-rtl/ghrd.v Line: 61
     Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_0[17]" and its non-tri-state driver. File: /home/letrend/workspace/myoFpga/fpga-rtl/ghrd.v Line: 61
     Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_0[18]" and its non-tri-state driver. File: /home/letrend/workspace/myoFpga/fpga-rtl/ghrd.v Line: 61
+    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_0[19]" and its non-tri-state driver. File: /home/letrend/workspace/myoFpga/fpga-rtl/ghrd.v Line: 61
 Warning (13039): The following bidirectional pins have no drivers
     Warning (13040): bidirectional pin "GPIO_0[2]" has no driver File: /home/letrend/workspace/myoFpga/fpga-rtl/ghrd.v Line: 61
     Warning (13040): bidirectional pin "ARDUINO_IO[0]" has no driver File: /home/letrend/workspace/myoFpga/fpga-rtl/ghrd.v Line: 46
@@ -14238,7 +14238,7 @@ Warning (13039): The following bidirectional pins have no drivers
     Warning (13040): bidirectional pin "ARDUINO_IO[14]" has no driver File: /home/letrend/workspace/myoFpga/fpga-rtl/ghrd.v Line: 46
     Warning (13040): bidirectional pin "ARDUINO_IO[15]" has no driver File: /home/letrend/workspace/myoFpga/fpga-rtl/ghrd.v Line: 46
     Warning (13040): bidirectional pin "ARDUINO_RESET_N" has no driver File: /home/letrend/workspace/myoFpga/fpga-rtl/ghrd.v Line: 47
-    Warning (13040): bidirectional pin "GPIO_0[34]" has no driver File: /home/letrend/workspace/myoFpga/fpga-rtl/ghrd.v Line: 61
+    Warning (13040): bidirectional pin "GPIO_0[3]" has no driver File: /home/letrend/workspace/myoFpga/fpga-rtl/ghrd.v Line: 61
     Warning (13040): bidirectional pin "GPIO_0[35]" has no driver File: /home/letrend/workspace/myoFpga/fpga-rtl/ghrd.v Line: 61
     Warning (13040): bidirectional pin "GPIO_1[0]" has no driver File: /home/letrend/workspace/myoFpga/fpga-rtl/ghrd.v Line: 62
     Warning (13040): bidirectional pin "GPIO_1[1]" has no driver File: /home/letrend/workspace/myoFpga/fpga-rtl/ghrd.v Line: 62
@@ -14277,7 +14277,6 @@ Warning (13039): The following bidirectional pins have no drivers
     Warning (13040): bidirectional pin "GPIO_1[34]" has no driver File: /home/letrend/workspace/myoFpga/fpga-rtl/ghrd.v Line: 62
     Warning (13040): bidirectional pin "GPIO_1[35]" has no driver File: /home/letrend/workspace/myoFpga/fpga-rtl/ghrd.v Line: 62
 Warning (13032): The following tri-state nodes are fed by constants
-    Warning (13033): The pin "GPIO_0[19]" is fed by VCC File: /home/letrend/workspace/myoFpga/fpga-rtl/ghrd.v Line: 61
     Warning (13033): The pin "GPIO_0[20]" is fed by VCC File: /home/letrend/workspace/myoFpga/fpga-rtl/ghrd.v Line: 61
     Warning (13033): The pin "GPIO_0[21]" is fed by VCC File: /home/letrend/workspace/myoFpga/fpga-rtl/ghrd.v Line: 61
     Warning (13033): The pin "GPIO_0[22]" is fed by VCC File: /home/letrend/workspace/myoFpga/fpga-rtl/ghrd.v Line: 61
@@ -14292,10 +14291,10 @@ Warning (13032): The following tri-state nodes are fed by constants
     Warning (13033): The pin "GPIO_0[31]" is fed by VCC File: /home/letrend/workspace/myoFpga/fpga-rtl/ghrd.v Line: 61
     Warning (13033): The pin "GPIO_0[32]" is fed by VCC File: /home/letrend/workspace/myoFpga/fpga-rtl/ghrd.v Line: 61
     Warning (13033): The pin "GPIO_0[33]" is fed by VCC File: /home/letrend/workspace/myoFpga/fpga-rtl/ghrd.v Line: 61
+    Warning (13033): The pin "GPIO_0[34]" is fed by VCC File: /home/letrend/workspace/myoFpga/fpga-rtl/ghrd.v Line: 61
 Warning (13009): TRI or OPNDRN buffers permanently enabled
     Warning (13010): Node "GPIO_0[0]~synth" File: /home/letrend/workspace/myoFpga/fpga-rtl/ghrd.v Line: 61
     Warning (13010): Node "GPIO_0[1]~synth" File: /home/letrend/workspace/myoFpga/fpga-rtl/ghrd.v Line: 61
-    Warning (13010): Node "GPIO_0[3]~synth" File: /home/letrend/workspace/myoFpga/fpga-rtl/ghrd.v Line: 61
     Warning (13010): Node "GPIO_0[4]~synth" File: /home/letrend/workspace/myoFpga/fpga-rtl/ghrd.v Line: 61
     Warning (13010): Node "GPIO_0[5]~synth" File: /home/letrend/workspace/myoFpga/fpga-rtl/ghrd.v Line: 61
     Warning (13010): Node "GPIO_0[6]~synth" File: /home/letrend/workspace/myoFpga/fpga-rtl/ghrd.v Line: 61
@@ -14326,6 +14325,7 @@ Warning (13009): TRI or OPNDRN buffers permanently enabled
     Warning (13010): Node "GPIO_0[31]~synth" File: /home/letrend/workspace/myoFpga/fpga-rtl/ghrd.v Line: 61
     Warning (13010): Node "GPIO_0[32]~synth" File: /home/letrend/workspace/myoFpga/fpga-rtl/ghrd.v Line: 61
     Warning (13010): Node "GPIO_0[33]~synth" File: /home/letrend/workspace/myoFpga/fpga-rtl/ghrd.v Line: 61
+    Warning (13010): Node "GPIO_0[34]~synth" File: /home/letrend/workspace/myoFpga/fpga-rtl/ghrd.v Line: 61
     Warning (13010): Node "HPS_CONV_USB_N~synth" File: /home/letrend/workspace/myoFpga/fpga-rtl/ghrd.v Line: 66
     Warning (13010): Node "HPS_DDR3_DQ[0]~synth" File: /home/letrend/workspace/myoFpga/fpga-rtl/ghrd.v Line: 75
     Warning (13010): Node "HPS_DDR3_DQ[1]~synth" File: /home/letrend/workspace/myoFpga/fpga-rtl/ghrd.v Line: 75
@@ -14410,10 +14410,10 @@ Info (21057): Implemented 8175 device resources after synthesis - the final reso
     Info (21064): Implemented 96 RAM segments
     Info (21066): Implemented 1 delay-locked loops
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 240 warnings
-    Info: Peak virtual memory: 1409 megabytes
-    Info: Processing ended: Tue Feb 21 23:08:20 2017
-    Info: Elapsed time: 00:04:58
-    Info: Total CPU time (on all processors): 00:05:35
+    Info: Peak virtual memory: 1441 megabytes
+    Info: Processing ended: Wed Feb 22 14:05:43 2017
+    Info: Elapsed time: 00:05:24
+    Info: Total CPU time (on all processors): 00:06:00
 
 
 +------------------------------------------+
