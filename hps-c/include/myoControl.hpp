@@ -8,11 +8,11 @@
 
 using namespace std;
 
-#define DEBUG
+//#define DEBUG
 
 class MyoControl{
 public:
-	MyoControl(uint motors = 1, uint32_t* spi_base = nullptr);
+	MyoControl(uint32_t* spi_base = nullptr, uint motors = 1);
 	~MyoControl();
 	/**
 	 * updates all motors
@@ -68,17 +68,39 @@ public:
 	 */
 	float getCurrent(int motor);
 
+	/**
+	 * Fills the given params with default values for the corresponding control mode
+	 * @param params pointer to control struct
+	 * @param control_mode Position, Velocity, Force
+	 */
 	void getDefaultControlParams(control_Parameters_t *params, int control_mode);
-private:
+
+	/**
+	 * Changes the control mode for all motors to Position
+	 * @param pos new setPoint
+	 */
+	void allToPosition(float pos);
+	/**
+	 * Changes the control mode for all motors to Velocity
+	 * @param pos new setPoint
+	 */
+	void allToVelocity(float vel);
+	/**
+	 * Changes the control mode for all motors to Force
+	 * @param force new setPoint
+	 */
+	void allToForce(float force);
+
 	SPISTREAM frame;
-	uint32_t* spi_base;
+	vector<float> pos, vel, force, displacement, current;
 	vector<pidController> position_controller, velocity_controller, force_controller;
 	vector<float> pos_setPoint, vel_setPoint, force_setPoint;
-	vector<int16_t> pwm_control;
-	vector<float> pos, vel, force, displacement, current;
 	vector<int> control_mode;
+	float polyPar[4]= {0, 0.023,-0.000032,0};
+private:
+	uint32_t* spi_base;
+	vector<int16_t> pwm_control;
 	uint numberOfMotors;
 	float radPerEncoderCount = 2 * 3.14159265359 / (2000.0 * 53.0);
-	float polyPar[4]= {0, 0.023,-0.000032,0};
 	int iter = 0;
 };

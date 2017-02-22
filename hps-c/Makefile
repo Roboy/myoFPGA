@@ -5,8 +5,8 @@ HWLIBS_ROOT = $(SOCEDS_DEST_ROOT)/ip/altera/hps/altera_hps/hwlib
 
 #
 CROSS_COMPILE = arm-linux-gnueabihf-
-CFLAGS = -static -g -Wall -std=c++11 -I${HWLIBS_ROOT}/include -I$(HWLIBS_ROOT)/include/$(ALT_DEVICE_FAMILY) -D$(ALT_DEVICE_FAMILY) -Iinclude/
-LDFLAGS =  -g -Wall  
+CFLAGS = -static -g -Wall -std=c++11 -I${HWLIBS_ROOT}/include -I$(HWLIBS_ROOT)/include/$(ALT_DEVICE_FAMILY) -D$(ALT_DEVICE_FAMILY) -Iinclude/ -Incurses_arm/include
+LDFLAGS =  -g -Wall -Lncurses_arm/lib -lncurses
 CC = $(CROSS_COMPILE)gcc
 CPP = $(CROSS_COMPILE)g++
 ARCH= arm

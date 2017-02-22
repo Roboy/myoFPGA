@@ -1,6 +1,6 @@
 #include "myoControl.hpp"
 
-MyoControl::MyoControl(uint motors, uint32_t* spi_base):
+MyoControl::MyoControl(uint32_t* spi_base, uint motors):
 numberOfMotors(motors), spi_base(spi_base){
 	// initialize all controllers with default values
 	control_Parameters_t params;
@@ -179,4 +179,25 @@ default:
 	break;
 }
 
+}
+
+void MyoControl::allToPosition(float pos){
+	for(uint motor=0; motor<numberOfMotors; motor++){
+		control_mode[motor] = Position;
+		pos_setPoint[motor] = pos;
+	}
+}
+
+void MyoControl::allToVelocity(float vel){
+	for(uint motor=0; motor<numberOfMotors; motor++){
+		control_mode[motor] = Velocity;
+		vel_setPoint[motor] = vel;
+	}
+}
+
+void MyoControl::allToForce(float force){
+	for(uint motor=0; motor<numberOfMotors; motor++){
+		control_mode[motor] = Force;
+		force_setPoint[motor] = force;
+	}
 }

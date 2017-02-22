@@ -8,13 +8,16 @@
 #include "socal/socal.h"
 #include "socal/hps.h"
 #include "socal/alt_gpio.h"
-
+#include <iostream>
+#include <fstream>
 #include "hps_0.h"
-#include "myoControl.hpp"
+#include "interface.hpp"
 
 #define HW_REGS_BASE ( ALT_STM_OFST )
 #define HW_REGS_SPAN ( 0x04000000 )
 #define HW_REGS_MASK ( HW_REGS_SPAN - 1 )
+
+//#define ADC_MEASUREMENT
 
 int main() {
 
@@ -44,43 +47,117 @@ int main() {
 	h2p_lw_led_addr=virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + PIO_LED_BASE ) & ( unsigned long)( HW_REGS_MASK ) );
 	h2p_lw_spi_addr=virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + SPI_0_BASE ) & ( unsigned long)( HW_REGS_MASK ) );
 	h2p_lw_adc_addr=virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + ADC_0_BASE ) & ( unsigned long)( HW_REGS_MASK ) );
-	
-	MyoControl myoControl(5,(uint32_t*)h2p_lw_spi_addr);
-	myoControl.changeControl(0,Force);
-	myoControl.changeControl(1,Force);
-	myoControl.changeControl(2,Force);
-	myoControl.changeControl(3,Force);
-	myoControl.changeControl(4,Force);
-	myoControl.setForce(0,10);
-	myoControl.setForce(1,10);
-	myoControl.setForce(2,10);
-	myoControl.setForce(3,10);
-	myoControl.setForce(4,10);
-	int iter = 0;
-	while( true ) {
-		myoControl.update();
+	uint32_t* adc = (uint32_t*)h2p_lw_adc_addr;
 
-		// Toggling the LEDs to show off
-		if((iter++)%100==0){
-			// control led
-			*(uint32_t *)h2p_lw_led_addr = ~led_mask;
 
-			// update led mask
-			if (led_direction == 0){
-				led_mask <<= 1;
-				if (led_mask == (0x01 << (PIO_LED_DATA_WIDTH-1)))
-					 led_direction = 1;
-			}else{
-				led_mask >>= 1;
-				if (led_mask == 0x01){
-					led_direction = 0;
-					loop_count++;
-				}
+	Interface interface((uint32_t*)h2p_lw_spi_addr, 1);
+
+	char cmd;
+	  noecho();
+	  do {
+	    timeout(10);
+	    cmd = mvgetch(4, 0);
+	    switch (cmd) {
+	    case '0':
+	    	interface.positionControl();
+	      break;
+	    case '1':
+	    	interface.velocityControl();
+	      break;
+	    case '2':
+	    	interface.forceControl();
+	      break;
+	    case '3':
+	    	interface.switchMotor();
+	      break;
+	    case '4':
+	    	interface.measureConnection();
+	      break;
+	    case '5':
+	    	interface.recordTrajectories();
+	      break;
+	    case '6':
+	    	interface.setAllToForce();
+	      break;
+	    }
+	    interface.querySensoryData();
+	    *(uint32_t *)h2p_lw_led_addr = ~led_mask;
+		// update led mask
+		if (led_direction == 0){
+			led_mask <<= 1;
+			if (led_mask == (0x01 << (PIO_LED_DATA_WIDTH-1)))
+				 led_direction = 1;
+		}else{
+			led_mask >>= 1;
+			if (led_mask == 0x01){
+				led_direction = 0;
+				loop_count++;
 			}
 		}
+	  } while (cmd != '9');
 
-	}
-	
+//	int iter = 0;
+//	time_t rawtime;
+//	time ( &rawtime );
+//	struct tm * timeinfo = localtime ( &rawtime );
+//	char filename[200];
+//	sprintf(filename,"force_measurement_adc_%s.txt" ,asctime (timeinfo));
+//	ofstream outfile;
+//	outfile.open (filename);
+//
+//	int counter = 0;
+//
+//	while( true ) {
+//		myoControl.update();
+//
+//		// Toggling the LEDs to show off
+//		if((iter++)%100==0){
+//			// control led
+//			*(uint32_t *)h2p_lw_led_addr = ~led_mask;
+//
+//			// update led mask
+//			if (led_direction == 0){
+//				led_mask <<= 1;
+//				if (led_mask == (0x01 << (PIO_LED_DATA_WIDTH-1)))
+//					 led_direction = 1;
+//			}else{
+//				led_mask >>= 1;
+//				if (led_mask == 0x01){
+//					led_direction = 0;
+//					loop_count++;
+//				}
+//			}
+//			*adc = 0;
+//			uint32_t adc_data = *adc;
+//			printf("adc:       %d\n", adc_data);
+//
+//			if(counter++ > 10){
+//				char k;
+//				cin >> k;
+//				if(k=='.'){
+//					cout << "what was the weight? [kg]" << endl;
+//					float weight;
+//					cin >> weight;
+//					outfile << adc_data << ", " << weight << endl;
+//				}else if(k=='/'){
+//					cout << "setPoint?" << endl;
+//					float pos;
+//					cin >> pos;
+//					myoControl.setPosition(0,pos);
+//				}else if(k=='s'){
+//					cout << "saving and quitting" << endl;
+//					outfile.close();
+//					break;
+//				}else{
+//					cout << "skipping" << endl;
+//					counter = 0;
+//				}
+//			}
+//			usleep(1000*100);
+//		}
+//
+//	}
+
 	// clean up our memory mapping and exit
 	if( munmap( virtual_base, HW_REGS_SPAN ) != 0 ) {
 		printf( "ERROR: munmap() failed...\n" );
