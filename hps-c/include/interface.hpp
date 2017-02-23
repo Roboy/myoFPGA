@@ -41,8 +41,8 @@ public:
 
     void setAllToForce();
 
-private:
     MyoControl *myoControl;
+private:
     uint rows, cols;
     float pos;
     uint ganglion_id = 0;

@@ -130,8 +130,8 @@ float MyoControl::getCurrent(int motor){
 
 void MyoControl::getDefaultControlParams(control_Parameters_t *params, int control_mode){
 	params->tag = 0;              // sint32
-	params->outputPosMax = 500;  // sint32
-	params->outputNegMax = -500; // sint32
+	params->outputPosMax = 1000;  // sint32
+	params->outputNegMax = -1000; // sint32
 	params->timePeriod = 10; // float32      //in us set time period to avoid error case
 
 	params->radPerEncoderCount =
@@ -147,7 +147,7 @@ case Position:
 	params->params.pidParameters.igain = 0;                   // float32
 	params->params.pidParameters.dgain = 0;                   // float32
 	params->params.pidParameters.forwardGain = 0;       // float32
-	params->params.pidParameters.deadBand = 2;             // float32
+	params->params.pidParameters.deadBand = 0;             // float32
 	params->params.pidParameters.IntegralPosMax = 100; // float32
 	params->params.pidParameters.IntegralNegMax = -100; // float32
 	params->params.pidParameters.lastError = 0;
@@ -158,7 +158,7 @@ case Velocity:
 	params->params.pidParameters.igain = 0;                   // float32
 	params->params.pidParameters.dgain = 0;                   // float32
 	params->params.pidParameters.forwardGain = 0;       // float32
-	params->params.pidParameters.deadBand = 2;             // float32
+	params->params.pidParameters.deadBand = 0;             // float32
 	params->params.pidParameters.IntegralPosMax = 100; // float32
 	params->params.pidParameters.IntegralNegMax = -100; // float32
 	params->params.pidParameters.lastError = 0;
@@ -169,7 +169,7 @@ case Force:
 	params->params.pidParameters.igain = 0;                   // float32
 	params->params.pidParameters.dgain = 0;                   // float32
 	params->params.pidParameters.forwardGain = 0;       // float32
-	params->params.pidParameters.deadBand = 2;             // float32
+	params->params.pidParameters.deadBand = 0;             // float32
 	params->params.pidParameters.IntegralPosMax = 100; // float32
 	params->params.pidParameters.IntegralNegMax = -100; // float32
 	params->params.pidParameters.lastError = 0;

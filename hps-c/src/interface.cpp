@@ -143,6 +143,10 @@ void Interface::querySensoryData() {
 	print(19, 0, cols, "-");
 	mvprintw(20, 0, "polyPar: %.5f  %.5f  %.5f  %.5f    ", myoControl->polyPar[0], myoControl->polyPar[1], myoControl->polyPar[2], myoControl->polyPar[3]);
 	mvprintw(21, 0, "set point limits: %.5f to %.5f     ", setPointMin, setPointMax);
+	if(myoControl->adc_base!=nullptr){
+		*myoControl->adc_base = 0;
+		mvprintw(22, 0, "weight: %.2f     ", 83.7f - 0.0455f*(*myoControl->adc_base));
+	}
 	refresh();
 }
 

@@ -97,8 +97,8 @@ public:
 	vector<float> pos_setPoint, vel_setPoint, force_setPoint;
 	vector<int> control_mode;
 	float polyPar[4]= {0, 0.023,-0.000032,0};
+	uint32_t* spi_base, *adc_base = nullptr;
 private:
-	uint32_t* spi_base;
 	vector<int16_t> pwm_control;
 	uint numberOfMotors;
 	float radPerEncoderCount = 2 * 3.14159265359 / (2000.0 * 53.0);

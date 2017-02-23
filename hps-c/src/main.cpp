@@ -47,10 +47,9 @@ int main() {
 	h2p_lw_led_addr=virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + PIO_LED_BASE ) & ( unsigned long)( HW_REGS_MASK ) );
 	h2p_lw_spi_addr=virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + SPI_0_BASE ) & ( unsigned long)( HW_REGS_MASK ) );
 	h2p_lw_adc_addr=virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + ADC_0_BASE ) & ( unsigned long)( HW_REGS_MASK ) );
-	uint32_t* adc = (uint32_t*)h2p_lw_adc_addr;
-
 
 	Interface interface((uint32_t*)h2p_lw_spi_addr, 1);
+	interface.myoControl->adc_base = (uint32_t*)h2p_lw_adc_addr;
 
 	char cmd;
 	  noecho();
