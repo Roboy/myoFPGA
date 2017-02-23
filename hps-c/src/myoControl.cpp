@@ -201,3 +201,18 @@ void MyoControl::allToForce(float force){
 		force_setPoint[motor] = force;
 	}
 }
+
+void MyoControl::zeroWeight(){
+	weight_offset = -getWeight();
+}
+
+float MyoControl::getWeight(){
+	float weight = 0;
+	uint32_t adc_value = 0;
+	if(adc_base!=nullptr){
+		*adc_base = 0;
+		adc_value = *adc_base;
+		weight = (adc_weight_parameters[0]+weight_offset+adc_weight_parameters[1]*adc_value);
+	}
+	return weight;
+}

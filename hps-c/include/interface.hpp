@@ -35,9 +35,7 @@ public:
 
     void switchMotor();
 
-    void measureConnection();
-
-    void recordTrajectories();
+    void zeroWeight();
 
     void setAllToForce();
 

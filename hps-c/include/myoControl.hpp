@@ -90,6 +90,14 @@ public:
 	 * @param force new setPoint
 	 */
 	void allToForce(float force);
+	/**
+	 * Zeros the current weight
+	 */
+	void zeroWeight();
+	/**
+	 * Returns the current weight according to adc_weight_parameters
+	 */
+	float getWeight();
 
 	SPISTREAM frame;
 	vector<float> pos, vel, force, displacement, current;
@@ -98,6 +106,8 @@ public:
 	vector<int> control_mode;
 	float polyPar[4]= {0, 0.023,-0.000032,0};
 	uint32_t* spi_base, *adc_base = nullptr;
+	float weight_offset = 0;
+	float adc_weight_parameters[2] = {83.7, -0.0455};
 private:
 	vector<int16_t> pwm_control;
 	uint numberOfMotors;

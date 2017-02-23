@@ -2,7 +2,7 @@
 
 //! standard query messages
 char welcomestring[] = "commandline tool for controlling myode muscle via de0-nano setup";
-char commandstring[] = "[0]position, [1]velocity, [2]force, [3]switch motor, [4]connection speed, [5]record, [6]allToForce, [7] resettingSpring, [8] resettAll, [r]android, [p]publishMotorInfo, [9]exit";
+char commandstring[] = "[0]position, [1]velocity, [2]force, [3]switch motor, [4]zero weight, [5]allToForce, [9]exit";
 char setpointstring[] = "set point (rad) ?";
 char setvelstring[] = "set velocity (rad/s) ?";
 char setforcestring[] = "set force (N) ?";
@@ -143,10 +143,7 @@ void Interface::querySensoryData() {
 	print(19, 0, cols, "-");
 	mvprintw(20, 0, "polyPar: %.5f  %.5f  %.5f  %.5f    ", myoControl->polyPar[0], myoControl->polyPar[1], myoControl->polyPar[2], myoControl->polyPar[3]);
 	mvprintw(21, 0, "set point limits: %.5f to %.5f     ", setPointMin, setPointMax);
-	if(myoControl->adc_base!=nullptr){
-		*myoControl->adc_base = 0;
-		mvprintw(22, 0, "weight: %.2f     ", 83.7f - 0.0455f*(*myoControl->adc_base));
-	}
+	mvprintw(22, 0, "weight: %.2f     ", myoControl->getWeight());
 	refresh();
 }
 
@@ -276,53 +273,14 @@ void Interface::switchMotor() {
 	noecho();
 }
 
-void Interface::measureConnection() {
-	timeout(-1);
+void Interface::zeroWeight(){
 	echo();
 	print(4, 0, cols, " ");
 	print(5, 0, cols, " ");
-	double averageTime = 0;
-	printMessage(4, 0, averageconnectionspeedstring);
-	char str[20];
-	sprintf(str, "%f seconds", averageTime);
-	printMessage(4, strlen(averageconnectionspeedstring), str, CYAN);
-	printMessage(5, 0, logfilestring, CYAN);
-	usleep(5000000);
+	printMessage(4, 0, "zeroing weight");
+	myoControl->zeroWeight();
 	print(4, 0, cols, " ");
 	print(5, 0, cols, " ");
-	noecho();
-}
-
-void Interface::recordTrajectories() {
-//        timeout(-1);
-//        echo();
-//        print(4, 0, cols, " ");
-//        print(5, 0, cols, " ");
-//        printMessage(4, 0, filenamestring);
-//        mvgetnstr(4, strlen(filenamestring), inputstring, 30);
-//        std::string name(inputstring);
-//        print(4, 0, cols, " ");
-//        printMessage(4, 0, samplingtimestring, CYAN);
-//        mvgetnstr(4, strlen(samplingtimestring), inputstring, 30);
-//        float samplingTime = atof(inputstring);
-//        printMessage(5, 0, recordtimestring, CYAN);
-//        mvgetnstr(5, strlen(recordtimestring), inputstring, 30);
-//        double recordTime = atof(inputstring);
-//        print(4, 0, cols, " ");
-//        print(5, 0, cols, " ");
-//        printMessage(4, 0, recordingstring, RED);
-//        std::vector<std::vector<float>> trajectories;
-//        std::vector<int> idList = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
-//        std::vector<int> controlmode(16, 1);
-//        float averageSamplingTime = 0;
-//        print(4, 0, cols, " ");
-//        printMessage(4, 0, donestring, GREEN);
-//        char averagetimestring[50];
-//        sprintf(averagetimestring, "average %s%f", samplingtimestring, averageSamplingTime);
-//        printMessage(4, strlen(donestring), averagetimestring, CYAN);
-//        usleep(500000);
-//        print(4, 0, cols, " ");
-//        print(5, 0, cols, " ");
 }
 
 void Interface::setAllToForce() {

@@ -70,12 +70,9 @@ int main() {
 	    	interface.switchMotor();
 	      break;
 	    case '4':
-	    	interface.measureConnection();
+	    	interface.zeroWeight();
 	      break;
 	    case '5':
-	    	interface.recordTrajectories();
-	      break;
-	    case '6':
 	    	interface.setAllToForce();
 	      break;
 	    }
