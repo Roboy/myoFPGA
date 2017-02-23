@@ -39,6 +39,8 @@ public:
 
     void setAllToForce();
 
+    void estimateSpringParameters();
+
     MyoControl *myoControl;
 private:
     uint rows, cols;

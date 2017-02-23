@@ -3,10 +3,13 @@
 #include <vector>
 #include <iostream>
 #include <math.h>
+#include <chrono>
+#include <fstream>
 #include "myoSPI.hpp"
 #include "pidController.hpp"
 
 using namespace std;
+using namespace std::chrono;
 
 //#define DEBUG
 
@@ -98,16 +101,34 @@ public:
 	 * Returns the current weight according to adc_weight_parameters
 	 */
 	float getWeight();
+	/**
+	 * Estimates the spring parameters of a motor by pulling with variable forces
+	 * keeping track of displacement and weight, it will either timeout or stop when the
+	 * requested number of samples was reached
+	 * @param motor for this motor
+	 * @param timeout in milliseconds
+	 * @param numberOfDataPoints how many samples do you wanne collect
+	 */
+	void estimateSpringParameters(int motor, int timeout, uint numberOfDataPoints);
+	/**
+	 * Performs polynomial regression (http://www.bragitoff.com/2015/09/c-program-for-polynomial-fit-least-squares/)
+	 * @param degree (e.g. 2 -> a * x^0 + b * x^1 + c * x^2)
+	 * @param coeffs the estimated coefficients
+	 * @param X the x-data
+	 * @param Y the y-data
+	 */
+	void polynomialRegression(int degree, vector<float> &x, vector<float> &y,
+			vector<float> &coeffs);
 
 	SPISTREAM frame;
 	vector<float> pos, vel, force, displacement, current;
 	vector<pidController> position_controller, velocity_controller, force_controller;
 	vector<float> pos_setPoint, vel_setPoint, force_setPoint;
 	vector<int> control_mode;
-	float polyPar[4]= {0, 0.023,-0.000032,0};
+	vector<vector<float>> polyPar;
 	uint32_t* spi_base, *adc_base = nullptr;
 	float weight_offset = 0;
-	float adc_weight_parameters[2] = {83.7, -0.0455};
+	float adc_weight_parameters[2] = {830.7, -0.455};
 private:
 	vector<int16_t> pwm_control;
 	uint numberOfMotors;

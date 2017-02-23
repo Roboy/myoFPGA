@@ -8,8 +8,6 @@
 #include "socal/socal.h"
 #include "socal/hps.h"
 #include "socal/alt_gpio.h"
-#include <iostream>
-#include <fstream>
 #include "hps_0.h"
 #include "interface.hpp"
 
@@ -51,6 +49,20 @@ int main() {
 	Interface interface((uint32_t*)h2p_lw_spi_addr, 1);
 	interface.myoControl->adc_base = (uint32_t*)h2p_lw_adc_addr;
 
+//	vector<float> x(5), y(5);
+//	x[0] = 0;
+//	x[1] = 1;
+//	x[2] = 2;
+//	x[3] = 3;
+//	x[4] = 4;
+//	y[0] = 0;
+//	y[1] = 1;
+//	y[2] = 2;
+//	y[3] = 3;
+//	y[4] = 4;
+//	vector<float> coeffs;
+//	interface.myoControl->polynomialRegression(1,x,y,coeffs);
+
 	char cmd;
 	  noecho();
 	  do {
@@ -75,6 +87,9 @@ int main() {
 	    case '5':
 	    	interface.setAllToForce();
 	      break;
+	    case '6':
+			interface.estimateSpringParameters();
+		  break;
 	    }
 	    interface.querySensoryData();
 	    *(uint32_t *)h2p_lw_led_addr = ~led_mask;

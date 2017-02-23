@@ -2,7 +2,7 @@
 
 //! standard query messages
 char welcomestring[] = "commandline tool for controlling myode muscle via de0-nano setup";
-char commandstring[] = "[0]position, [1]velocity, [2]force, [3]switch motor, [4]zero weight, [5]allToForce, [9]exit";
+char commandstring[] = "[0]position, [1]velocity, [2]force, [3]switch motor, [4]zero weight, [5]allToForce, [6]estimateSpringParams, [9]exit";
 char setpointstring[] = "set point (rad) ?";
 char setvelstring[] = "set velocity (rad/s) ?";
 char setforcestring[] = "set force (N) ?";
@@ -141,7 +141,9 @@ void Interface::querySensoryData() {
 	mvprintw(17, 0, "deadband:        %.5f       ", deadband);
 	mvprintw(18, 0, "set point:       %.5f   ", setPoint);
 	print(19, 0, cols, "-");
-	mvprintw(20, 0, "polyPar: %.5f  %.5f  %.5f  %.5f    ", myoControl->polyPar[0], myoControl->polyPar[1], myoControl->polyPar[2], myoControl->polyPar[3]);
+	mvprintw(20, 0, "polyPar: %.5f  %.5f  %.5f  %.5f    ", myoControl->polyPar[motor_id][0],
+			myoControl->polyPar[motor_id][1], myoControl->polyPar[motor_id][2],
+			myoControl->polyPar[motor_id][3]);
 	mvprintw(21, 0, "set point limits: %.5f to %.5f     ", setPointMin, setPointMax);
 	mvprintw(22, 0, "weight: %.2f     ", myoControl->getWeight());
 	refresh();
@@ -300,4 +302,14 @@ void Interface::setAllToForce() {
 	print(4, 0, cols, " ");
 	print(5, 0, cols, " ");
 	noecho();
+}
+
+void Interface::estimateSpringParameters(){
+	echo();
+	print(4, 0, cols, " ");
+	print(5, 0, cols, " ");
+	printMessage(4, 0, "estimating spring paramters, please wait...");
+	myoControl->estimateSpringParameters(motor_id, 600000, 1000);
+	print(4, 0, cols, " ");
+	print(5, 0, cols, " ");
 }
