@@ -128,6 +128,22 @@
          type = "String";
       }
    }
+   element pid_controller_0
+   {
+      datum _sortIndex
+      {
+         value = "11";
+         type = "int";
+      }
+   }
+   element pid_controller_0.avalon_slave_0
+   {
+      datum baseAddress
+      {
+         value = "262144";
+         type = "String";
+      }
+   }
    element pio_led
    {
       datum _sortIndex
@@ -236,6 +252,11 @@
  <interface name="hps_0_h2f_user0_clock" internal="hps_0.h2f_user0_clock" />
  <interface name="hps_0_hps_io" internal="hps_0.hps_io" type="conduit" dir="end" />
  <interface name="memory" internal="hps_0.memory" type="conduit" dir="end" />
+ <interface
+   name="pid_controller_0"
+   internal="pid_controller_0.conduit_end"
+   type="conduit"
+   dir="end" />
  <interface
    name="pio_led_external_connection"
    internal="pio_led.external_connection"
@@ -878,6 +899,26 @@
   <parameter name="useShallowMemBlocks" value="false" />
   <parameter name="writable" value="true" />
  </module>
+ <module
+   name="pid_controller_0"
+   kind="pid_controller"
+   version="1.0"
+   enabled="1">
+  <parameter name="RS_adr" value="11" />
+  <parameter name="adr_wb_nb" value="16" />
+  <parameter name="err_0_adr" value="6" />
+  <parameter name="err_1_adr" value="7" />
+  <parameter name="kd_adr" value="2" />
+  <parameter name="ki_adr" value="1" />
+  <parameter name="kp_adr" value="0" />
+  <parameter name="kpd_adr" value="5" />
+  <parameter name="of_adr" value="10" />
+  <parameter name="pv_adr" value="4" />
+  <parameter name="sigma_adr" value="9" />
+  <parameter name="sp_adr" value="3" />
+  <parameter name="un_adr" value="8" />
+  <parameter name="wb_nb" value="32" />
+ </module>
  <module name="pio_led" kind="altera_avalon_pio" version="16.1" enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
@@ -940,6 +981,15 @@
    end="jtag_uart.avalon_jtag_slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x00020000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="16.1"
+   start="hps_0.h2f_lw_axi_master"
+   end="pid_controller_0.avalon_slave_0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x00040000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1043,6 +1093,11 @@
    kind="clock"
    version="16.1"
    start="clk_0.clk"
+   end="pid_controller_0.clock_sink" />
+ <connection
+   kind="clock"
+   version="16.1"
+   start="clk_0.clk"
    end="hps_0.f2h_axi_clock" />
  <connection
    kind="clock"
@@ -1105,6 +1160,11 @@
    version="16.1"
    start="clk_0.clk_reset"
    end="intr_capturer_0.reset_sink" />
+ <connection
+   kind="reset"
+   version="16.1"
+   start="clk_0.clk_reset"
+   end="pid_controller_0.reset_sink" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.maxAdditionalLatency" value="1" />
 </system>

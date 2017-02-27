@@ -74,6 +74,7 @@
 			memory_mem_odt                        : out   std_logic;                                        -- mem_odt
 			memory_mem_dm                         : out   std_logic_vector(3 downto 0);                     -- mem_dm
 			memory_oct_rzqin                      : in    std_logic                     := 'X';             -- oct_rzqin
+			pid_controller_0_export               : out   std_logic_vector(31 downto 0);                    -- export
 			pio_led_external_connection_export    : out   std_logic_vector(7 downto 0);                     -- export
 			reset_reset_n                         : in    std_logic                     := 'X';             -- reset_n
 			spi_0_external_MISO                   : in    std_logic                     := 'X';             -- MISO
@@ -159,6 +160,7 @@
 			memory_mem_odt                        => CONNECTED_TO_memory_mem_odt,                        --                            .mem_odt
 			memory_mem_dm                         => CONNECTED_TO_memory_mem_dm,                         --                            .mem_dm
 			memory_oct_rzqin                      => CONNECTED_TO_memory_oct_rzqin,                      --                            .oct_rzqin
+			pid_controller_0_export               => CONNECTED_TO_pid_controller_0_export,               --            pid_controller_0.export
 			pio_led_external_connection_export    => CONNECTED_TO_pio_led_external_connection_export,    -- pio_led_external_connection.export
 			reset_reset_n                         => CONNECTED_TO_reset_reset_n,                         --                       reset.reset_n
 			spi_0_external_MISO                   => CONNECTED_TO_spi_0_external_MISO,                   --              spi_0_external.MISO

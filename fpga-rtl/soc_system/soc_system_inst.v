@@ -73,6 +73,7 @@
 		.memory_mem_odt                        (<connected-to-memory_mem_odt>),                        //                            .mem_odt
 		.memory_mem_dm                         (<connected-to-memory_mem_dm>),                         //                            .mem_dm
 		.memory_oct_rzqin                      (<connected-to-memory_oct_rzqin>),                      //                            .oct_rzqin
+		.pid_controller_0_export               (<connected-to-pid_controller_0_export>),               //            pid_controller_0.export
 		.pio_led_external_connection_export    (<connected-to-pio_led_external_connection_export>),    // pio_led_external_connection.export
 		.reset_reset_n                         (<connected-to-reset_reset_n>),                         //                       reset.reset_n
 		.spi_0_external_MISO                   (<connected-to-spi_0_external_MISO>),                   //              spi_0_external.MISO
