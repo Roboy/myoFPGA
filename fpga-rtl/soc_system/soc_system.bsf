@@ -370,8 +370,8 @@ agreement for further details.
 	(port
 		(pt 0 1152)
 		(output)
-		(text "pid_controller_0_export[31..0]" (rect 0 0 116 12)(font "Arial" (font_size 8)))
-		(text "pid_controller_0_export[31..0]" (rect 4 1141 184 1152)(font "Arial" (font_size 8)))
+		(text "pid_controller_0_conduit_end_export[31..0]" (rect 0 0 169 12)(font "Arial" (font_size 8)))
+		(text "pid_controller_0_conduit_end_export[31..0]" (rect 4 1141 256 1152)(font "Arial" (font_size 8)))
 		(line (pt 0 1152)(pt 272 1152)(line_width 3))
 	)
 	(port
@@ -675,7 +675,7 @@ agreement for further details.
 		(text "mem_odt" (rect 437 315 916 640)(font "Arial" (color 0 0 0)))
 		(text "mem_dm" (rect 437 331 910 672)(font "Arial" (color 0 0 0)))
 		(text "oct_rzqin" (rect 438 347 930 704)(font "Arial" (color 0 0 0)))
-		(text "pid_controller_0" (rect 179 1123 454 2259)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "pid_controller_0_conduit_end" (rect 101 1123 370 2259)(font "Arial" (color 128 0 0)(font_size 9)))
 		(text "export" (rect 277 1147 590 2304)(font "Arial" (color 0 0 0)))
 		(text "pio_led_external_connection" (rect 108 1163 378 2339)(font "Arial" (color 128 0 0)(font_size 9)))
 		(text "export" (rect 277 1187 590 2384)(font "Arial" (color 0 0 0)))

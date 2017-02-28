@@ -253,7 +253,7 @@
  <interface name="hps_0_hps_io" internal="hps_0.hps_io" type="conduit" dir="end" />
  <interface name="memory" internal="hps_0.memory" type="conduit" dir="end" />
  <interface
-   name="pid_controller_0"
+   name="pid_controller_0_conduit_end"
    internal="pid_controller_0.conduit_end"
    type="conduit"
    dir="end" />

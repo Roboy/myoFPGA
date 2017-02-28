@@ -74,13 +74,13 @@ module soc_system (
 	memory_mem_odt,
 	memory_mem_dm,
 	memory_oct_rzqin,
-	pid_controller_0_export,
 	pio_led_external_connection_export,
 	reset_reset_n,
 	spi_0_external_MISO,
 	spi_0_external_MOSI,
 	spi_0_external_SCLK,
-	spi_0_external_SS_n);	
+	spi_0_external_SS_n,
+	pid_controller_0_conduit_end_export);	
 
 	output		adc_0_external_interface_sclk;
 	output		adc_0_external_interface_cs_n;
@@ -156,11 +156,11 @@ module soc_system (
 	output		memory_mem_odt;
 	output	[3:0]	memory_mem_dm;
 	input		memory_oct_rzqin;
-	output	[31:0]	pid_controller_0_export;
 	output	[7:0]	pio_led_external_connection_export;
 	input		reset_reset_n;
 	input		spi_0_external_MISO;
 	output		spi_0_external_MOSI;
 	output		spi_0_external_SCLK;
 	output	[31:0]	spi_0_external_SS_n;
+	output	[31:0]	pid_controller_0_conduit_end_export;
 endmodule

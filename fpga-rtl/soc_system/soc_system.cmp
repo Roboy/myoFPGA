@@ -74,7 +74,7 @@
 			memory_mem_odt                        : out   std_logic;                                        -- mem_odt
 			memory_mem_dm                         : out   std_logic_vector(3 downto 0);                     -- mem_dm
 			memory_oct_rzqin                      : in    std_logic                     := 'X';             -- oct_rzqin
-			pid_controller_0_export               : out   std_logic_vector(31 downto 0);                    -- export
+			pid_controller_0_conduit_end_export   : out   std_logic_vector(31 downto 0);                    -- export
 			pio_led_external_connection_export    : out   std_logic_vector(7 downto 0);                     -- export
 			reset_reset_n                         : in    std_logic                     := 'X';             -- reset_n
 			spi_0_external_MISO                   : in    std_logic                     := 'X';             -- MISO

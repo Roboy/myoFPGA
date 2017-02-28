@@ -75,8 +75,6 @@ output	[31:0]o_un,
 output	o_valid
 );
 
-
-
 reg	[15:0]kp,ki,kd,sp,pv;
 reg	wla,wlb;	// write locks
 wire	wlRS;
