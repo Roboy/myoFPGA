@@ -31,8 +31,8 @@ enum COLORS {
     GREEN,
 };
 
-Interface::Interface(uint32_t *spi_base, int motors) {
-	myoControl = new MyoControl(spi_base, motors);
+Interface::Interface(uint32_t *spi_base, vector<int32_t*> &pid_base, int motors) {
+	myoControl = new MyoControl(spi_base, pid_base, motors);
 	//! start ncurses mode
 	initscr();
 	//! Start color functionality
@@ -94,58 +94,59 @@ void Interface::querySensoryData() {
 
 	sprintf(motorinfo, "motor %d   ", motor_id);
 	printMessage(7, 0, motorinfo, CYAN);
-	mvprintw(8, 0, "actuatorPos (rad):   %.5f    ", motor.actuatorPos);
-	mvprintw(9, 0, "actuatorVel (rad/s): %.5f    ", motor.actuatorVel);
-	mvprintw(10, 0, "actuatorCurrent:     %d     ", motor.actuatorCurrent);
-	mvprintw(11, 0, "tendonDisplacement:  %.5f   ", (float) motor.tendonDisplacement / 32768.0f);
-	print(12, 0, cols, "-");
+	mvprintw(8, 0, "pwm:                 %d      ", myoControl->pwm_control[motor_id]);
+	mvprintw(9, 0, "actuatorPos (rad):   %.5f    ", motor.actuatorPos);
+	mvprintw(10, 0, "actuatorVel (rad/s): %.5f    ", motor.actuatorVel);
+	mvprintw(11, 0, "actuatorCurrent:     %d     ", motor.actuatorCurrent);
+	mvprintw(12, 0, "tendonDisplacement:  %.5f   ", (float) motor.tendonDisplacement / 32768.0f);
+	print(13, 0, cols, "-");
 	float Pgain, Igain, Dgain, forwardGain, deadband, setPoint, setPointMin, setPointMax;
 	switch(myoControl->control_mode[motor_id]){
 	case Position:
-		Pgain = myoControl->position_controller[motor_id].pgain;
-		Igain = myoControl->position_controller[motor_id].igain;
-		Dgain = myoControl->position_controller[motor_id].dgain;
-		forwardGain = myoControl->position_controller[motor_id].forwardGain;
-		deadband = myoControl->position_controller[motor_id].deadBand;
+		Pgain = myoControl->control_params[Position][motor_id].params.pidParameters.pgain;
+		Igain = myoControl->control_params[Position][motor_id].params.pidParameters.igain;
+		Dgain = myoControl->control_params[Position][motor_id].params.pidParameters.dgain;
+		forwardGain = myoControl->control_params[Position][motor_id].params.pidParameters.forwardGain;
+		deadband = myoControl->control_params[Position][motor_id].params.pidParameters.deadBand;
 		setPoint = myoControl->pos_setPoint[motor_id];
-		setPointMin = myoControl->position_controller[motor_id].spNegMax;
-		setPointMax = myoControl->position_controller[motor_id].spPosMax;
+		setPointMin = myoControl->control_params[Position][motor_id].spNegMax;
+		setPointMax = myoControl->control_params[Position][motor_id].spPosMax;
 		break;
 	case Velocity:
-		Pgain = myoControl->velocity_controller[motor_id].pgain;
-		Igain = myoControl->velocity_controller[motor_id].igain;
-		Dgain = myoControl->velocity_controller[motor_id].dgain;
-		forwardGain = myoControl->velocity_controller[motor_id].forwardGain;
-		deadband = myoControl->velocity_controller[motor_id].deadBand;
-		setPoint = myoControl->vel_setPoint[motor_id];
-		setPointMin = myoControl->velocity_controller[motor_id].spNegMax;
-		setPointMax = myoControl->velocity_controller[motor_id].spPosMax;
+		Pgain = myoControl->control_params[Velocity][motor_id].params.pidParameters.pgain;
+		Igain = myoControl->control_params[Velocity][motor_id].params.pidParameters.igain;
+		Dgain = myoControl->control_params[Velocity][motor_id].params.pidParameters.dgain;
+		forwardGain = myoControl->control_params[Velocity][motor_id].params.pidParameters.forwardGain;
+		deadband = myoControl->control_params[Velocity][motor_id].params.pidParameters.deadBand;
+		setPoint = myoControl->pos_setPoint[motor_id];
+		setPointMin = myoControl->control_params[Velocity][motor_id].spNegMax;
+		setPointMax = myoControl->control_params[Velocity][motor_id].spPosMax;
 		break;
 	case Force:
-		Pgain = myoControl->force_controller[motor_id].pgain;
-		Igain = myoControl->force_controller[motor_id].igain;
-		Dgain = myoControl->force_controller[motor_id].dgain;
-		forwardGain = myoControl->force_controller[motor_id].forwardGain;
-		deadband = myoControl->force_controller[motor_id].deadBand;
-		setPoint = myoControl->force_setPoint[motor_id];
-		setPointMin = myoControl->force_controller[motor_id].spNegMax;
-		setPointMax = myoControl->force_controller[motor_id].spPosMax;
+		Pgain = myoControl->control_params[Force][motor_id].params.pidParameters.pgain;
+		Igain = myoControl->control_params[Force][motor_id].params.pidParameters.igain;
+		Dgain = myoControl->control_params[Force][motor_id].params.pidParameters.dgain;
+		forwardGain = myoControl->control_params[Force][motor_id].params.pidParameters.forwardGain;
+		deadband = myoControl->control_params[Force][motor_id].params.pidParameters.deadBand;
+		setPoint = myoControl->pos_setPoint[motor_id];
+		setPointMin = myoControl->control_params[Force][motor_id].spNegMax;
+		setPointMax = myoControl->control_params[Force][motor_id].spPosMax;
 		break;
 	default:
 		break;
 	}
-	mvprintw(13, 0, "P gain:          %.5f       ", Pgain);
-	mvprintw(14, 0, "I gain:          %.5f       ", Igain);
-	mvprintw(15, 0, "D gain:          %.5f       ", Dgain);
-	mvprintw(16, 0, "forward gain:    %.5f       ", forwardGain);
-	mvprintw(17, 0, "deadband:        %.5f       ", deadband);
-	mvprintw(18, 0, "set point:       %.5f   ", setPoint);
-	print(19, 0, cols, "-");
-	mvprintw(20, 0, "polyPar: %.5f  %.5f  %.5f  %.5f    ", myoControl->polyPar[motor_id][0],
+	mvprintw(14, 0, "P gain:          %.5f       ", Pgain);
+	mvprintw(15, 0, "I gain:          %.5f       ", Igain);
+	mvprintw(16, 0, "D gain:          %.5f       ", Dgain);
+	mvprintw(17, 0, "forward gain:    %.5f       ", forwardGain);
+	mvprintw(18, 0, "deadband:        %.5f       ", deadband);
+	mvprintw(19, 0, "set point:       %.5f   ", setPoint);
+	print(20, 0, cols, "-");
+	mvprintw(21, 0, "polyPar: %.5f  %.5f  %.5f  %.5f    ", myoControl->polyPar[motor_id][0],
 			myoControl->polyPar[motor_id][1], myoControl->polyPar[motor_id][2],
 			myoControl->polyPar[motor_id][3]);
-	mvprintw(21, 0, "set point limits: %.5f to %.5f     ", setPointMin, setPointMax);
-	mvprintw(22, 0, "weight: %.2f     ", myoControl->getWeight());
+	mvprintw(22, 0, "set point limits: %.5f to %.5f     ", setPointMin, setPointMax);
+	mvprintw(23, 0, "weight: %.2f     ", myoControl->getWeight());
 	refresh();
 }
 
@@ -161,7 +162,7 @@ void Interface::processing(char *msg1, char *what, char *msg2) {
 	printMessage(5, a + 1 + b + 1, msg2);
 	mvchgat(5, 0, a + 1 + b, A_BLINK, 2, NULL);
 	mvchgat(5, a + 1 + b + 1, a + 1 + b + 1 + c, A_BLINK, 1, NULL);
-	timeout(10);
+	timeout(timeout_ms);
 	do {
 		querySensoryData();
 		cmd = mvgetch(5, a + 1 + b + 1 + c);
@@ -179,7 +180,7 @@ void Interface::processing(char *msg1, char *msg2) {
 	printMessage(5, a + 1, msg2);
 	mvchgat(5, 0, a, A_BLINK, 2, NULL);
 	mvchgat(5, a + 1, a + 1 + c, A_BLINK, 1, NULL);
-	timeout(10);
+	timeout(timeout_ms);
 	do {
 		querySensoryData();
 		cmd = mvgetch(5, a + 1 + c);

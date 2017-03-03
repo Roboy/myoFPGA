@@ -1,31 +1,35 @@
 #include "myoControl.hpp"
 
-MyoControl::MyoControl(uint32_t* spi_base, uint motors):
-numberOfMotors(motors), spi_base(spi_base){
+MyoControl::MyoControl(uint32_t* spi_base, vector<int32_t*> &pid_base, uint motors):
+numberOfMotors(motors), pid_base(pid_base), spi_base(spi_base){
+	if(numberOfMotors>pid_base.size()){
+		cerr << "requested more motors than synthesized pid controller" << endl;
+		return;
+	}
+
+	// initialize control mode
+	control_mode.resize(numberOfMotors);
+
 	// initialize all controllers with default values
 	control_Parameters_t params;
 	getDefaultControlParams(&params, Position);
 	for(uint motor=0;motor<numberOfMotors;motor++){
-		pidController controller(&params);
-		position_controller.push_back(controller);
+		changeControl(motor, Position, params);
+		control_params[Position].push_back(params);
 	}
 	getDefaultControlParams(&params, Velocity);
 	for(uint motor=0;motor<numberOfMotors;motor++){
-		pidController controller(&params);
-		velocity_controller.push_back(controller);
+		control_params[Velocity].push_back(params);
 	}
 	getDefaultControlParams(&params, Force);
 	for(uint motor=0;motor<numberOfMotors;motor++){
-		pidController controller(&params);
-		force_controller.push_back(controller);
+		control_params[Force].push_back(params);
 	}
 	// initialize setpoints
 	pos_setPoint.resize(numberOfMotors,0);
 	vel_setPoint.resize(numberOfMotors,0);
 	force_setPoint.resize(numberOfMotors,0);
 	pwm_control.resize(numberOfMotors,0);
-	// initialize control mode to be force
-	control_mode.resize(numberOfMotors, Force);
 	// initialize the actual values
 	pos.resize(numberOfMotors,0);
 	vel.resize(numberOfMotors,0);
@@ -50,19 +54,22 @@ MyoControl::~MyoControl(){
 
 void MyoControl::update(){
 	for(uint motor=0;motor<numberOfMotors;motor++){
+		// update setPoints and get PID result
 		switch(control_mode[motor]){
 		case Position:
-			pwm_control[motor] = position_controller[motor].outputCalc(pos[motor],pos_setPoint[motor]);
+			PID_WRITE_sp(pid_base[motor], (int32_t)(pos_setPoint[motor]/radPerEncoderCount));
 			break;
 		case Velocity:
-			pwm_control[motor] = velocity_controller[motor].outputCalc(vel[motor],vel_setPoint[motor]);
+			PID_WRITE_sp(pid_base[motor], (int32_t)(vel_setPoint[motor]/radPerEncoderCount));
 			break;
 		case Force:
-			pwm_control[motor] = force_controller[motor].outputCalc(force[motor],force_setPoint[motor]);
+			PID_WRITE_sp(pid_base[motor], (int32_t)(force_setPoint[motor]));
 			break;
 		default:
 			cout << "currently only supporting Position, Velocity or Force control" << endl;
 		}
+		pwm_control[motor] = (int16_t)PID_READ_result(pid_base[motor]);
+
 		for(uint i = 0; i<24;i++)
 			frame.TxBuffer[i] = 0;
 		frame.pwmRef = pwm_control[motor];
@@ -70,6 +77,21 @@ void MyoControl::update(){
 		prepareData(&frame, WRITE_DATA);
 		exchangeFrame(spi_base, motor, &frame);
 		prepareData(&frame, READ_DATA);
+
+		// update measurements
+		switch(control_mode[motor]){
+		case Position:
+			PID_WRITE_pv(pid_base[motor], (int32_t)frame.actualPosition);
+			break;
+		case Velocity:
+			PID_WRITE_pv(pid_base[motor], (int32_t)frame.actualVelocity);
+			break;
+		case Force:
+			PID_WRITE_pv(pid_base[motor], (int32_t)frame.springDisplacement);
+			break;
+		default:
+			cout << "currently only supporting Position, Velocity or Force control" << endl;
+		}
 
 		pos[motor] = frame.actualPosition*radPerEncoderCount;
 		vel[motor] = frame.actualVelocity*radPerEncoderCount;
@@ -102,8 +124,40 @@ void MyoControl::update(){
 	iter++;
 }
 
+void MyoControl::changeControl(int motor, int mode, control_Parameters_t &params){
+	control_mode[motor] = mode;
+	for(uint motor=0;motor<numberOfMotors;motor++){
+		// set the current setpoint to the current measurement, which results in zero error
+		int current_measurement = PID_READ_sp(pid_base[motor]);
+		PID_WRITE_pv(pid_base[motor], current_measurement);
+		PID_WRITE_Kp(pid_base[motor], params.params.pidParameters.pgain);
+		PID_WRITE_Kd(pid_base[motor], params.params.pidParameters.dgain);
+		PID_WRITE_Ki(pid_base[motor], params.params.pidParameters.igain);
+		PID_WRITE_forwardGain(pid_base[motor], params.params.pidParameters.forwardGain);
+		PID_WRITE_deadBand(pid_base[motor], params.params.pidParameters.deadBand);
+		PID_WRITE_IntegralPosMax(pid_base[motor], params.params.pidParameters.IntegralPosMax);
+		PID_WRITE_IntegralNegMax(pid_base[motor], params.params.pidParameters.IntegralNegMax);
+		PID_WRITE_outputPosMax(pid_base[motor], params.outputPosMax);
+		PID_WRITE_outputNegMax(pid_base[motor], params.outputNegMax);
+	}
+}
+
 void MyoControl::changeControl(int motor, int mode){
 	control_mode[motor] = mode;
+	for(uint motor=0;motor<numberOfMotors;motor++){
+		// set the current setpoint to the current measurement, which results in zero error
+		int current_measurement = PID_READ_sp(pid_base[motor]);
+		PID_WRITE_pv(pid_base[motor], current_measurement);
+		PID_WRITE_Kp(pid_base[motor], control_params[mode][motor].params.pidParameters.pgain);
+		PID_WRITE_Kd(pid_base[motor], control_params[mode][motor].params.pidParameters.dgain);
+		PID_WRITE_Ki(pid_base[motor], control_params[mode][motor].params.pidParameters.igain);
+		PID_WRITE_forwardGain(pid_base[motor], control_params[mode][motor].params.pidParameters.forwardGain);
+		PID_WRITE_deadBand(pid_base[motor], control_params[mode][motor].params.pidParameters.deadBand);
+		PID_WRITE_IntegralPosMax(pid_base[motor], control_params[mode][motor].params.pidParameters.IntegralPosMax);
+		PID_WRITE_IntegralNegMax(pid_base[motor], control_params[mode][motor].params.pidParameters.IntegralNegMax);
+		PID_WRITE_outputPosMax(pid_base[motor], control_params[mode][motor].outputPosMax);
+		PID_WRITE_outputNegMax(pid_base[motor], control_params[mode][motor].outputNegMax);
+	}
 }
 
 void MyoControl::setPosition(int motor, float position){
@@ -153,7 +207,7 @@ void MyoControl::getDefaultControlParams(control_Parameters_t *params, int contr
 switch(control_mode){
 case Position:
 	params->params.pidParameters.integral = 0;             // float32
-	params->params.pidParameters.pgain = 1000.0;                   // float32
+	params->params.pidParameters.pgain = 10.0;                   // float32
 	params->params.pidParameters.igain = 0;                   // float32
 	params->params.pidParameters.dgain = 0;                   // float32
 	params->params.pidParameters.forwardGain = 0;       // float32
@@ -164,7 +218,7 @@ case Position:
 	break;
 case Velocity:
 	params->params.pidParameters.integral = 0;             // float32
-	params->params.pidParameters.pgain = 1000.0;                   // float32
+	params->params.pidParameters.pgain = 10.0;                   // float32
 	params->params.pidParameters.igain = 0;                   // float32
 	params->params.pidParameters.dgain = 0;                   // float32
 	params->params.pidParameters.forwardGain = 0;       // float32
@@ -175,7 +229,7 @@ case Velocity:
 	break;
 case Force:
 	params->params.pidParameters.integral = 0;             // float32
-	params->params.pidParameters.pgain = 1000.0;                   // float32
+	params->params.pidParameters.pgain = 10.0;                   // float32
 	params->params.pidParameters.igain = 0;                   // float32
 	params->params.pidParameters.dgain = 0;                   // float32
 	params->params.pidParameters.forwardGain = 0;       // float32

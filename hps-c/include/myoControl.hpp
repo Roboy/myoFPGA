@@ -1,12 +1,14 @@
 #pragma once
 
 #include <vector>
+#include <map>
 #include <iostream>
 #include <math.h>
 #include <chrono>
 #include <fstream>
+#include "CommunicationData.h"
 #include "myoSPI.hpp"
-#include "pidController.hpp"
+#include "pid.hpp"
 
 using namespace std;
 using namespace std::chrono;
@@ -15,7 +17,7 @@ using namespace std::chrono;
 
 class MyoControl{
 public:
-	MyoControl(uint32_t* spi_base = nullptr, uint motors = 1);
+	MyoControl(uint32_t* spi_base, vector<int32_t*> &pid_base, uint motors = 1);
 	~MyoControl();
 	/**
 	 * updates all motors
@@ -23,6 +25,13 @@ public:
 	void update();
 	/**
 	 * Changes the controller of a motor
+	 * @param motor for this motor
+	 * @param mode choose from Position, Velocity or Force
+	 * @param params with these controller parameters
+	 */
+	void changeControl(int motor, int mode, control_Parameters_t &params);
+	/**
+	 * Changes the controller of a motor with the saved controller parameters
 	 * @param motor for this motor
 	 * @param mode choose from Position, Velocity or Force
 	 */
@@ -122,15 +131,16 @@ public:
 
 	SPISTREAM frame;
 	vector<float> pos, vel, force, displacement, current;
-	vector<pidController> position_controller, velocity_controller, force_controller;
 	vector<float> pos_setPoint, vel_setPoint, force_setPoint;
 	vector<int> control_mode;
+	map<int,vector<control_Parameters_t>> control_params;
+	vector<int16_t> pwm_control;
 	vector<vector<float>> polyPar;
 	uint32_t* spi_base, *adc_base = nullptr;
 	float weight_offset = 0;
 	float adc_weight_parameters[2] = {830.7, -0.455};
 private:
-	vector<int16_t> pwm_control;
+	vector<int32_t*> pid_base;
 	uint numberOfMotors;
 	float radPerEncoderCount = 2 * 3.14159265359 / (2000.0 * 53.0);
 	int iter = 0;

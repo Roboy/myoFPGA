@@ -9,7 +9,7 @@ using namespace std;
 
 class Interface {
 public:
-    Interface(uint32_t *spi_base, int motors);
+    Interface(uint32_t *spi_base, vector<int32_t*> &pid_base, int motors);
 
     ~Interface();
 
@@ -42,6 +42,7 @@ public:
     void estimateSpringParameters();
 
     MyoControl *myoControl;
+    uint timeout_ms = 10;
 private:
     uint rows, cols;
     float pos;

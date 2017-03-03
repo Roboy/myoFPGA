@@ -10,6 +10,7 @@
 #include "socal/alt_gpio.h"
 #include "hps_0.h"
 #include "interface.hpp"
+#include "pid.hpp"
 
 #define HW_REGS_BASE ( ALT_STM_OFST )
 #define HW_REGS_SPAN ( 0x04000000 )
@@ -25,6 +26,7 @@ int main() {
 	int led_direction = 0;
 	int led_mask = 0x01;
 	void *h2p_lw_led_addr, *h2p_lw_spi_addr, *h2p_lw_adc_addr;
+	vector<int32_t*> h2p_lw_pid_addr;
 
 	// map the address space for the LED registers into user space so we can interact with them.
 	// we'll actually map in the entire CSR span of the HPS since we want to access various registers within that span
@@ -45,9 +47,18 @@ int main() {
 	h2p_lw_led_addr=virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + PIO_LED_BASE ) & ( unsigned long)( HW_REGS_MASK ) );
 	h2p_lw_spi_addr=virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + SPI_0_BASE ) & ( unsigned long)( HW_REGS_MASK ) );
 	h2p_lw_adc_addr=virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + ADC_0_BASE ) & ( unsigned long)( HW_REGS_MASK ) );
+	h2p_lw_pid_addr.push_back((int32_t*)(virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + PID_CONTROLLER_0_BASE ) & ( unsigned long)( HW_REGS_MASK )) ));
+	h2p_lw_pid_addr.push_back((int32_t*)(virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + PID_CONTROLLER_1_BASE ) & ( unsigned long)( HW_REGS_MASK )) ));
+	h2p_lw_pid_addr.push_back((int32_t*)(virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + PID_CONTROLLER_2_BASE ) & ( unsigned long)( HW_REGS_MASK )) ));
+	h2p_lw_pid_addr.push_back((int32_t*)(virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + PID_CONTROLLER_3_BASE ) & ( unsigned long)( HW_REGS_MASK )) ));
+	h2p_lw_pid_addr.push_back((int32_t*)(virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + PID_CONTROLLER_4_BASE ) & ( unsigned long)( HW_REGS_MASK )) ));
+	h2p_lw_pid_addr.push_back((int32_t*)(virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + PID_CONTROLLER_5_BASE ) & ( unsigned long)( HW_REGS_MASK )) ));
+	h2p_lw_pid_addr.push_back((int32_t*)(virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + PID_CONTROLLER_6_BASE ) & ( unsigned long)( HW_REGS_MASK )) ));
+	h2p_lw_pid_addr.push_back((int32_t*)(virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + PID_CONTROLLER_7_BASE ) & ( unsigned long)( HW_REGS_MASK )) ));
 
-	Interface interface((uint32_t*)h2p_lw_spi_addr, 1);
+	Interface interface((uint32_t*)h2p_lw_spi_addr,h2p_lw_pid_addr, 1);
 	interface.myoControl->adc_base = (uint32_t*)h2p_lw_adc_addr;
+	interface.timeout_ms = 1000;
 
 //	vector<float> x(5), y(5);
 //	x[0] = 0;
@@ -66,7 +77,7 @@ int main() {
 	char cmd;
 	  noecho();
 	  do {
-	    timeout(10);
+	    timeout(interface.timeout_ms);
 	    cmd = mvgetch(4, 0);
 	    switch (cmd) {
 	    case '0':
