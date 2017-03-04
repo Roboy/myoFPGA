@@ -7,10 +7,10 @@
 	"error" : {
 		"executable" : "quartus",
 		"comment" : "none",
-		"error_message" : "Segment Violation at 0x1",
+		"error_message" : "Segment Violation at 0x7f57d58ac160",
 		"source_file" : "unknown",
 		"line" : "0",
-		"stack_trace" : "\t        0x1:\n",
+		"stack_trace" : "\t0x7f57d58ac160:\n",
 		"subsystem" : "unknown"
 	},
 	"quartus" : {

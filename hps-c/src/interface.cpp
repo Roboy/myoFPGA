@@ -96,9 +96,9 @@ void Interface::querySensoryData() {
 	printMessage(7, 0, motorinfo, CYAN);
 	mvprintw(8, 0, "pwm:                 %d      ", myoControl->pwm_control[motor_id]);
 	mvprintw(9, 0, "actuatorPos (rad):   %.5f    ", motor.actuatorPos);
-	mvprintw(10, 0, "actuatorVel (rad/s): %.5f    ", motor.actuatorVel);
+	mvprintw(10, 0, "actuatorVel (rad/s): %.5f   ", motor.actuatorVel);
 	mvprintw(11, 0, "actuatorCurrent:     %d     ", motor.actuatorCurrent);
-	mvprintw(12, 0, "tendonDisplacement:  %.5f   ", (float) motor.tendonDisplacement / 32768.0f);
+	mvprintw(12, 0, "tendonDisplacement:  %d     ", motor.tendonDisplacement);
 	print(13, 0, cols, "-");
 	float Pgain, Igain, Dgain, forwardGain, deadband, setPoint, setPointMin, setPointMax;
 	switch(myoControl->control_mode[motor_id]){
@@ -140,7 +140,7 @@ void Interface::querySensoryData() {
 	mvprintw(16, 0, "D gain:          %.5f       ", Dgain);
 	mvprintw(17, 0, "forward gain:    %.5f       ", forwardGain);
 	mvprintw(18, 0, "deadband:        %.5f       ", deadband);
-	mvprintw(19, 0, "set point:       %.5f   ", setPoint);
+	mvprintw(19, 0, "set point:       %.5f       ", setPoint);
 	print(20, 0, cols, "-");
 	mvprintw(21, 0, "polyPar: %.5f  %.5f  %.5f  %.5f    ", myoControl->polyPar[motor_id][0],
 			myoControl->polyPar[motor_id][1], myoControl->polyPar[motor_id][2],

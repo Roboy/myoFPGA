@@ -119,46 +119,55 @@ module soc_system_mm_interconnect_0 (
 		output wire        pid_controller_0_avalon_slave_0_read,                             //                                                           .read
 		input  wire [31:0] pid_controller_0_avalon_slave_0_readdata,                         //                                                           .readdata
 		output wire [31:0] pid_controller_0_avalon_slave_0_writedata,                        //                                                           .writedata
+		input  wire        pid_controller_0_avalon_slave_0_waitrequest,                      //                                                           .waitrequest
 		output wire [3:0]  pid_controller_1_avalon_slave_0_address,                          //                            pid_controller_1_avalon_slave_0.address
 		output wire        pid_controller_1_avalon_slave_0_write,                            //                                                           .write
 		output wire        pid_controller_1_avalon_slave_0_read,                             //                                                           .read
 		input  wire [31:0] pid_controller_1_avalon_slave_0_readdata,                         //                                                           .readdata
 		output wire [31:0] pid_controller_1_avalon_slave_0_writedata,                        //                                                           .writedata
+		input  wire        pid_controller_1_avalon_slave_0_waitrequest,                      //                                                           .waitrequest
 		output wire [3:0]  pid_controller_2_avalon_slave_0_address,                          //                            pid_controller_2_avalon_slave_0.address
 		output wire        pid_controller_2_avalon_slave_0_write,                            //                                                           .write
 		output wire        pid_controller_2_avalon_slave_0_read,                             //                                                           .read
 		input  wire [31:0] pid_controller_2_avalon_slave_0_readdata,                         //                                                           .readdata
 		output wire [31:0] pid_controller_2_avalon_slave_0_writedata,                        //                                                           .writedata
+		input  wire        pid_controller_2_avalon_slave_0_waitrequest,                      //                                                           .waitrequest
 		output wire [3:0]  pid_controller_3_avalon_slave_0_address,                          //                            pid_controller_3_avalon_slave_0.address
 		output wire        pid_controller_3_avalon_slave_0_write,                            //                                                           .write
 		output wire        pid_controller_3_avalon_slave_0_read,                             //                                                           .read
 		input  wire [31:0] pid_controller_3_avalon_slave_0_readdata,                         //                                                           .readdata
 		output wire [31:0] pid_controller_3_avalon_slave_0_writedata,                        //                                                           .writedata
+		input  wire        pid_controller_3_avalon_slave_0_waitrequest,                      //                                                           .waitrequest
 		output wire [3:0]  pid_controller_4_avalon_slave_0_address,                          //                            pid_controller_4_avalon_slave_0.address
 		output wire        pid_controller_4_avalon_slave_0_write,                            //                                                           .write
 		output wire        pid_controller_4_avalon_slave_0_read,                             //                                                           .read
 		input  wire [31:0] pid_controller_4_avalon_slave_0_readdata,                         //                                                           .readdata
 		output wire [31:0] pid_controller_4_avalon_slave_0_writedata,                        //                                                           .writedata
+		input  wire        pid_controller_4_avalon_slave_0_waitrequest,                      //                                                           .waitrequest
 		output wire [3:0]  pid_controller_5_avalon_slave_0_address,                          //                            pid_controller_5_avalon_slave_0.address
 		output wire        pid_controller_5_avalon_slave_0_write,                            //                                                           .write
 		output wire        pid_controller_5_avalon_slave_0_read,                             //                                                           .read
 		input  wire [31:0] pid_controller_5_avalon_slave_0_readdata,                         //                                                           .readdata
 		output wire [31:0] pid_controller_5_avalon_slave_0_writedata,                        //                                                           .writedata
+		input  wire        pid_controller_5_avalon_slave_0_waitrequest,                      //                                                           .waitrequest
 		output wire [3:0]  pid_controller_6_avalon_slave_0_address,                          //                            pid_controller_6_avalon_slave_0.address
 		output wire        pid_controller_6_avalon_slave_0_write,                            //                                                           .write
 		output wire        pid_controller_6_avalon_slave_0_read,                             //                                                           .read
 		input  wire [31:0] pid_controller_6_avalon_slave_0_readdata,                         //                                                           .readdata
 		output wire [31:0] pid_controller_6_avalon_slave_0_writedata,                        //                                                           .writedata
+		input  wire        pid_controller_6_avalon_slave_0_waitrequest,                      //                                                           .waitrequest
 		output wire [3:0]  pid_controller_7_avalon_slave_0_address,                          //                            pid_controller_7_avalon_slave_0.address
 		output wire        pid_controller_7_avalon_slave_0_write,                            //                                                           .write
 		output wire        pid_controller_7_avalon_slave_0_read,                             //                                                           .read
 		input  wire [31:0] pid_controller_7_avalon_slave_0_readdata,                         //                                                           .readdata
 		output wire [31:0] pid_controller_7_avalon_slave_0_writedata,                        //                                                           .writedata
+		input  wire        pid_controller_7_avalon_slave_0_waitrequest,                      //                                                           .waitrequest
 		output wire [3:0]  pid_controller_8_avalon_slave_0_address,                          //                            pid_controller_8_avalon_slave_0.address
 		output wire        pid_controller_8_avalon_slave_0_write,                            //                                                           .write
 		output wire        pid_controller_8_avalon_slave_0_read,                             //                                                           .read
 		input  wire [31:0] pid_controller_8_avalon_slave_0_readdata,                         //                                                           .readdata
 		output wire [31:0] pid_controller_8_avalon_slave_0_writedata,                        //                                                           .writedata
+		input  wire        pid_controller_8_avalon_slave_0_waitrequest,                      //                                                           .waitrequest
 		output wire [1:0]  pio_led_s1_address,                                               //                                                 pio_led_s1.address
 		output wire        pio_led_s1_write,                                                 //                                                           .write
 		input  wire [31:0] pio_led_s1_readdata,                                              //                                                           .readdata
@@ -1976,7 +1985,7 @@ module soc_system_mm_interconnect_0 (
 		.UAV_BURSTCOUNT_W               (3),
 		.AV_READLATENCY                 (0),
 		.USE_READDATAVALID              (0),
-		.USE_WAITREQUEST                (0),
+		.USE_WAITREQUEST                (1),
 		.USE_UAV_CLKEN                  (0),
 		.USE_READRESPONSE               (0),
 		.USE_WRITERESPONSE              (0),
@@ -1987,8 +1996,8 @@ module soc_system_mm_interconnect_0 (
 		.UAV_CONSTANT_BURST_BEHAVIOR    (0),
 		.AV_REQUIRE_UNALIGNED_ADDRESSES (0),
 		.CHIPSELECT_THROUGH_READLATENCY (0),
-		.AV_READ_WAIT_CYCLES            (1),
-		.AV_WRITE_WAIT_CYCLES           (1),
+		.AV_READ_WAIT_CYCLES            (5),
+		.AV_WRITE_WAIT_CYCLES           (5),
 		.AV_SETUP_WAIT_CYCLES           (0),
 		.AV_DATA_HOLD_CYCLES            (0)
 	) pid_controller_0_avalon_slave_0_translator (
@@ -2010,12 +2019,12 @@ module soc_system_mm_interconnect_0 (
 		.av_read                (pid_controller_0_avalon_slave_0_read),                   //                         .read
 		.av_readdata            (pid_controller_0_avalon_slave_0_readdata),               //                         .readdata
 		.av_writedata           (pid_controller_0_avalon_slave_0_writedata),              //                         .writedata
+		.av_waitrequest         (pid_controller_0_avalon_slave_0_waitrequest),            //                         .waitrequest
 		.av_begintransfer       (),                                                       //              (terminated)
 		.av_beginbursttransfer  (),                                                       //              (terminated)
 		.av_burstcount          (),                                                       //              (terminated)
 		.av_byteenable          (),                                                       //              (terminated)
 		.av_readdatavalid       (1'b0),                                                   //              (terminated)
-		.av_waitrequest         (1'b0),                                                   //              (terminated)
 		.av_writebyteenable     (),                                                       //              (terminated)
 		.av_lock                (),                                                       //              (terminated)
 		.av_chipselect          (),                                                       //              (terminated)
@@ -2040,7 +2049,7 @@ module soc_system_mm_interconnect_0 (
 		.UAV_BURSTCOUNT_W               (3),
 		.AV_READLATENCY                 (0),
 		.USE_READDATAVALID              (0),
-		.USE_WAITREQUEST                (0),
+		.USE_WAITREQUEST                (1),
 		.USE_UAV_CLKEN                  (0),
 		.USE_READRESPONSE               (0),
 		.USE_WRITERESPONSE              (0),
@@ -2051,8 +2060,8 @@ module soc_system_mm_interconnect_0 (
 		.UAV_CONSTANT_BURST_BEHAVIOR    (0),
 		.AV_REQUIRE_UNALIGNED_ADDRESSES (0),
 		.CHIPSELECT_THROUGH_READLATENCY (0),
-		.AV_READ_WAIT_CYCLES            (1),
-		.AV_WRITE_WAIT_CYCLES           (1),
+		.AV_READ_WAIT_CYCLES            (5),
+		.AV_WRITE_WAIT_CYCLES           (5),
 		.AV_SETUP_WAIT_CYCLES           (0),
 		.AV_DATA_HOLD_CYCLES            (0)
 	) pid_controller_1_avalon_slave_0_translator (
@@ -2074,12 +2083,12 @@ module soc_system_mm_interconnect_0 (
 		.av_read                (pid_controller_1_avalon_slave_0_read),                   //                         .read
 		.av_readdata            (pid_controller_1_avalon_slave_0_readdata),               //                         .readdata
 		.av_writedata           (pid_controller_1_avalon_slave_0_writedata),              //                         .writedata
+		.av_waitrequest         (pid_controller_1_avalon_slave_0_waitrequest),            //                         .waitrequest
 		.av_begintransfer       (),                                                       //              (terminated)
 		.av_beginbursttransfer  (),                                                       //              (terminated)
 		.av_burstcount          (),                                                       //              (terminated)
 		.av_byteenable          (),                                                       //              (terminated)
 		.av_readdatavalid       (1'b0),                                                   //              (terminated)
-		.av_waitrequest         (1'b0),                                                   //              (terminated)
 		.av_writebyteenable     (),                                                       //              (terminated)
 		.av_lock                (),                                                       //              (terminated)
 		.av_chipselect          (),                                                       //              (terminated)
@@ -2104,7 +2113,7 @@ module soc_system_mm_interconnect_0 (
 		.UAV_BURSTCOUNT_W               (3),
 		.AV_READLATENCY                 (0),
 		.USE_READDATAVALID              (0),
-		.USE_WAITREQUEST                (0),
+		.USE_WAITREQUEST                (1),
 		.USE_UAV_CLKEN                  (0),
 		.USE_READRESPONSE               (0),
 		.USE_WRITERESPONSE              (0),
@@ -2115,8 +2124,8 @@ module soc_system_mm_interconnect_0 (
 		.UAV_CONSTANT_BURST_BEHAVIOR    (0),
 		.AV_REQUIRE_UNALIGNED_ADDRESSES (0),
 		.CHIPSELECT_THROUGH_READLATENCY (0),
-		.AV_READ_WAIT_CYCLES            (1),
-		.AV_WRITE_WAIT_CYCLES           (1),
+		.AV_READ_WAIT_CYCLES            (5),
+		.AV_WRITE_WAIT_CYCLES           (5),
 		.AV_SETUP_WAIT_CYCLES           (0),
 		.AV_DATA_HOLD_CYCLES            (0)
 	) pid_controller_2_avalon_slave_0_translator (
@@ -2138,12 +2147,12 @@ module soc_system_mm_interconnect_0 (
 		.av_read                (pid_controller_2_avalon_slave_0_read),                   //                         .read
 		.av_readdata            (pid_controller_2_avalon_slave_0_readdata),               //                         .readdata
 		.av_writedata           (pid_controller_2_avalon_slave_0_writedata),              //                         .writedata
+		.av_waitrequest         (pid_controller_2_avalon_slave_0_waitrequest),            //                         .waitrequest
 		.av_begintransfer       (),                                                       //              (terminated)
 		.av_beginbursttransfer  (),                                                       //              (terminated)
 		.av_burstcount          (),                                                       //              (terminated)
 		.av_byteenable          (),                                                       //              (terminated)
 		.av_readdatavalid       (1'b0),                                                   //              (terminated)
-		.av_waitrequest         (1'b0),                                                   //              (terminated)
 		.av_writebyteenable     (),                                                       //              (terminated)
 		.av_lock                (),                                                       //              (terminated)
 		.av_chipselect          (),                                                       //              (terminated)
@@ -2168,7 +2177,7 @@ module soc_system_mm_interconnect_0 (
 		.UAV_BURSTCOUNT_W               (3),
 		.AV_READLATENCY                 (0),
 		.USE_READDATAVALID              (0),
-		.USE_WAITREQUEST                (0),
+		.USE_WAITREQUEST                (1),
 		.USE_UAV_CLKEN                  (0),
 		.USE_READRESPONSE               (0),
 		.USE_WRITERESPONSE              (0),
@@ -2179,8 +2188,8 @@ module soc_system_mm_interconnect_0 (
 		.UAV_CONSTANT_BURST_BEHAVIOR    (0),
 		.AV_REQUIRE_UNALIGNED_ADDRESSES (0),
 		.CHIPSELECT_THROUGH_READLATENCY (0),
-		.AV_READ_WAIT_CYCLES            (1),
-		.AV_WRITE_WAIT_CYCLES           (1),
+		.AV_READ_WAIT_CYCLES            (5),
+		.AV_WRITE_WAIT_CYCLES           (5),
 		.AV_SETUP_WAIT_CYCLES           (0),
 		.AV_DATA_HOLD_CYCLES            (0)
 	) pid_controller_3_avalon_slave_0_translator (
@@ -2202,12 +2211,12 @@ module soc_system_mm_interconnect_0 (
 		.av_read                (pid_controller_3_avalon_slave_0_read),                   //                         .read
 		.av_readdata            (pid_controller_3_avalon_slave_0_readdata),               //                         .readdata
 		.av_writedata           (pid_controller_3_avalon_slave_0_writedata),              //                         .writedata
+		.av_waitrequest         (pid_controller_3_avalon_slave_0_waitrequest),            //                         .waitrequest
 		.av_begintransfer       (),                                                       //              (terminated)
 		.av_beginbursttransfer  (),                                                       //              (terminated)
 		.av_burstcount          (),                                                       //              (terminated)
 		.av_byteenable          (),                                                       //              (terminated)
 		.av_readdatavalid       (1'b0),                                                   //              (terminated)
-		.av_waitrequest         (1'b0),                                                   //              (terminated)
 		.av_writebyteenable     (),                                                       //              (terminated)
 		.av_lock                (),                                                       //              (terminated)
 		.av_chipselect          (),                                                       //              (terminated)
@@ -2232,7 +2241,7 @@ module soc_system_mm_interconnect_0 (
 		.UAV_BURSTCOUNT_W               (3),
 		.AV_READLATENCY                 (0),
 		.USE_READDATAVALID              (0),
-		.USE_WAITREQUEST                (0),
+		.USE_WAITREQUEST                (1),
 		.USE_UAV_CLKEN                  (0),
 		.USE_READRESPONSE               (0),
 		.USE_WRITERESPONSE              (0),
@@ -2243,8 +2252,8 @@ module soc_system_mm_interconnect_0 (
 		.UAV_CONSTANT_BURST_BEHAVIOR    (0),
 		.AV_REQUIRE_UNALIGNED_ADDRESSES (0),
 		.CHIPSELECT_THROUGH_READLATENCY (0),
-		.AV_READ_WAIT_CYCLES            (1),
-		.AV_WRITE_WAIT_CYCLES           (1),
+		.AV_READ_WAIT_CYCLES            (5),
+		.AV_WRITE_WAIT_CYCLES           (5),
 		.AV_SETUP_WAIT_CYCLES           (0),
 		.AV_DATA_HOLD_CYCLES            (0)
 	) pid_controller_4_avalon_slave_0_translator (
@@ -2266,12 +2275,12 @@ module soc_system_mm_interconnect_0 (
 		.av_read                (pid_controller_4_avalon_slave_0_read),                   //                         .read
 		.av_readdata            (pid_controller_4_avalon_slave_0_readdata),               //                         .readdata
 		.av_writedata           (pid_controller_4_avalon_slave_0_writedata),              //                         .writedata
+		.av_waitrequest         (pid_controller_4_avalon_slave_0_waitrequest),            //                         .waitrequest
 		.av_begintransfer       (),                                                       //              (terminated)
 		.av_beginbursttransfer  (),                                                       //              (terminated)
 		.av_burstcount          (),                                                       //              (terminated)
 		.av_byteenable          (),                                                       //              (terminated)
 		.av_readdatavalid       (1'b0),                                                   //              (terminated)
-		.av_waitrequest         (1'b0),                                                   //              (terminated)
 		.av_writebyteenable     (),                                                       //              (terminated)
 		.av_lock                (),                                                       //              (terminated)
 		.av_chipselect          (),                                                       //              (terminated)
@@ -2296,7 +2305,7 @@ module soc_system_mm_interconnect_0 (
 		.UAV_BURSTCOUNT_W               (3),
 		.AV_READLATENCY                 (0),
 		.USE_READDATAVALID              (0),
-		.USE_WAITREQUEST                (0),
+		.USE_WAITREQUEST                (1),
 		.USE_UAV_CLKEN                  (0),
 		.USE_READRESPONSE               (0),
 		.USE_WRITERESPONSE              (0),
@@ -2307,8 +2316,8 @@ module soc_system_mm_interconnect_0 (
 		.UAV_CONSTANT_BURST_BEHAVIOR    (0),
 		.AV_REQUIRE_UNALIGNED_ADDRESSES (0),
 		.CHIPSELECT_THROUGH_READLATENCY (0),
-		.AV_READ_WAIT_CYCLES            (1),
-		.AV_WRITE_WAIT_CYCLES           (1),
+		.AV_READ_WAIT_CYCLES            (5),
+		.AV_WRITE_WAIT_CYCLES           (5),
 		.AV_SETUP_WAIT_CYCLES           (0),
 		.AV_DATA_HOLD_CYCLES            (0)
 	) pid_controller_5_avalon_slave_0_translator (
@@ -2330,12 +2339,12 @@ module soc_system_mm_interconnect_0 (
 		.av_read                (pid_controller_5_avalon_slave_0_read),                   //                         .read
 		.av_readdata            (pid_controller_5_avalon_slave_0_readdata),               //                         .readdata
 		.av_writedata           (pid_controller_5_avalon_slave_0_writedata),              //                         .writedata
+		.av_waitrequest         (pid_controller_5_avalon_slave_0_waitrequest),            //                         .waitrequest
 		.av_begintransfer       (),                                                       //              (terminated)
 		.av_beginbursttransfer  (),                                                       //              (terminated)
 		.av_burstcount          (),                                                       //              (terminated)
 		.av_byteenable          (),                                                       //              (terminated)
 		.av_readdatavalid       (1'b0),                                                   //              (terminated)
-		.av_waitrequest         (1'b0),                                                   //              (terminated)
 		.av_writebyteenable     (),                                                       //              (terminated)
 		.av_lock                (),                                                       //              (terminated)
 		.av_chipselect          (),                                                       //              (terminated)
@@ -2360,7 +2369,7 @@ module soc_system_mm_interconnect_0 (
 		.UAV_BURSTCOUNT_W               (3),
 		.AV_READLATENCY                 (0),
 		.USE_READDATAVALID              (0),
-		.USE_WAITREQUEST                (0),
+		.USE_WAITREQUEST                (1),
 		.USE_UAV_CLKEN                  (0),
 		.USE_READRESPONSE               (0),
 		.USE_WRITERESPONSE              (0),
@@ -2371,8 +2380,8 @@ module soc_system_mm_interconnect_0 (
 		.UAV_CONSTANT_BURST_BEHAVIOR    (0),
 		.AV_REQUIRE_UNALIGNED_ADDRESSES (0),
 		.CHIPSELECT_THROUGH_READLATENCY (0),
-		.AV_READ_WAIT_CYCLES            (1),
-		.AV_WRITE_WAIT_CYCLES           (1),
+		.AV_READ_WAIT_CYCLES            (5),
+		.AV_WRITE_WAIT_CYCLES           (5),
 		.AV_SETUP_WAIT_CYCLES           (0),
 		.AV_DATA_HOLD_CYCLES            (0)
 	) pid_controller_6_avalon_slave_0_translator (
@@ -2394,12 +2403,12 @@ module soc_system_mm_interconnect_0 (
 		.av_read                (pid_controller_6_avalon_slave_0_read),                   //                         .read
 		.av_readdata            (pid_controller_6_avalon_slave_0_readdata),               //                         .readdata
 		.av_writedata           (pid_controller_6_avalon_slave_0_writedata),              //                         .writedata
+		.av_waitrequest         (pid_controller_6_avalon_slave_0_waitrequest),            //                         .waitrequest
 		.av_begintransfer       (),                                                       //              (terminated)
 		.av_beginbursttransfer  (),                                                       //              (terminated)
 		.av_burstcount          (),                                                       //              (terminated)
 		.av_byteenable          (),                                                       //              (terminated)
 		.av_readdatavalid       (1'b0),                                                   //              (terminated)
-		.av_waitrequest         (1'b0),                                                   //              (terminated)
 		.av_writebyteenable     (),                                                       //              (terminated)
 		.av_lock                (),                                                       //              (terminated)
 		.av_chipselect          (),                                                       //              (terminated)
@@ -2424,7 +2433,7 @@ module soc_system_mm_interconnect_0 (
 		.UAV_BURSTCOUNT_W               (3),
 		.AV_READLATENCY                 (0),
 		.USE_READDATAVALID              (0),
-		.USE_WAITREQUEST                (0),
+		.USE_WAITREQUEST                (1),
 		.USE_UAV_CLKEN                  (0),
 		.USE_READRESPONSE               (0),
 		.USE_WRITERESPONSE              (0),
@@ -2435,8 +2444,8 @@ module soc_system_mm_interconnect_0 (
 		.UAV_CONSTANT_BURST_BEHAVIOR    (0),
 		.AV_REQUIRE_UNALIGNED_ADDRESSES (0),
 		.CHIPSELECT_THROUGH_READLATENCY (0),
-		.AV_READ_WAIT_CYCLES            (1),
-		.AV_WRITE_WAIT_CYCLES           (1),
+		.AV_READ_WAIT_CYCLES            (5),
+		.AV_WRITE_WAIT_CYCLES           (5),
 		.AV_SETUP_WAIT_CYCLES           (0),
 		.AV_DATA_HOLD_CYCLES            (0)
 	) pid_controller_7_avalon_slave_0_translator (
@@ -2458,12 +2467,12 @@ module soc_system_mm_interconnect_0 (
 		.av_read                (pid_controller_7_avalon_slave_0_read),                   //                         .read
 		.av_readdata            (pid_controller_7_avalon_slave_0_readdata),               //                         .readdata
 		.av_writedata           (pid_controller_7_avalon_slave_0_writedata),              //                         .writedata
+		.av_waitrequest         (pid_controller_7_avalon_slave_0_waitrequest),            //                         .waitrequest
 		.av_begintransfer       (),                                                       //              (terminated)
 		.av_beginbursttransfer  (),                                                       //              (terminated)
 		.av_burstcount          (),                                                       //              (terminated)
 		.av_byteenable          (),                                                       //              (terminated)
 		.av_readdatavalid       (1'b0),                                                   //              (terminated)
-		.av_waitrequest         (1'b0),                                                   //              (terminated)
 		.av_writebyteenable     (),                                                       //              (terminated)
 		.av_lock                (),                                                       //              (terminated)
 		.av_chipselect          (),                                                       //              (terminated)
@@ -2488,7 +2497,7 @@ module soc_system_mm_interconnect_0 (
 		.UAV_BURSTCOUNT_W               (3),
 		.AV_READLATENCY                 (0),
 		.USE_READDATAVALID              (0),
-		.USE_WAITREQUEST                (0),
+		.USE_WAITREQUEST                (1),
 		.USE_UAV_CLKEN                  (0),
 		.USE_READRESPONSE               (0),
 		.USE_WRITERESPONSE              (0),
@@ -2499,8 +2508,8 @@ module soc_system_mm_interconnect_0 (
 		.UAV_CONSTANT_BURST_BEHAVIOR    (0),
 		.AV_REQUIRE_UNALIGNED_ADDRESSES (0),
 		.CHIPSELECT_THROUGH_READLATENCY (0),
-		.AV_READ_WAIT_CYCLES            (1),
-		.AV_WRITE_WAIT_CYCLES           (1),
+		.AV_READ_WAIT_CYCLES            (5),
+		.AV_WRITE_WAIT_CYCLES           (5),
 		.AV_SETUP_WAIT_CYCLES           (0),
 		.AV_DATA_HOLD_CYCLES            (0)
 	) pid_controller_8_avalon_slave_0_translator (
@@ -2522,12 +2531,12 @@ module soc_system_mm_interconnect_0 (
 		.av_read                (pid_controller_8_avalon_slave_0_read),                   //                         .read
 		.av_readdata            (pid_controller_8_avalon_slave_0_readdata),               //                         .readdata
 		.av_writedata           (pid_controller_8_avalon_slave_0_writedata),              //                         .writedata
+		.av_waitrequest         (pid_controller_8_avalon_slave_0_waitrequest),            //                         .waitrequest
 		.av_begintransfer       (),                                                       //              (terminated)
 		.av_beginbursttransfer  (),                                                       //              (terminated)
 		.av_burstcount          (),                                                       //              (terminated)
 		.av_byteenable          (),                                                       //              (terminated)
 		.av_readdatavalid       (1'b0),                                                   //              (terminated)
-		.av_waitrequest         (1'b0),                                                   //              (terminated)
 		.av_writebyteenable     (),                                                       //              (terminated)
 		.av_lock                (),                                                       //              (terminated)
 		.av_chipselect          (),                                                       //              (terminated)

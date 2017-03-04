@@ -55,19 +55,21 @@ MyoControl::~MyoControl(){
 void MyoControl::update(){
 	for(uint motor=0;motor<numberOfMotors;motor++){
 		// update setPoints and get PID result
+		int32_t sp = 0;
 		switch(control_mode[motor]){
 		case Position:
-			PID_WRITE_sp(pid_base[motor], (int32_t)(pos_setPoint[motor]/radPerEncoderCount));
+			sp = (int32_t)(pos_setPoint[motor]/radPerEncoderCount);
 			break;
 		case Velocity:
-			PID_WRITE_sp(pid_base[motor], (int32_t)(vel_setPoint[motor]/radPerEncoderCount));
+			sp = (int32_t)(vel_setPoint[motor]/radPerEncoderCount);
 			break;
 		case Force:
-			PID_WRITE_sp(pid_base[motor], (int32_t)(force_setPoint[motor]));
+			sp = (int32_t)(force_setPoint[motor]);
 			break;
 		default:
 			cout << "currently only supporting Position, Velocity or Force control" << endl;
 		}
+		PID_WRITE_sp(pid_base[motor], sp);
 		pwm_control[motor] = (int16_t)PID_READ_result(pid_base[motor]);
 
 		for(uint i = 0; i<24;i++)
@@ -128,17 +130,17 @@ void MyoControl::changeControl(int motor, int mode, control_Parameters_t &params
 	control_mode[motor] = mode;
 	for(uint motor=0;motor<numberOfMotors;motor++){
 		// set the current setpoint to the current measurement, which results in zero error
-		int current_measurement = PID_READ_sp(pid_base[motor]);
+		int32_t current_measurement = PID_READ_sp(pid_base[motor]);
 		PID_WRITE_pv(pid_base[motor], current_measurement);
-		PID_WRITE_Kp(pid_base[motor], params.params.pidParameters.pgain);
-		PID_WRITE_Kd(pid_base[motor], params.params.pidParameters.dgain);
-		PID_WRITE_Ki(pid_base[motor], params.params.pidParameters.igain);
-		PID_WRITE_forwardGain(pid_base[motor], params.params.pidParameters.forwardGain);
-		PID_WRITE_deadBand(pid_base[motor], params.params.pidParameters.deadBand);
-		PID_WRITE_IntegralPosMax(pid_base[motor], params.params.pidParameters.IntegralPosMax);
-		PID_WRITE_IntegralNegMax(pid_base[motor], params.params.pidParameters.IntegralNegMax);
-		PID_WRITE_outputPosMax(pid_base[motor], params.outputPosMax);
-		PID_WRITE_outputNegMax(pid_base[motor], params.outputNegMax);
+		PID_WRITE_Kp(pid_base[motor], (int32_t)params.params.pidParameters.pgain);
+		PID_WRITE_Kd(pid_base[motor], (int32_t)params.params.pidParameters.dgain);
+		PID_WRITE_Ki(pid_base[motor], (int32_t)params.params.pidParameters.igain);
+		PID_WRITE_forwardGain(pid_base[motor], (int32_t)params.params.pidParameters.forwardGain);
+		PID_WRITE_deadBand(pid_base[motor], (int32_t)(params.params.pidParameters.deadBand/radPerEncoderCount));
+		PID_WRITE_IntegralPosMax(pid_base[motor], (int32_t)params.params.pidParameters.IntegralPosMax);
+		PID_WRITE_IntegralNegMax(pid_base[motor], (int32_t)params.params.pidParameters.IntegralNegMax);
+		PID_WRITE_outputPosMax(pid_base[motor], (int32_t)params.outputPosMax);
+		PID_WRITE_outputNegMax(pid_base[motor], (int32_t)params.outputNegMax);
 	}
 }
 
@@ -148,15 +150,15 @@ void MyoControl::changeControl(int motor, int mode){
 		// set the current setpoint to the current measurement, which results in zero error
 		int current_measurement = PID_READ_sp(pid_base[motor]);
 		PID_WRITE_pv(pid_base[motor], current_measurement);
-		PID_WRITE_Kp(pid_base[motor], control_params[mode][motor].params.pidParameters.pgain);
-		PID_WRITE_Kd(pid_base[motor], control_params[mode][motor].params.pidParameters.dgain);
-		PID_WRITE_Ki(pid_base[motor], control_params[mode][motor].params.pidParameters.igain);
-		PID_WRITE_forwardGain(pid_base[motor], control_params[mode][motor].params.pidParameters.forwardGain);
-		PID_WRITE_deadBand(pid_base[motor], control_params[mode][motor].params.pidParameters.deadBand);
-		PID_WRITE_IntegralPosMax(pid_base[motor], control_params[mode][motor].params.pidParameters.IntegralPosMax);
-		PID_WRITE_IntegralNegMax(pid_base[motor], control_params[mode][motor].params.pidParameters.IntegralNegMax);
-		PID_WRITE_outputPosMax(pid_base[motor], control_params[mode][motor].outputPosMax);
-		PID_WRITE_outputNegMax(pid_base[motor], control_params[mode][motor].outputNegMax);
+		PID_WRITE_Kp(pid_base[motor], (int32_t)control_params[mode][motor].params.pidParameters.pgain);
+		PID_WRITE_Kd(pid_base[motor], (int32_t)control_params[mode][motor].params.pidParameters.dgain);
+		PID_WRITE_Ki(pid_base[motor], (int32_t)control_params[mode][motor].params.pidParameters.igain);
+		PID_WRITE_forwardGain(pid_base[motor], (int32_t)control_params[mode][motor].params.pidParameters.forwardGain);
+		PID_WRITE_deadBand(pid_base[motor], (int32_t)(control_params[mode][motor].params.pidParameters.deadBand/radPerEncoderCount));
+		PID_WRITE_IntegralPosMax(pid_base[motor], (int32_t)control_params[mode][motor].params.pidParameters.IntegralPosMax);
+		PID_WRITE_IntegralNegMax(pid_base[motor], (int32_t)control_params[mode][motor].params.pidParameters.IntegralNegMax);
+		PID_WRITE_outputPosMax(pid_base[motor], (int32_t)control_params[mode][motor].outputPosMax);
+		PID_WRITE_outputNegMax(pid_base[motor], (int32_t)control_params[mode][motor].outputNegMax);
 	}
 }
 
@@ -194,22 +196,22 @@ float MyoControl::getCurrent(int motor){
 
 void MyoControl::getDefaultControlParams(control_Parameters_t *params, int control_mode){
 	params->tag = 0;              // sint32
-	params->outputPosMax = 1000;  // sint32
-	params->outputNegMax = -1000; // sint32
+	params->outputPosMax = 500;  // sint32
+	params->outputNegMax = -500; // sint32
 	params->timePeriod = 10; // float32      //in us set time period to avoid error case
 
 	params->radPerEncoderCount =
 			2 * 3.14159265359 / (2000.0 * 53.0);          // float32
 	params->params.pidParameters.lastError = 0; // float32
 
-	params->spPosMax = 1000; // float32
-	params->spNegMax = -1000; // float32
+	params->spPosMax = 1000000; // float32
+	params->spNegMax = -1000000; // float32
 switch(control_mode){
 case Position:
 	params->params.pidParameters.integral = 0;             // float32
 	params->params.pidParameters.pgain = 10.0;                   // float32
 	params->params.pidParameters.igain = 0;                   // float32
-	params->params.pidParameters.dgain = 0;                   // float32
+	params->params.pidParameters.dgain = 0.0;                   // float32
 	params->params.pidParameters.forwardGain = 0;       // float32
 	params->params.pidParameters.deadBand = 0;             // float32
 	params->params.pidParameters.IntegralPosMax = 100; // float32

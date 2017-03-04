@@ -56,6 +56,52 @@ int main() {
 	h2p_lw_pid_addr.push_back((int32_t*)(virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + PID_CONTROLLER_6_BASE ) & ( unsigned long)( HW_REGS_MASK )) ));
 	h2p_lw_pid_addr.push_back((int32_t*)(virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + PID_CONTROLLER_7_BASE ) & ( unsigned long)( HW_REGS_MASK )) ));
 
+
+//	PID_WRITE_Kp(h2p_lw_pid_addr[0],10);
+//	PID_WRITE_Kd(h2p_lw_pid_addr[0],0);
+//	PID_WRITE_Ki(h2p_lw_pid_addr[0],0);
+//	PID_WRITE_sp(h2p_lw_pid_addr[0],0);
+//	PID_WRITE_pv(h2p_lw_pid_addr[0],0);
+//	PID_WRITE_forwardGain(h2p_lw_pid_addr[0],0);
+//	PID_WRITE_outputPosMax(h2p_lw_pid_addr[0],100);
+//	PID_WRITE_outputNegMax(h2p_lw_pid_addr[0],-100);
+//	PID_WRITE_IntegralNegMax(h2p_lw_pid_addr[0],-100);
+//	PID_WRITE_IntegralPosMax(h2p_lw_pid_addr[0],100);
+//	PID_WRITE_deadBand(h2p_lw_pid_addr[0],0);
+//	int i = 0;
+//	while(true){
+//		printf("##############################\n");
+//		PID_WRITE_sp(h2p_lw_pid_addr[0],i*2);
+//		PID_WRITE_pv(h2p_lw_pid_addr[0],i-1);
+//		usleep(1000*1000);
+//		int val = PID_READ_result(h2p_lw_pid_addr[0]);
+//		printf("RESULT: %d          %d\n",i, val);
+//		val = PID_READ_Kp(h2p_lw_pid_addr[0]);
+//		printf("Kp:                 %d\n", val);
+//		val = PID_READ_Kd(h2p_lw_pid_addr[0]);
+//		printf("Kd:                 %d\n", val);
+//		val = PID_READ_Ki(h2p_lw_pid_addr[0]);
+//		printf("Ki:                 %d\n", val);
+//		val = PID_READ_sp(h2p_lw_pid_addr[0]);
+//		printf("sp:                 %d\n", val);
+//		val = PID_READ_pv(h2p_lw_pid_addr[0]);
+//		printf("pv:                 %d\n", val);
+//		val = PID_READ_forwardGain(h2p_lw_pid_addr[0]);
+//		printf("forwardGain:        %d\n", val);
+//		val = PID_READ_outputPosMax(h2p_lw_pid_addr[0]);
+//		printf("outputPosMax:       %d\n", val);
+//		val = PID_READ_outputNegMax(h2p_lw_pid_addr[0]);
+//		printf("outputNegMax:       %d\n", val);
+//		val = PID_READ_IntegralNegMax(h2p_lw_pid_addr[0]);
+//		printf("IntegralNegMax:     %d\n", val);
+//		val = PID_READ_IntegralPosMax(h2p_lw_pid_addr[0]);
+//		printf("IntegralPosMax:     %d\n", val);
+//		val = PID_READ_deadBand(h2p_lw_pid_addr[0]);
+//		printf("deadBand:           %d\n", val);
+//
+//		i++;
+//	}
+
 	Interface interface((uint32_t*)h2p_lw_spi_addr,h2p_lw_pid_addr, 1);
 	interface.myoControl->adc_base = (uint32_t*)h2p_lw_adc_addr;
 	interface.timeout_ms = 1000;

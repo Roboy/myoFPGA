@@ -5,9 +5,11 @@
   <columns>
    <connections preferredWidth="223" />
    <irq preferredWidth="63" />
+   <baseaddress preferredWidth="149" />
   </columns>
  </systemtable>
  <library expandedCategories="Library,Project" />
- <window width="1600" height="1169" x="75" y="31" />
+ <window width="1654" height="988" x="110" y="59" />
  <hdlexample language="VERILOG" />
+ <generation simulation="NONE" />
 </preferences>

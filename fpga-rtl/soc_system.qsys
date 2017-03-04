@@ -296,6 +296,14 @@
          type = "String";
       }
    }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
    element spi_0
    {
       datum _sortIndex
@@ -1321,37 +1329,7 @@
    kind="clock"
    version="16.1"
    start="clk_0.clk"
-   end="pid_controller_0.clock_sink" />
- <connection
-   kind="clock"
-   version="16.1"
-   start="clk_0.clk"
-   end="pid_controller_1.clock_sink" />
- <connection
-   kind="clock"
-   version="16.1"
-   start="clk_0.clk"
-   end="pid_controller_2.clock_sink" />
- <connection
-   kind="clock"
-   version="16.1"
-   start="clk_0.clk"
-   end="pid_controller_3.clock_sink" />
- <connection
-   kind="clock"
-   version="16.1"
-   start="clk_0.clk"
-   end="pid_controller_4.clock_sink" />
- <connection
-   kind="clock"
-   version="16.1"
-   start="clk_0.clk"
-   end="pid_controller_5.clock_sink" />
- <connection
-   kind="clock"
-   version="16.1"
-   start="clk_0.clk"
-   end="pid_controller_6.clock_sink" />
+   end="pid_controller_8.clock_sink" />
  <connection
    kind="clock"
    version="16.1"
@@ -1361,7 +1339,37 @@
    kind="clock"
    version="16.1"
    start="clk_0.clk"
-   end="pid_controller_8.clock_sink" />
+   end="pid_controller_6.clock_sink" />
+ <connection
+   kind="clock"
+   version="16.1"
+   start="clk_0.clk"
+   end="pid_controller_5.clock_sink" />
+ <connection
+   kind="clock"
+   version="16.1"
+   start="clk_0.clk"
+   end="pid_controller_4.clock_sink" />
+ <connection
+   kind="clock"
+   version="16.1"
+   start="clk_0.clk"
+   end="pid_controller_3.clock_sink" />
+ <connection
+   kind="clock"
+   version="16.1"
+   start="clk_0.clk"
+   end="pid_controller_2.clock_sink" />
+ <connection
+   kind="clock"
+   version="16.1"
+   start="clk_0.clk"
+   end="pid_controller_1.clock_sink" />
+ <connection
+   kind="clock"
+   version="16.1"
+   start="clk_0.clk"
+   end="pid_controller_0.clock_sink" />
  <connection
    kind="clock"
    version="16.1"

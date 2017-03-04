@@ -15,8 +15,9 @@ module pid_controller (
 	input write,
 	input signed [31:0] writedata,
 	input read,
-	output reg signed [31:0] readdata,
-	output signed [31:0] o_output
+	output signed [31:0] readdata,
+	output signed [31:0] o_output,
+	output waitrequest
 );
 
 // here go the gains and shit
@@ -34,60 +35,79 @@ reg signed [31:0] outputNegMax;
 reg signed [31:0] IntegralNegMax;
 reg signed [31:0] IntegralPosMax;
 reg signed [31:0] deadBand;
-wire signed [31:0] p1_readdata;
-
-assign o_output = end_result;
+reg signed [31:0] result;
+reg data_ready;
 
 always @(posedge clock, posedge reset) begin: PID_CONTROLLER_PID_CONTROLLERLOGIC
 	// local variables, scope limited to this process
-	reg signed [31:0] result;
 	reg signed [31:0] err;
 	reg signed [31:0] pterm;
 	reg signed [31:0] dterm;
 	reg signed [31:0] ffterm;
 	if (reset == 1) begin
-	  integral <= 0;
-	  end_result <= 0;
-	  lastError <= 0;
-	  Kp <= 1;
-	  Kd <= 0;
-	  Ki <= 0;
-	  sp <= 0;
-	  forwardGain <= 0;
-	  outputPosMax <= 4000;
-	  outputNegMax <= -4000;
-	  IntegralPosMax <= 100;
-	  IntegralNegMax <= -100;
-	  deadBand <= 0;
-	end
-	else begin
-		err <= (sp - pv);
+		integral <= 0;
+		lastError <= 0;
+		result <= 0;
+		err <=0;
+		result <= 0;
+		data_ready <= 0;
+	end else begin
+		data_ready = 0;
+		err = (sp - pv);
 		if (((err > deadBand) || (err < ((-1) * deadBand)))) begin
-			pterm <= (Kp * err);
-			if ((pterm < outputPosMax) || (pterm > outputNegMax))  //if the proportional term is not maxed
-				integral <= integral + (Ki * err); //add to the integral
+			pterm = (Kp * err);
+			if ((pterm < outputPosMax) || (pterm > outputNegMax)) begin  //if the proportional term is not maxed
+				integral = integral + (Ki * err); //add to the integral
 				if (integral > IntegralPosMax) 
-					integral <= IntegralPosMax;
+					integral = IntegralPosMax;
 				else if (integral < IntegralNegMax) 
-					integral <= IntegralNegMax;
-
+					integral = IntegralNegMax;
+			end
+			// dterm and ffterm can be calculated in parallel
 			dterm <= ((err - lastError) * Kd);
 			ffterm <= (forwardGain * sp);
-			result <= (((ffterm + pterm) + integral) + dterm);
+			result = (((ffterm + pterm) + integral) + dterm);
 			if ((result < outputNegMax)) 
-				 result <= outputNegMax;
+				 result = outputNegMax;
 			else if ((result > outputPosMax)) 
-				 result <= outputPosMax;
-
+				 result = outputPosMax;
 		end else 
-			result <= integral;
+			result = integral;
+		lastError = err;
+		data_ready = 1;
+    	end 
+end
 
-		lastError <= err;
+assign waitrequest = ~data_ready;
 
-		// write the local result to global result
-		end_result <= result;
+assign readdata = ((address == 0))? result :
+	((address == 1))? Kp :
+	((address == 2))? Kd :
+	((address == 3))? Ki :
+	((address == 4))? sp :
+	((address == 5))? pv :
+	((address == 6))? forwardGain :
+	((address == 7))? outputPosMax :
+	((address == 8))? outputNegMax :
+	((address == 9))? IntegralNegMax :
+	((address == 10))? IntegralPosMax :
+	((address == 11))? deadBand :
+	32'hDEAD_BEEF;
 
-		if(write) begin
+always @(posedge clock, posedge reset) begin: AVALON_SLAVE
+	if(reset) begin 
+		Kp <= 1;
+		Kd <= 0;
+		Ki <= 0;
+		sp <= 0;
+		forwardGain <= 0;
+		outputPosMax <= 4000;
+		outputNegMax <= -4000;
+		IntegralPosMax <= 100;
+		IntegralNegMax <= -100;
+		deadBand <= 0;
+	end else begin 
+		if(write && ~waitrequest) begin
 			case(address)
 				1: Kp <= writedata[31:0];
 				2: Kd <= writedata[31:0];
@@ -101,35 +121,12 @@ always @(posedge clock, posedge reset) begin: PID_CONTROLLER_PID_CONTROLLERLOGIC
 				10: IntegralPosMax <= writedata[31:0];
 				11: deadBand <= writedata[31:0];
 			endcase 
-		end 		
+		end
 	end
 end
 
-assign p1_readdata = 
-	((address == 0))? end_result :
-	((address == 1))? Kp :
-	((address == 2))? Kd :
-	((address == 3))? Ki :
-	((address == 4))? sp :
-	((address == 5))? pv :
-	((address == 6))? forwardGain :
-	((address == 7))? outputPosMax :
-	((address == 8))? outputNegMax :
-	((address == 9))? IntegralNegMax :
-	((address == 10))? IntegralPosMax :
-	((address == 11))? deadBand :
-	32'hDEADBEEF;
-
- always @(posedge clock or posedge reset)
-    begin
-      if (reset == 1)
-          readdata <= 0;
-      else 
-        // Data to cpu.
-        readdata <= p1_readdata;
-    end
-
 endmodule
+
 
 
 
