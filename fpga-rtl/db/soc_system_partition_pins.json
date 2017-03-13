@@ -36,18 +36,6 @@
 					"strict" : false
 				},
 				{
-					"name" : "ADC_CONVST",
-					"strict" : false
-				},
-				{
-					"name" : "ADC_SCK",
-					"strict" : false
-				},
-				{
-					"name" : "ADC_SDI",
-					"strict" : false
-				},
-				{
 					"name" : "GPIO_0[0]",
 					"strict" : false
 				},
@@ -60,67 +48,7 @@
 					"strict" : false
 				},
 				{
-					"name" : "GPIO_0[4]",
-					"strict" : false
-				},
-				{
 					"name" : "GPIO_0[5]",
-					"strict" : false
-				},
-				{
-					"name" : "GPIO_0[6]",
-					"strict" : false
-				},
-				{
-					"name" : "GPIO_0[7]",
-					"strict" : false
-				},
-				{
-					"name" : "GPIO_0[8]",
-					"strict" : false
-				},
-				{
-					"name" : "GPIO_0[9]",
-					"strict" : false
-				},
-				{
-					"name" : "GPIO_0[10]",
-					"strict" : false
-				},
-				{
-					"name" : "GPIO_0[11]",
-					"strict" : false
-				},
-				{
-					"name" : "GPIO_0[12]",
-					"strict" : false
-				},
-				{
-					"name" : "GPIO_0[13]",
-					"strict" : false
-				},
-				{
-					"name" : "GPIO_0[14]",
-					"strict" : false
-				},
-				{
-					"name" : "GPIO_0[15]",
-					"strict" : false
-				},
-				{
-					"name" : "GPIO_0[16]",
-					"strict" : false
-				},
-				{
-					"name" : "GPIO_0[17]",
-					"strict" : false
-				},
-				{
-					"name" : "GPIO_0[18]",
-					"strict" : false
-				},
-				{
-					"name" : "GPIO_0[19]",
 					"strict" : false
 				},
 				{
@@ -128,7 +56,11 @@
 					"strict" : false
 				},
 				{
-					"name" : "ADC_SDO",
+					"name" : "KEY[0]",
+					"strict" : false
+				},
+				{
+					"name" : "KEY[1]",
 					"strict" : false
 				}
 			]

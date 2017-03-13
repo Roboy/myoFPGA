@@ -1,8 +1,4 @@
 	soc_system u0 (
-		.adc_0_external_interface_sclk         (<connected-to-adc_0_external_interface_sclk>),         //    adc_0_external_interface.sclk
-		.adc_0_external_interface_cs_n         (<connected-to-adc_0_external_interface_cs_n>),         //                            .cs_n
-		.adc_0_external_interface_dout         (<connected-to-adc_0_external_interface_dout>),         //                            .dout
-		.adc_0_external_interface_din          (<connected-to-adc_0_external_interface_din>),          //                            .din
 		.clk_clk                               (<connected-to-clk_clk>),                               //                         clk.clk
 		.hps_0_f2h_cold_reset_req_reset_n      (<connected-to-hps_0_f2h_cold_reset_req_reset_n>),      //    hps_0_f2h_cold_reset_req.reset_n
 		.hps_0_f2h_debug_reset_req_reset_n     (<connected-to-hps_0_f2h_debug_reset_req_reset_n>),     //   hps_0_f2h_debug_reset_req.reset_n
@@ -75,9 +71,6 @@
 		.memory_oct_rzqin                      (<connected-to-memory_oct_rzqin>),                      //                            .oct_rzqin
 		.pio_led_external_connection_export    (<connected-to-pio_led_external_connection_export>),    // pio_led_external_connection.export
 		.reset_reset_n                         (<connected-to-reset_reset_n>),                         //                       reset.reset_n
-		.spi_0_external_MISO                   (<connected-to-spi_0_external_MISO>),                   //              spi_0_external.MISO
-		.spi_0_external_MOSI                   (<connected-to-spi_0_external_MOSI>),                   //                            .MOSI
-		.spi_0_external_SCLK                   (<connected-to-spi_0_external_SCLK>),                   //                            .SCLK
-		.spi_0_external_SS_n                   (<connected-to-spi_0_external_SS_n>)                    //                            .SS_n
+		.pid_controller_0_result_export        (<connected-to-pid_controller_0_result_export>)         //     pid_controller_0_result.export
 	);
 

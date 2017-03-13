@@ -4,10 +4,6 @@
 
 `timescale 1 ps / 1 ps
 module soc_system (
-		output wire        adc_0_external_interface_sclk,         //    adc_0_external_interface.sclk
-		output wire        adc_0_external_interface_cs_n,         //                            .cs_n
-		input  wire        adc_0_external_interface_dout,         //                            .dout
-		output wire        adc_0_external_interface_din,          //                            .din
 		input  wire        clk_clk,                               //                         clk.clk
 		input  wire        hps_0_f2h_cold_reset_req_reset_n,      //    hps_0_f2h_cold_reset_req.reset_n
 		input  wire        hps_0_f2h_debug_reset_req_reset_n,     //   hps_0_f2h_debug_reset_req.reset_n
@@ -78,12 +74,9 @@ module soc_system (
 		output wire        memory_mem_odt,                        //                            .mem_odt
 		output wire [3:0]  memory_mem_dm,                         //                            .mem_dm
 		input  wire        memory_oct_rzqin,                      //                            .oct_rzqin
+		output wire [31:0] pid_controller_0_result_export,        //     pid_controller_0_result.export
 		output wire [7:0]  pio_led_external_connection_export,    // pio_led_external_connection.export
-		input  wire        reset_reset_n,                         //                       reset.reset_n
-		input  wire        spi_0_external_MISO,                   //              spi_0_external.MISO
-		output wire        spi_0_external_MOSI,                   //                            .MOSI
-		output wire        spi_0_external_SCLK,                   //                            .SCLK
-		output wire [31:0] spi_0_external_SS_n                    //                            .SS_n
+		input  wire        reset_reset_n                          //                       reset.reset_n
 	);
 
 	wire    [1:0] hps_0_h2f_axi_master_awburst;                                  // hps_0:h2f_AWBURST -> mm_interconnect_0:hps_0_h2f_axi_master_awburst
@@ -185,77 +178,17 @@ module soc_system (
 	wire          mm_interconnect_0_intr_capturer_0_avalon_slave_0_read;         // mm_interconnect_0:intr_capturer_0_avalon_slave_0_read -> intr_capturer_0:read
 	wire   [31:0] mm_interconnect_0_sysid_qsys_control_slave_readdata;           // sysid_qsys:readdata -> mm_interconnect_0:sysid_qsys_control_slave_readdata
 	wire    [0:0] mm_interconnect_0_sysid_qsys_control_slave_address;            // mm_interconnect_0:sysid_qsys_control_slave_address -> sysid_qsys:address
-	wire   [31:0] mm_interconnect_0_adc_0_adc_slave_readdata;                    // adc_0:readdata -> mm_interconnect_0:adc_0_adc_slave_readdata
-	wire          mm_interconnect_0_adc_0_adc_slave_waitrequest;                 // adc_0:waitrequest -> mm_interconnect_0:adc_0_adc_slave_waitrequest
-	wire    [2:0] mm_interconnect_0_adc_0_adc_slave_address;                     // mm_interconnect_0:adc_0_adc_slave_address -> adc_0:address
-	wire          mm_interconnect_0_adc_0_adc_slave_read;                        // mm_interconnect_0:adc_0_adc_slave_read -> adc_0:read
-	wire          mm_interconnect_0_adc_0_adc_slave_write;                       // mm_interconnect_0:adc_0_adc_slave_write -> adc_0:write
-	wire   [31:0] mm_interconnect_0_adc_0_adc_slave_writedata;                   // mm_interconnect_0:adc_0_adc_slave_writedata -> adc_0:writedata
 	wire   [31:0] mm_interconnect_0_pid_controller_0_avalon_slave_0_readdata;    // pid_controller_0:readdata -> mm_interconnect_0:pid_controller_0_avalon_slave_0_readdata
 	wire          mm_interconnect_0_pid_controller_0_avalon_slave_0_waitrequest; // pid_controller_0:waitrequest -> mm_interconnect_0:pid_controller_0_avalon_slave_0_waitrequest
 	wire    [3:0] mm_interconnect_0_pid_controller_0_avalon_slave_0_address;     // mm_interconnect_0:pid_controller_0_avalon_slave_0_address -> pid_controller_0:address
 	wire          mm_interconnect_0_pid_controller_0_avalon_slave_0_read;        // mm_interconnect_0:pid_controller_0_avalon_slave_0_read -> pid_controller_0:read
 	wire          mm_interconnect_0_pid_controller_0_avalon_slave_0_write;       // mm_interconnect_0:pid_controller_0_avalon_slave_0_write -> pid_controller_0:write
 	wire   [31:0] mm_interconnect_0_pid_controller_0_avalon_slave_0_writedata;   // mm_interconnect_0:pid_controller_0_avalon_slave_0_writedata -> pid_controller_0:writedata
-	wire   [31:0] mm_interconnect_0_pid_controller_1_avalon_slave_0_readdata;    // pid_controller_1:readdata -> mm_interconnect_0:pid_controller_1_avalon_slave_0_readdata
-	wire          mm_interconnect_0_pid_controller_1_avalon_slave_0_waitrequest; // pid_controller_1:waitrequest -> mm_interconnect_0:pid_controller_1_avalon_slave_0_waitrequest
-	wire    [3:0] mm_interconnect_0_pid_controller_1_avalon_slave_0_address;     // mm_interconnect_0:pid_controller_1_avalon_slave_0_address -> pid_controller_1:address
-	wire          mm_interconnect_0_pid_controller_1_avalon_slave_0_read;        // mm_interconnect_0:pid_controller_1_avalon_slave_0_read -> pid_controller_1:read
-	wire          mm_interconnect_0_pid_controller_1_avalon_slave_0_write;       // mm_interconnect_0:pid_controller_1_avalon_slave_0_write -> pid_controller_1:write
-	wire   [31:0] mm_interconnect_0_pid_controller_1_avalon_slave_0_writedata;   // mm_interconnect_0:pid_controller_1_avalon_slave_0_writedata -> pid_controller_1:writedata
-	wire   [31:0] mm_interconnect_0_pid_controller_2_avalon_slave_0_readdata;    // pid_controller_2:readdata -> mm_interconnect_0:pid_controller_2_avalon_slave_0_readdata
-	wire          mm_interconnect_0_pid_controller_2_avalon_slave_0_waitrequest; // pid_controller_2:waitrequest -> mm_interconnect_0:pid_controller_2_avalon_slave_0_waitrequest
-	wire    [3:0] mm_interconnect_0_pid_controller_2_avalon_slave_0_address;     // mm_interconnect_0:pid_controller_2_avalon_slave_0_address -> pid_controller_2:address
-	wire          mm_interconnect_0_pid_controller_2_avalon_slave_0_read;        // mm_interconnect_0:pid_controller_2_avalon_slave_0_read -> pid_controller_2:read
-	wire          mm_interconnect_0_pid_controller_2_avalon_slave_0_write;       // mm_interconnect_0:pid_controller_2_avalon_slave_0_write -> pid_controller_2:write
-	wire   [31:0] mm_interconnect_0_pid_controller_2_avalon_slave_0_writedata;   // mm_interconnect_0:pid_controller_2_avalon_slave_0_writedata -> pid_controller_2:writedata
-	wire   [31:0] mm_interconnect_0_pid_controller_3_avalon_slave_0_readdata;    // pid_controller_3:readdata -> mm_interconnect_0:pid_controller_3_avalon_slave_0_readdata
-	wire          mm_interconnect_0_pid_controller_3_avalon_slave_0_waitrequest; // pid_controller_3:waitrequest -> mm_interconnect_0:pid_controller_3_avalon_slave_0_waitrequest
-	wire    [3:0] mm_interconnect_0_pid_controller_3_avalon_slave_0_address;     // mm_interconnect_0:pid_controller_3_avalon_slave_0_address -> pid_controller_3:address
-	wire          mm_interconnect_0_pid_controller_3_avalon_slave_0_read;        // mm_interconnect_0:pid_controller_3_avalon_slave_0_read -> pid_controller_3:read
-	wire          mm_interconnect_0_pid_controller_3_avalon_slave_0_write;       // mm_interconnect_0:pid_controller_3_avalon_slave_0_write -> pid_controller_3:write
-	wire   [31:0] mm_interconnect_0_pid_controller_3_avalon_slave_0_writedata;   // mm_interconnect_0:pid_controller_3_avalon_slave_0_writedata -> pid_controller_3:writedata
-	wire   [31:0] mm_interconnect_0_pid_controller_4_avalon_slave_0_readdata;    // pid_controller_4:readdata -> mm_interconnect_0:pid_controller_4_avalon_slave_0_readdata
-	wire          mm_interconnect_0_pid_controller_4_avalon_slave_0_waitrequest; // pid_controller_4:waitrequest -> mm_interconnect_0:pid_controller_4_avalon_slave_0_waitrequest
-	wire    [3:0] mm_interconnect_0_pid_controller_4_avalon_slave_0_address;     // mm_interconnect_0:pid_controller_4_avalon_slave_0_address -> pid_controller_4:address
-	wire          mm_interconnect_0_pid_controller_4_avalon_slave_0_read;        // mm_interconnect_0:pid_controller_4_avalon_slave_0_read -> pid_controller_4:read
-	wire          mm_interconnect_0_pid_controller_4_avalon_slave_0_write;       // mm_interconnect_0:pid_controller_4_avalon_slave_0_write -> pid_controller_4:write
-	wire   [31:0] mm_interconnect_0_pid_controller_4_avalon_slave_0_writedata;   // mm_interconnect_0:pid_controller_4_avalon_slave_0_writedata -> pid_controller_4:writedata
-	wire   [31:0] mm_interconnect_0_pid_controller_5_avalon_slave_0_readdata;    // pid_controller_5:readdata -> mm_interconnect_0:pid_controller_5_avalon_slave_0_readdata
-	wire          mm_interconnect_0_pid_controller_5_avalon_slave_0_waitrequest; // pid_controller_5:waitrequest -> mm_interconnect_0:pid_controller_5_avalon_slave_0_waitrequest
-	wire    [3:0] mm_interconnect_0_pid_controller_5_avalon_slave_0_address;     // mm_interconnect_0:pid_controller_5_avalon_slave_0_address -> pid_controller_5:address
-	wire          mm_interconnect_0_pid_controller_5_avalon_slave_0_read;        // mm_interconnect_0:pid_controller_5_avalon_slave_0_read -> pid_controller_5:read
-	wire          mm_interconnect_0_pid_controller_5_avalon_slave_0_write;       // mm_interconnect_0:pid_controller_5_avalon_slave_0_write -> pid_controller_5:write
-	wire   [31:0] mm_interconnect_0_pid_controller_5_avalon_slave_0_writedata;   // mm_interconnect_0:pid_controller_5_avalon_slave_0_writedata -> pid_controller_5:writedata
-	wire   [31:0] mm_interconnect_0_pid_controller_6_avalon_slave_0_readdata;    // pid_controller_6:readdata -> mm_interconnect_0:pid_controller_6_avalon_slave_0_readdata
-	wire          mm_interconnect_0_pid_controller_6_avalon_slave_0_waitrequest; // pid_controller_6:waitrequest -> mm_interconnect_0:pid_controller_6_avalon_slave_0_waitrequest
-	wire    [3:0] mm_interconnect_0_pid_controller_6_avalon_slave_0_address;     // mm_interconnect_0:pid_controller_6_avalon_slave_0_address -> pid_controller_6:address
-	wire          mm_interconnect_0_pid_controller_6_avalon_slave_0_read;        // mm_interconnect_0:pid_controller_6_avalon_slave_0_read -> pid_controller_6:read
-	wire          mm_interconnect_0_pid_controller_6_avalon_slave_0_write;       // mm_interconnect_0:pid_controller_6_avalon_slave_0_write -> pid_controller_6:write
-	wire   [31:0] mm_interconnect_0_pid_controller_6_avalon_slave_0_writedata;   // mm_interconnect_0:pid_controller_6_avalon_slave_0_writedata -> pid_controller_6:writedata
-	wire   [31:0] mm_interconnect_0_pid_controller_7_avalon_slave_0_readdata;    // pid_controller_7:readdata -> mm_interconnect_0:pid_controller_7_avalon_slave_0_readdata
-	wire          mm_interconnect_0_pid_controller_7_avalon_slave_0_waitrequest; // pid_controller_7:waitrequest -> mm_interconnect_0:pid_controller_7_avalon_slave_0_waitrequest
-	wire    [3:0] mm_interconnect_0_pid_controller_7_avalon_slave_0_address;     // mm_interconnect_0:pid_controller_7_avalon_slave_0_address -> pid_controller_7:address
-	wire          mm_interconnect_0_pid_controller_7_avalon_slave_0_read;        // mm_interconnect_0:pid_controller_7_avalon_slave_0_read -> pid_controller_7:read
-	wire          mm_interconnect_0_pid_controller_7_avalon_slave_0_write;       // mm_interconnect_0:pid_controller_7_avalon_slave_0_write -> pid_controller_7:write
-	wire   [31:0] mm_interconnect_0_pid_controller_7_avalon_slave_0_writedata;   // mm_interconnect_0:pid_controller_7_avalon_slave_0_writedata -> pid_controller_7:writedata
-	wire   [31:0] mm_interconnect_0_pid_controller_8_avalon_slave_0_readdata;    // pid_controller_8:readdata -> mm_interconnect_0:pid_controller_8_avalon_slave_0_readdata
-	wire          mm_interconnect_0_pid_controller_8_avalon_slave_0_waitrequest; // pid_controller_8:waitrequest -> mm_interconnect_0:pid_controller_8_avalon_slave_0_waitrequest
-	wire    [3:0] mm_interconnect_0_pid_controller_8_avalon_slave_0_address;     // mm_interconnect_0:pid_controller_8_avalon_slave_0_address -> pid_controller_8:address
-	wire          mm_interconnect_0_pid_controller_8_avalon_slave_0_read;        // mm_interconnect_0:pid_controller_8_avalon_slave_0_read -> pid_controller_8:read
-	wire          mm_interconnect_0_pid_controller_8_avalon_slave_0_write;       // mm_interconnect_0:pid_controller_8_avalon_slave_0_write -> pid_controller_8:write
-	wire   [31:0] mm_interconnect_0_pid_controller_8_avalon_slave_0_writedata;   // mm_interconnect_0:pid_controller_8_avalon_slave_0_writedata -> pid_controller_8:writedata
 	wire          mm_interconnect_0_pio_led_s1_chipselect;                       // mm_interconnect_0:pio_led_s1_chipselect -> pio_led:chipselect
 	wire   [31:0] mm_interconnect_0_pio_led_s1_readdata;                         // pio_led:readdata -> mm_interconnect_0:pio_led_s1_readdata
 	wire    [1:0] mm_interconnect_0_pio_led_s1_address;                          // mm_interconnect_0:pio_led_s1_address -> pio_led:address
 	wire          mm_interconnect_0_pio_led_s1_write;                            // mm_interconnect_0:pio_led_s1_write -> pio_led:write_n
 	wire   [31:0] mm_interconnect_0_pio_led_s1_writedata;                        // mm_interconnect_0:pio_led_s1_writedata -> pio_led:writedata
-	wire          mm_interconnect_0_spi_0_spi_control_port_chipselect;           // mm_interconnect_0:spi_0_spi_control_port_chipselect -> spi_0:spi_select
-	wire   [15:0] mm_interconnect_0_spi_0_spi_control_port_readdata;             // spi_0:data_to_cpu -> mm_interconnect_0:spi_0_spi_control_port_readdata
-	wire    [2:0] mm_interconnect_0_spi_0_spi_control_port_address;              // mm_interconnect_0:spi_0_spi_control_port_address -> spi_0:mem_addr
-	wire          mm_interconnect_0_spi_0_spi_control_port_read;                 // mm_interconnect_0:spi_0_spi_control_port_read -> spi_0:read_n
-	wire          mm_interconnect_0_spi_0_spi_control_port_write;                // mm_interconnect_0:spi_0_spi_control_port_write -> spi_0:write_n
-	wire   [15:0] mm_interconnect_0_spi_0_spi_control_port_writedata;            // mm_interconnect_0:spi_0_spi_control_port_writedata -> spi_0:data_from_cpu
 	wire   [31:0] hps_only_master_master_readdata;                               // mm_interconnect_1:hps_only_master_master_readdata -> hps_only_master:master_readdata
 	wire          hps_only_master_master_waitrequest;                            // mm_interconnect_1:hps_only_master_master_waitrequest -> hps_only_master:master_waitrequest
 	wire   [31:0] hps_only_master_master_address;                                // hps_only_master:master_address -> mm_interconnect_1:hps_only_master_master_address
@@ -306,29 +239,9 @@ module soc_system (
 	wire   [31:0] hps_0_f2h_irq1_irq;                                            // irq_mapper_001:sender_irq -> hps_0:f2h_irq_p1
 	wire   [31:0] intr_capturer_0_interrupt_receiver_irq;                        // irq_mapper_002:sender_irq -> intr_capturer_0:interrupt_in
 	wire          irq_mapper_receiver0_irq;                                      // jtag_uart:av_irq -> [irq_mapper:receiver0_irq, irq_mapper_002:receiver0_irq]
-	wire          rst_controller_reset_out_reset;                                // rst_controller:reset_out -> [adc_0:reset, intr_capturer_0:rst_n, irq_mapper_002:reset, jtag_uart:rst_n, mm_interconnect_0:fpga_only_master_clk_reset_reset_bridge_in_reset_reset, mm_interconnect_0:onchip_memory2_0_reset1_reset_bridge_in_reset_reset, mm_interconnect_1:hps_only_master_clk_reset_reset_bridge_in_reset_reset, mm_interconnect_1:hps_only_master_master_translator_reset_reset_bridge_in_reset_reset, onchip_memory2_0:reset, pid_controller_0:reset, pid_controller_1:reset, pid_controller_2:reset, pid_controller_3:reset, pid_controller_4:reset, pid_controller_5:reset, pid_controller_6:reset, pid_controller_7:reset, pid_controller_8:reset, pio_led:reset_n, rst_translator:in_reset, spi_0:reset_n, sysid_qsys:reset_n]
+	wire          rst_controller_reset_out_reset;                                // rst_controller:reset_out -> [intr_capturer_0:rst_n, irq_mapper_002:reset, jtag_uart:rst_n, mm_interconnect_0:fpga_only_master_clk_reset_reset_bridge_in_reset_reset, mm_interconnect_0:onchip_memory2_0_reset1_reset_bridge_in_reset_reset, mm_interconnect_1:hps_only_master_clk_reset_reset_bridge_in_reset_reset, mm_interconnect_1:hps_only_master_master_translator_reset_reset_bridge_in_reset_reset, onchip_memory2_0:reset, pid_controller_0:reset, pio_led:reset_n, rst_translator:in_reset, sysid_qsys:reset_n]
 	wire          rst_controller_reset_out_reset_req;                            // rst_controller:reset_req -> [onchip_memory2_0:reset_req, rst_translator:reset_req_in]
 	wire          rst_controller_001_reset_out_reset;                            // rst_controller_001:reset_out -> [mm_interconnect_0:hps_0_h2f_axi_master_agent_clk_reset_reset_bridge_in_reset_reset, mm_interconnect_1:hps_0_f2h_axi_slave_agent_reset_sink_reset_bridge_in_reset_reset]
-
-	soc_system_adc_0 #(
-		.board     ("DE0-Nano-SoC"),
-		.board_rev ("Autodetect"),
-		.tsclk     (4),
-		.numch     (0)
-	) adc_0 (
-		.clock       (clk_clk),                                       //                clk.clk
-		.reset       (rst_controller_reset_out_reset),                //              reset.reset
-		.write       (mm_interconnect_0_adc_0_adc_slave_write),       //          adc_slave.write
-		.readdata    (mm_interconnect_0_adc_0_adc_slave_readdata),    //                   .readdata
-		.writedata   (mm_interconnect_0_adc_0_adc_slave_writedata),   //                   .writedata
-		.address     (mm_interconnect_0_adc_0_adc_slave_address),     //                   .address
-		.waitrequest (mm_interconnect_0_adc_0_adc_slave_waitrequest), //                   .waitrequest
-		.read        (mm_interconnect_0_adc_0_adc_slave_read),        //                   .read
-		.adc_sclk    (adc_0_external_interface_sclk),                 // external_interface.export
-		.adc_cs_n    (adc_0_external_interface_cs_n),                 //                   .export
-		.adc_dout    (adc_0_external_interface_dout),                 //                   .export
-		.adc_din     (adc_0_external_interface_din)                   //                   .export
-	);
 
 	soc_system_fpga_only_master #(
 		.USE_PLI     (0),
@@ -602,103 +515,7 @@ module soc_system (
 		.readdata    (mm_interconnect_0_pid_controller_0_avalon_slave_0_readdata),    //               .readdata
 		.waitrequest (mm_interconnect_0_pid_controller_0_avalon_slave_0_waitrequest), //               .waitrequest
 		.clock       (clk_clk),                                                       //     clock_sink.clk
-		.o_output    (),                                                              //    conduit_end.export
-		.reset       (rst_controller_reset_out_reset)                                 //          reset.reset
-	);
-
-	pid_controller pid_controller_1 (
-		.address     (mm_interconnect_0_pid_controller_1_avalon_slave_0_address),     // avalon_slave_0.address
-		.write       (mm_interconnect_0_pid_controller_1_avalon_slave_0_write),       //               .write
-		.writedata   (mm_interconnect_0_pid_controller_1_avalon_slave_0_writedata),   //               .writedata
-		.read        (mm_interconnect_0_pid_controller_1_avalon_slave_0_read),        //               .read
-		.readdata    (mm_interconnect_0_pid_controller_1_avalon_slave_0_readdata),    //               .readdata
-		.waitrequest (mm_interconnect_0_pid_controller_1_avalon_slave_0_waitrequest), //               .waitrequest
-		.clock       (clk_clk),                                                       //     clock_sink.clk
-		.o_output    (),                                                              //    conduit_end.export
-		.reset       (rst_controller_reset_out_reset)                                 //          reset.reset
-	);
-
-	pid_controller pid_controller_2 (
-		.address     (mm_interconnect_0_pid_controller_2_avalon_slave_0_address),     // avalon_slave_0.address
-		.write       (mm_interconnect_0_pid_controller_2_avalon_slave_0_write),       //               .write
-		.writedata   (mm_interconnect_0_pid_controller_2_avalon_slave_0_writedata),   //               .writedata
-		.read        (mm_interconnect_0_pid_controller_2_avalon_slave_0_read),        //               .read
-		.readdata    (mm_interconnect_0_pid_controller_2_avalon_slave_0_readdata),    //               .readdata
-		.waitrequest (mm_interconnect_0_pid_controller_2_avalon_slave_0_waitrequest), //               .waitrequest
-		.clock       (clk_clk),                                                       //     clock_sink.clk
-		.o_output    (),                                                              //    conduit_end.export
-		.reset       (rst_controller_reset_out_reset)                                 //          reset.reset
-	);
-
-	pid_controller pid_controller_3 (
-		.address     (mm_interconnect_0_pid_controller_3_avalon_slave_0_address),     // avalon_slave_0.address
-		.write       (mm_interconnect_0_pid_controller_3_avalon_slave_0_write),       //               .write
-		.writedata   (mm_interconnect_0_pid_controller_3_avalon_slave_0_writedata),   //               .writedata
-		.read        (mm_interconnect_0_pid_controller_3_avalon_slave_0_read),        //               .read
-		.readdata    (mm_interconnect_0_pid_controller_3_avalon_slave_0_readdata),    //               .readdata
-		.waitrequest (mm_interconnect_0_pid_controller_3_avalon_slave_0_waitrequest), //               .waitrequest
-		.clock       (clk_clk),                                                       //     clock_sink.clk
-		.o_output    (),                                                              //    conduit_end.export
-		.reset       (rst_controller_reset_out_reset)                                 //          reset.reset
-	);
-
-	pid_controller pid_controller_4 (
-		.address     (mm_interconnect_0_pid_controller_4_avalon_slave_0_address),     // avalon_slave_0.address
-		.write       (mm_interconnect_0_pid_controller_4_avalon_slave_0_write),       //               .write
-		.writedata   (mm_interconnect_0_pid_controller_4_avalon_slave_0_writedata),   //               .writedata
-		.read        (mm_interconnect_0_pid_controller_4_avalon_slave_0_read),        //               .read
-		.readdata    (mm_interconnect_0_pid_controller_4_avalon_slave_0_readdata),    //               .readdata
-		.waitrequest (mm_interconnect_0_pid_controller_4_avalon_slave_0_waitrequest), //               .waitrequest
-		.clock       (clk_clk),                                                       //     clock_sink.clk
-		.o_output    (),                                                              //    conduit_end.export
-		.reset       (rst_controller_reset_out_reset)                                 //          reset.reset
-	);
-
-	pid_controller pid_controller_5 (
-		.address     (mm_interconnect_0_pid_controller_5_avalon_slave_0_address),     // avalon_slave_0.address
-		.write       (mm_interconnect_0_pid_controller_5_avalon_slave_0_write),       //               .write
-		.writedata   (mm_interconnect_0_pid_controller_5_avalon_slave_0_writedata),   //               .writedata
-		.read        (mm_interconnect_0_pid_controller_5_avalon_slave_0_read),        //               .read
-		.readdata    (mm_interconnect_0_pid_controller_5_avalon_slave_0_readdata),    //               .readdata
-		.waitrequest (mm_interconnect_0_pid_controller_5_avalon_slave_0_waitrequest), //               .waitrequest
-		.clock       (clk_clk),                                                       //     clock_sink.clk
-		.o_output    (),                                                              //    conduit_end.export
-		.reset       (rst_controller_reset_out_reset)                                 //          reset.reset
-	);
-
-	pid_controller pid_controller_6 (
-		.address     (mm_interconnect_0_pid_controller_6_avalon_slave_0_address),     // avalon_slave_0.address
-		.write       (mm_interconnect_0_pid_controller_6_avalon_slave_0_write),       //               .write
-		.writedata   (mm_interconnect_0_pid_controller_6_avalon_slave_0_writedata),   //               .writedata
-		.read        (mm_interconnect_0_pid_controller_6_avalon_slave_0_read),        //               .read
-		.readdata    (mm_interconnect_0_pid_controller_6_avalon_slave_0_readdata),    //               .readdata
-		.waitrequest (mm_interconnect_0_pid_controller_6_avalon_slave_0_waitrequest), //               .waitrequest
-		.clock       (clk_clk),                                                       //     clock_sink.clk
-		.o_output    (),                                                              //    conduit_end.export
-		.reset       (rst_controller_reset_out_reset)                                 //          reset.reset
-	);
-
-	pid_controller pid_controller_7 (
-		.address     (mm_interconnect_0_pid_controller_7_avalon_slave_0_address),     // avalon_slave_0.address
-		.write       (mm_interconnect_0_pid_controller_7_avalon_slave_0_write),       //               .write
-		.writedata   (mm_interconnect_0_pid_controller_7_avalon_slave_0_writedata),   //               .writedata
-		.read        (mm_interconnect_0_pid_controller_7_avalon_slave_0_read),        //               .read
-		.readdata    (mm_interconnect_0_pid_controller_7_avalon_slave_0_readdata),    //               .readdata
-		.waitrequest (mm_interconnect_0_pid_controller_7_avalon_slave_0_waitrequest), //               .waitrequest
-		.clock       (clk_clk),                                                       //     clock_sink.clk
-		.o_output    (),                                                              //    conduit_end.export
-		.reset       (rst_controller_reset_out_reset)                                 //          reset.reset
-	);
-
-	pid_controller pid_controller_8 (
-		.address     (mm_interconnect_0_pid_controller_8_avalon_slave_0_address),     // avalon_slave_0.address
-		.write       (mm_interconnect_0_pid_controller_8_avalon_slave_0_write),       //               .write
-		.writedata   (mm_interconnect_0_pid_controller_8_avalon_slave_0_writedata),   //               .writedata
-		.read        (mm_interconnect_0_pid_controller_8_avalon_slave_0_read),        //               .read
-		.readdata    (mm_interconnect_0_pid_controller_8_avalon_slave_0_readdata),    //               .readdata
-		.waitrequest (mm_interconnect_0_pid_controller_8_avalon_slave_0_waitrequest), //               .waitrequest
-		.clock       (clk_clk),                                                       //     clock_sink.clk
-		.o_output    (),                                                              //    conduit_end.export
+		.o_output    (pid_controller_0_result_export),                                //    conduit_end.export
 		.reset       (rst_controller_reset_out_reset)                                 //          reset.reset
 	);
 
@@ -711,22 +528,6 @@ module soc_system (
 		.chipselect (mm_interconnect_0_pio_led_s1_chipselect), //                    .chipselect
 		.readdata   (mm_interconnect_0_pio_led_s1_readdata),   //                    .readdata
 		.out_port   (pio_led_external_connection_export)       // external_connection.export
-	);
-
-	soc_system_spi_0 spi_0 (
-		.clk           (clk_clk),                                             //              clk.clk
-		.reset_n       (~rst_controller_reset_out_reset),                     //            reset.reset_n
-		.data_from_cpu (mm_interconnect_0_spi_0_spi_control_port_writedata),  // spi_control_port.writedata
-		.data_to_cpu   (mm_interconnect_0_spi_0_spi_control_port_readdata),   //                 .readdata
-		.mem_addr      (mm_interconnect_0_spi_0_spi_control_port_address),    //                 .address
-		.read_n        (~mm_interconnect_0_spi_0_spi_control_port_read),      //                 .read_n
-		.spi_select    (mm_interconnect_0_spi_0_spi_control_port_chipselect), //                 .chipselect
-		.write_n       (~mm_interconnect_0_spi_0_spi_control_port_write),     //                 .write_n
-		.irq           (),                                                    //              irq.irq
-		.MISO          (spi_0_external_MISO),                                 //         external.export
-		.MOSI          (spi_0_external_MOSI),                                 //                 .export
-		.SCLK          (spi_0_external_SCLK),                                 //                 .export
-		.SS_n          (spi_0_external_SS_n)                                  //                 .export
 	);
 
 	soc_system_sysid_qsys sysid_qsys (
@@ -821,12 +622,6 @@ module soc_system (
 		.fpga_only_master_master_readdatavalid                            (fpga_only_master_master_readdatavalid),                         //                                                           .readdatavalid
 		.fpga_only_master_master_write                                    (fpga_only_master_master_write),                                 //                                                           .write
 		.fpga_only_master_master_writedata                                (fpga_only_master_master_writedata),                             //                                                           .writedata
-		.adc_0_adc_slave_address                                          (mm_interconnect_0_adc_0_adc_slave_address),                     //                                            adc_0_adc_slave.address
-		.adc_0_adc_slave_write                                            (mm_interconnect_0_adc_0_adc_slave_write),                       //                                                           .write
-		.adc_0_adc_slave_read                                             (mm_interconnect_0_adc_0_adc_slave_read),                        //                                                           .read
-		.adc_0_adc_slave_readdata                                         (mm_interconnect_0_adc_0_adc_slave_readdata),                    //                                                           .readdata
-		.adc_0_adc_slave_writedata                                        (mm_interconnect_0_adc_0_adc_slave_writedata),                   //                                                           .writedata
-		.adc_0_adc_slave_waitrequest                                      (mm_interconnect_0_adc_0_adc_slave_waitrequest),                 //                                                           .waitrequest
 		.intr_capturer_0_avalon_slave_0_address                           (mm_interconnect_0_intr_capturer_0_avalon_slave_0_address),      //                             intr_capturer_0_avalon_slave_0.address
 		.intr_capturer_0_avalon_slave_0_read                              (mm_interconnect_0_intr_capturer_0_avalon_slave_0_read),         //                                                           .read
 		.intr_capturer_0_avalon_slave_0_readdata                          (mm_interconnect_0_intr_capturer_0_avalon_slave_0_readdata),     //                                                           .readdata
@@ -850,65 +645,11 @@ module soc_system (
 		.pid_controller_0_avalon_slave_0_readdata                         (mm_interconnect_0_pid_controller_0_avalon_slave_0_readdata),    //                                                           .readdata
 		.pid_controller_0_avalon_slave_0_writedata                        (mm_interconnect_0_pid_controller_0_avalon_slave_0_writedata),   //                                                           .writedata
 		.pid_controller_0_avalon_slave_0_waitrequest                      (mm_interconnect_0_pid_controller_0_avalon_slave_0_waitrequest), //                                                           .waitrequest
-		.pid_controller_1_avalon_slave_0_address                          (mm_interconnect_0_pid_controller_1_avalon_slave_0_address),     //                            pid_controller_1_avalon_slave_0.address
-		.pid_controller_1_avalon_slave_0_write                            (mm_interconnect_0_pid_controller_1_avalon_slave_0_write),       //                                                           .write
-		.pid_controller_1_avalon_slave_0_read                             (mm_interconnect_0_pid_controller_1_avalon_slave_0_read),        //                                                           .read
-		.pid_controller_1_avalon_slave_0_readdata                         (mm_interconnect_0_pid_controller_1_avalon_slave_0_readdata),    //                                                           .readdata
-		.pid_controller_1_avalon_slave_0_writedata                        (mm_interconnect_0_pid_controller_1_avalon_slave_0_writedata),   //                                                           .writedata
-		.pid_controller_1_avalon_slave_0_waitrequest                      (mm_interconnect_0_pid_controller_1_avalon_slave_0_waitrequest), //                                                           .waitrequest
-		.pid_controller_2_avalon_slave_0_address                          (mm_interconnect_0_pid_controller_2_avalon_slave_0_address),     //                            pid_controller_2_avalon_slave_0.address
-		.pid_controller_2_avalon_slave_0_write                            (mm_interconnect_0_pid_controller_2_avalon_slave_0_write),       //                                                           .write
-		.pid_controller_2_avalon_slave_0_read                             (mm_interconnect_0_pid_controller_2_avalon_slave_0_read),        //                                                           .read
-		.pid_controller_2_avalon_slave_0_readdata                         (mm_interconnect_0_pid_controller_2_avalon_slave_0_readdata),    //                                                           .readdata
-		.pid_controller_2_avalon_slave_0_writedata                        (mm_interconnect_0_pid_controller_2_avalon_slave_0_writedata),   //                                                           .writedata
-		.pid_controller_2_avalon_slave_0_waitrequest                      (mm_interconnect_0_pid_controller_2_avalon_slave_0_waitrequest), //                                                           .waitrequest
-		.pid_controller_3_avalon_slave_0_address                          (mm_interconnect_0_pid_controller_3_avalon_slave_0_address),     //                            pid_controller_3_avalon_slave_0.address
-		.pid_controller_3_avalon_slave_0_write                            (mm_interconnect_0_pid_controller_3_avalon_slave_0_write),       //                                                           .write
-		.pid_controller_3_avalon_slave_0_read                             (mm_interconnect_0_pid_controller_3_avalon_slave_0_read),        //                                                           .read
-		.pid_controller_3_avalon_slave_0_readdata                         (mm_interconnect_0_pid_controller_3_avalon_slave_0_readdata),    //                                                           .readdata
-		.pid_controller_3_avalon_slave_0_writedata                        (mm_interconnect_0_pid_controller_3_avalon_slave_0_writedata),   //                                                           .writedata
-		.pid_controller_3_avalon_slave_0_waitrequest                      (mm_interconnect_0_pid_controller_3_avalon_slave_0_waitrequest), //                                                           .waitrequest
-		.pid_controller_4_avalon_slave_0_address                          (mm_interconnect_0_pid_controller_4_avalon_slave_0_address),     //                            pid_controller_4_avalon_slave_0.address
-		.pid_controller_4_avalon_slave_0_write                            (mm_interconnect_0_pid_controller_4_avalon_slave_0_write),       //                                                           .write
-		.pid_controller_4_avalon_slave_0_read                             (mm_interconnect_0_pid_controller_4_avalon_slave_0_read),        //                                                           .read
-		.pid_controller_4_avalon_slave_0_readdata                         (mm_interconnect_0_pid_controller_4_avalon_slave_0_readdata),    //                                                           .readdata
-		.pid_controller_4_avalon_slave_0_writedata                        (mm_interconnect_0_pid_controller_4_avalon_slave_0_writedata),   //                                                           .writedata
-		.pid_controller_4_avalon_slave_0_waitrequest                      (mm_interconnect_0_pid_controller_4_avalon_slave_0_waitrequest), //                                                           .waitrequest
-		.pid_controller_5_avalon_slave_0_address                          (mm_interconnect_0_pid_controller_5_avalon_slave_0_address),     //                            pid_controller_5_avalon_slave_0.address
-		.pid_controller_5_avalon_slave_0_write                            (mm_interconnect_0_pid_controller_5_avalon_slave_0_write),       //                                                           .write
-		.pid_controller_5_avalon_slave_0_read                             (mm_interconnect_0_pid_controller_5_avalon_slave_0_read),        //                                                           .read
-		.pid_controller_5_avalon_slave_0_readdata                         (mm_interconnect_0_pid_controller_5_avalon_slave_0_readdata),    //                                                           .readdata
-		.pid_controller_5_avalon_slave_0_writedata                        (mm_interconnect_0_pid_controller_5_avalon_slave_0_writedata),   //                                                           .writedata
-		.pid_controller_5_avalon_slave_0_waitrequest                      (mm_interconnect_0_pid_controller_5_avalon_slave_0_waitrequest), //                                                           .waitrequest
-		.pid_controller_6_avalon_slave_0_address                          (mm_interconnect_0_pid_controller_6_avalon_slave_0_address),     //                            pid_controller_6_avalon_slave_0.address
-		.pid_controller_6_avalon_slave_0_write                            (mm_interconnect_0_pid_controller_6_avalon_slave_0_write),       //                                                           .write
-		.pid_controller_6_avalon_slave_0_read                             (mm_interconnect_0_pid_controller_6_avalon_slave_0_read),        //                                                           .read
-		.pid_controller_6_avalon_slave_0_readdata                         (mm_interconnect_0_pid_controller_6_avalon_slave_0_readdata),    //                                                           .readdata
-		.pid_controller_6_avalon_slave_0_writedata                        (mm_interconnect_0_pid_controller_6_avalon_slave_0_writedata),   //                                                           .writedata
-		.pid_controller_6_avalon_slave_0_waitrequest                      (mm_interconnect_0_pid_controller_6_avalon_slave_0_waitrequest), //                                                           .waitrequest
-		.pid_controller_7_avalon_slave_0_address                          (mm_interconnect_0_pid_controller_7_avalon_slave_0_address),     //                            pid_controller_7_avalon_slave_0.address
-		.pid_controller_7_avalon_slave_0_write                            (mm_interconnect_0_pid_controller_7_avalon_slave_0_write),       //                                                           .write
-		.pid_controller_7_avalon_slave_0_read                             (mm_interconnect_0_pid_controller_7_avalon_slave_0_read),        //                                                           .read
-		.pid_controller_7_avalon_slave_0_readdata                         (mm_interconnect_0_pid_controller_7_avalon_slave_0_readdata),    //                                                           .readdata
-		.pid_controller_7_avalon_slave_0_writedata                        (mm_interconnect_0_pid_controller_7_avalon_slave_0_writedata),   //                                                           .writedata
-		.pid_controller_7_avalon_slave_0_waitrequest                      (mm_interconnect_0_pid_controller_7_avalon_slave_0_waitrequest), //                                                           .waitrequest
-		.pid_controller_8_avalon_slave_0_address                          (mm_interconnect_0_pid_controller_8_avalon_slave_0_address),     //                            pid_controller_8_avalon_slave_0.address
-		.pid_controller_8_avalon_slave_0_write                            (mm_interconnect_0_pid_controller_8_avalon_slave_0_write),       //                                                           .write
-		.pid_controller_8_avalon_slave_0_read                             (mm_interconnect_0_pid_controller_8_avalon_slave_0_read),        //                                                           .read
-		.pid_controller_8_avalon_slave_0_readdata                         (mm_interconnect_0_pid_controller_8_avalon_slave_0_readdata),    //                                                           .readdata
-		.pid_controller_8_avalon_slave_0_writedata                        (mm_interconnect_0_pid_controller_8_avalon_slave_0_writedata),   //                                                           .writedata
-		.pid_controller_8_avalon_slave_0_waitrequest                      (mm_interconnect_0_pid_controller_8_avalon_slave_0_waitrequest), //                                                           .waitrequest
 		.pio_led_s1_address                                               (mm_interconnect_0_pio_led_s1_address),                          //                                                 pio_led_s1.address
 		.pio_led_s1_write                                                 (mm_interconnect_0_pio_led_s1_write),                            //                                                           .write
 		.pio_led_s1_readdata                                              (mm_interconnect_0_pio_led_s1_readdata),                         //                                                           .readdata
 		.pio_led_s1_writedata                                             (mm_interconnect_0_pio_led_s1_writedata),                        //                                                           .writedata
 		.pio_led_s1_chipselect                                            (mm_interconnect_0_pio_led_s1_chipselect),                       //                                                           .chipselect
-		.spi_0_spi_control_port_address                                   (mm_interconnect_0_spi_0_spi_control_port_address),              //                                     spi_0_spi_control_port.address
-		.spi_0_spi_control_port_write                                     (mm_interconnect_0_spi_0_spi_control_port_write),                //                                                           .write
-		.spi_0_spi_control_port_read                                      (mm_interconnect_0_spi_0_spi_control_port_read),                 //                                                           .read
-		.spi_0_spi_control_port_readdata                                  (mm_interconnect_0_spi_0_spi_control_port_readdata),             //                                                           .readdata
-		.spi_0_spi_control_port_writedata                                 (mm_interconnect_0_spi_0_spi_control_port_writedata),            //                                                           .writedata
-		.spi_0_spi_control_port_chipselect                                (mm_interconnect_0_spi_0_spi_control_port_chipselect),           //                                                           .chipselect
 		.sysid_qsys_control_slave_address                                 (mm_interconnect_0_sysid_qsys_control_slave_address),            //                                   sysid_qsys_control_slave.address
 		.sysid_qsys_control_slave_readdata                                (mm_interconnect_0_sysid_qsys_control_slave_readdata)            //                                                           .readdata
 	);

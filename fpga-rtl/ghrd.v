@@ -145,16 +145,45 @@ module ghrd(
 //  Structural coding
 //=======================================================
 
+wire di_req, wr_ack, do_valid, transmit, wren;
+wire [0:15] Word;
+wire [15:0] data_out;
+
+oneshot transmit_trigger(
+	.clk(FPGA_CLK1_50),
+	.edge_sig(~KEY[1]),
+	.level_sig(transmit)
+);
+
+SpiControl spi_control(
+	.clock(FPGA_CLK1_50),
+	.reset_n(KEY[0]),
+	.di_req(di_req),
+	.write_ack(wr_ack),
+	.data_read_valid(do_valid),
+	.data_read(data_out[15:0]),
+	.start(transmit),
+	.Word(Word[0:15]),
+	.wren(wren)
+);
+
+spi_master #(16, 1'b0, 1'b1, 2, 10) spi(
+	.sclk_i(FPGA_CLK1_50),
+	.pclk_i(FPGA_CLK1_50),
+	.rst_i(~KEY[0]),
+	.spi_miso_i(GPIO_0[2]),
+	.di_i(Word[0:15]),
+	.wren_i(wren),
+	.spi_ssel_o(GPIO_0[5]),
+	.spi_sck_o(GPIO_0[0]),
+	.spi_mosi_o(GPIO_0[1]),
+	.di_req_o(di_req),
+	.wr_ack_o(wr_ack),
+	.do_valid_o(do_valid),
+	.do_o(data_out[15:0])
+);
 
  soc_system u0 (
-		.adc_0_external_interface_sclk(ADC_SCK),
-		.adc_0_external_interface_cs_n(ADC_CONVST),
-		.adc_0_external_interface_dout(ADC_SDO),
-		.adc_0_external_interface_din(ADC_SDI),       
-		.spi_0_external_MISO(GPIO_0[2]),
-		.spi_0_external_MOSI(GPIO_0[1]),
-		.spi_0_external_SCLK(GPIO_0[0]),
-		.spi_0_external_SS_n(GPIO_0[34:4]),
       .pio_led_external_connection_export(LED),
 		//Clock&Reset
 	  .clk_clk                               (FPGA_CLK1_50 ),                        //  clk.clk

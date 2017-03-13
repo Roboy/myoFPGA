@@ -1,0 +1,3 @@
+	component pid_controller is
+	end component pid_controller;
+

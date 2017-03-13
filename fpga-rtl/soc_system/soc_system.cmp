@@ -1,9 +1,5 @@
 	component soc_system is
 		port (
-			adc_0_external_interface_sclk         : out   std_logic;                                        -- sclk
-			adc_0_external_interface_cs_n         : out   std_logic;                                        -- cs_n
-			adc_0_external_interface_dout         : in    std_logic                     := 'X';             -- dout
-			adc_0_external_interface_din          : out   std_logic;                                        -- din
 			clk_clk                               : in    std_logic                     := 'X';             -- clk
 			hps_0_f2h_cold_reset_req_reset_n      : in    std_logic                     := 'X';             -- reset_n
 			hps_0_f2h_debug_reset_req_reset_n     : in    std_logic                     := 'X';             -- reset_n
@@ -74,12 +70,9 @@
 			memory_mem_odt                        : out   std_logic;                                        -- mem_odt
 			memory_mem_dm                         : out   std_logic_vector(3 downto 0);                     -- mem_dm
 			memory_oct_rzqin                      : in    std_logic                     := 'X';             -- oct_rzqin
+			pid_controller_0_result_export        : out   std_logic_vector(31 downto 0);                    -- export
 			pio_led_external_connection_export    : out   std_logic_vector(7 downto 0);                     -- export
-			reset_reset_n                         : in    std_logic                     := 'X';             -- reset_n
-			spi_0_external_MISO                   : in    std_logic                     := 'X';             -- MISO
-			spi_0_external_MOSI                   : out   std_logic;                                        -- MOSI
-			spi_0_external_SCLK                   : out   std_logic;                                        -- SCLK
-			spi_0_external_SS_n                   : out   std_logic_vector(31 downto 0)                     -- SS_n
+			reset_reset_n                         : in    std_logic                     := 'X'              -- reset_n
 		);
 	end component soc_system;
 

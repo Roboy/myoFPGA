@@ -1,0 +1,40 @@
+Info: Starting: Create block symbol file (.bsf)
+Info: qsys-generate /home/roboy/workspace/myoFPGA/fpga-rtl/pid_controller.qsys --block-symbol-file --output-directory=/home/roboy/workspace/myoFPGA/fpga-rtl/pid_controller --family="Cyclone V" --part=5CSEMA4U23C6
+Progress: Loading fpga-rtl/pid_controller.qsys
+Progress: Reading input file
+Progress: Adding pid_controller_0 [pid_controller 1.0]
+Progress: Reading input file
+Progress: Adding pid_controller_0 [pid_controller 1.0]
+Error: Component pid_controller can't instantiate a custom component with the same name as itself
+Warning: pid_controller_0: Component type pid_controller is not in the library
+Progress: Parameterizing module pid_controller_0
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Progress: Parameterizing module pid_controller_0
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Error: pid_controller.pid_controller_0.pid_controller_0: Component pid_controller 1.0 not found or could not be instantiated
+Info: qsys-generate succeeded.
+Info: Finished: Create block symbol file (.bsf)
+Info: 
+Info: Starting: Create HDL design files for synthesis
+Info: qsys-generate /home/roboy/workspace/myoFPGA/fpga-rtl/pid_controller.qsys --synthesis=VERILOG --output-directory=/home/roboy/workspace/myoFPGA/fpga-rtl/pid_controller/synthesis --family="Cyclone V" --part=5CSEMA4U23C6
+Progress: Loading fpga-rtl/pid_controller.qsys
+Progress: Reading input file
+Progress: Adding pid_controller_0 [pid_controller 1.0]
+Progress: Parameterizing module pid_controller_0
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Error: pid_controller.pid_controller_0.pid_controller_0: Component pid_controller 1.0 not found or could not be instantiated
+Info: pid_controller: Generating pid_controller "pid_controller" for QUARTUS_SYNTH
+Info: pid_controller_0: "pid_controller" instantiated pid_controller "pid_controller_0"
+Error: pid_controller_0: missing_module does not support generation.
+Info: pid_controller: Done "pid_controller" with 3 modules, 2 files
+Error: qsys-generate failed with exit code 1: 2 Errors, 0 Warnings
+Info: Finished: Create HDL design files for synthesis
