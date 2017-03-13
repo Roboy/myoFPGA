@@ -10,7 +10,7 @@ module SpiControl (
 	input start,
 	output reg [0:15] Word,
 	output reg wren,
-	output reg active
+	output reg done
 );
 
 reg [7:0] numberOfWordsTransmitted;
@@ -37,6 +37,7 @@ always @(posedge clock, negedge reset_n) begin: SPICONTROL_SPILOGIC
 		wren <= 0;
 		write_ack_prev <= 0;
 		start_frame <= 0;
+		done <= 1;
 		
 		startOfFrame <= 16'h8000;
 		pwmRef <= 500;
@@ -61,18 +62,25 @@ always @(posedge clock, negedge reset_n) begin: SPICONTROL_SPILOGIC
 				4: Word <= dummy;
 				default: Word <= 0;
 			endcase
+`ifdef ENABLE_DELAY
 			delay_counter <= 1;
+`else
+			wren <= 1;
+`endif
 			next_value <= 0;
+			
 			if(start_frame)
 				start_frame <= 0;
 		end
 		
-		if(wren==0 && next_value==0) begin
+`ifdef ENABLE_DELAY
+		if(wren==0 && next_value==0) begin // this adds a delay of 64/50 approx. 1.28us
 			if(delay_counter==0)
 				wren <= 1;
 			else if (delay_counter>0)
 				delay_counter <= delay_counter + 1;
 		end
+`endif /*ENABLE_DELAY*/
 			
 		
 		if( data_read_valid && numberOfWordsTransmitted>=5 && numberOfWordsTransmitted< 12 ) begin
@@ -88,12 +96,12 @@ always @(posedge clock, negedge reset_n) begin: SPICONTROL_SPILOGIC
 		end
 		
 		if ( numberOfWordsTransmitted>=12 ) begin
-			active <= 0;
+			done <= 1;
 			if (start==1 ) begin
 				numberOfWordsTransmitted<= 0;
 				start_frame <= 1;
 				next_value <= 1;
-				active <= 1;
+				done <= 0;
 			end
 		end 
 	end

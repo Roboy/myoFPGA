@@ -145,9 +145,10 @@ module ghrd(
 //  Structural coding
 //=======================================================
 
-wire di_req, wr_ack, do_valid, transmit, wren;
+wire di_req, wr_ack, do_valid, transmit, wren, spi_done;
 wire [0:15] Word;
 wire [15:0] data_out;
+wire [3:0] pid_mux;
 
 oneshot transmit_trigger(
 	.clk(FPGA_CLK1_50),
@@ -164,10 +165,11 @@ SpiControl spi_control(
 	.data_read(data_out[15:0]),
 	.start(transmit),
 	.Word(Word[0:15]),
-	.wren(wren)
+	.wren(wren),
+	.done(spi_done)
 );
 
-spi_master #(16, 1'b0, 1'b1, 2, 10) spi(
+spi_master #(16, 1'b0, 1'b1, 2, 5) spi(
 	.sclk_i(FPGA_CLK1_50),
 	.pclk_i(FPGA_CLK1_50),
 	.rst_i(~KEY[0]),
@@ -182,6 +184,17 @@ spi_master #(16, 1'b0, 1'b1, 2, 10) spi(
 	.do_valid_o(do_valid),
 	.do_o(data_out[15:0])
 );
+
+//pid_switch pid_ssn_switch(
+//	.clock(FPGA_CLK1_50),
+//	.reset_n(KEY[0]),
+//	.spi_done(spi_done),
+//	.pid_mux(pid_mux[3:0])
+//)
+//
+//mux_spi_ssn ssn_mux(
+//	
+//);
 
  soc_system u0 (
       .pio_led_external_connection_export(LED),
