@@ -37,46 +37,7 @@ reg signed [31:0] IntegralPosMax;
 reg signed [31:0] deadBand;
 reg signed [31:0] result;
 reg data_ready;
-
-always @(posedge clock, posedge reset) begin: PID_CONTROLLER_PID_CONTROLLERLOGIC
-	// local variables, scope limited to this process
-	reg signed [31:0] err;
-	reg signed [31:0] pterm;
-	reg signed [31:0] dterm;
-	reg signed [31:0] ffterm;
-	if (reset == 1) begin
-		integral <= 0;
-		lastError <= 0;
-		result <= 0;
-		err <=0;
-		result <= 0;
-		data_ready <= 0;
-	end else begin
-		data_ready = 0;
-		err = (sp - pv);
-		if (((err > deadBand) || (err < ((-1) * deadBand)))) begin
-			pterm = (Kp * err);
-			if ((pterm < outputPosMax) || (pterm > outputNegMax)) begin  //if the proportional term is not maxed
-				integral = integral + (Ki * err); //add to the integral
-				if (integral > IntegralPosMax) 
-					integral = IntegralPosMax;
-				else if (integral < IntegralNegMax) 
-					integral = IntegralNegMax;
-			end
-			// dterm and ffterm can be calculated in parallel
-			dterm <= ((err - lastError) * Kd);
-			ffterm <= (forwardGain * sp);
-			result = (((ffterm + pterm) + integral) + dterm);
-			if ((result < outputNegMax)) 
-				 result = outputNegMax;
-			else if ((result > outputPosMax)) 
-				 result = outputPosMax;
-		end else 
-			result = integral;
-		lastError = err;
-		data_ready = 1;
-    	end 
-end
+reg process;
 
 assign waitrequest = ~data_ready;
 
@@ -94,19 +55,58 @@ assign readdata = ((address == 0))? result :
 	((address == 11))? deadBand :
 	32'hDEAD_BEEF;
 
-always @(posedge clock, posedge reset) begin: AVALON_SLAVE
-	if(reset) begin 
+always @(posedge clock, posedge reset) begin: PID_CONTROLLER_PID_CONTROLLERLOGIC
+	// local variables, scope limited to this process
+	reg signed [31:0] err;
+	reg signed [31:0] pterm;
+	reg signed [31:0] dterm;
+	reg signed [31:0] ffterm;
+	if (reset == 1) begin
+		integral <= 0;
+		lastError <= 0;
+		result <= 0;
+		err <=0;
+		result <= 0;
+		data_ready <= 0;
+		process <= 1;
 		Kp <= 1;
 		Kd <= 0;
 		Ki <= 0;
 		sp <= 0;
+		pv <= 0;
 		forwardGain <= 0;
 		outputPosMax <= 4000;
 		outputNegMax <= -4000;
 		IntegralPosMax <= 100;
 		IntegralNegMax <= -100;
 		deadBand <= 0;
-	end else begin 
+	end else begin
+		if(process) begin
+			data_ready = 0;
+			err = (sp - pv);
+			if (((err > deadBand) || (err < ((-1) * deadBand)))) begin
+				pterm = (Kp * err);
+				if ((pterm < outputPosMax) || (pterm > outputNegMax)) begin  //if the proportional term is not maxed
+					integral = integral + (Ki * err); //add to the integral
+					if (integral > IntegralPosMax) 
+						integral = IntegralPosMax;
+					else if (integral < IntegralNegMax) 
+						integral = IntegralNegMax;
+				end
+				dterm = ((err - lastError) * Kd);
+				ffterm = (forwardGain * sp);
+				result = (((ffterm + pterm) + integral) + dterm);
+				if ((result < outputNegMax)) 
+					 result = outputNegMax;
+				else if ((result > outputPosMax)) 
+					 result = outputPosMax;
+			end else 
+				result = integral;
+			lastError = err;
+			process = 0;
+		end
+		data_ready = 1;
+
 		if(write && ~waitrequest) begin
 			case(address)
 				1: Kp <= writedata[31:0];
@@ -121,9 +121,11 @@ always @(posedge clock, posedge reset) begin: AVALON_SLAVE
 				10: IntegralPosMax <= writedata[31:0];
 				11: deadBand <= writedata[31:0];
 			endcase 
+			process <= 1;
 		end
-	end
+    	end 
 end
+
 
 endmodule
 

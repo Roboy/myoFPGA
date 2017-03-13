@@ -104,7 +104,7 @@ int main() {
 
 	Interface interface((uint32_t*)h2p_lw_spi_addr,h2p_lw_pid_addr, 1);
 	interface.myoControl->adc_base = (uint32_t*)h2p_lw_adc_addr;
-	interface.timeout_ms = 1000;
+	interface.timeout_ms = 10;
 
 //	vector<float> x(5), y(5);
 //	x[0] = 0;
