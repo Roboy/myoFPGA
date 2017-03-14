@@ -54,94 +54,6 @@
 #define ONCHIP_MEMORY2_0_MEMORY_INFO_MEM_INIT_FILENAME soc_system_onchip_memory2_0
 
 /*
- * Macros for device 'pid_controller_8', class 'pid_controller'
- * The macros are prefixed with 'PID_CONTROLLER_8_'.
- * The prefix is the slave descriptor.
- */
-#define PID_CONTROLLER_8_COMPONENT_TYPE pid_controller
-#define PID_CONTROLLER_8_COMPONENT_NAME pid_controller_8
-#define PID_CONTROLLER_8_BASE 0x0
-#define PID_CONTROLLER_8_SPAN 64
-#define PID_CONTROLLER_8_END 0x3f
-
-/*
- * Macros for device 'pid_controller_7', class 'pid_controller'
- * The macros are prefixed with 'PID_CONTROLLER_7_'.
- * The prefix is the slave descriptor.
- */
-#define PID_CONTROLLER_7_COMPONENT_TYPE pid_controller
-#define PID_CONTROLLER_7_COMPONENT_NAME pid_controller_7
-#define PID_CONTROLLER_7_BASE 0x40
-#define PID_CONTROLLER_7_SPAN 64
-#define PID_CONTROLLER_7_END 0x7f
-
-/*
- * Macros for device 'pid_controller_6', class 'pid_controller'
- * The macros are prefixed with 'PID_CONTROLLER_6_'.
- * The prefix is the slave descriptor.
- */
-#define PID_CONTROLLER_6_COMPONENT_TYPE pid_controller
-#define PID_CONTROLLER_6_COMPONENT_NAME pid_controller_6
-#define PID_CONTROLLER_6_BASE 0x80
-#define PID_CONTROLLER_6_SPAN 64
-#define PID_CONTROLLER_6_END 0xbf
-
-/*
- * Macros for device 'pid_controller_5', class 'pid_controller'
- * The macros are prefixed with 'PID_CONTROLLER_5_'.
- * The prefix is the slave descriptor.
- */
-#define PID_CONTROLLER_5_COMPONENT_TYPE pid_controller
-#define PID_CONTROLLER_5_COMPONENT_NAME pid_controller_5
-#define PID_CONTROLLER_5_BASE 0xc0
-#define PID_CONTROLLER_5_SPAN 64
-#define PID_CONTROLLER_5_END 0xff
-
-/*
- * Macros for device 'pid_controller_4', class 'pid_controller'
- * The macros are prefixed with 'PID_CONTROLLER_4_'.
- * The prefix is the slave descriptor.
- */
-#define PID_CONTROLLER_4_COMPONENT_TYPE pid_controller
-#define PID_CONTROLLER_4_COMPONENT_NAME pid_controller_4
-#define PID_CONTROLLER_4_BASE 0x100
-#define PID_CONTROLLER_4_SPAN 64
-#define PID_CONTROLLER_4_END 0x13f
-
-/*
- * Macros for device 'pid_controller_3', class 'pid_controller'
- * The macros are prefixed with 'PID_CONTROLLER_3_'.
- * The prefix is the slave descriptor.
- */
-#define PID_CONTROLLER_3_COMPONENT_TYPE pid_controller
-#define PID_CONTROLLER_3_COMPONENT_NAME pid_controller_3
-#define PID_CONTROLLER_3_BASE 0x140
-#define PID_CONTROLLER_3_SPAN 64
-#define PID_CONTROLLER_3_END 0x17f
-
-/*
- * Macros for device 'pid_controller_2', class 'pid_controller'
- * The macros are prefixed with 'PID_CONTROLLER_2_'.
- * The prefix is the slave descriptor.
- */
-#define PID_CONTROLLER_2_COMPONENT_TYPE pid_controller
-#define PID_CONTROLLER_2_COMPONENT_NAME pid_controller_2
-#define PID_CONTROLLER_2_BASE 0x180
-#define PID_CONTROLLER_2_SPAN 64
-#define PID_CONTROLLER_2_END 0x1bf
-
-/*
- * Macros for device 'pid_controller_1', class 'pid_controller'
- * The macros are prefixed with 'PID_CONTROLLER_1_'.
- * The prefix is the slave descriptor.
- */
-#define PID_CONTROLLER_1_COMPONENT_TYPE pid_controller
-#define PID_CONTROLLER_1_COMPONENT_NAME pid_controller_1
-#define PID_CONTROLLER_1_BASE 0x1c0
-#define PID_CONTROLLER_1_SPAN 64
-#define PID_CONTROLLER_1_END 0x1ff
-
-/*
  * Macros for device 'pid_controller_0', class 'pid_controller'
  * The macros are prefixed with 'PID_CONTROLLER_0_'.
  * The prefix is the slave descriptor.
@@ -151,45 +63,6 @@
 #define PID_CONTROLLER_0_BASE 0x200
 #define PID_CONTROLLER_0_SPAN 64
 #define PID_CONTROLLER_0_END 0x23f
-
-/*
- * Macros for device 'spi_0', class 'altera_avalon_spi'
- * The macros are prefixed with 'SPI_0_'.
- * The prefix is the slave descriptor.
- */
-#define SPI_0_COMPONENT_TYPE altera_avalon_spi
-#define SPI_0_COMPONENT_NAME spi_0
-#define SPI_0_BASE 0x240
-#define SPI_0_SPAN 32
-#define SPI_0_END 0x25f
-#define SPI_0_CLOCKMULT 1
-#define SPI_0_CLOCKPHASE 1
-#define SPI_0_CLOCKPOLARITY 0
-#define SPI_0_CLOCKUNITS "Hz"
-#define SPI_0_DATABITS 16
-#define SPI_0_DATAWIDTH 16
-#define SPI_0_DELAYMULT "1.0E-9"
-#define SPI_0_DELAYUNITS "ns"
-#define SPI_0_EXTRADELAY 1
-#define SPI_0_INSERT_SYNC 1
-#define SPI_0_ISMASTER 1
-#define SPI_0_LSBFIRST 0
-#define SPI_0_NUMSLAVES 32
-#define SPI_0_PREFIX "spi_"
-#define SPI_0_SYNC_REG_DEPTH 2
-#define SPI_0_TARGETCLOCK 2000000
-#define SPI_0_TARGETSSDELAY "1200.0"
-
-/*
- * Macros for device 'adc_0', class 'altera_up_avalon_adc'
- * The macros are prefixed with 'ADC_0_'.
- * The prefix is the slave descriptor.
- */
-#define ADC_0_COMPONENT_TYPE altera_up_avalon_adc
-#define ADC_0_COMPONENT_NAME adc_0
-#define ADC_0_BASE 0x260
-#define ADC_0_SPAN 32
-#define ADC_0_END 0x27f
 
 /*
  * Macros for device 'pio_led', class 'altera_avalon_pio'
@@ -226,7 +99,7 @@
 #define SYSID_QSYS_SPAN 8
 #define SYSID_QSYS_END 0x10007
 #define SYSID_QSYS_ID 2899645186
-#define SYSID_QSYS_TIMESTAMP 1488648455
+#define SYSID_QSYS_TIMESTAMP 1489528212
 
 /*
  * Macros for device 'jtag_uart', class 'altera_avalon_jtag_uart'

@@ -17,7 +17,7 @@ using namespace std::chrono;
 
 class MyoControl{
 public:
-	MyoControl(uint32_t* spi_base, vector<int32_t*> &pid_base, uint motors = 1);
+	MyoControl(vector<int32_t*> &pid_base, uint motors = 1);
 	~MyoControl();
 	/**
 	 * updates all motors
@@ -130,13 +130,13 @@ public:
 			vector<float> &coeffs);
 
 	SPISTREAM frame;
-	vector<float> pos, vel, force, displacement, current;
-	vector<float> pos_setPoint, vel_setPoint, force_setPoint;
-	vector<int> control_mode;
+	vector<int32_t> pos, vel, force, displacement, current;
+	vector<int32_t> pos_setPoint, vel_setPoint, force_setPoint;
+	vector<int32_t> control_mode;
 	map<int,vector<control_Parameters_t>> control_params;
 	vector<int16_t> pwm_control;
 	vector<vector<float>> polyPar;
-	uint32_t* spi_base, *adc_base = nullptr;
+	uint32_t *adc_base = nullptr;
 	float weight_offset = 0;
 	float adc_weight_parameters[2] = {830.7, -0.455};
 private:

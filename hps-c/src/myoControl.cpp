@@ -1,7 +1,7 @@
 #include "myoControl.hpp"
 
-MyoControl::MyoControl(uint32_t* spi_base, vector<int32_t*> &pid_base, uint motors):
-numberOfMotors(motors), pid_base(pid_base), spi_base(spi_base){
+MyoControl::MyoControl(vector<int32_t*> &pid_base, uint motors):
+numberOfMotors(motors), pid_base(pid_base){
 	if(numberOfMotors>pid_base.size()){
 		cerr << "requested more motors than synthesized pid controller" << endl;
 		return;
@@ -58,50 +58,27 @@ void MyoControl::update(){
 		int32_t sp = 0;
 		switch(control_mode[motor]){
 		case Position:
-			sp = (int32_t)(pos_setPoint[motor]/radPerEncoderCount);
+			sp = (int32_t)pos_setPoint[motor];
 			break;
 		case Velocity:
-			sp = (int32_t)(vel_setPoint[motor]/radPerEncoderCount);
+			sp = (int32_t)vel_setPoint[motor];
 			break;
 		case Force:
-			sp = (int32_t)(force_setPoint[motor]);
+			sp = (int32_t)force_setPoint[motor];
 			break;
 		default:
 			cout << "currently only supporting Position, Velocity or Force control" << endl;
 		}
 		PID_WRITE_sp(pid_base[motor], sp);
-		pwm_control[motor] = (int16_t)(PID_READ_result(pid_base[motor])*radPerEncoderCount);
+		pwm_control[motor] = (int16_t)PID_READ_result(pid_base[motor]);
 
-		for(uint i = 0; i<24;i++)
-			frame.TxBuffer[i] = 0;
-		frame.pwmRef = pwm_control[motor];
-
-		prepareData(&frame, WRITE_DATA);
-		exchangeFrame(spi_base, motor, &frame);
-		prepareData(&frame, READ_DATA);
-
-		// update measurements
-		switch(control_mode[motor]){
-		case Position:
-			PID_WRITE_pv(pid_base[motor], (int32_t)frame.actualPosition);
-			break;
-		case Velocity:
-			PID_WRITE_pv(pid_base[motor], (int32_t)frame.actualVelocity);
-			break;
-		case Force:
-			PID_WRITE_pv(pid_base[motor], (int32_t)frame.springDisplacement);
-			break;
-		default:
-			cout << "currently only supporting Position, Velocity or Force control" << endl;
-		}
-
-		pos[motor] = frame.actualPosition*radPerEncoderCount;
-		vel[motor] = frame.actualVelocity*radPerEncoderCount;
-		displacement[motor] = frame.springDisplacement;
+		pos[motor] = PID_READ_position(pid_base[motor]);
+		vel[motor] = PID_READ_velocity(pid_base[motor]);
+		displacement[motor] = PID_READ_displacement(pid_base[motor]);
 		force[motor] = polyPar[motor][0]+polyPar[motor][1]*displacement[motor] +
 				polyPar[motor][2]*powf(displacement[motor],2.0f)+
 				polyPar[motor][3]*powf(displacement[motor],3.0f);
-		current[motor] = frame.actualCurrent;
+//		current[motor] = frame.actualCurrent;
 
 #ifdef DEBUG
 		if(iter%1000==0 && (motor>=0 && motor<=7)){
@@ -131,7 +108,6 @@ void MyoControl::changeControl(int motor, int mode, control_Parameters_t &params
 	for(uint motor=0;motor<numberOfMotors;motor++){
 		// set the current setpoint to the current measurement, which results in zero error
 		int32_t current_measurement = PID_READ_sp(pid_base[motor]);
-		PID_WRITE_pv(pid_base[motor], current_measurement);
 		PID_WRITE_Kp(pid_base[motor], (int32_t)params.params.pidParameters.pgain);
 		PID_WRITE_Kd(pid_base[motor], (int32_t)params.params.pidParameters.dgain);
 		PID_WRITE_Ki(pid_base[motor], (int32_t)params.params.pidParameters.igain);
@@ -149,7 +125,6 @@ void MyoControl::changeControl(int motor, int mode){
 	for(uint motor=0;motor<numberOfMotors;motor++){
 		// set the current setpoint to the current measurement, which results in zero error
 		int current_measurement = PID_READ_sp(pid_base[motor]);
-		PID_WRITE_pv(pid_base[motor], current_measurement);
 		PID_WRITE_Kp(pid_base[motor], (int32_t)control_params[mode][motor].params.pidParameters.pgain);
 		PID_WRITE_Kd(pid_base[motor], (int32_t)control_params[mode][motor].params.pidParameters.dgain);
 		PID_WRITE_Ki(pid_base[motor], (int32_t)control_params[mode][motor].params.pidParameters.igain);

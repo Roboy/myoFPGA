@@ -70,9 +70,11 @@
 			memory_mem_odt                        : out   std_logic;                                        -- mem_odt
 			memory_mem_dm                         : out   std_logic_vector(3 downto 0);                     -- mem_dm
 			memory_oct_rzqin                      : in    std_logic                     := 'X';             -- oct_rzqin
+			pid_controller_0_measurement_signal   : in    std_logic                     := 'X';             -- measurement_signal
+			pid_controller_0_measurement          : in    std_logic_vector(31 downto 0) := (others => 'X'); -- measurement
+			pid_controller_0_controller_result    : out   std_logic_vector(31 downto 0);                    -- controller_result
 			pio_led_external_connection_export    : out   std_logic_vector(7 downto 0);                     -- export
-			reset_reset_n                         : in    std_logic                     := 'X';             -- reset_n
-			pid_controller_0_result_export        : out   std_logic_vector(31 downto 0)                     -- export
+			reset_reset_n                         : in    std_logic                     := 'X'              -- reset_n
 		);
 	end component soc_system;
 
@@ -148,8 +150,10 @@
 			memory_mem_odt                        => CONNECTED_TO_memory_mem_odt,                        --                            .mem_odt
 			memory_mem_dm                         => CONNECTED_TO_memory_mem_dm,                         --                            .mem_dm
 			memory_oct_rzqin                      => CONNECTED_TO_memory_oct_rzqin,                      --                            .oct_rzqin
+			pid_controller_0_measurement_signal   => CONNECTED_TO_pid_controller_0_measurement_signal,   --            pid_controller_0.measurement_signal
+			pid_controller_0_measurement          => CONNECTED_TO_pid_controller_0_measurement,          --                            .measurement
+			pid_controller_0_controller_result    => CONNECTED_TO_pid_controller_0_controller_result,    --                            .controller_result
 			pio_led_external_connection_export    => CONNECTED_TO_pio_led_external_connection_export,    -- pio_led_external_connection.export
-			reset_reset_n                         => CONNECTED_TO_reset_reset_n,                         --                       reset.reset_n
-			pid_controller_0_result_export        => CONNECTED_TO_pid_controller_0_result_export         --     pid_controller_0_result.export
+			reset_reset_n                         => CONNECTED_TO_reset_reset_n                          --                       reset.reset_n
 		);
 

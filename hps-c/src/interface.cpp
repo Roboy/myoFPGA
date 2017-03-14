@@ -31,8 +31,8 @@ enum COLORS {
     GREEN,
 };
 
-Interface::Interface(uint32_t *spi_base, vector<int32_t*> &pid_base, int motors) {
-	myoControl = new MyoControl(spi_base, pid_base, motors);
+Interface::Interface(vector<int32_t*> &pid_base, int motors) {
+	myoControl = new MyoControl(pid_base, motors);
 	//! start ncurses mode
 	initscr();
 	//! Start color functionality
@@ -95,8 +95,8 @@ void Interface::querySensoryData() {
 	sprintf(motorinfo, "motor %d   ", motor_id);
 	printMessage(7, 0, motorinfo, CYAN);
 	mvprintw(8, 0, "pwm:                 %d      ", myoControl->pwm_control[motor_id]);
-	mvprintw(9, 0, "actuatorPos (rad):   %.5f    ", motor.actuatorPos);
-	mvprintw(10, 0, "actuatorVel (rad/s): %.5f   ", motor.actuatorVel);
+	mvprintw(9, 0, "actuatorPos (rad):   %d    ", motor.actuatorPos);
+	mvprintw(10, 0, "actuatorVel (rad/s): %d   ", motor.actuatorVel);
 	mvprintw(11, 0, "actuatorCurrent:     %d     ", motor.actuatorCurrent);
 	mvprintw(12, 0, "tendonDisplacement:  %d     ", motor.tendonDisplacement);
 	print(13, 0, cols, "-");

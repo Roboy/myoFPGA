@@ -304,6 +304,14 @@
          type = "String";
       }
    }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
    element spi_0
    {
       datum _sortIndex
@@ -393,7 +401,7 @@
  <interface name="hps_0_hps_io" internal="hps_0.hps_io" type="conduit" dir="end" />
  <interface name="memory" internal="hps_0.memory" type="conduit" dir="end" />
  <interface
-   name="pid_controller_0_result"
+   name="pid_controller_0"
    internal="pid_controller_0.conduit_end"
    type="conduit"
    dir="end" />

@@ -15,8 +15,13 @@ module pid_controller (
 	input write,
 	input signed [31:0] writedata,
 	input read,
+	input signed [31:0] position,
+	input signed [31:0] velocity,
+	input signed [31:0] displacement,
+	input measurement_update,
+	input [1:0] controller, // position velocity force
 	output signed [31:0] readdata,
-	output signed [31:0] o_output,
+	output reg signed [31:0] result_o,
 	output waitrequest
 );
 
@@ -37,7 +42,7 @@ reg signed [31:0] IntegralPosMax;
 reg signed [31:0] deadBand;
 reg signed [31:0] result;
 reg data_ready;
-reg process;
+reg controller_update;
 
 assign waitrequest = ~data_ready;
 
@@ -46,17 +51,18 @@ assign readdata = ((address == 0))? result :
 	((address == 2))? Kd :
 	((address == 3))? Ki :
 	((address == 4))? sp :
-	((address == 5))? pv :
-	((address == 6))? forwardGain :
-	((address == 7))? outputPosMax :
-	((address == 8))? outputNegMax :
-	((address == 9))? IntegralNegMax :
-	((address == 10))? IntegralPosMax :
-	((address == 11))? deadBand :
+	((address == 5))? forwardGain :
+	((address == 6))? outputPosMax :
+	((address == 7))? outputNegMax :
+	((address == 8))? IntegralNegMax :
+	((address == 9))? IntegralPosMax :
+	((address == 10))? deadBand :
+	((address == 11))? position :
+	((address == 12))? velocity :
+	((address == 13))? displacement :
 	32'hDEAD_BEEF;
 
 always @(posedge clock, posedge reset) begin: PID_CONTROLLER_PID_CONTROLLERLOGIC
-	// local variables, scope limited to this process
 	reg signed [31:0] err;
 	reg signed [31:0] pterm;
 	reg signed [31:0] dterm;
@@ -68,20 +74,24 @@ always @(posedge clock, posedge reset) begin: PID_CONTROLLER_PID_CONTROLLERLOGIC
 		err <=0;
 		result <= 0;
 		data_ready <= 0;
-		process <= 1;
 		Kp <= 1;
 		Kd <= 0;
 		Ki <= 0;
 		sp <= 0;
-		pv <= 0;
 		forwardGain <= 0;
-		outputPosMax <= 4000;
-		outputNegMax <= -4000;
+		outputPosMax <= 2000;
+		outputNegMax <= -2000;
 		IntegralPosMax <= 100;
 		IntegralNegMax <= -100;
 		deadBand <= 0;
 	end else begin
-		if(process) begin
+		if(measurement_update || controller_update) begin
+			case(controller)
+				0: pv = position;
+				1: pv = velocity;
+				2: pv = displacement;
+				default: pv = 0;
+			endcase
 			data_ready = 0;
 			err = (sp - pv);
 			if (((err > deadBand) || (err < ((-1) * deadBand)))) begin
@@ -102,8 +112,9 @@ always @(posedge clock, posedge reset) begin: PID_CONTROLLER_PID_CONTROLLERLOGIC
 					 result = outputPosMax;
 			end else 
 				result = integral;
+			result_o = result;
 			lastError = err;
-			process = 0;
+			controller_update = 0;
 		end
 		data_ready = 1;
 
@@ -113,21 +124,22 @@ always @(posedge clock, posedge reset) begin: PID_CONTROLLER_PID_CONTROLLERLOGIC
 				2: Kd <= writedata[31:0];
 				3: Ki <= writedata[31:0];
 				4: sp <= writedata[31:0];
-				5: pv <= writedata[31:0];
-				6: forwardGain <= writedata[31:0];
-				7: outputPosMax <= writedata[31:0];
-				8: outputNegMax <= writedata[31:0];
-				9: IntegralNegMax <= writedata[31:0];
-				10: IntegralPosMax <= writedata[31:0];
-				11: deadBand <= writedata[31:0];
+				5: forwardGain <= writedata[31:0];
+				6: outputPosMax <= writedata[31:0];
+				7: outputNegMax <= writedata[31:0];
+				8: IntegralNegMax <= writedata[31:0];
+				9: IntegralPosMax <= writedata[31:0];
+				10: deadBand <= writedata[31:0];
 			endcase 
-			process <= 1;
+			controller_update <= 1;
 		end
     	end 
 end
 
 
 endmodule
+
+
 
 
 

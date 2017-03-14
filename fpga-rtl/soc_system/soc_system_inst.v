@@ -69,8 +69,10 @@
 		.memory_mem_odt                        (<connected-to-memory_mem_odt>),                        //                            .mem_odt
 		.memory_mem_dm                         (<connected-to-memory_mem_dm>),                         //                            .mem_dm
 		.memory_oct_rzqin                      (<connected-to-memory_oct_rzqin>),                      //                            .oct_rzqin
+		.pid_controller_0_measurement_signal   (<connected-to-pid_controller_0_measurement_signal>),   //            pid_controller_0.measurement_signal
+		.pid_controller_0_measurement          (<connected-to-pid_controller_0_measurement>),          //                            .measurement
+		.pid_controller_0_controller_result    (<connected-to-pid_controller_0_controller_result>),    //                            .controller_result
 		.pio_led_external_connection_export    (<connected-to-pio_led_external_connection_export>),    // pio_led_external_connection.export
-		.reset_reset_n                         (<connected-to-reset_reset_n>),                         //                       reset.reset_n
-		.pid_controller_0_result_export        (<connected-to-pid_controller_0_result_export>)         //     pid_controller_0_result.export
+		.reset_reset_n                         (<connected-to-reset_reset_n>)                          //                       reset.reset_n
 	);
 

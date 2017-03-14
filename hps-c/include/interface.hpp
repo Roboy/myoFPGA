@@ -9,7 +9,7 @@ using namespace std;
 
 class Interface {
 public:
-    Interface(uint32_t *spi_base, vector<int32_t*> &pid_base, int motors);
+    Interface(vector<int32_t*> &pid_base, int motors);
 
     ~Interface();
 
@@ -51,9 +51,9 @@ private:
     char inputstring[30];
 
     struct MotorData {
-            float jointPos;
-            float actuatorPos;
-            float actuatorVel;
+            int32_t jointPos;
+            int32_t actuatorPos;
+            int32_t actuatorVel;
             uint16 actuatorCurrent;
             sint16 tendonDisplacement;
         } motor;

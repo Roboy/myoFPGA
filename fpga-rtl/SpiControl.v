@@ -9,30 +9,34 @@ module SpiControl (
 	input [0:15] data_read,
 	input start,
 	input wire ss_n,
+	input signed [0:15] pwmRef,
 	output wire [9:0] ss_n_o,
 	output reg [0:15] Word,
 	output reg wren,
-	output reg spi_done
+	output reg spi_done,
+	output reg signed[0:31] actualPosition,
+	output reg signed[0:15] actualVelocity,
+	output reg signed[0:15] springDisplacement
 );
 
 reg [7:0] numberOfWordsTransmitted;
 reg write_ack_prev;
 reg next_value;
 reg start_frame;
+reg data_read_valid_prev;
 
 reg unsigned [0:15] startOfFrame;
-reg signed [0:15] pwmRef;
+
 reg unsigned[0:15] controlFlags1;
 reg unsigned[0:15] controlFlags2;
 reg unsigned[0:15] dummy;
-reg signed[0:31] actualPosition;
-reg signed[0:15] actualVelocity;
 reg signed[0:15] actualCurrent;
-reg signed[0:15] springDisplacement;
 reg signed[0:15] sensor1;
 reg signed[0:15] sensor2;
 reg [5:0] delay_counter;
 reg [2:0]pid_mux;
+
+`define ENABLE_DELAY
 
 always @(posedge clock, negedge reset_n) begin: SPICONTROL_SPILOGIC
 	if (reset_n == 0) begin
@@ -42,7 +46,6 @@ always @(posedge clock, negedge reset_n) begin: SPICONTROL_SPILOGIC
 		start_frame <= 0;
 		
 		startOfFrame <= 16'h8000;
-		pwmRef <= 500;
 		controlFlags1 <= 0;
 		controlFlags2 <= 0;
 		dummy <= 0;
@@ -59,7 +62,7 @@ always @(posedge clock, negedge reset_n) begin: SPICONTROL_SPILOGIC
 		if( (di_req || start_frame) && numberOfWordsTransmitted<12 && next_value==1) begin
 			case(numberOfWordsTransmitted)
 				0: Word <= startOfFrame;
-				1: Word <= pwmRef;
+				1: Word <= pwmRef & 16'h7fff;
 				2: Word <= controlFlags1;
 				3: Word <= controlFlags2;
 				4: Word <= dummy;
@@ -85,8 +88,8 @@ always @(posedge clock, negedge reset_n) begin: SPICONTROL_SPILOGIC
 		end
 `endif /*ENABLE_DELAY*/
 			
-		
-		if( data_read_valid && numberOfWordsTransmitted>=5 && numberOfWordsTransmitted< 12 ) begin
+		data_read_valid_prev <= data_read_valid;
+		if( (data_read_valid_prev==0 && data_read_valid==1) && numberOfWordsTransmitted>=5 && numberOfWordsTransmitted< 12 ) begin
 			case(numberOfWordsTransmitted)
 				5: actualPosition[0:15] <= data_read;
 				6: actualPosition[16:31] <= data_read;
@@ -105,7 +108,7 @@ always @(posedge clock, negedge reset_n) begin: SPICONTROL_SPILOGIC
 				numberOfWordsTransmitted<= 0;
 				start_frame <= 1;
 				next_value <= 1;
-				pid_mux <= pid_mux + 1;
+//				pid_mux <= pid_mux + 1;
 			end
 		end 
 	end

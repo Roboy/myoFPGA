@@ -34,7 +34,7 @@
 `define ENABLE_HPS
 //`define ENABLE_CLK
 
-module ghrd(
+module ghrd( 
 
       ///////// ADC /////////
       output             ADC_CONVST,
@@ -145,9 +145,13 @@ module ghrd(
 //  Structural coding
 //=======================================================
 
-wire di_req, wr_ack, do_valid, transmit, wren, spi_done, spi_ss_n;
+wire di_req, wr_ack, do_valid, transmit, wren, spi_done, spi_ss_n, controller_busy;
 wire [0:15] Word;
 wire [15:0] data_out;
+wire [0:15] pwmRef;
+wire signed [31:0] actualPosition; 
+wire signed [31:0] actualVelocity;
+wire signed [31:0] springDisplacement;
 
 //oneshot transmit_trigger(
 //	.clk(FPGA_CLK1_50),
@@ -162,12 +166,16 @@ SpiControl spi_control(
 	.write_ack(wr_ack),
 	.data_read_valid(do_valid),
 	.data_read(data_out[15:0]),
-	.start(SW[0]),
+	.start((SW[0]&&~controller_busy)),
 	.Word(Word[0:15]),
 	.wren(wren),
 	.ss_n(spi_ss_n),
 	.ss_n_o(GPIO_0[13:4]),
-	.spi_done(spi_done)
+	.spi_done(spi_done),
+	.pwmRef(pwmRef),
+	.actualPosition(actualPosition),
+	.actualVelocity(actualVelocity),
+	.springDisplacement(springDisplacement)
 );
 
 spi_master #(16, 1'b0, 1'b1, 2, 5) spi(
@@ -188,6 +196,13 @@ spi_master #(16, 1'b0, 1'b1, 2, 5) spi(
 
  soc_system u0 (
       .pio_led_external_connection_export(LED),
+		.pid_controller_0_measurement_signal(spi_done),
+		.pid_controller_0_controller(SW[2:1]),          
+		.pid_controller_0_displacement(springDisplacement),      
+		.pid_controller_0_position(actualPosition),             
+		.pid_controller_0_velocity(actualVelocity),
+		.pid_controller_0_controller_result(pwmRef), 
+		.pid_controller_0_controller_busy(controller_busy),
 		//Clock&Reset
 	  .clk_clk                               (FPGA_CLK1_50 ),                        //  clk.clk
 	  .reset_reset_n                         (1'b1         ),                        //  reset.reset_n

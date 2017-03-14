@@ -113,7 +113,6 @@ module soc_system_mm_interconnect_0 (
 		output wire        pid_controller_0_avalon_slave_0_read,                             //                                                           .read
 		input  wire [31:0] pid_controller_0_avalon_slave_0_readdata,                         //                                                           .readdata
 		output wire [31:0] pid_controller_0_avalon_slave_0_writedata,                        //                                                           .writedata
-		input  wire        pid_controller_0_avalon_slave_0_waitrequest,                      //                                                           .waitrequest
 		output wire [1:0]  pio_led_s1_address,                                               //                                                 pio_led_s1.address
 		output wire        pio_led_s1_write,                                                 //                                                           .write
 		input  wire [31:0] pio_led_s1_readdata,                                              //                                                           .readdata
@@ -1081,7 +1080,7 @@ module soc_system_mm_interconnect_0 (
 		.UAV_BURSTCOUNT_W               (3),
 		.AV_READLATENCY                 (0),
 		.USE_READDATAVALID              (0),
-		.USE_WAITREQUEST                (1),
+		.USE_WAITREQUEST                (0),
 		.USE_UAV_CLKEN                  (0),
 		.USE_READRESPONSE               (0),
 		.USE_WRITERESPONSE              (0),
@@ -1115,12 +1114,12 @@ module soc_system_mm_interconnect_0 (
 		.av_read                (pid_controller_0_avalon_slave_0_read),                   //                         .read
 		.av_readdata            (pid_controller_0_avalon_slave_0_readdata),               //                         .readdata
 		.av_writedata           (pid_controller_0_avalon_slave_0_writedata),              //                         .writedata
-		.av_waitrequest         (pid_controller_0_avalon_slave_0_waitrequest),            //                         .waitrequest
 		.av_begintransfer       (),                                                       //              (terminated)
 		.av_beginbursttransfer  (),                                                       //              (terminated)
 		.av_burstcount          (),                                                       //              (terminated)
 		.av_byteenable          (),                                                       //              (terminated)
 		.av_readdatavalid       (1'b0),                                                   //              (terminated)
+		.av_waitrequest         (1'b0),                                                   //              (terminated)
 		.av_writebyteenable     (),                                                       //              (terminated)
 		.av_lock                (),                                                       //              (terminated)
 		.av_chipselect          (),                                                       //              (terminated)

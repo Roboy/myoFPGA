@@ -45,16 +45,16 @@ int main() {
 	}
 	
 	h2p_lw_led_addr=virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + PIO_LED_BASE ) & ( unsigned long)( HW_REGS_MASK ) );
-	h2p_lw_spi_addr=virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + SPI_0_BASE ) & ( unsigned long)( HW_REGS_MASK ) );
-	h2p_lw_adc_addr=virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + ADC_0_BASE ) & ( unsigned long)( HW_REGS_MASK ) );
+//	h2p_lw_spi_addr=virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + SPI_0_BASE ) & ( unsigned long)( HW_REGS_MASK ) );
+//	h2p_lw_adc_addr=virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + ADC_0_BASE ) & ( unsigned long)( HW_REGS_MASK ) );
 	h2p_lw_pid_addr.push_back((int32_t*)(virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + PID_CONTROLLER_0_BASE ) & ( unsigned long)( HW_REGS_MASK )) ));
-	h2p_lw_pid_addr.push_back((int32_t*)(virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + PID_CONTROLLER_1_BASE ) & ( unsigned long)( HW_REGS_MASK )) ));
-	h2p_lw_pid_addr.push_back((int32_t*)(virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + PID_CONTROLLER_2_BASE ) & ( unsigned long)( HW_REGS_MASK )) ));
-	h2p_lw_pid_addr.push_back((int32_t*)(virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + PID_CONTROLLER_3_BASE ) & ( unsigned long)( HW_REGS_MASK )) ));
-	h2p_lw_pid_addr.push_back((int32_t*)(virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + PID_CONTROLLER_4_BASE ) & ( unsigned long)( HW_REGS_MASK )) ));
-	h2p_lw_pid_addr.push_back((int32_t*)(virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + PID_CONTROLLER_5_BASE ) & ( unsigned long)( HW_REGS_MASK )) ));
-	h2p_lw_pid_addr.push_back((int32_t*)(virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + PID_CONTROLLER_6_BASE ) & ( unsigned long)( HW_REGS_MASK )) ));
-	h2p_lw_pid_addr.push_back((int32_t*)(virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + PID_CONTROLLER_7_BASE ) & ( unsigned long)( HW_REGS_MASK )) ));
+//	h2p_lw_pid_addr.push_back((int32_t*)(virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + PID_CONTROLLER_1_BASE ) & ( unsigned long)( HW_REGS_MASK )) ));
+//	h2p_lw_pid_addr.push_back((int32_t*)(virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + PID_CONTROLLER_2_BASE ) & ( unsigned long)( HW_REGS_MASK )) ));
+//	h2p_lw_pid_addr.push_back((int32_t*)(virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + PID_CONTROLLER_3_BASE ) & ( unsigned long)( HW_REGS_MASK )) ));
+//	h2p_lw_pid_addr.push_back((int32_t*)(virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + PID_CONTROLLER_4_BASE ) & ( unsigned long)( HW_REGS_MASK )) ));
+//	h2p_lw_pid_addr.push_back((int32_t*)(virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + PID_CONTROLLER_5_BASE ) & ( unsigned long)( HW_REGS_MASK )) ));
+//	h2p_lw_pid_addr.push_back((int32_t*)(virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + PID_CONTROLLER_6_BASE ) & ( unsigned long)( HW_REGS_MASK )) ));
+//	h2p_lw_pid_addr.push_back((int32_t*)(virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + PID_CONTROLLER_7_BASE ) & ( unsigned long)( HW_REGS_MASK )) ));
 
 
 //	PID_WRITE_Kp(h2p_lw_pid_addr[0],10);
@@ -102,8 +102,8 @@ int main() {
 //		i++;
 //	}
 
-	Interface interface((uint32_t*)h2p_lw_spi_addr,h2p_lw_pid_addr, 1);
-	interface.myoControl->adc_base = (uint32_t*)h2p_lw_adc_addr;
+	Interface interface(h2p_lw_pid_addr, 1);
+//	interface.myoControl->adc_base = (uint32_t*)h2p_lw_adc_addr;
 	interface.timeout_ms = 10;
 
 //	vector<float> x(5), y(5);
