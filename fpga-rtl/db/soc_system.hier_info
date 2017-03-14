@@ -20,23 +20,23 @@ ARDUINO_IO[13] <> <UNC>
 ARDUINO_IO[14] <> <UNC>
 ARDUINO_IO[15] <> <UNC>
 ARDUINO_RESET_N <> <UNC>
-FPGA_CLK1_50 => FPGA_CLK1_50.IN9
+FPGA_CLK1_50 => FPGA_CLK1_50.IN8
 FPGA_CLK2_50 => ~NO_FANOUT~
 FPGA_CLK3_50 => ~NO_FANOUT~
 GPIO_0[0] <> spi_master:spi.spi_sck_o
 GPIO_0[1] <> spi_master:spi.spi_mosi_o
 GPIO_0[2] <> spi_master:spi.spi_miso_i
 GPIO_0[3] <> <UNC>
-GPIO_0[4] <> <UNC>
-GPIO_0[5] <> spi_master:spi.spi_ssel_o
-GPIO_0[6] <> <UNC>
-GPIO_0[7] <> <UNC>
-GPIO_0[8] <> <UNC>
-GPIO_0[9] <> <UNC>
-GPIO_0[10] <> <UNC>
-GPIO_0[11] <> <UNC>
-GPIO_0[12] <> <UNC>
-GPIO_0[13] <> <UNC>
+GPIO_0[4] <> SpiControl:spi_control.ss_n_o
+GPIO_0[5] <> SpiControl:spi_control.ss_n_o
+GPIO_0[6] <> SpiControl:spi_control.ss_n_o
+GPIO_0[7] <> SpiControl:spi_control.ss_n_o
+GPIO_0[8] <> SpiControl:spi_control.ss_n_o
+GPIO_0[9] <> SpiControl:spi_control.ss_n_o
+GPIO_0[10] <> SpiControl:spi_control.ss_n_o
+GPIO_0[11] <> SpiControl:spi_control.ss_n_o
+GPIO_0[12] <> SpiControl:spi_control.ss_n_o
+GPIO_0[13] <> SpiControl:spi_control.ss_n_o
 GPIO_0[14] <> <UNC>
 GPIO_0[15] <> <UNC>
 GPIO_0[16] <> <UNC>
@@ -216,7 +216,7 @@ HPS_USB_DIR => HPS_USB_DIR.IN1
 HPS_USB_NXT => HPS_USB_NXT.IN1
 HPS_USB_STP <= soc_system:u0.hps_0_hps_io_hps_io_usb1_inst_STP
 KEY[0] => KEY[0].IN1
-KEY[1] => _.IN1
+KEY[1] => ~NO_FANOUT~
 LED[0] <= soc_system:u0.pio_led_external_connection_export
 LED[1] <= soc_system:u0.pio_led_external_connection_export
 LED[2] <= soc_system:u0.pio_led_external_connection_export
@@ -225,20 +225,14 @@ LED[4] <= soc_system:u0.pio_led_external_connection_export
 LED[5] <= soc_system:u0.pio_led_external_connection_export
 LED[6] <= soc_system:u0.pio_led_external_connection_export
 LED[7] <= soc_system:u0.pio_led_external_connection_export
-SW[0] => stm_hw_events[10].IN1
+SW[0] => stm_hw_events[10].IN2
 SW[1] => stm_hw_events[11].IN1
 SW[2] => stm_hw_events[12].IN1
 SW[3] => stm_hw_events[13].IN1
 
 
-|ghrd|oneshot:transmit_trigger
-clk => last_value.CLK
-clk => cur_value.CLK
-edge_sig => cur_value.DATAIN
-level_sig <= level_sig.DB_MAX_OUTPUT_PORT_TYPE
-
-
 |ghrd|SpiControl:spi_control
+clock => spi_done~reg0.CLK
 clock => Word[15]~reg0.CLK
 clock => Word[14]~reg0.CLK
 clock => Word[13]~reg0.CLK
@@ -256,7 +250,9 @@ clock => Word[2]~reg0.CLK
 clock => Word[1]~reg0.CLK
 clock => Word[0]~reg0.CLK
 clock => next_value.CLK
-clock => done~reg0.CLK
+clock => pid_mux[0].CLK
+clock => pid_mux[1].CLK
+clock => pid_mux[2].CLK
 clock => start_frame.CLK
 clock => write_ack_prev.CLK
 clock => wren~reg0.CLK
@@ -268,7 +264,9 @@ clock => numberOfWordsTransmitted[4].CLK
 clock => numberOfWordsTransmitted[5].CLK
 clock => numberOfWordsTransmitted[6].CLK
 clock => numberOfWordsTransmitted[7].CLK
-reset_n => done~reg0.PRESET
+reset_n => pid_mux[0].ACLR
+reset_n => pid_mux[1].ACLR
+reset_n => pid_mux[2].ACLR
 reset_n => start_frame.ACLR
 reset_n => write_ack_prev.ACLR
 reset_n => wren~reg0.ACLR
@@ -297,6 +295,7 @@ reset_n => Word[12]~reg0.ENA
 reset_n => Word[13]~reg0.ENA
 reset_n => Word[14]~reg0.ENA
 reset_n => Word[15]~reg0.ENA
+reset_n => spi_done~reg0.ENA
 di_req => always0.IN1
 write_ack => always0.IN1
 write_ack => write_ack_prev.DATAIN
@@ -327,7 +326,29 @@ start => numberOfWordsTransmitted.OUTPUTSELECT
 start => numberOfWordsTransmitted.OUTPUTSELECT
 start => start_frame.OUTPUTSELECT
 start => next_value.OUTPUTSELECT
-start => done~reg0.DATAIN
+start => pid_mux.OUTPUTSELECT
+start => pid_mux.OUTPUTSELECT
+start => pid_mux.OUTPUTSELECT
+start => spi_done.DATAB
+ss_n => always0.IN1
+ss_n => ss_n_o.DATAB
+ss_n => ss_n_o.DATAB
+ss_n => ss_n_o.DATAB
+ss_n => ss_n_o.DATAB
+ss_n => ss_n_o.DATAB
+ss_n => ss_n_o.DATAB
+ss_n => ss_n_o.DATAB
+ss_n => ss_n_o.DATAB
+ss_n_o[0] <= ss_n_o.DB_MAX_OUTPUT_PORT_TYPE
+ss_n_o[1] <= ss_n_o.DB_MAX_OUTPUT_PORT_TYPE
+ss_n_o[2] <= ss_n_o.DB_MAX_OUTPUT_PORT_TYPE
+ss_n_o[3] <= ss_n_o.DB_MAX_OUTPUT_PORT_TYPE
+ss_n_o[4] <= ss_n_o.DB_MAX_OUTPUT_PORT_TYPE
+ss_n_o[5] <= ss_n_o.DB_MAX_OUTPUT_PORT_TYPE
+ss_n_o[6] <= ss_n_o.DB_MAX_OUTPUT_PORT_TYPE
+ss_n_o[7] <= ss_n_o.DB_MAX_OUTPUT_PORT_TYPE
+ss_n_o[8] <= <GND>
+ss_n_o[9] <= <GND>
 Word[15] <= Word[15]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 Word[14] <= Word[14]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 Word[13] <= Word[13]~reg0.DB_MAX_OUTPUT_PORT_TYPE
@@ -345,7 +366,7 @@ Word[2] <= Word[2]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 Word[1] <= Word[1]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 Word[0] <= Word[0]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 wren <= wren~reg0.DB_MAX_OUTPUT_PORT_TYPE
-done <= done~reg0.DB_MAX_OUTPUT_PORT_TYPE
+spi_done <= spi_done~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
 |ghrd|spi_master:spi

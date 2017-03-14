@@ -145,16 +145,15 @@ module ghrd(
 //  Structural coding
 //=======================================================
 
-wire di_req, wr_ack, do_valid, transmit, wren, spi_done;
+wire di_req, wr_ack, do_valid, transmit, wren, spi_done, spi_ss_n;
 wire [0:15] Word;
 wire [15:0] data_out;
-wire [3:0] pid_mux;
 
-oneshot transmit_trigger(
-	.clk(FPGA_CLK1_50),
-	.edge_sig(~KEY[1]),
-	.level_sig(transmit)
-);
+//oneshot transmit_trigger(
+//	.clk(FPGA_CLK1_50),
+//	.edge_sig(spi_done),
+//	.level_sig(transmit)
+//);
 
 SpiControl spi_control(
 	.clock(FPGA_CLK1_50),
@@ -163,10 +162,12 @@ SpiControl spi_control(
 	.write_ack(wr_ack),
 	.data_read_valid(do_valid),
 	.data_read(data_out[15:0]),
-	.start(transmit),
+	.start(SW[0]),
 	.Word(Word[0:15]),
 	.wren(wren),
-	.done(spi_done)
+	.ss_n(spi_ss_n),
+	.ss_n_o(GPIO_0[13:4]),
+	.spi_done(spi_done)
 );
 
 spi_master #(16, 1'b0, 1'b1, 2, 5) spi(
@@ -176,7 +177,7 @@ spi_master #(16, 1'b0, 1'b1, 2, 5) spi(
 	.spi_miso_i(GPIO_0[2]),
 	.di_i(Word[0:15]),
 	.wren_i(wren),
-	.spi_ssel_o(GPIO_0[5]),
+	.spi_ssel_o(spi_ss_n),
 	.spi_sck_o(GPIO_0[0]),
 	.spi_mosi_o(GPIO_0[1]),
 	.di_req_o(di_req),
@@ -184,17 +185,6 @@ spi_master #(16, 1'b0, 1'b1, 2, 5) spi(
 	.do_valid_o(do_valid),
 	.do_o(data_out[15:0])
 );
-
-//pid_switch pid_ssn_switch(
-//	.clock(FPGA_CLK1_50),
-//	.reset_n(KEY[0]),
-//	.spi_done(spi_done),
-//	.pid_mux(pid_mux[3:0])
-//)
-//
-//mux_spi_ssn ssn_mux(
-//	
-//);
 
  soc_system u0 (
       .pio_led_external_connection_export(LED),

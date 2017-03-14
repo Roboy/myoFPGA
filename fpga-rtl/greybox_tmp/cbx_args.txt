@@ -1,23 +1,5 @@
-LPM_SIZE=16
-LPM_TYPE=LPM_MUX
+LPM_DECODES=2
+LPM_TYPE=LPM_DECODE
 LPM_WIDTH=1
-LPM_WIDTHS=4
 DEVICE_FAMILY="Cyclone V"
 data
-data
-data
-data
-data
-data
-data
-data
-data
-data
-data
-data
-data
-data
-data
-data
-sel
-result

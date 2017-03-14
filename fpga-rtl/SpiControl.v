@@ -8,9 +8,11 @@ module SpiControl (
 	input data_read_valid,
 	input [0:15] data_read,
 	input start,
+	input wire ss_n,
+	output wire [9:0] ss_n_o,
 	output reg [0:15] Word,
 	output reg wren,
-	output reg done
+	output reg spi_done
 );
 
 reg [7:0] numberOfWordsTransmitted;
@@ -30,6 +32,7 @@ reg signed[0:15] springDisplacement;
 reg signed[0:15] sensor1;
 reg signed[0:15] sensor2;
 reg [5:0] delay_counter;
+reg [2:0]pid_mux;
 
 always @(posedge clock, negedge reset_n) begin: SPICONTROL_SPILOGIC
 	if (reset_n == 0) begin
@@ -37,7 +40,6 @@ always @(posedge clock, negedge reset_n) begin: SPICONTROL_SPILOGIC
 		wren <= 0;
 		write_ack_prev <= 0;
 		start_frame <= 0;
-		done <= 1;
 		
 		startOfFrame <= 16'h8000;
 		pwmRef <= 500;
@@ -45,6 +47,7 @@ always @(posedge clock, negedge reset_n) begin: SPICONTROL_SPILOGIC
 		controlFlags2 <= 0;
 		dummy <= 0;
 		delay_counter <= 0;
+		pid_mux <= 0;
 	end else begin
 		write_ack_prev <= write_ack;
 		if( write_ack_prev==0 && write_ack == 1) begin
@@ -95,16 +98,26 @@ always @(posedge clock, negedge reset_n) begin: SPICONTROL_SPILOGIC
 			endcase
 		end
 		
-		if ( numberOfWordsTransmitted>=12 ) begin
-			done <= 1;
-			if (start==1 ) begin
+		if ( numberOfWordsTransmitted>=12 && ss_n==1 ) begin
+			spi_done <= 1;
+			if (start==1) begin
+				spi_done <= 0;
 				numberOfWordsTransmitted<= 0;
 				start_frame <= 1;
 				next_value <= 1;
-				done <= 0;
+				pid_mux <= pid_mux + 1;
 			end
 		end 
 	end
 end
+
+assign ss_n_o[0] = (pid_mux==0?ss_n:1);
+assign ss_n_o[1] = (pid_mux==1?ss_n:1);
+assign ss_n_o[2] = (pid_mux==2?ss_n:1);
+assign ss_n_o[3] = (pid_mux==3?ss_n:1);
+assign ss_n_o[4] = (pid_mux==4?ss_n:1);
+assign ss_n_o[5] = (pid_mux==5?ss_n:1);
+assign ss_n_o[6] = (pid_mux==6?ss_n:1);
+assign ss_n_o[7] = (pid_mux==7?ss_n:1);
 
 endmodule
