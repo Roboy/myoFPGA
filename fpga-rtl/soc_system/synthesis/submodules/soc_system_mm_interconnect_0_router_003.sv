@@ -47,7 +47,7 @@ module soc_system_mm_interconnect_0_router_003_default_decode
      parameter DEFAULT_CHANNEL = 2,
                DEFAULT_WR_CHANNEL = -1,
                DEFAULT_RD_CHANNEL = -1,
-               DEFAULT_DESTID = 3 
+               DEFAULT_DESTID = 0 
    )
   (output [104 - 102 : 0] default_destination_id,
    output [6-1 : 0] default_wr_channel,
@@ -134,8 +134,8 @@ module soc_system_mm_interconnect_0_router_003
     // Figure out the number of bits to mask off for each slave span
     // during address decoding
     // -------------------------------------------------------
-    localparam PAD0 = log2ceil(64'h240 - 64'h200); 
-    localparam PAD1 = log2ceil(64'h290 - 64'h280); 
+    localparam PAD0 = log2ceil(64'h400 - 64'h0); 
+    localparam PAD1 = log2ceil(64'h410 - 64'h400); 
     localparam PAD2 = log2ceil(64'h10008 - 64'h10000); 
     localparam PAD3 = log2ceil(64'h20008 - 64'h20000); 
     // -------------------------------------------------------
@@ -196,14 +196,14 @@ module soc_system_mm_interconnect_0_router_003
         // Sets the channel and destination ID based on the address
         // --------------------------------------------------
 
-    // ( 0x200 .. 0x240 )
-    if ( {address[RG:PAD0],{PAD0{1'b0}}} == 18'h200   ) begin
+    // ( 0x0 .. 0x400 )
+    if ( {address[RG:PAD0],{PAD0{1'b0}}} == 18'h0   ) begin
             src_channel = 6'b0100;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 3;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 0;
     end
 
-    // ( 0x280 .. 0x290 )
-    if ( {address[RG:PAD1],{PAD1{1'b0}}} == 18'h280   ) begin
+    // ( 0x400 .. 0x410 )
+    if ( {address[RG:PAD1],{PAD1{1'b0}}} == 18'h400   ) begin
             src_channel = 6'b1000;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 4;
     end
@@ -217,7 +217,7 @@ module soc_system_mm_interconnect_0_router_003
     // ( 0x20000 .. 0x20008 )
     if ( {address[RG:PAD3],{PAD3{1'b0}}} == 18'h20000   ) begin
             src_channel = 6'b0001;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 1;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 2;
     end
 
 end

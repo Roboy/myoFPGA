@@ -3,13 +3,14 @@
 #include <ncurses.h>
 #include <vector>
 #include <cstring>
+#include <unistd.h>
 #include "myoControl.hpp"
 
 using namespace std;
 
 class Interface {
 public:
-    Interface(vector<int32_t*> &pid_base, int motors);
+    Interface(vector<int32_t*> &myo_base);
 
     ~Interface();
 
@@ -26,6 +27,10 @@ public:
     void processing(char *msg1, char *what, char *msg2);
 
     void processing(char *msg1, char *msg2);
+
+    void toggleSPI();
+
+    void reset();
 
     void positionControl();
 

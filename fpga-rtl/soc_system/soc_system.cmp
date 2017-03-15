@@ -70,13 +70,10 @@
 			memory_mem_odt                        : out   std_logic;                                        -- mem_odt
 			memory_mem_dm                         : out   std_logic_vector(3 downto 0);                     -- mem_dm
 			memory_oct_rzqin                      : in    std_logic                     := 'X';             -- oct_rzqin
-			pid_controller_0_measurement_signal   : in    std_logic                     := 'X';             -- measurement_signal
-			pid_controller_0_controller_result    : out   std_logic_vector(31 downto 0);                    -- controller_result
-			pid_controller_0_controller_busy      : out   std_logic;                                        -- controller_busy
-			pid_controller_0_controller           : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- controller
-			pid_controller_0_displacement         : in    std_logic_vector(15 downto 0) := (others => 'X'); -- displacement
-			pid_controller_0_position             : in    std_logic_vector(31 downto 0) := (others => 'X'); -- position
-			pid_controller_0_velocity             : in    std_logic_vector(15 downto 0) := (others => 'X'); -- velocity
+			myocontrol_0_miso                     : in    std_logic                     := 'X';             -- miso
+			myocontrol_0_mosi                     : out   std_logic;                                        -- mosi
+			myocontrol_0_sck                      : out   std_logic;                                        -- sck
+			myocontrol_0_ss_n                     : out   std_logic_vector(7 downto 0);                     -- ss_n
 			pio_led_external_connection_export    : out   std_logic_vector(7 downto 0);                     -- export
 			reset_reset_n                         : in    std_logic                     := 'X'              -- reset_n
 		);

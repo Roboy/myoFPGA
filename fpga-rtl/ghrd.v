@@ -34,7 +34,7 @@
 `define ENABLE_HPS
 //`define ENABLE_CLK
 
-module ghrd(   
+module ghrd(                
 
       ///////// ADC /////////
       output             ADC_CONVST,
@@ -145,64 +145,12 @@ module ghrd(
 //  Structural coding
 //=======================================================
 
-wire di_req, wr_ack, do_valid, transmit, wren, spi_done, spi_ss_n, controller_busy;
-wire [0:15] Word;
-wire [15:0] data_out;
-wire [0:15] pwmRef;
-wire signed [0:31] actualPosition; 
-wire signed [0:15] actualVelocity;
-wire signed [0:15] springDisplacement;
-
-//oneshot transmit_trigger(
-//	.clk(FPGA_CLK1_50),
-//	.edge_sig(spi_done),
-//	.level_sig(transmit)
-//);
-
-SpiControl spi_control(
-	.clock(FPGA_CLK1_50),
-	.reset_n(KEY[0]),
-	.di_req(di_req),
-	.write_ack(wr_ack),
-	.data_read_valid(do_valid),
-	.data_read(data_out[15:0]),
-	.start((SW[0]&&~controller_busy)),
-	.Word(Word[0:15]),
-	.wren(wren),
-	.ss_n(spi_ss_n),
-	.ss_n_o(GPIO_0[13:4]),
-	.spi_done(spi_done),
-	.pwmRef(pwmRef),
-	.actualPosition(actualPosition),
-	.actualVelocity(actualVelocity),
-	.springDisplacement(springDisplacement)
-);
-
-spi_master #(16, 1'b0, 1'b1, 2, 5) spi(
-	.sclk_i(FPGA_CLK1_50),
-	.pclk_i(FPGA_CLK1_50),
-	.rst_i(~KEY[0]),
-	.spi_miso_i(GPIO_0[2]),
-	.di_i(Word[0:15]),
-	.wren_i(wren),
-	.spi_ssel_o(spi_ss_n),
-	.spi_sck_o(GPIO_0[0]),
-	.spi_mosi_o(GPIO_0[1]),
-	.di_req_o(di_req),
-	.wr_ack_o(wr_ack),
-	.do_valid_o(do_valid),
-	.do_o(data_out[15:0])
-);
-
  soc_system u0 (
       .pio_led_external_connection_export(LED),
-		.pid_controller_0_measurement_signal(spi_done),
-		.pid_controller_0_controller(SW[2:1]),          
-		.pid_controller_0_displacement(springDisplacement),      
-		.pid_controller_0_position(actualPosition),             
-		.pid_controller_0_velocity(actualVelocity),
-		.pid_controller_0_controller_result(pwmRef), 
-		.pid_controller_0_controller_busy(controller_busy),
+		.myocontrol_0_miso(GPIO_0[1]), 
+		.myocontrol_0_mosi(GPIO_0[0]),
+		.myocontrol_0_sck(GPIO_0[2]),
+		.myocontrol_0_ss_n(GPIO_0[17:10]),    
 		//Clock&Reset
 	  .clk_clk                               (FPGA_CLK1_50 ),                        //  clk.clk
 	  .reset_reset_n                         (1'b1         ),                        //  reset.reset_n

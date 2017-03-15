@@ -70,9 +70,10 @@
 			memory_mem_odt                        : out   std_logic;                                        -- mem_odt
 			memory_mem_dm                         : out   std_logic_vector(3 downto 0);                     -- mem_dm
 			memory_oct_rzqin                      : in    std_logic                     := 'X';             -- oct_rzqin
-			pid_controller_0_measurement_signal   : in    std_logic                     := 'X';             -- measurement_signal
-			pid_controller_0_measurement          : in    std_logic_vector(31 downto 0) := (others => 'X'); -- measurement
-			pid_controller_0_controller_result    : out   std_logic_vector(31 downto 0);                    -- controller_result
+			myocontrol_0_miso                     : in    std_logic                     := 'X';             -- miso
+			myocontrol_0_mosi                     : out   std_logic;                                        -- mosi
+			myocontrol_0_sck                      : out   std_logic;                                        -- sck
+			myocontrol_0_ss_n                     : out   std_logic_vector(7 downto 0);                     -- ss_n
 			pio_led_external_connection_export    : out   std_logic_vector(7 downto 0);                     -- export
 			reset_reset_n                         : in    std_logic                     := 'X'              -- reset_n
 		);
@@ -150,9 +151,10 @@
 			memory_mem_odt                        => CONNECTED_TO_memory_mem_odt,                        --                            .mem_odt
 			memory_mem_dm                         => CONNECTED_TO_memory_mem_dm,                         --                            .mem_dm
 			memory_oct_rzqin                      => CONNECTED_TO_memory_oct_rzqin,                      --                            .oct_rzqin
-			pid_controller_0_measurement_signal   => CONNECTED_TO_pid_controller_0_measurement_signal,   --            pid_controller_0.measurement_signal
-			pid_controller_0_measurement          => CONNECTED_TO_pid_controller_0_measurement,          --                            .measurement
-			pid_controller_0_controller_result    => CONNECTED_TO_pid_controller_0_controller_result,    --                            .controller_result
+			myocontrol_0_miso                     => CONNECTED_TO_myocontrol_0_miso,                     --                myocontrol_0.miso
+			myocontrol_0_mosi                     => CONNECTED_TO_myocontrol_0_mosi,                     --                            .mosi
+			myocontrol_0_sck                      => CONNECTED_TO_myocontrol_0_sck,                      --                            .sck
+			myocontrol_0_ss_n                     => CONNECTED_TO_myocontrol_0_ss_n,                     --                            .ss_n
 			pio_led_external_connection_export    => CONNECTED_TO_pio_led_external_connection_export,    -- pio_led_external_connection.export
 			reset_reset_n                         => CONNECTED_TO_reset_reset_n                          --                       reset.reset_n
 		);

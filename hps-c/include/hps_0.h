@@ -54,15 +54,15 @@
 #define ONCHIP_MEMORY2_0_MEMORY_INFO_MEM_INIT_FILENAME soc_system_onchip_memory2_0
 
 /*
- * Macros for device 'pid_controller_0', class 'pid_controller'
- * The macros are prefixed with 'PID_CONTROLLER_0_'.
+ * Macros for device 'MYOControl_0', class 'MYOControl'
+ * The macros are prefixed with 'MYOCONTROL_0_'.
  * The prefix is the slave descriptor.
  */
-#define PID_CONTROLLER_0_COMPONENT_TYPE pid_controller
-#define PID_CONTROLLER_0_COMPONENT_NAME pid_controller_0
-#define PID_CONTROLLER_0_BASE 0x200
-#define PID_CONTROLLER_0_SPAN 64
-#define PID_CONTROLLER_0_END 0x23f
+#define MYOCONTROL_0_COMPONENT_TYPE MYOControl
+#define MYOCONTROL_0_COMPONENT_NAME MYOControl_0
+#define MYOCONTROL_0_BASE 0x0
+#define MYOCONTROL_0_SPAN 1024
+#define MYOCONTROL_0_END 0x3ff
 
 /*
  * Macros for device 'pio_led', class 'altera_avalon_pio'
@@ -71,9 +71,9 @@
  */
 #define PIO_LED_COMPONENT_TYPE altera_avalon_pio
 #define PIO_LED_COMPONENT_NAME pio_led
-#define PIO_LED_BASE 0x280
+#define PIO_LED_BASE 0x400
 #define PIO_LED_SPAN 16
-#define PIO_LED_END 0x28f
+#define PIO_LED_END 0x40f
 #define PIO_LED_BIT_CLEARING_EDGE_REGISTER 0
 #define PIO_LED_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define PIO_LED_CAPTURE 0
@@ -99,7 +99,7 @@
 #define SYSID_QSYS_SPAN 8
 #define SYSID_QSYS_END 0x10007
 #define SYSID_QSYS_ID 2899645186
-#define SYSID_QSYS_TIMESTAMP 1489520420
+#define SYSID_QSYS_TIMESTAMP 1489600691
 
 /*
  * Macros for device 'jtag_uart', class 'altera_avalon_jtag_uart'

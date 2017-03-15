@@ -7,8 +7,7 @@
 #include <chrono>
 #include <fstream>
 #include "CommunicationData.h"
-#include "myoSPI.hpp"
-#include "pid.hpp"
+#include "myoControlRegister.hpp"
 
 using namespace std;
 using namespace std::chrono;
@@ -17,7 +16,7 @@ using namespace std::chrono;
 
 class MyoControl{
 public:
-	MyoControl(vector<int32_t*> &pid_base, uint motors = 1);
+	MyoControl(vector<int32_t*> &myo_base);
 	~MyoControl();
 	/**
 	 * updates all motors
@@ -36,6 +35,15 @@ public:
 	 * @param mode choose from Position, Velocity or Force
 	 */
 	void changeControl(int motor, int mode);
+	/**
+	 * Toggles SPI transmission
+	 * @return on/off
+	 */
+	bool toggleSPI();
+	/**
+	 * Resets all myo controllers
+	 */
+	void reset();
 	/**
 	 * Changes setpoint for position controller
 	 * @param motor for this motor
@@ -129,7 +137,6 @@ public:
 	void polynomialRegression(int degree, vector<float> &x, vector<float> &y,
 			vector<float> &coeffs);
 
-	SPISTREAM frame;
 	vector<int32_t> pos;
 	vector<int16_t> vel, force, displacement, current;
 	vector<int32_t> pos_setPoint, vel_setPoint, force_setPoint;
@@ -140,8 +147,9 @@ public:
 	uint32_t *adc_base = nullptr;
 	float weight_offset = 0;
 	float adc_weight_parameters[2] = {830.7, -0.455};
+	bool spi_active = false;
 private:
-	vector<int32_t*> pid_base;
+	vector<int32_t*> myo_base;
 	uint numberOfMotors;
 	float radPerEncoderCount = 2 * 3.14159265359 / (2000.0 * 53.0);
 	int iter = 0;

@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SopcSystem>
  <!-- An entire SOPC Builder system -->
- <!-- 2017.03.14.23:04:21 -->
+ <!-- 2017.03.15.19:07:03 -->
  <name>soc_system</name>
  <version>1.0</version>
  <sopcVersion>1.0</sopcVersion>
  <deviceFamily>Cyclone V</deviceFamily>
  <sopcSimulationEnabled>false</sopcSimulationEnabled>
+ <module>
+  <name>MYOControl_0</name>
+  <version>1.0</version>
+  <className>MYOControl</className>
+  <clockConnection>
+   <moduleName>MYOControl_0</moduleName>
+   <localSlaveName>clock_sink</localSlaveName>
+   <systemConnectionName>MYOControl_0.clock_sink</systemConnectionName>
+   <frequency>0</frequency>
+  </clockConnection>
+  <path>MYOControl_0</path>
+ </module>
  <module>
   <name>clk_0</name>
   <version>16.1</version>
@@ -257,8 +269,8 @@
     <interruptControllerID>-1</interruptControllerID>
    </connectedDevice>
    <connectedDevice>
-    <moduleName>pid_controller_0</moduleName>
-    <slaveDesc>pid_controller_0</slaveDesc>
+    <moduleName>MYOControl_0</moduleName>
+    <slaveDesc>MYOControl_0</slaveDesc>
     <slave>
      <name>avalon_slave_0</name>
      <version>16.1</version>
@@ -278,12 +290,12 @@
       <name>embeddedsw.configuration.isPrintableDevice</name>
       <value>0</value>
      </assignment>
-     <systemSlaveName>pid_controller_0.avalon_slave_0</systemSlaveName>
+     <systemSlaveName>MYOControl_0.avalon_slave_0</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
-    <baseAddress>512</baseAddress>
-    <basePhysicalAddress>512</basePhysicalAddress>
-    <span>64</span>
+    <baseAddress>0</baseAddress>
+    <basePhysicalAddress>0</basePhysicalAddress>
+    <span>1024</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
     <isDataAccessible>false</isDataAccessible>
@@ -320,8 +332,8 @@
      <systemSlaveName>pio_led.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
-    <baseAddress>640</baseAddress>
-    <basePhysicalAddress>640</basePhysicalAddress>
+    <baseAddress>1024</baseAddress>
+    <basePhysicalAddress>1024</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -570,8 +582,8 @@
     <interruptControllerID>-1</interruptControllerID>
    </connectedDevice>
    <connectedDevice>
-    <moduleName>pid_controller_0</moduleName>
-    <slaveDesc>pid_controller_0</slaveDesc>
+    <moduleName>MYOControl_0</moduleName>
+    <slaveDesc>MYOControl_0</slaveDesc>
     <slave>
      <name>avalon_slave_0</name>
      <version>16.1</version>
@@ -591,12 +603,12 @@
       <name>embeddedsw.configuration.isPrintableDevice</name>
       <value>0</value>
      </assignment>
-     <systemSlaveName>pid_controller_0.avalon_slave_0</systemSlaveName>
+     <systemSlaveName>MYOControl_0.avalon_slave_0</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
-    <baseAddress>512</baseAddress>
-    <basePhysicalAddress>512</basePhysicalAddress>
-    <span>64</span>
+    <baseAddress>0</baseAddress>
+    <basePhysicalAddress>0</basePhysicalAddress>
+    <span>1024</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
     <isDataAccessible>false</isDataAccessible>
@@ -633,8 +645,8 @@
      <systemSlaveName>pio_led.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
-    <baseAddress>640</baseAddress>
-    <basePhysicalAddress>640</basePhysicalAddress>
+    <baseAddress>1024</baseAddress>
+    <basePhysicalAddress>1024</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -1944,8 +1956,8 @@
     <interruptControllerID>-1</interruptControllerID>
    </connectedDevice>
    <connectedDevice>
-    <moduleName>pid_controller_0</moduleName>
-    <slaveDesc>pid_controller_0</slaveDesc>
+    <moduleName>MYOControl_0</moduleName>
+    <slaveDesc>MYOControl_0</slaveDesc>
     <slave>
      <name>avalon_slave_0</name>
      <version>16.1</version>
@@ -1965,12 +1977,12 @@
       <name>embeddedsw.configuration.isPrintableDevice</name>
       <value>0</value>
      </assignment>
-     <systemSlaveName>pid_controller_0.avalon_slave_0</systemSlaveName>
+     <systemSlaveName>MYOControl_0.avalon_slave_0</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
-    <baseAddress>4280287744</baseAddress>
-    <basePhysicalAddress>4280287744</basePhysicalAddress>
-    <span>64</span>
+    <baseAddress>4280287232</baseAddress>
+    <basePhysicalAddress>4280287232</basePhysicalAddress>
+    <span>1024</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
     <isDataAccessible>false</isDataAccessible>
@@ -2007,8 +2019,8 @@
      <systemSlaveName>pio_led.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
-    <baseAddress>4280287872</baseAddress>
-    <basePhysicalAddress>4280287872</basePhysicalAddress>
+    <baseAddress>4280288256</baseAddress>
+    <basePhysicalAddress>4280288256</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -3285,8 +3297,8 @@
     <interruptControllerID>-1</interruptControllerID>
    </connectedDevice>
    <connectedDevice>
-    <moduleName>pid_controller_0</moduleName>
-    <slaveDesc>pid_controller_0</slaveDesc>
+    <moduleName>MYOControl_0</moduleName>
+    <slaveDesc>MYOControl_0</slaveDesc>
     <slave>
      <name>avalon_slave_0</name>
      <version>16.1</version>
@@ -3306,12 +3318,12 @@
       <name>embeddedsw.configuration.isPrintableDevice</name>
       <value>0</value>
      </assignment>
-     <systemSlaveName>pid_controller_0.avalon_slave_0</systemSlaveName>
+     <systemSlaveName>MYOControl_0.avalon_slave_0</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
-    <baseAddress>4280287744</baseAddress>
-    <basePhysicalAddress>4280287744</basePhysicalAddress>
-    <span>64</span>
+    <baseAddress>4280287232</baseAddress>
+    <basePhysicalAddress>4280287232</basePhysicalAddress>
+    <span>1024</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
     <isDataAccessible>false</isDataAccessible>
@@ -3348,8 +3360,8 @@
      <systemSlaveName>pio_led.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
-    <baseAddress>4280287872</baseAddress>
-    <basePhysicalAddress>4280287872</basePhysicalAddress>
+    <baseAddress>4280288256</baseAddress>
+    <basePhysicalAddress>4280288256</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -7426,18 +7438,6 @@
   <path>onchip_memory2_0</path>
  </module>
  <module>
-  <name>pid_controller_0</name>
-  <version>1.0</version>
-  <className>pid_controller</className>
-  <clockConnection>
-   <moduleName>pid_controller_0</moduleName>
-   <localSlaveName>clock_sink</localSlaveName>
-   <systemConnectionName>pid_controller_0.clock_sink</systemConnectionName>
-   <frequency>0</frequency>
-  </clockConnection>
-  <path>pid_controller_0</path>
- </module>
- <module>
   <name>pio_led</name>
   <version>16.1</version>
   <assignment>
@@ -7534,7 +7534,7 @@
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1489528212</value>
+   <value>1489600691</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -7554,7 +7554,7 @@
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1489528212</value>
+   <value>1489600691</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>

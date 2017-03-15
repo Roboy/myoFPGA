@@ -70,9 +70,10 @@ module soc_system (
 	memory_mem_odt,
 	memory_mem_dm,
 	memory_oct_rzqin,
-	pid_controller_0_measurement_signal,
-	pid_controller_0_measurement,
-	pid_controller_0_controller_result,
+	myocontrol_0_miso,
+	myocontrol_0_mosi,
+	myocontrol_0_sck,
+	myocontrol_0_ss_n,
 	pio_led_external_connection_export,
 	reset_reset_n);	
 
@@ -146,9 +147,10 @@ module soc_system (
 	output		memory_mem_odt;
 	output	[3:0]	memory_mem_dm;
 	input		memory_oct_rzqin;
-	input		pid_controller_0_measurement_signal;
-	input	[31:0]	pid_controller_0_measurement;
-	output	[31:0]	pid_controller_0_controller_result;
+	input		myocontrol_0_miso;
+	output		myocontrol_0_mosi;
+	output		myocontrol_0_sck;
+	output	[7:0]	myocontrol_0_ss_n;
 	output	[7:0]	pio_led_external_connection_export;
 	input		reset_reset_n;
 endmodule

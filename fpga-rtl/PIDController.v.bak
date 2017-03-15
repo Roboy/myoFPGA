@@ -1,0 +1,80 @@
+// PID controller myoRobotics style
+`timescale 1ns/10ps
+
+module PIDController (
+	input clock,
+	input reset,
+	input signed [31:0] Kp,
+	input signed [31:0] Kd,
+	input signed [31:0] Ki,
+	input signed [31:0] sp,
+	input signed [31:0] forwardGain,
+	input signed [31:0] outputPosMax,
+	input signed [31:0] outputNegMax,
+	input signed [31:0] IntegralNegMax,
+	input signed [31:0] IntegralPosMax,
+	input signed [31:0] deadBand,
+	input [1:0] controller, // position velocity force
+	input signed [31:0] position,
+	input signed [31:0] velocity,
+	input signed [31:0] displacement,
+	input controller_update,
+	output reg signed [31:0] result,
+	output reg result_ready
+);
+
+always @(posedge clock, posedge reset) begin: PID_CONTROLLER_PID_CONTROLLERLOGIC
+	reg signed [31:0] pv;
+	reg signed [31:0] integral;
+	reg signed [31:0] lastError;
+	reg signed [31:0] err;
+	reg signed [31:0] pterm;
+	reg signed [31:0] dterm;
+	reg signed [31:0] ffterm;
+	
+	if (reset == 1) begin
+		pv <= 0;
+		integral <= 0;
+		lastError <= 0;
+		result <= 0;
+		err <=0;
+		result <= 0;
+		result_ready <= 0;
+	end else begin
+		if(controller_update) begin
+			result_ready = 0;
+			case(controller)
+				0: pv = position;
+				1: pv = velocity;
+				2: pv = displacement;
+				default: pv = 0;
+			endcase
+			
+			err = (sp - pv);
+			if (((err > deadBand) || (err < ((-1) * deadBand)))) begin
+				pterm = (Kp * err);
+				if ((pterm < outputPosMax) || (pterm > outputNegMax)) begin  //if the proportional term is not maxed
+					integral = integral + (Ki * err); //add to the integral
+					if (integral > IntegralPosMax) 
+						integral = IntegralPosMax;
+					else if (integral < IntegralNegMax) 
+						integral = IntegralNegMax;
+				end
+				dterm = ((err - lastError) * Kd);
+				ffterm = (forwardGain * sp);
+				result = (((ffterm + pterm) + integral) + dterm);
+				if ((result < outputNegMax)) 
+					 result = outputNegMax;
+				else if ((result > outputPosMax)) 
+					 result = outputPosMax;
+			end else 
+				result = integral;
+			lastError = err;
+		end
+		result_ready = 1;
+	end 
+end
+
+
+endmodule
+

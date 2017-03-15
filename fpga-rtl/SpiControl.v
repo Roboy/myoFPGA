@@ -10,13 +10,15 @@ module SpiControl (
 	input start,
 	input wire ss_n,
 	input signed [0:15] pwmRef,
-	output wire [9:0] ss_n_o,
+	output wire [7:0] ss_n_o,
 	output reg [0:15] Word,
 	output reg wren,
 	output spi_done,
-	output reg signed[0:31] actualPosition,
-	output reg signed[0:15] actualVelocity,
-	output reg signed[0:15] springDisplacement
+	output reg signed[0:31] position,
+	output reg signed[0:15] velocity,
+	output reg signed[0:15] current,
+	output reg signed[0:15] displacement,
+	output reg [7:0] motor_switch
 );
 
 reg [7:0] numberOfWordsTransmitted;
@@ -35,9 +37,8 @@ reg signed[0:15] actualCurrent;
 reg signed[0:15] sensor1;
 reg signed[0:15] sensor2;
 reg [5:0] delay_counter;
-reg [2:0]pid_mux;
 
-`define ENABLE_DELAY
+//`define ENABLE_DELAY
 
 assign spi_done = numberOfWordsTransmitted>=12;
 
@@ -53,7 +54,7 @@ always @(posedge clock, negedge reset_n) begin: SPICONTROL_SPILOGIC
 		controlFlags2 <= 0;
 		dummy <= 0;
 		delay_counter <= 0;
-		pid_mux <= 0;
+		motor_switch <= 8'b00000001;
 	end else begin
 		write_ack_prev <= write_ack;
 		if( write_ack_prev==0 && write_ack == 1) begin
@@ -94,11 +95,11 @@ always @(posedge clock, negedge reset_n) begin: SPICONTROL_SPILOGIC
 		data_read_valid_prev <= data_read_valid;
 		if( data_read_valid_prev==1 && data_read_valid==0 ) begin
 			case(numberOfWordsReceived)
-				5: actualPosition[0:15] <= data_read;
-				6: actualPosition[16:31] <= data_read;
-				7: actualVelocity <= data_read;
-				8: actualCurrent <= data_read;
-				9: springDisplacement <= data_read;
+				5: position[0:15] <= data_read;
+				6: position[16:31] <= data_read;
+				7: velocity <= data_read;
+				8: current <= data_read;
+				9: displacement <= data_read;
 				10: sensor1 <= data_read;
 				11: sensor2 <= data_read;
 			endcase
@@ -106,24 +107,27 @@ always @(posedge clock, negedge reset_n) begin: SPICONTROL_SPILOGIC
 		end
 		
 		if ( numberOfWordsTransmitted>=12 && ss_n==1 ) begin			
-			if (start==1) begin
+			if ( start ) begin
 				numberOfWordsTransmitted<= 0;
 				numberOfWordsReceived <= 0;
 				start_frame <= 1;
 				next_value <= 1;
-//				pid_mux <= pid_mux + 1;
+				if(motor_switch[0])
+					motor_switch <= 8'b00000000;
+				else
+					motor_switch <= 8'b00000001;
 			end
 		end 
 	end
 end
 
-assign ss_n_o[0] = (pid_mux==0?ss_n:1);
-assign ss_n_o[1] = (pid_mux==1?ss_n:1);
-assign ss_n_o[2] = (pid_mux==2?ss_n:1);
-assign ss_n_o[3] = (pid_mux==3?ss_n:1);
-assign ss_n_o[4] = (pid_mux==4?ss_n:1);
-assign ss_n_o[5] = (pid_mux==5?ss_n:1);
-assign ss_n_o[6] = (pid_mux==6?ss_n:1);
-assign ss_n_o[7] = (pid_mux==7?ss_n:1);
+assign ss_n_o[0] = (motor_switch==1?ss_n:1);
+assign ss_n_o[1] = (motor_switch==2?ss_n:1);
+assign ss_n_o[2] = (motor_switch==4?ss_n:1);
+assign ss_n_o[3] = (motor_switch==8?ss_n:1);
+assign ss_n_o[4] = (motor_switch==16?ss_n:1);
+assign ss_n_o[5] = (motor_switch==32?ss_n:1);
+assign ss_n_o[6] = (motor_switch==64?ss_n:1);
+assign ss_n_o[7] = (motor_switch==128?ss_n:1);
 
 endmodule

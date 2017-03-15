@@ -1,13 +1,8 @@
 #include "myoControl.hpp"
 
-MyoControl::MyoControl(vector<int32_t*> &pid_base, uint motors):
-numberOfMotors(motors), pid_base(pid_base){
-	if(numberOfMotors>pid_base.size()){
-		cerr << "requested more motors than synthesized pid controller" << endl;
-		return;
-	}
-
+MyoControl::MyoControl(vector<int32_t*> &myo_base):myo_base(myo_base){
 	// initialize control mode
+	numberOfMotors = myo_base.size()*MOTORS_PER_MYOCONTROL;
 	control_mode.resize(numberOfMotors);
 
 	// initialize all controllers with default values
@@ -69,16 +64,16 @@ void MyoControl::update(){
 		default:
 			cout << "currently only supporting Position, Velocity or Force control" << endl;
 		}
-		PID_WRITE_sp(pid_base[motor], sp);
-		pwm_control[motor] = (int16_t)PID_READ_result(pid_base[motor]);
+		MYO_WRITE_sp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, sp);
+		pwm_control[motor] = (int16_t)MYO_READ_pwmRef(myo_base[motor/MOTORS_PER_MYOCONTROL], motor);
 
-		pos[motor] = PID_READ_position(pid_base[motor]);
-		vel[motor] = PID_READ_velocity(pid_base[motor]);
-		displacement[motor] = PID_READ_displacement(pid_base[motor]);
+		pos[motor] = MYO_READ_position(myo_base[motor/MOTORS_PER_MYOCONTROL],motor);
+		vel[motor] = MYO_READ_velocity(myo_base[motor/MOTORS_PER_MYOCONTROL],motor);
+		displacement[motor] = MYO_READ_displacement(myo_base[motor/MOTORS_PER_MYOCONTROL],motor);
 		force[motor] = polyPar[motor][0]+polyPar[motor][1]*displacement[motor] +
 				polyPar[motor][2]*powf(displacement[motor],2.0f)+
 				polyPar[motor][3]*powf(displacement[motor],3.0f);
-//		current[motor] = frame.actualCurrent;
+		current[motor] = MYO_READ_current(myo_base[motor/MOTORS_PER_MYOCONTROL],motor);
 
 #ifdef DEBUG
 		if(iter%1000==0 && (motor>=0 && motor<=7)){
@@ -107,16 +102,16 @@ void MyoControl::changeControl(int motor, int mode, control_Parameters_t &params
 	control_mode[motor] = mode;
 	for(uint motor=0;motor<numberOfMotors;motor++){
 		// set the current setpoint to the current measurement, which results in zero error
-		int32_t current_measurement = PID_READ_sp(pid_base[motor]);
-		PID_WRITE_Kp(pid_base[motor], (int32_t)params.params.pidParameters.pgain);
-		PID_WRITE_Kd(pid_base[motor], (int32_t)params.params.pidParameters.dgain);
-		PID_WRITE_Ki(pid_base[motor], (int32_t)params.params.pidParameters.igain);
-		PID_WRITE_forwardGain(pid_base[motor], (int32_t)params.params.pidParameters.forwardGain);
-		PID_WRITE_deadBand(pid_base[motor], (int32_t)(params.params.pidParameters.deadBand/radPerEncoderCount));
-		PID_WRITE_IntegralPosMax(pid_base[motor], (int32_t)params.params.pidParameters.IntegralPosMax);
-		PID_WRITE_IntegralNegMax(pid_base[motor], (int32_t)params.params.pidParameters.IntegralNegMax);
-		PID_WRITE_outputPosMax(pid_base[motor], (int32_t)params.outputPosMax);
-		PID_WRITE_outputNegMax(pid_base[motor], (int32_t)params.outputNegMax);
+		int32_t current_measurement = MYO_READ_sp(myo_base[motor/MOTORS_PER_MYOCONTROL],motor);
+		MYO_WRITE_Kp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, (uint16_t)params.params.pidParameters.pgain);
+		MYO_WRITE_Kd(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, (uint16_t)params.params.pidParameters.dgain);
+		MYO_WRITE_Ki(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, (uint16_t)params.params.pidParameters.igain);
+		MYO_WRITE_forwardGain(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, (int16_t)params.params.pidParameters.forwardGain);
+		MYO_WRITE_deadBand(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, (uint16_t)params.params.pidParameters.deadBand);
+		MYO_WRITE_IntegralPosMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, (int16_t)params.params.pidParameters.IntegralPosMax);
+		MYO_WRITE_IntegralNegMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, (int16_t)params.params.pidParameters.IntegralNegMax);
+		MYO_WRITE_outputPosMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, (int16_t)params.outputPosMax);
+		MYO_WRITE_outputNegMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, (int16_t)params.outputNegMax);
 	}
 }
 
@@ -124,16 +119,30 @@ void MyoControl::changeControl(int motor, int mode){
 	control_mode[motor] = mode;
 	for(uint motor=0;motor<numberOfMotors;motor++){
 		// set the current setpoint to the current measurement, which results in zero error
-		int current_measurement = PID_READ_sp(pid_base[motor]);
-		PID_WRITE_Kp(pid_base[motor], (int32_t)control_params[mode][motor].params.pidParameters.pgain);
-		PID_WRITE_Kd(pid_base[motor], (int32_t)control_params[mode][motor].params.pidParameters.dgain);
-		PID_WRITE_Ki(pid_base[motor], (int32_t)control_params[mode][motor].params.pidParameters.igain);
-		PID_WRITE_forwardGain(pid_base[motor], (int32_t)control_params[mode][motor].params.pidParameters.forwardGain);
-		PID_WRITE_deadBand(pid_base[motor], (int32_t)(control_params[mode][motor].params.pidParameters.deadBand/radPerEncoderCount));
-		PID_WRITE_IntegralPosMax(pid_base[motor], (int32_t)control_params[mode][motor].params.pidParameters.IntegralPosMax);
-		PID_WRITE_IntegralNegMax(pid_base[motor], (int32_t)control_params[mode][motor].params.pidParameters.IntegralNegMax);
-		PID_WRITE_outputPosMax(pid_base[motor], (int32_t)control_params[mode][motor].outputPosMax);
-		PID_WRITE_outputNegMax(pid_base[motor], (int32_t)control_params[mode][motor].outputNegMax);
+		int current_measurement = MYO_READ_sp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor);
+		MYO_WRITE_Kp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, (uint16_t)control_params[mode][motor].params.pidParameters.pgain);
+		MYO_WRITE_Kd(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, (uint16_t)control_params[mode][motor].params.pidParameters.dgain);
+		MYO_WRITE_Ki(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, (uint16_t)control_params[mode][motor].params.pidParameters.igain);
+		MYO_WRITE_forwardGain(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, (int16_t)control_params[mode][motor].params.pidParameters.forwardGain);
+		MYO_WRITE_deadBand(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, (uint16_t)(control_params[mode][motor].params.pidParameters.deadBand));
+		MYO_WRITE_IntegralPosMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, (int16_t)control_params[mode][motor].params.pidParameters.IntegralPosMax);
+		MYO_WRITE_IntegralNegMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, (int16_t)control_params[mode][motor].params.pidParameters.IntegralNegMax);
+		MYO_WRITE_outputPosMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, (int16_t)control_params[mode][motor].outputPosMax);
+		MYO_WRITE_outputNegMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, (int16_t)control_params[mode][motor].outputNegMax);
+	}
+}
+
+bool MyoControl::toggleSPI(){
+	spi_active = !spi_active;
+	for(uint i=0;i<myo_base.size();i++)
+		MYO_WRITE_spi_activated(myo_base[i],spi_active);
+	return spi_active;
+}
+
+void MyoControl::reset(){
+	for(uint i=0;i<myo_base.size();i++){
+		MYO_WRITE_reset_myo_control(myo_base[i],true);
+		MYO_WRITE_reset_myo_control(myo_base[i],false);
 	}
 }
 

@@ -604,6 +604,8 @@ set_instance_assignment -name GLOBAL_SIGNAL OFF -to u0|hps_0|hps_io|border|hps_s
 set_instance_assignment -name ENABLE_BENEFICIAL_SKEW_OPTIMIZATION_FOR_NON_GLOBAL_CLOCKS ON -to u0|hps_0|hps_io|border|hps_sdram_inst -tag __hps_sdram_p0
 set_instance_assignment -name PLL_COMPENSATION_MODE DIRECT -to u0|hps_0|hps_io|border|hps_sdram_inst|pll0|fbout -tag __hps_sdram_p0
 
+set_global_assignment -name VERILOG_FILE PIDController.v
+set_global_assignment -name VERILOG_FILE MYOControl.v
 set_global_assignment -name BDF_FILE myoFPGA.bdf
 set_global_assignment -name VHDL_FILE spi_master_slave/trunk/rtl/spi_master_slave/spi_master.vhd
 set_global_assignment -name VERILOG_FILE SpiControl.v

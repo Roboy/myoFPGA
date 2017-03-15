@@ -2,7 +2,7 @@
 
 //! standard query messages
 char welcomestring[] = "commandline tool for controlling myode muscle via de0-nano setup";
-char commandstring[] = "[0]position, [1]velocity, [2]force, [3]switch motor, [4]zero weight, [5]allToForce, [6]estimateSpringParams, [9]exit";
+char commandstring[] = "[0]position, [1]velocity, [2]force, [3]switch motor, [4]zero weight, [5]allToForce, [6]estimateSpringParams, [7]toggleSPI, [8]reset, [9]exit";
 char setpointstring[] = "set point (ticks) ?";
 char setvelstring[] = "set velocity (ticks/s) ?";
 char setforcestring[] = "set force (N) ?";
@@ -31,8 +31,8 @@ enum COLORS {
     GREEN,
 };
 
-Interface::Interface(vector<int32_t*> &pid_base, int motors) {
-	myoControl = new MyoControl(pid_base, motors);
+Interface::Interface(vector<int32_t*> &myo_base) {
+	myoControl = new MyoControl(myo_base);
 	//! start ncurses mode
 	initscr();
 	//! Start color functionality
@@ -94,11 +94,11 @@ void Interface::querySensoryData() {
 
 	sprintf(motorinfo, "motor %d   ", motor_id);
 	printMessage(7, 0, motorinfo, CYAN);
-	mvprintw(8, 0, "pwm:                    %d\t\t   0x%032x ", myoControl->pwm_control[motor_id], myoControl->pwm_control[motor_id]);
-	mvprintw(9, 0, "actuatorPos (ticks):    %d\t\t   0x%032x ", motor.actuatorPos, motor.actuatorPos);
-	mvprintw(10, 0, "actuatorVel (ticks/s): %d\t\t   0x%032x ", motor.actuatorVel, motor.actuatorVel);
-	mvprintw(11, 0, "actuatorCurrent:       %d\t\t   0x%032x ", motor.actuatorCurrent, motor.actuatorCurrent);
-	mvprintw(12, 0, "tendonDisplacement:    %d\t\t   0x%032x ", motor.tendonDisplacement, motor.tendonDisplacement);
+	mvprintw(8, 0, "pwm:                 %d\t\t 0x%032x ", myoControl->pwm_control[motor_id], myoControl->pwm_control[motor_id]);
+	mvprintw(9, 0, "actuatorPos :        %d\t\t 0x%032x ", motor.actuatorPos, motor.actuatorPos);
+	mvprintw(10, 0, "actuatorVel:        %d\t\t 0x%032x ", motor.actuatorVel, motor.actuatorVel);
+	mvprintw(11, 0, "actuatorCurrent:    %d\t\t 0x%032x ", motor.actuatorCurrent, motor.actuatorCurrent);
+	mvprintw(12, 0, "tendonDisplacement: %d\t\t 0x%032x ", motor.tendonDisplacement, motor.tendonDisplacement);
 	print(13, 0, cols, "-");
 	int Pgain, Igain, Dgain, forwardGain, deadband, setPoint, setPointMin, setPointMax;
 	switch(myoControl->control_mode[motor_id]){
@@ -147,6 +147,7 @@ void Interface::querySensoryData() {
 			myoControl->polyPar[motor_id][3]);
 	mvprintw(22, 0, "set point limits: %d to %d     ", setPointMin, setPointMax);
 	mvprintw(23, 0, "weight: %.2f     ", myoControl->getWeight());
+	mvprintw(24, 0, "SPI %s               ", (myoControl->spi_active?"active":"inactive"));
 	refresh();
 }
 
@@ -186,6 +187,33 @@ void Interface::processing(char *msg1, char *msg2) {
 		cmd = mvgetch(5, a + 1 + c);
 	} while (cmd != 'q');
 	timeout(-1);
+}
+
+void Interface::toggleSPI(){
+	echo();
+	print(4, 0, cols, " ");
+	print(5, 0, cols, " ");
+	bool spi_active = myoControl->toggleSPI();
+	if(spi_active)
+		printMessage(4, 0, "SPI active", GREEN);
+	else
+		printMessage(4, 0, "SPI inactive", RED);
+	refresh();
+	usleep(1000*100);
+	print(4, 0, cols, " ");
+	print(5, 0, cols, " ");
+}
+
+void Interface::reset(){
+	echo();
+	print(4, 0, cols, " ");
+	print(5, 0, cols, " ");
+	myoControl->reset();
+	printMessage(4, 0, "myo control reset", GREEN);
+	refresh();
+	usleep(1000*100);
+	print(4, 0, cols, " ");
+	print(5, 0, cols, " ");
 }
 
 void Interface::positionControl() {

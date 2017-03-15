@@ -9,11 +9,27 @@
    categories="System" />
  <parameter name="bonusData"><![CDATA[bonusData 
 {
-   element adc_0
+   element MYOControl_0
    {
       datum _sortIndex
       {
          value = "10";
+         type = "int";
+      }
+   }
+   element MYOControl_0.avalon_slave_0
+   {
+      datum baseAddress
+      {
+         value = "0";
+         type = "String";
+      }
+   }
+   element adc_0
+   {
+      datum _sortIndex
+      {
+         value = "9";
          type = "int";
       }
    }
@@ -128,150 +144,6 @@
          type = "String";
       }
    }
-   element pid_controller_0
-   {
-      datum _sortIndex
-      {
-         value = "11";
-         type = "int";
-      }
-   }
-   element pid_controller_0.avalon_slave_0
-   {
-      datum baseAddress
-      {
-         value = "512";
-         type = "String";
-      }
-   }
-   element pid_controller_1
-   {
-      datum _sortIndex
-      {
-         value = "12";
-         type = "int";
-      }
-   }
-   element pid_controller_1.avalon_slave_0
-   {
-      datum baseAddress
-      {
-         value = "448";
-         type = "String";
-      }
-   }
-   element pid_controller_2
-   {
-      datum _sortIndex
-      {
-         value = "13";
-         type = "int";
-      }
-   }
-   element pid_controller_2.avalon_slave_0
-   {
-      datum baseAddress
-      {
-         value = "384";
-         type = "String";
-      }
-   }
-   element pid_controller_3
-   {
-      datum _sortIndex
-      {
-         value = "14";
-         type = "int";
-      }
-   }
-   element pid_controller_3.avalon_slave_0
-   {
-      datum baseAddress
-      {
-         value = "320";
-         type = "String";
-      }
-   }
-   element pid_controller_4
-   {
-      datum _sortIndex
-      {
-         value = "15";
-         type = "int";
-      }
-   }
-   element pid_controller_4.avalon_slave_0
-   {
-      datum baseAddress
-      {
-         value = "256";
-         type = "String";
-      }
-   }
-   element pid_controller_5
-   {
-      datum _sortIndex
-      {
-         value = "16";
-         type = "int";
-      }
-   }
-   element pid_controller_5.avalon_slave_0
-   {
-      datum baseAddress
-      {
-         value = "192";
-         type = "String";
-      }
-   }
-   element pid_controller_6
-   {
-      datum _sortIndex
-      {
-         value = "17";
-         type = "int";
-      }
-   }
-   element pid_controller_6.avalon_slave_0
-   {
-      datum baseAddress
-      {
-         value = "128";
-         type = "String";
-      }
-   }
-   element pid_controller_7
-   {
-      datum _sortIndex
-      {
-         value = "18";
-         type = "int";
-      }
-   }
-   element pid_controller_7.avalon_slave_0
-   {
-      datum baseAddress
-      {
-         value = "64";
-         type = "String";
-      }
-   }
-   element pid_controller_8
-   {
-      datum _sortIndex
-      {
-         value = "19";
-         type = "int";
-      }
-   }
-   element pid_controller_8.avalon_slave_0
-   {
-      datum baseAddress
-      {
-         value = "0";
-         type = "String";
-      }
-   }
    element pio_led
    {
       datum _sortIndex
@@ -284,7 +156,7 @@
    {
       datum baseAddress
       {
-         value = "640";
+         value = "1024";
          type = "String";
       }
    }
@@ -312,19 +184,27 @@
          type = "String";
       }
    }
-   element spi_0
+   element soc_system
    {
-      datum _sortIndex
+      datum _originalDeviceFamily
       {
-         value = "9";
-         type = "int";
+         value = "Cyclone V";
+         type = "String";
       }
    }
-   element spi_0.spi_control_port
+   element soc_system
    {
-      datum baseAddress
+      datum _originalDeviceFamily
       {
-         value = "576";
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
          type = "String";
       }
    }
@@ -401,8 +281,8 @@
  <interface name="hps_0_hps_io" internal="hps_0.hps_io" type="conduit" dir="end" />
  <interface name="memory" internal="hps_0.memory" type="conduit" dir="end" />
  <interface
-   name="pid_controller_0"
-   internal="pid_controller_0.conduit_end"
+   name="myocontrol_0"
+   internal="MYOControl_0.conduit_end"
    type="conduit"
    dir="end" />
  <interface
@@ -411,7 +291,7 @@
    type="conduit"
    dir="end" />
  <interface name="reset" internal="clk_0.clk_in_reset" type="reset" dir="end" />
- <interface name="spi_0_external" internal="spi_0.external" />
+ <module name="MYOControl_0" kind="MYOControl" version="1.0" enabled="1" />
  <module name="adc_0" kind="altera_up_avalon_adc" version="16.1" enabled="0">
   <parameter name="AUTO_CLK_CLOCK_RATE" value="50000000" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
@@ -1043,51 +923,6 @@
   <parameter name="useShallowMemBlocks" value="false" />
   <parameter name="writable" value="true" />
  </module>
- <module
-   name="pid_controller_0"
-   kind="pid_controller"
-   version="1.0"
-   enabled="1" />
- <module
-   name="pid_controller_1"
-   kind="pid_controller"
-   version="1.0"
-   enabled="0" />
- <module
-   name="pid_controller_2"
-   kind="pid_controller"
-   version="1.0"
-   enabled="0" />
- <module
-   name="pid_controller_3"
-   kind="pid_controller"
-   version="1.0"
-   enabled="0" />
- <module
-   name="pid_controller_4"
-   kind="pid_controller"
-   version="1.0"
-   enabled="0" />
- <module
-   name="pid_controller_5"
-   kind="pid_controller"
-   version="1.0"
-   enabled="0" />
- <module
-   name="pid_controller_6"
-   kind="pid_controller"
-   version="1.0"
-   enabled="0" />
- <module
-   name="pid_controller_7"
-   kind="pid_controller"
-   version="1.0"
-   enabled="0" />
- <module
-   name="pid_controller_8"
-   kind="pid_controller"
-   version="1.0"
-   enabled="0" />
  <module name="pio_led" kind="altera_avalon_pio" version="16.1" enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
@@ -1101,22 +936,6 @@
   <parameter name="simDoTestBenchWiring" value="false" />
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="8" />
- </module>
- <module name="spi_0" kind="altera_avalon_spi" version="16.1" enabled="0">
-  <parameter name="avalonSpec" value="2.0" />
-  <parameter name="clockPhase" value="1" />
-  <parameter name="clockPolarity" value="0" />
-  <parameter name="dataWidth" value="16" />
-  <parameter name="disableAvalonFlowControl" value="false" />
-  <parameter name="inputClockRate" value="50000000" />
-  <parameter name="insertDelayBetweenSlaveSelectAndSClk" value="true" />
-  <parameter name="insertSync" value="true" />
-  <parameter name="lsbOrderedFirst" value="false" />
-  <parameter name="masterSPI" value="true" />
-  <parameter name="numberOfSlaves" value="32" />
-  <parameter name="syncRegDepth" value="2" />
-  <parameter name="targetClockRate" value="2000000" />
-  <parameter name="targetSlaveSelectToSClkDelay" value="1200.0" />
  </module>
  <module
    name="sysid_qsys"
@@ -1156,79 +975,7 @@
    kind="avalon"
    version="16.1"
    start="hps_0.h2f_lw_axi_master"
-   end="pid_controller_0.avalon_slave_0">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0200" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="16.1"
-   start="hps_0.h2f_lw_axi_master"
-   end="pid_controller_1.avalon_slave_0">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x01c0" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="16.1"
-   start="hps_0.h2f_lw_axi_master"
-   end="pid_controller_2.avalon_slave_0">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0180" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="16.1"
-   start="hps_0.h2f_lw_axi_master"
-   end="pid_controller_3.avalon_slave_0">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0140" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="16.1"
-   start="hps_0.h2f_lw_axi_master"
-   end="pid_controller_4.avalon_slave_0">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0100" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="16.1"
-   start="hps_0.h2f_lw_axi_master"
-   end="pid_controller_5.avalon_slave_0">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00c0" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="16.1"
-   start="hps_0.h2f_lw_axi_master"
-   end="pid_controller_6.avalon_slave_0">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0080" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="16.1"
-   start="hps_0.h2f_lw_axi_master"
-   end="pid_controller_7.avalon_slave_0">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0040" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="16.1"
-   start="hps_0.h2f_lw_axi_master"
-   end="pid_controller_8.avalon_slave_0">
+   end="MYOControl_0.avalon_slave_0">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
@@ -1248,16 +995,7 @@
    start="hps_0.h2f_lw_axi_master"
    end="pio_led.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0280" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="16.1"
-   start="hps_0.h2f_lw_axi_master"
-   end="spi_0.spi_control_port">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0240" />
+  <parameter name="baseAddress" value="0x0400" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1305,8 +1043,6 @@
   <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
- <connection kind="clock" version="16.1" start="clk_0.clk" end="spi_0.clk" />
- <connection kind="clock" version="16.1" start="clk_0.clk" end="adc_0.clk" />
  <connection kind="clock" version="16.1" start="clk_0.clk" end="sysid_qsys.clk" />
  <connection
    kind="clock"
@@ -1320,6 +1056,7 @@
    version="16.1"
    start="clk_0.clk"
    end="fpga_only_master.clk" />
+ <connection kind="clock" version="16.1" start="clk_0.clk" end="adc_0.clk" />
  <connection
    kind="clock"
    version="16.1"
@@ -1334,47 +1071,7 @@
    kind="clock"
    version="16.1"
    start="clk_0.clk"
-   end="pid_controller_8.clock_sink" />
- <connection
-   kind="clock"
-   version="16.1"
-   start="clk_0.clk"
-   end="pid_controller_7.clock_sink" />
- <connection
-   kind="clock"
-   version="16.1"
-   start="clk_0.clk"
-   end="pid_controller_6.clock_sink" />
- <connection
-   kind="clock"
-   version="16.1"
-   start="clk_0.clk"
-   end="pid_controller_5.clock_sink" />
- <connection
-   kind="clock"
-   version="16.1"
-   start="clk_0.clk"
-   end="pid_controller_4.clock_sink" />
- <connection
-   kind="clock"
-   version="16.1"
-   start="clk_0.clk"
-   end="pid_controller_3.clock_sink" />
- <connection
-   kind="clock"
-   version="16.1"
-   start="clk_0.clk"
-   end="pid_controller_2.clock_sink" />
- <connection
-   kind="clock"
-   version="16.1"
-   start="clk_0.clk"
-   end="pid_controller_1.clock_sink" />
- <connection
-   kind="clock"
-   version="16.1"
-   start="clk_0.clk"
-   end="pid_controller_0.clock_sink" />
+   end="MYOControl_0.clock_sink" />
  <connection
    kind="clock"
    version="16.1"
@@ -1414,58 +1111,11 @@
    version="16.1"
    start="clk_0.clk_reset"
    end="hps_only_master.clk_reset" />
- <connection kind="reset" version="16.1" start="clk_0.clk_reset" end="spi_0.reset" />
- <connection kind="reset" version="16.1" start="clk_0.clk_reset" end="adc_0.reset" />
- <connection
-   kind="reset"
-   version="16.1"
-   start="clk_0.clk_reset"
-   end="pid_controller_1.reset" />
- <connection
-   kind="reset"
-   version="16.1"
-   start="clk_0.clk_reset"
-   end="pid_controller_2.reset" />
- <connection
-   kind="reset"
-   version="16.1"
-   start="clk_0.clk_reset"
-   end="pid_controller_3.reset" />
- <connection
-   kind="reset"
-   version="16.1"
-   start="clk_0.clk_reset"
-   end="pid_controller_4.reset" />
- <connection
-   kind="reset"
-   version="16.1"
-   start="clk_0.clk_reset"
-   end="pid_controller_5.reset" />
- <connection
-   kind="reset"
-   version="16.1"
-   start="clk_0.clk_reset"
-   end="pid_controller_6.reset" />
- <connection
-   kind="reset"
-   version="16.1"
-   start="clk_0.clk_reset"
-   end="pid_controller_7.reset" />
- <connection
-   kind="reset"
-   version="16.1"
-   start="clk_0.clk_reset"
-   end="pid_controller_8.reset" />
  <connection
    kind="reset"
    version="16.1"
    start="clk_0.clk_reset"
    end="jtag_uart.reset" />
- <connection
-   kind="reset"
-   version="16.1"
-   start="clk_0.clk_reset"
-   end="pid_controller_0.reset" />
  <connection
    kind="reset"
    version="16.1"
@@ -1476,6 +1126,12 @@
    version="16.1"
    start="clk_0.clk_reset"
    end="sysid_qsys.reset" />
+ <connection kind="reset" version="16.1" start="clk_0.clk_reset" end="adc_0.reset" />
+ <connection
+   kind="reset"
+   version="16.1"
+   start="clk_0.clk_reset"
+   end="MYOControl_0.reset" />
  <connection
    kind="reset"
    version="16.1"
