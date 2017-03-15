@@ -171,9 +171,9 @@ float MyoControl::getCurrent(int motor){
 
 void MyoControl::getDefaultControlParams(control_Parameters_t *params, int control_mode){
 	params->tag = 0;              // sint32
-	params->outputPosMax = 1000/radPerEncoderCount;  // sint32
-	params->outputNegMax = -1000/radPerEncoderCount; // sint32
-	params->timePeriod = 10; // float32      //in us set time period to avoid error case
+	params->outputPosMax = 1000;  // sint32
+	params->outputNegMax = -1000; // sint32
+	params->timePeriod = 10; // float32
 
 	params->radPerEncoderCount =
 			2 * 3.14159265359 / (2000.0 * 53.0);          // float32
@@ -184,9 +184,9 @@ void MyoControl::getDefaultControlParams(control_Parameters_t *params, int contr
 switch(control_mode){
 case Position:
 	params->params.pidParameters.integral = 0;             // float32
-	params->params.pidParameters.pgain = 100.0;                   // float32
+	params->params.pidParameters.pgain = 1.0;                   // float32
 	params->params.pidParameters.igain = 0;                   // float32
-	params->params.pidParameters.dgain = 1000.0;                   // float32
+	params->params.pidParameters.dgain = 0;                   // float32
 	params->params.pidParameters.forwardGain = 0;       // float32
 	params->params.pidParameters.deadBand = 0;             // float32
 	params->params.pidParameters.IntegralPosMax = 100; // float32

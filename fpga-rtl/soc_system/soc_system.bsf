@@ -160,8 +160,8 @@ agreement for further details.
 	(port
 		(pt 0 1128)
 		(input)
-		(text "pid_controller_0_displacement[31..0]" (rect 0 0 142 12)(font "Arial" (font_size 8)))
-		(text "pid_controller_0_displacement[31..0]" (rect 4 1117 220 1128)(font "Arial" (font_size 8)))
+		(text "pid_controller_0_displacement[15..0]" (rect 0 0 142 12)(font "Arial" (font_size 8)))
+		(text "pid_controller_0_displacement[15..0]" (rect 4 1117 220 1128)(font "Arial" (font_size 8)))
 		(line (pt 0 1128)(pt 272 1128)(line_width 3))
 	)
 	(port
@@ -174,8 +174,8 @@ agreement for further details.
 	(port
 		(pt 0 1160)
 		(input)
-		(text "pid_controller_0_velocity[31..0]" (rect 0 0 122 12)(font "Arial" (font_size 8)))
-		(text "pid_controller_0_velocity[31..0]" (rect 4 1149 196 1160)(font "Arial" (font_size 8)))
+		(text "pid_controller_0_velocity[15..0]" (rect 0 0 122 12)(font "Arial" (font_size 8)))
+		(text "pid_controller_0_velocity[15..0]" (rect 4 1149 196 1160)(font "Arial" (font_size 8)))
 		(line (pt 0 1160)(pt 272 1160)(line_width 3))
 	)
 	(port

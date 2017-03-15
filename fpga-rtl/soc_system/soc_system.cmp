@@ -74,9 +74,9 @@
 			pid_controller_0_controller_result    : out   std_logic_vector(31 downto 0);                    -- controller_result
 			pid_controller_0_controller_busy      : out   std_logic;                                        -- controller_busy
 			pid_controller_0_controller           : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- controller
-			pid_controller_0_displacement         : in    std_logic_vector(31 downto 0) := (others => 'X'); -- displacement
+			pid_controller_0_displacement         : in    std_logic_vector(15 downto 0) := (others => 'X'); -- displacement
 			pid_controller_0_position             : in    std_logic_vector(31 downto 0) := (others => 'X'); -- position
-			pid_controller_0_velocity             : in    std_logic_vector(31 downto 0) := (others => 'X'); -- velocity
+			pid_controller_0_velocity             : in    std_logic_vector(15 downto 0) := (others => 'X'); -- velocity
 			pio_led_external_connection_export    : out   std_logic_vector(7 downto 0);                     -- export
 			reset_reset_n                         : in    std_logic                     := 'X'              -- reset_n
 		);

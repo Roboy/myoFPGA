@@ -78,9 +78,9 @@ module soc_system (
 		output wire [31:0] pid_controller_0_controller_result,    //                            .controller_result
 		output wire        pid_controller_0_controller_busy,      //                            .controller_busy
 		input  wire [1:0]  pid_controller_0_controller,           //                            .controller
-		input  wire [31:0] pid_controller_0_displacement,         //                            .displacement
+		input  wire [15:0] pid_controller_0_displacement,         //                            .displacement
 		input  wire [31:0] pid_controller_0_position,             //                            .position
-		input  wire [31:0] pid_controller_0_velocity,             //                            .velocity
+		input  wire [15:0] pid_controller_0_velocity,             //                            .velocity
 		output wire [7:0]  pio_led_external_connection_export,    // pio_led_external_connection.export
 		input  wire        reset_reset_n                          //                       reset.reset_n
 	);

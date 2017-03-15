@@ -3,8 +3,8 @@
 //! standard query messages
 char welcomestring[] = "commandline tool for controlling myode muscle via de0-nano setup";
 char commandstring[] = "[0]position, [1]velocity, [2]force, [3]switch motor, [4]zero weight, [5]allToForce, [6]estimateSpringParams, [9]exit";
-char setpointstring[] = "set point (rad) ?";
-char setvelstring[] = "set velocity (rad/s) ?";
+char setpointstring[] = "set point (ticks) ?";
+char setvelstring[] = "set velocity (ticks/s) ?";
 char setforcestring[] = "set force (N) ?";
 char motorstring[] = "which motor(0-3)?";
 char motorinfo[30];
@@ -94,13 +94,13 @@ void Interface::querySensoryData() {
 
 	sprintf(motorinfo, "motor %d   ", motor_id);
 	printMessage(7, 0, motorinfo, CYAN);
-	mvprintw(8, 0, "pwm:                 %d      ", myoControl->pwm_control[motor_id]);
-	mvprintw(9, 0, "actuatorPos (rad):   %d    ", motor.actuatorPos);
-	mvprintw(10, 0, "actuatorVel (rad/s): %d   ", motor.actuatorVel);
-	mvprintw(11, 0, "actuatorCurrent:     %d     ", motor.actuatorCurrent);
-	mvprintw(12, 0, "tendonDisplacement:  %d     ", motor.tendonDisplacement);
+	mvprintw(8, 0, "pwm:                    %d\t\t   0x%032x ", myoControl->pwm_control[motor_id], myoControl->pwm_control[motor_id]);
+	mvprintw(9, 0, "actuatorPos (ticks):    %d\t\t   0x%032x ", motor.actuatorPos, motor.actuatorPos);
+	mvprintw(10, 0, "actuatorVel (ticks/s): %d\t\t   0x%032x ", motor.actuatorVel, motor.actuatorVel);
+	mvprintw(11, 0, "actuatorCurrent:       %d\t\t   0x%032x ", motor.actuatorCurrent, motor.actuatorCurrent);
+	mvprintw(12, 0, "tendonDisplacement:    %d\t\t   0x%032x ", motor.tendonDisplacement, motor.tendonDisplacement);
 	print(13, 0, cols, "-");
-	float Pgain, Igain, Dgain, forwardGain, deadband, setPoint, setPointMin, setPointMax;
+	int Pgain, Igain, Dgain, forwardGain, deadband, setPoint, setPointMin, setPointMax;
 	switch(myoControl->control_mode[motor_id]){
 	case Position:
 		Pgain = myoControl->control_params[Position][motor_id].params.pidParameters.pgain;
@@ -135,17 +135,17 @@ void Interface::querySensoryData() {
 	default:
 		break;
 	}
-	mvprintw(14, 0, "P gain:          %.5f       ", Pgain);
-	mvprintw(15, 0, "I gain:          %.5f       ", Igain);
-	mvprintw(16, 0, "D gain:          %.5f       ", Dgain);
-	mvprintw(17, 0, "forward gain:    %.5f       ", forwardGain);
-	mvprintw(18, 0, "deadband:        %.5f       ", deadband);
-	mvprintw(19, 0, "set point:       %.5f       ", setPoint);
+	mvprintw(14, 0, "P gain:          %d       ", Pgain);
+	mvprintw(15, 0, "I gain:          %d       ", Igain);
+	mvprintw(16, 0, "D gain:          %d       ", Dgain);
+	mvprintw(17, 0, "forward gain:    %d       ", forwardGain);
+	mvprintw(18, 0, "deadband:        %d       ", deadband);
+	mvprintw(19, 0, "set point:       %d       ", setPoint);
 	print(20, 0, cols, "-");
 	mvprintw(21, 0, "polyPar: %.5f  %.5f  %.5f  %.5f    ", myoControl->polyPar[motor_id][0],
 			myoControl->polyPar[motor_id][1], myoControl->polyPar[motor_id][2],
 			myoControl->polyPar[motor_id][3]);
-	mvprintw(22, 0, "set point limits: %.5f to %.5f     ", setPointMin, setPointMax);
+	mvprintw(22, 0, "set point limits: %d to %d     ", setPointMin, setPointMax);
 	mvprintw(23, 0, "weight: %.2f     ", myoControl->getWeight());
 	refresh();
 }
@@ -198,7 +198,7 @@ void Interface::positionControl() {
 	mvchgat(4, 0, strlen(setpointstring), A_BOLD, 1, NULL);
 	refresh();
 	mvgetnstr(5, 0, inputstring, 30);
-	pos = atof(inputstring);
+	pos = atoi(inputstring);
 	myoControl->setPosition(motor_id, pos);
 	processing(runningstring, inputstring, quitstring);
 	print(4, 0, cols, " ");
@@ -216,7 +216,7 @@ void Interface::velocityControl() {
 	mvchgat(4, 0, strlen(setvelstring), A_BOLD, 1, NULL);
 	refresh();
 	mvgetnstr(5, 0, inputstring, 30);
-	pos = atof(inputstring);
+	pos = atoi(inputstring);
 	myoControl->setVelocity(motor_id, pos);
 	processing(runningstring, inputstring, quitstring);
 	print(4, 0, cols, " ");

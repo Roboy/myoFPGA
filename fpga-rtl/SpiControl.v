@@ -13,13 +13,14 @@ module SpiControl (
 	output wire [9:0] ss_n_o,
 	output reg [0:15] Word,
 	output reg wren,
-	output reg spi_done,
+	output spi_done,
 	output reg signed[0:31] actualPosition,
 	output reg signed[0:15] actualVelocity,
 	output reg signed[0:15] springDisplacement
 );
 
 reg [7:0] numberOfWordsTransmitted;
+reg [7:0] numberOfWordsReceived;
 reg write_ack_prev;
 reg next_value;
 reg start_frame;
@@ -37,6 +38,8 @@ reg [5:0] delay_counter;
 reg [2:0]pid_mux;
 
 `define ENABLE_DELAY
+
+assign spi_done = numberOfWordsTransmitted>=12;
 
 always @(posedge clock, negedge reset_n) begin: SPICONTROL_SPILOGIC
 	if (reset_n == 0) begin
@@ -89,8 +92,8 @@ always @(posedge clock, negedge reset_n) begin: SPICONTROL_SPILOGIC
 `endif /*ENABLE_DELAY*/
 			
 		data_read_valid_prev <= data_read_valid;
-		if( (data_read_valid_prev==0 && data_read_valid==1) && numberOfWordsTransmitted>=5 && numberOfWordsTransmitted< 12 ) begin
-			case(numberOfWordsTransmitted)
+		if( data_read_valid_prev==1 && data_read_valid==0 ) begin
+			case(numberOfWordsReceived)
 				5: actualPosition[0:15] <= data_read;
 				6: actualPosition[16:31] <= data_read;
 				7: actualVelocity <= data_read;
@@ -99,13 +102,13 @@ always @(posedge clock, negedge reset_n) begin: SPICONTROL_SPILOGIC
 				10: sensor1 <= data_read;
 				11: sensor2 <= data_read;
 			endcase
+			numberOfWordsReceived <= numberOfWordsReceived + 1;
 		end
 		
-		if ( numberOfWordsTransmitted>=12 && ss_n==1 ) begin
-			spi_done <= 1;
+		if ( numberOfWordsTransmitted>=12 && ss_n==1 ) begin			
 			if (start==1) begin
-				spi_done <= 0;
 				numberOfWordsTransmitted<= 0;
+				numberOfWordsReceived <= 0;
 				start_frame <= 1;
 				next_value <= 1;
 //				pid_mux <= pid_mux + 1;

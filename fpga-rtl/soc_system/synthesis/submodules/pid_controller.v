@@ -15,9 +15,9 @@ module pid_controller (
 	input write,
 	input signed [31:0] writedata,
 	input read,
-	input signed [31:0] position,
-	input signed [31:0] velocity,
-	input signed [31:0] displacement,
+	input signed [0:31] position,
+	input signed [0:15] velocity,
+	input signed [0:15] displacement,
 	input measurement_update,
 	input [1:0] controller, // position velocity force
 	output signed [31:0] readdata,
@@ -43,6 +43,9 @@ reg signed [31:0] deadBand;
 reg signed [31:0] result;
 reg data_ready;
 reg controller_update;
+reg signed [31:0] actualPosition;
+reg signed [31:0] actualVelocity;
+reg signed [31:0] actualDisplacement;
 
 assign waitrequest = ~data_ready;
 
@@ -57,9 +60,9 @@ assign readdata = ((address == 0))? result :
 	((address == 8))? IntegralNegMax :
 	((address == 9))? IntegralPosMax :
 	((address == 10))? deadBand :
-	((address == 11))? position :
-	((address == 12))? velocity :
-	((address == 13))? displacement :
+	((address == 11))? actualPosition :
+	((address == 12))? actualVelocity :
+	((address == 13))? actualDisplacement :
 	32'hDEAD_BEEF;
 
 always @(posedge clock, posedge reset) begin: PID_CONTROLLER_PID_CONTROLLERLOGIC
@@ -118,6 +121,12 @@ always @(posedge clock, posedge reset) begin: PID_CONTROLLER_PID_CONTROLLERLOGIC
 		end
 		data_ready = 1;
 
+		if(measurement_update) begin
+			actualPosition[31:0] <= position[0:31];
+			actualVelocity[15:0] <= velocity[0:15];
+			actualDisplacement[15:0] <= displacement[0:15];
+		end
+
 		if(write && ~waitrequest) begin
 			case(address)
 				1: Kp <= writedata[31:0];
@@ -138,9 +147,5 @@ end
 
 
 endmodule
-
-
-
-
 
 

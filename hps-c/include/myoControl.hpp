@@ -130,7 +130,8 @@ public:
 			vector<float> &coeffs);
 
 	SPISTREAM frame;
-	vector<int32_t> pos, vel, force, displacement, current;
+	vector<int32_t> pos;
+	vector<int16_t> vel, force, displacement, current;
 	vector<int32_t> pos_setPoint, vel_setPoint, force_setPoint;
 	vector<int32_t> control_mode;
 	map<int,vector<control_Parameters_t>> control_params;

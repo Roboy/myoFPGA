@@ -34,7 +34,7 @@
 `define ENABLE_HPS
 //`define ENABLE_CLK
 
-module ghrd( 
+module ghrd(   
 
       ///////// ADC /////////
       output             ADC_CONVST,
@@ -149,9 +149,9 @@ wire di_req, wr_ack, do_valid, transmit, wren, spi_done, spi_ss_n, controller_bu
 wire [0:15] Word;
 wire [15:0] data_out;
 wire [0:15] pwmRef;
-wire signed [31:0] actualPosition; 
-wire signed [31:0] actualVelocity;
-wire signed [31:0] springDisplacement;
+wire signed [0:31] actualPosition; 
+wire signed [0:15] actualVelocity;
+wire signed [0:15] springDisplacement;
 
 //oneshot transmit_trigger(
 //	.clk(FPGA_CLK1_50),
