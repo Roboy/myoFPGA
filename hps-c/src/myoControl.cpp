@@ -3,34 +3,22 @@
 MyoControl::MyoControl(vector<int32_t*> &myo_base):myo_base(myo_base){
 	// initialize control mode
 	numberOfMotors = myo_base.size()*MOTORS_PER_MYOCONTROL;
-	control_mode.resize(numberOfMotors);
-
 	// initialize all controllers with default values
 	control_Parameters_t params;
 	getDefaultControlParams(&params, Position);
 	for(uint motor=0;motor<numberOfMotors;motor++){
-		changeControl(motor, Position, params);
-		control_params[Position].push_back(params);
+		changeControl(motor, 0, params);
+		control_params[0].push_back(params);
 	}
 	getDefaultControlParams(&params, Velocity);
 	for(uint motor=0;motor<numberOfMotors;motor++){
-		control_params[Velocity].push_back(params);
+		control_params[1].push_back(params);
 	}
 	getDefaultControlParams(&params, Force);
 	for(uint motor=0;motor<numberOfMotors;motor++){
-		control_params[Force].push_back(params);
+		control_params[2].push_back(params);
 	}
-	// initialize setpoints
-	pos_setPoint.resize(numberOfMotors,0);
-	vel_setPoint.resize(numberOfMotors,0);
-	force_setPoint.resize(numberOfMotors,0);
 	pwm_control.resize(numberOfMotors,0);
-	// initialize the actual values
-	pos.resize(numberOfMotors,0);
-	vel.resize(numberOfMotors,0);
-	force.resize(numberOfMotors,0);
-	displacement.resize(numberOfMotors,0);
-	current.resize(numberOfMotors,0);
 	// set the default spring parameters
 	polyPar.resize(numberOfMotors);
 	vector<float> coeffs(4);
@@ -47,62 +35,11 @@ MyoControl::~MyoControl(){
 	cout << "shutting down myoControl" << endl;
 }
 
-void MyoControl::update(){
-	for(uint motor=0;motor<numberOfMotors;motor++){
-		// update setPoints and get PID result
-		int32_t sp = 0;
-		switch(control_mode[motor]){
-		case Position:
-			sp = (int32_t)pos_setPoint[motor];
-			break;
-		case Velocity:
-			sp = (int32_t)vel_setPoint[motor];
-			break;
-		case Force:
-			sp = (int32_t)force_setPoint[motor];
-			break;
-		default:
-			cout << "currently only supporting Position, Velocity or Force control" << endl;
-		}
-		MYO_WRITE_sp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, sp);
-		pwm_control[motor] = (int16_t)MYO_READ_pwmRef(myo_base[motor/MOTORS_PER_MYOCONTROL], motor);
-
-		pos[motor] = MYO_READ_position(myo_base[motor/MOTORS_PER_MYOCONTROL],motor);
-		vel[motor] = MYO_READ_velocity(myo_base[motor/MOTORS_PER_MYOCONTROL],motor);
-		displacement[motor] = MYO_READ_displacement(myo_base[motor/MOTORS_PER_MYOCONTROL],motor);
-		force[motor] = polyPar[motor][0]+polyPar[motor][1]*displacement[motor] +
-				polyPar[motor][2]*powf(displacement[motor],2.0f)+
-				polyPar[motor][3]*powf(displacement[motor],3.0f);
-		current[motor] = MYO_READ_current(myo_base[motor/MOTORS_PER_MYOCONTROL],motor);
-
-#ifdef DEBUG
-		if(iter%1000==0 && (motor>=0 && motor<=7)){
-		printf("============motor %d=============\n", motor);
-					printf( "startOfFrame:         %d\n"
-						  "pwmRef:               %d\n"
-						  "controlFlags1:        %d\n"
-						  "controlFlags2:        %d\n"
-						  "dummy:                %d\n"
-						  "actualPosition:       %f\n"
-						   "actualVelocity:      %f\n"
-						   "actualCurrent:       %d\n"
-						   "springDisplacement:  %d\n"
-						   "sensor1:             %d\n"
-						   "sensor2:             %d\n"
-						   "force:               %f\n",
-						   frame.startOfFrame, pwm_control[motor], frame.controlFlags1, frame.controlFlags2, frame.dummy,
-						   pos[motor], vel[motor], frame.actualCurrent, frame.springDisplacement, frame.sensor1, frame.sensor2, force[motor]);
-		}
-#endif
-	}
-	iter++;
-}
-
 void MyoControl::changeControl(int motor, int mode, control_Parameters_t &params){
-	control_mode[motor] = mode;
 	for(uint motor=0;motor<numberOfMotors;motor++){
 		// set the current setpoint to the current measurement, which results in zero error
 		int32_t current_measurement = MYO_READ_sp(myo_base[motor/MOTORS_PER_MYOCONTROL],motor);
+		MYO_WRITE_sp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, current_measurement);
 		MYO_WRITE_Kp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, (uint16_t)params.params.pidParameters.pgain);
 		MYO_WRITE_Kd(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, (uint16_t)params.params.pidParameters.dgain);
 		MYO_WRITE_Ki(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, (uint16_t)params.params.pidParameters.igain);
@@ -112,14 +49,15 @@ void MyoControl::changeControl(int motor, int mode, control_Parameters_t &params
 		MYO_WRITE_IntegralNegMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, (int16_t)params.params.pidParameters.IntegralNegMax);
 		MYO_WRITE_outputPosMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, (int16_t)params.outputPosMax);
 		MYO_WRITE_outputNegMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, (int16_t)params.outputNegMax);
+		MYO_WRITE_control(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, mode);
 	}
 }
 
 void MyoControl::changeControl(int motor, int mode){
-	control_mode[motor] = mode;
 	for(uint motor=0;motor<numberOfMotors;motor++){
 		// set the current setpoint to the current measurement, which results in zero error
 		int current_measurement = MYO_READ_sp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor);
+		MYO_WRITE_sp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, current_measurement);
 		MYO_WRITE_Kp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, (uint16_t)control_params[mode][motor].params.pidParameters.pgain);
 		MYO_WRITE_Kd(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, (uint16_t)control_params[mode][motor].params.pidParameters.dgain);
 		MYO_WRITE_Ki(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, (uint16_t)control_params[mode][motor].params.pidParameters.igain);
@@ -129,6 +67,7 @@ void MyoControl::changeControl(int motor, int mode){
 		MYO_WRITE_IntegralNegMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, (int16_t)control_params[mode][motor].params.pidParameters.IntegralNegMax);
 		MYO_WRITE_outputPosMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, (int16_t)control_params[mode][motor].outputPosMax);
 		MYO_WRITE_outputNegMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, (int16_t)control_params[mode][motor].outputNegMax);
+		MYO_WRITE_control(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, mode);
 	}
 }
 
@@ -146,36 +85,48 @@ void MyoControl::reset(){
 	}
 }
 
-void MyoControl::setPosition(int motor, float position){
-	pos_setPoint[motor] = position;
+void MyoControl::setPosition(int motor, int32_t position){
+	MYO_WRITE_sp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, position);
 }
 
-void MyoControl::setVelocity(int motor, float velocity){
-	vel_setPoint[motor] = velocity;
+void MyoControl::setVelocity(int motor, int32_t velocity){
+	MYO_WRITE_sp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, velocity);
 }
 
-void MyoControl::setForce(int motor, float force){
-	force_setPoint[motor] = force;
+void MyoControl::setDisplacement(int motor, int32_t displacement){
+	MYO_WRITE_sp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, displacement);
 }
 
-float MyoControl::getPosition(int motor){
-	return pos[motor];
+void MyoControl::getPIDcontrollerParams(int &Pgain, int &Igain, int &Dgain, int &forwardGain, int &deadband,
+									int &setPoint, int &setPointMin, int &setPointMax, int motor){
+	Pgain = MYO_READ_Kp(myo_base[motor/MOTORS_PER_MYOCONTROL],motor);
+	Igain = MYO_READ_Ki(myo_base[motor/MOTORS_PER_MYOCONTROL],motor);
+	Dgain = MYO_READ_Kd(myo_base[motor/MOTORS_PER_MYOCONTROL],motor);
+	forwardGain = MYO_READ_forwardGain(myo_base[motor/MOTORS_PER_MYOCONTROL],motor);
+	deadband = MYO_READ_deadBand(myo_base[motor/MOTORS_PER_MYOCONTROL],motor);
+	setPoint = MYO_READ_sp(myo_base[motor/MOTORS_PER_MYOCONTROL],motor);
+	setPointMin = 0;
+	setPointMax = 0;
 }
 
-float MyoControl::getVelocity(int motor){
-	return vel[motor];
+int16_t MyoControl::getPWM(int motor){
+	return MYO_READ_pwmRef(myo_base[motor/MOTORS_PER_MYOCONTROL],motor);
 }
 
-float MyoControl::getForce(int motor){
-	return force[motor];
+int32_t MyoControl::getPosition(int motor){
+	return MYO_READ_position(myo_base[motor/MOTORS_PER_MYOCONTROL],motor);
 }
 
-float MyoControl::getDisplacement(int motor){
-	return displacement[motor];
+int16_t MyoControl::getVelocity(int motor){
+	return MYO_READ_velocity(myo_base[motor/MOTORS_PER_MYOCONTROL],motor);
 }
 
-float MyoControl::getCurrent(int motor){
-	return current[motor];
+int16_t MyoControl::getDisplacement(int motor){
+	return MYO_READ_displacement(myo_base[motor/MOTORS_PER_MYOCONTROL],motor);
+}
+
+int16_t MyoControl::getCurrent(int motor){
+	return MYO_READ_current(myo_base[motor/MOTORS_PER_MYOCONTROL],motor);
 }
 
 void MyoControl::getDefaultControlParams(control_Parameters_t *params, int control_mode){
@@ -204,9 +155,9 @@ case Position:
 	break;
 case Velocity:
 	params->params.pidParameters.integral = 0;             // float32
-	params->params.pidParameters.pgain = 1000.0;                   // float32
+	params->params.pidParameters.pgain = 1.0;                   // float32
 	params->params.pidParameters.igain = 0;                   // float32
-	params->params.pidParameters.dgain = 100;                   // float32
+	params->params.pidParameters.dgain = 0;                   // float32
 	params->params.pidParameters.forwardGain = 0;       // float32
 	params->params.pidParameters.deadBand = 0;             // float32
 	params->params.pidParameters.IntegralPosMax = 100; // float32
@@ -215,7 +166,7 @@ case Velocity:
 	break;
 case Force:
 	params->params.pidParameters.integral = 0;             // float32
-	params->params.pidParameters.pgain = 10.0;                   // float32
+	params->params.pidParameters.pgain = 1.0;                   // float32
 	params->params.pidParameters.igain = 0;                   // float32
 	params->params.pidParameters.dgain = 0;                   // float32
 	params->params.pidParameters.forwardGain = 0;       // float32
@@ -231,24 +182,21 @@ default:
 
 }
 
-void MyoControl::allToPosition(float pos){
+void MyoControl::allToPosition(int32_t pos){
 	for(uint motor=0; motor<numberOfMotors; motor++){
-		control_mode[motor] = Position;
-		pos_setPoint[motor] = pos;
+
 	}
 }
 
-void MyoControl::allToVelocity(float vel){
+void MyoControl::allToVelocity(int32_t vel){
 	for(uint motor=0; motor<numberOfMotors; motor++){
-		control_mode[motor] = Velocity;
-		vel_setPoint[motor] = vel;
+
 	}
 }
 
-void MyoControl::allToForce(float force){
+void MyoControl::allToDisplacement(int32_t displacement){
 	for(uint motor=0; motor<numberOfMotors; motor++){
-		control_mode[motor] = Force;
-		force_setPoint[motor] = force;
+
 	}
 }
 
@@ -269,21 +217,18 @@ float MyoControl::getWeight(){
 
 void MyoControl::estimateSpringParameters(int motor, int timeout,  uint numberOfDataPoints){
 	vector<float> weight, displacement, coeffs;
-	setForce(motor,0);
+	setDisplacement(motor,0);
 	changeControl(motor,Force);
-	update();
-	int sample = 0;
 	float force_min = 0, force_max = 4.0;
 	milliseconds ms_start = duration_cast< milliseconds >(system_clock::now().time_since_epoch()), ms_stop, t0, t1;
 	ofstream outfile;
 	outfile.open ("springParameters_calibration.csv");
 	do{
 		float f = (rand()/(float)RAND_MAX)*(force_max-force_min)+force_min;
-		setForce(motor, f);
+		setDisplacement(motor, f);
 		t0 = duration_cast< milliseconds >(system_clock::now().time_since_epoch());
 		do{// wait a bit until force is applied
 			// update control
-			update();
 			t1 = duration_cast< milliseconds >(system_clock::now().time_since_epoch());
 		}while((t1-t0).count()<500);
 

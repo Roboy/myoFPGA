@@ -2,10 +2,10 @@
 
 //! standard query messages
 char welcomestring[] = "commandline tool for controlling myode muscle via de0-nano setup";
-char commandstring[] = "[0]position, [1]velocity, [2]force, [3]switch motor, [4]zero weight, [5]allToForce, [6]estimateSpringParams, [7]toggleSPI, [8]reset, [9]exit";
+char commandstring[] = "[0]position, [1]velocity, [2]displacement, [3]switch motor, [4]zero weight, [5]allToForce, [6]estimateSpringParams, [7]toggleSPI, [8]reset, [9]exit";
 char setpointstring[] = "set point (ticks) ?";
 char setvelstring[] = "set velocity (ticks/s) ?";
-char setforcestring[] = "set force (N) ?";
+char setdisplacementstring[] = "set displacement (ticks)?";
 char motorstring[] = "which motor(0-3)?";
 char motorinfo[30];
 char ganglionstring[] = "which ganglion(0-5)?";
@@ -86,55 +86,23 @@ void Interface::clearAll(uint row) {
 }
 
 void Interface::querySensoryData() {
-	myoControl->update();
-	motor.actuatorPos = myoControl->pos[motor_id];
-	motor.actuatorVel = myoControl->vel[motor_id];
-	motor.actuatorCurrent = myoControl->current[motor_id];
-	motor.tendonDisplacement = myoControl->displacement[motor_id];
+	int32_t pos = myoControl->getPosition(motor_id);
+	int16_t vel = myoControl->getVelocity(motor_id);
+	int16_t current = myoControl->getCurrent(motor_id);
+	int16_t displacement = myoControl->getDisplacement(motor_id);
+	int16_t pwm = myoControl->getPWM(motor_id);
 
 	sprintf(motorinfo, "motor %d   ", motor_id);
 	printMessage(7, 0, motorinfo, CYAN);
-	mvprintw(8, 0, "pwm:                 %d\t\t 0x%032x ", myoControl->pwm_control[motor_id], myoControl->pwm_control[motor_id]);
-	mvprintw(9, 0, "actuatorPos :        %d\t\t 0x%032x ", motor.actuatorPos, motor.actuatorPos);
-	mvprintw(10, 0, "actuatorVel:        %d\t\t 0x%032x ", motor.actuatorVel, motor.actuatorVel);
-	mvprintw(11, 0, "actuatorCurrent:    %d\t\t 0x%032x ", motor.actuatorCurrent, motor.actuatorCurrent);
-	mvprintw(12, 0, "tendonDisplacement: %d\t\t 0x%032x ", motor.tendonDisplacement, motor.tendonDisplacement);
+	mvprintw(8, 0, "pwm:                 %d\t\t 0x%032x        ", pwm, pwm);
+	mvprintw(9, 0, "actuatorPos :        %d\t\t 0x%032x        ", pos, pos);
+	mvprintw(10, 0, "actuatorVel:        %d\t\t 0x%032x        ", vel, vel);
+	mvprintw(11, 0, "actuatorCurrent:    %d\t\t 0x%032x        ", current, current);
+	mvprintw(12, 0, "tendonDisplacement: %d\t\t 0x%032x        ", displacement, displacement);
+
 	print(13, 0, cols, "-");
 	int Pgain, Igain, Dgain, forwardGain, deadband, setPoint, setPointMin, setPointMax;
-	switch(myoControl->control_mode[motor_id]){
-	case Position:
-		Pgain = myoControl->control_params[Position][motor_id].params.pidParameters.pgain;
-		Igain = myoControl->control_params[Position][motor_id].params.pidParameters.igain;
-		Dgain = myoControl->control_params[Position][motor_id].params.pidParameters.dgain;
-		forwardGain = myoControl->control_params[Position][motor_id].params.pidParameters.forwardGain;
-		deadband = myoControl->control_params[Position][motor_id].params.pidParameters.deadBand;
-		setPoint = myoControl->pos_setPoint[motor_id];
-		setPointMin = myoControl->control_params[Position][motor_id].spNegMax;
-		setPointMax = myoControl->control_params[Position][motor_id].spPosMax;
-		break;
-	case Velocity:
-		Pgain = myoControl->control_params[Velocity][motor_id].params.pidParameters.pgain;
-		Igain = myoControl->control_params[Velocity][motor_id].params.pidParameters.igain;
-		Dgain = myoControl->control_params[Velocity][motor_id].params.pidParameters.dgain;
-		forwardGain = myoControl->control_params[Velocity][motor_id].params.pidParameters.forwardGain;
-		deadband = myoControl->control_params[Velocity][motor_id].params.pidParameters.deadBand;
-		setPoint = myoControl->pos_setPoint[motor_id];
-		setPointMin = myoControl->control_params[Velocity][motor_id].spNegMax;
-		setPointMax = myoControl->control_params[Velocity][motor_id].spPosMax;
-		break;
-	case Force:
-		Pgain = myoControl->control_params[Force][motor_id].params.pidParameters.pgain;
-		Igain = myoControl->control_params[Force][motor_id].params.pidParameters.igain;
-		Dgain = myoControl->control_params[Force][motor_id].params.pidParameters.dgain;
-		forwardGain = myoControl->control_params[Force][motor_id].params.pidParameters.forwardGain;
-		deadband = myoControl->control_params[Force][motor_id].params.pidParameters.deadBand;
-		setPoint = myoControl->pos_setPoint[motor_id];
-		setPointMin = myoControl->control_params[Force][motor_id].spNegMax;
-		setPointMax = myoControl->control_params[Force][motor_id].spPosMax;
-		break;
-	default:
-		break;
-	}
+	myoControl->getPIDcontrollerParams(Pgain, Igain, Dgain, forwardGain, deadband, setPoint, setPointMin, setPointMax, motor_id);
 	mvprintw(14, 0, "P gain:          %d       ", Pgain);
 	mvprintw(15, 0, "I gain:          %d       ", Igain);
 	mvprintw(16, 0, "D gain:          %d       ", Dgain);
@@ -221,14 +189,13 @@ void Interface::positionControl() {
 	echo();
 	print(4, 0, cols, " ");
 	print(5, 0, cols, " ");
-	myoControl->changeControl(motor_id, Position);
+	myoControl->changeControl(motor_id, 0);
 	printMessage(4, 0, setpointstring);
 	mvchgat(4, 0, strlen(setpointstring), A_BOLD, 1, NULL);
 	refresh();
 	mvgetnstr(5, 0, inputstring, 30);
 	pos = atoi(inputstring);
 	myoControl->setPosition(motor_id, pos);
-	processing(runningstring, inputstring, quitstring);
 	print(4, 0, cols, " ");
 	print(5, 0, cols, " ");
 	noecho();
@@ -239,32 +206,30 @@ void Interface::velocityControl() {
 	echo();
 	print(4, 0, cols, " ");
 	print(5, 0, cols, " ");
-	myoControl->changeControl(motor_id, Velocity);
+	myoControl->changeControl(motor_id, 1);
 	printMessage(4, 0, setvelstring);
 	mvchgat(4, 0, strlen(setvelstring), A_BOLD, 1, NULL);
 	refresh();
 	mvgetnstr(5, 0, inputstring, 30);
 	pos = atoi(inputstring);
 	myoControl->setVelocity(motor_id, pos);
-	processing(runningstring, inputstring, quitstring);
 	print(4, 0, cols, " ");
 	print(5, 0, cols, " ");
 	noecho();
 }
 
-void Interface::forceControl() {
+void Interface::displacementControl() {
 	timeout(-1);
 	echo();
 	print(4, 0, cols, " ");
 	print(5, 0, cols, " ");
-	myoControl->changeControl(motor_id, Force);
-	printMessage(4, 0, setforcestring);
-	mvchgat(4, 0, strlen(setforcestring), A_BOLD, 1, NULL);
+	myoControl->changeControl(motor_id, 2);
+	printMessage(4, 0, setdisplacementstring);
+	mvchgat(4, 0, strlen(setdisplacementstring), A_BOLD, 1, NULL);
 	refresh();
 	mvgetnstr(5, 0, inputstring, 30);
 	pos = atof(inputstring);
-	myoControl->setForce(motor_id, pos);
-	processing(runningstring, inputstring, quitstring);
+	myoControl->setDisplacement(motor_id, pos);
 	print(4, 0, cols, " ");
 	print(5, 0, cols, " ");
 	noecho();
@@ -275,23 +240,10 @@ void Interface::switchMotor() {
 	echo();
 	print(4, 0, cols, " ");
 	print(5, 0, cols, " ");
-	printMessage(4, 0, ganglionstring, GREEN);
-	mvgetnstr(5, 0, inputstring, 30);
-	uint ganlionrequest = atoi(inputstring);
-	if (ganlionrequest < 6)
-		ganglion_id = ganlionrequest;
-	else {
-		print(4, 0, cols, " ");
-		print(5, 0, cols, " ");
-		printMessage(5, 0, invalidstring, RED);
-		return;
-	}
-	print(4, 0, cols, " ");
-	print(5, 0, cols, " ");
 	printMessage(4, 0, motorstring, GREEN);
 	mvgetnstr(5, 0, inputstring, 30);
 	uint motorrequest = atoi(inputstring);
-	if (motorrequest < 4)
+	if (motorrequest < myoControl->numberOfMotors)
 		motor_id = motorrequest;
 	else {
 		print(4, 0, cols, " ");
@@ -315,22 +267,22 @@ void Interface::zeroWeight(){
 }
 
 void Interface::setAllToForce() {
-	timeout(-1);
-	echo();
-	print(4, 0, cols, " ");
-	print(5, 0, cols, " ");
-	printMessage(4, 0, setforcestring);
-	mvchgat(4, 0, strlen(setforcestring), A_BOLD, 1, NULL);
-	refresh();
-	mvgetnstr(5, 0, inputstring, 30);
-	pos = atof(inputstring);
-	myoControl->allToForce(pos);
-	processing(runningstring, inputstring, quitstring);
-	// set back to zero force
-	myoControl->allToForce(0);
-	print(4, 0, cols, " ");
-	print(5, 0, cols, " ");
-	noecho();
+//	timeout(-1);
+//	echo();
+//	print(4, 0, cols, " ");
+//	print(5, 0, cols, " ");
+//	printMessage(4, 0, setforcestring);
+//	mvchgat(4, 0, strlen(setforcestring), A_BOLD, 1, NULL);
+//	refresh();
+//	mvgetnstr(5, 0, inputstring, 30);
+//	pos = atof(inputstring);
+//	myoControl->allToForce(pos);
+//	processing(runningstring, inputstring, quitstring);
+//	// set back to zero force
+//	myoControl->allToForce(0);
+//	print(4, 0, cols, " ");
+//	print(5, 0, cols, " ");
+//	noecho();
 }
 
 void Interface::estimateSpringParameters(){

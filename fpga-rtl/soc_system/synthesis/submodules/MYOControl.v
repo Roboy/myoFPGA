@@ -23,65 +23,6 @@ module MYOControl (
 	output sck
 );
 
-reg data_ready;
-
-reg signed [0:15] pwmRef0;
-reg signed [0:15] pwmRef1;
-reg signed [0:15] pwmRef2;
-reg signed [0:15] pwmRef3;
-reg signed [0:15] pwmRef4;
-reg signed [0:15] pwmRef5;
-reg signed [0:15] pwmRef6;
-reg signed [0:15] pwmRef7;
-
-assign pwmRef = 
-(motor_switch[0])?pwmRef0:
-(motor_switch[1])?pwmRef1:
-(motor_switch[2])?pwmRef2:
-(motor_switch[3])?pwmRef3:
-(motor_switch[4])?pwmRef4:
-(motor_switch[5])?pwmRef5:
-(motor_switch[6])?pwmRef6:
-(motor_switch[7])?pwmRef7:
-0;
-
-// positions for the eight motors
-reg signed [31:0] position0;
-reg signed [31:0] position1;
-reg signed [31:0] position2;
-reg signed [31:0] position3;
-reg signed [31:0] position4;
-reg signed [31:0] position5;
-reg signed [31:0] position6;
-reg signed [31:0] position7;
-// velocitys for the eight motors
-reg signed [31:0] velocity0;
-reg signed [31:0] velocity1;
-reg signed [31:0] velocity2;
-reg signed [31:0] velocity3;
-reg signed [31:0] velocity4;
-reg signed [31:0] velocity5;
-reg signed [31:0] velocity6;
-reg signed [31:0] velocity7;
-// currents for the eight motors
-reg signed [31:0] current0;
-reg signed [31:0] current1;
-reg signed [31:0] current2;
-reg signed [31:0] current3;
-reg signed [31:0] current4;
-reg signed [31:0] current5;
-reg signed [31:0] current6;
-reg signed [31:0] current7;
-// displacements for the eight motors
-reg signed [31:0] displacement0;
-reg signed [31:0] displacement1;
-reg signed [31:0] displacement2;
-reg signed [31:0] displacement3;
-reg signed [31:0] displacement4;
-reg signed [31:0] displacement5;
-reg signed [31:0] displacement6;
-reg signed [31:0] displacement7;
-
 // gains and shit
 // p gains
 reg unsigned [15:0] Kp0;
@@ -182,8 +123,6 @@ reg [1:0] controller4;
 reg [1:0] controller5;
 reg [1:0] controller6;
 reg [1:0] controller7;
-
-assign waitrequest = ~data_ready;
 
 assign readdata = 
 	((address == 0))? reset_myo_control :
@@ -318,78 +257,120 @@ assign readdata =
 	((address == 129))? pwmRef7:
 	32'hDEAD_BEEF;
 
+wire signed [0:15] pwmRef0;
+wire signed [0:15] pwmRef1;
+wire signed [0:15] pwmRef2;
+wire signed [0:15] pwmRef3;
+wire signed [0:15] pwmRef4;
+wire signed [0:15] pwmRef5;
+wire signed [0:15] pwmRef6;
+wire signed [0:15] pwmRef7;
+
+// positions for the eight motors
+reg signed [31:0] position0;
+reg signed [31:0] position1;
+reg signed [31:0] position2;
+reg signed [31:0] position3;
+reg signed [31:0] position4;
+reg signed [31:0] position5;
+reg signed [31:0] position6;
+reg signed [31:0] position7;
+// velocitys for the eight motors
+reg signed [15:0] velocity0;
+reg signed [15:0] velocity1;
+reg signed [15:0] velocity2;
+reg signed [15:0] velocity3;
+reg signed [15:0] velocity4;
+reg signed [15:0] velocity5;
+reg signed [15:0] velocity6;
+reg signed [15:0] velocity7;
+// currents for the eight motors
+reg signed [15:0] current0;
+reg signed [15:0] current1;
+reg signed [15:0] current2;
+reg signed [15:0] current3;
+reg signed [15:0] current4;
+reg signed [15:0] current5;
+reg signed [15:0] current6;
+reg signed [15:0] current7;
+// displacements for the eight motors
+reg signed [15:0] displacement0;
+reg signed [15:0] displacement1;
+reg signed [15:0] displacement2;
+reg signed [15:0] displacement3;
+reg signed [15:0] displacement4;
+reg signed [15:0] displacement5;
+reg signed [15:0] displacement6;
+reg signed [15:0] displacement7;
+	
 reg reset_myo_control;
 reg spi_activated;
-reg [7:0] pid_update;
+reg update_controller;
+
+// when spi is done we save the transfer the results, which would be a bad time to read the values.
+// of course we only need to wait when spi is activated
+assign waitrequest = 0;
+	
+reg [2:0] motor;
+reg [2:0] pid_update;
 	
 always @(posedge clock, posedge reset) begin: MYO_CONTROL_LOGIC
-	reg signed [31:0] err;
-	reg signed [31:0] pterm;
-	reg signed [31:0] dterm;
-	reg signed [31:0] ffterm;
-	reg spi_done_prev;
+	reg spi_done_prev; 
 	if (reset == 1) begin
 		reset_myo_control <= 0;
 		spi_activated <= 0;
-		pid_update <= 0;
+		motor <= 0;
+		spi_done_prev <= 0;
 	end else begin
-		pid_update <= 0;
+		update_controller <= 0;
 		spi_done_prev <= spi_done;
 		if(spi_done_prev==0 && spi_done) begin
-			data_ready = 0;
-			case(motor_switch)
-				1: position0[31:0] <= position[0:31];
-				2: position1[31:0] <= position[0:31];
-				4: position2[31:0] <= position[0:31];
-				8: position3[31:0] <= position[0:31];
-				16: position4[31:0] <= position[0:31];
-				32: position5[31:0] <= position[0:31];
-				64: position6[31:0] <= position[0:31];
-				128: position7[31:0] <= position[0:31];
+			case(motor)
+				0: position0[31:0] <= position[0:31];
+				1: position1[31:0] <= position[0:31];
+				2: position2[31:0] <= position[0:31];
+				3: position3[31:0] <= position[0:31];
+				4: position4[31:0] <= position[0:31];
+				5: position5[31:0] <= position[0:31];
+				6: position6[31:0] <= position[0:31];
+				7: position7[31:0] <= position[0:31];
 			endcase
-			case(motor_switch)
-				1: velocity0[15:0] <= velocity[0:15];
-				2: velocity1[15:0] <= velocity[0:15];
-				4: velocity2[15:0] <= velocity[0:15];
-				8: velocity3[15:0] <= velocity[0:15];
-				16: velocity4[15:0] <= velocity[0:15];
-				32: velocity5[15:0] <= velocity[0:15];
-				64: velocity6[15:0] <= velocity[0:15];
-				128: velocity7[15:0] <= velocity[0:15];
+			case(motor)
+				0: velocity0[15:0] <= velocity[0:15];
+				1: velocity1[15:0] <= velocity[0:15];
+				2: velocity2[15:0] <= velocity[0:15];
+				3: velocity3[15:0] <= velocity[0:15];
+				4: velocity4[15:0] <= velocity[0:15];
+				5: velocity5[15:0] <= velocity[0:15];
+				6: velocity6[15:0] <= velocity[0:15];
+				7: velocity7[15:0] <= velocity[0:15];
 			endcase
-			case(motor_switch)
-				1: current0[15:0] <= current[0:15];
-				2: current1[15:0] <= current[0:15];
-				4: current2[15:0] <= current[0:15];
-				8: current3[15:0] <= current[0:15];
-				16: current4[15:0] <= current[0:15];
-				32: current5[15:0] <= current[0:15];
-				64: current6[15:0] <= current[0:15];
-				128: current7[15:0] <= current[0:15];
+			case(motor)
+				0: current0[15:0] <= current[0:15];
+				1: current1[15:0] <= current[0:15];
+				2: current2[15:0] <= current[0:15];
+				3: current3[15:0] <= current[0:15];
+				4: current4[15:0] <= current[0:15];
+				5: current5[15:0] <= current[0:15];
+				6: current6[15:0] <= current[0:15];
+				7: current7[15:0] <= current[0:15];
 			endcase
-			case(motor_switch)
-				1: displacement0[15:0] <= displacement[0:15];
-				2: displacement1[15:0] <= displacement[0:15];
-				4: displacement2[15:0] <= displacement[0:15];
-				8: displacement3[15:0] <= displacement[0:15];
-				16: displacement4[15:0] <= displacement[0:15];
-				32: displacement5[15:0] <= displacement[0:15];
-				64: displacement6[15:0] <= displacement[0:15];
-				128: displacement7[15:0] <= displacement[0:15];
+			case(motor)
+				0: displacement0[15:0] <= displacement[0:15];
+				1: displacement1[15:0] <= displacement[0:15];
+				2: displacement2[15:0] <= displacement[0:15];
+				3: displacement3[15:0] <= displacement[0:15];
+				4: displacement4[15:0] <= displacement[0:15];
+				5: displacement5[15:0] <= displacement[0:15];
+				6: displacement6[15:0] <= displacement[0:15];
+				7: displacement7[15:0] <= displacement[0:15];
 			endcase
-			case(motor_switch)
-				1: pid_update <= 1;
-				2: pid_update <= 2;
-				4: pid_update <= 4;
-				8: pid_update <= 8;
-				16: pid_update <= 16;
-				32: pid_update <= 32;
-				64: pid_update <= 64;
-				128: pid_update <= 128;
-			endcase
+			update_controller <= 1;
+			pid_update <= motor;
+			motor <= motor + 1;
 		end
-		data_ready = 1;
-
+	
+		// if we are writing via avalon bus and waitrequest is deasserted, write the respective register
 		if(write && ~waitrequest) begin
 			case(address)
 				0: reset_myo_control <= (writedata[31:0]!=0); // reset if not zero
@@ -484,7 +465,7 @@ always @(posedge clock, posedge reset) begin: MYO_CONTROL_LOGIC
 				121: controller7 <= writedata[1:0];
 			endcase 
 		end
-    	end 
+	end 
 end
 
 wire di_req, wr_ack, do_valid, wren, spi_done, ss_n;
@@ -495,27 +476,50 @@ wire signed [0:31] position;
 wire signed [0:15] velocity;
 wire signed [0:15] current;
 wire signed [0:15] displacement;
-wire [7:0] motor_switch;
+wire signed [0:15] sensor1;
+wire signed [0:15] sensor2;
+
+// the pwmRef signal will be wired to the corresponding pid controller output
+assign pwmRef = 
+(motor==0)?pwmRef0:
+(motor==1)?pwmRef1:
+(motor==2)?pwmRef2:
+(motor==3)?pwmRef3:
+(motor==4)?pwmRef4:
+(motor==5)?pwmRef5:
+(motor==6)?pwmRef6:
+(motor==7)?pwmRef7:
+0;
+
+assign ss_n_o[0] = (motor==0?ss_n:1);
+assign ss_n_o[1] = (motor==1?ss_n:1);
+assign ss_n_o[2] = (motor==2?ss_n:1);
+assign ss_n_o[3] = (motor==3?ss_n:1);
+assign ss_n_o[4] = (motor==4?ss_n:1);
+assign ss_n_o[5] = (motor==5?ss_n:1);
+assign ss_n_o[6] = (motor==6?ss_n:1);
+assign ss_n_o[7] = (motor==7?ss_n:1);
 
 SpiControl spi_control(
 	.clock(clock),
-	.reset_n(~reset_myo_control),
+	.reset(reset_myo_control),
 	.di_req(di_req),
 	.write_ack(wr_ack),
 	.data_read_valid(do_valid),
 	.data_read(data_out[15:0]),
-	.start(spi_activated),
+	// if spi is activated and we update the previous controller, we start transmission with the next motor
+	.start(spi_activated && update_controller),
 	.Word(Word[0:15]),
 	.wren(wren),
-	.ss_n(ss_n),
-	.ss_n_o(ss_n_o),
 	.spi_done(spi_done),
 	.pwmRef(pwmRef),
 	.position(position),
 	.velocity(velocity),
 	.current(current),
 	.displacement(displacement),
-	.motor_switch(motor_switch)
+	.sensor1(sensor1),
+	.sensor2(sensor2),
+	.ss_n(ss_n)
 );
 
 spi_master #(16, 1'b0, 1'b1, 2, 5) spi(
@@ -551,7 +555,7 @@ PIDController pid_controller0(
 	.position(position0),
 	.velocity(velocity0),
 	.displacement(displacement0),
-	.controller_update(pid_update[0]),
+	.update_controller(pid_update==0 && update_controller),
 	.result(pwmRef0)
 );
 
@@ -572,7 +576,7 @@ PIDController pid_controller1(
 	.position(position1),
 	.velocity(velocity1),
 	.displacement(displacement1),
-	.controller_update(pid_update[1]),
+	.update_controller(pid_update==1 && update_controller),
 	.result(pwmRef1)
 );
 
@@ -593,7 +597,7 @@ PIDController pid_controller2(
 	.position(position2),
 	.velocity(velocity2),
 	.displacement(displacement2),
-	.controller_update(pid_update[2]),
+	.update_controller(pid_update==2 && update_controller),
 	.result(pwmRef2)
 );
 
@@ -614,7 +618,7 @@ PIDController pid_controller3(
 	.position(position3),
 	.velocity(velocity3),
 	.displacement(displacement3),
-	.controller_update(pid_update[3]),
+	.update_controller(pid_update==3 && update_controller),
 	.result(pwmRef3)
 );
 
@@ -635,7 +639,7 @@ PIDController pid_controller4(
 	.position(position4),
 	.velocity(velocity4),
 	.displacement(displacement4),
-	.controller_update(pid_update[4]),
+	.update_controller(pid_update==4 && update_controller),
 	.result(pwmRef4)
 );
 
@@ -656,7 +660,7 @@ PIDController pid_controller5(
 	.position(position5),
 	.velocity(velocity5),
 	.displacement(displacement5),
-	.controller_update(pid_update[5]),
+	.update_controller(pid_update==5 && update_controller),
 	.result(pwmRef5)
 );
 
@@ -677,7 +681,7 @@ PIDController pid_controller6(
 	.position(position6),
 	.velocity(velocity6),
 	.displacement(displacement6),
-	.controller_update(pid_update[6]),
+	.update_controller(pid_update==6 && update_controller),
 	.result(pwmRef6)
 );
 
@@ -698,7 +702,7 @@ PIDController pid_controller7(
 	.position(position7),
 	.velocity(velocity7),
 	.displacement(displacement7),
-	.controller_update(pid_update[7]),
+	.update_controller(pid_update==7 && update_controller),
 	.result(pwmRef7)
 );
 

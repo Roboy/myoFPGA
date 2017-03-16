@@ -130,7 +130,7 @@ int main() {
 	    	interface.velocityControl();
 	      break;
 	    case '2':
-	    	interface.forceControl();
+	    	interface.displacementControl();
 	      break;
 	    case '3':
 	    	interface.switchMotor();

@@ -36,7 +36,7 @@ public:
 
     void velocityControl();
 
-    void forceControl();
+    void displacementControl();
 
     void switchMotor();
 
