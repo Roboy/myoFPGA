@@ -1,5 +1,9 @@
 
 module soc_system (
+	adc_0_external_interface_sclk,
+	adc_0_external_interface_cs_n,
+	adc_0_external_interface_dout,
+	adc_0_external_interface_din,
 	clk_clk,
 	hps_0_f2h_cold_reset_req_reset_n,
 	hps_0_f2h_debug_reset_req_reset_n,
@@ -74,9 +78,21 @@ module soc_system (
 	myocontrol_0_mosi,
 	myocontrol_0_sck,
 	myocontrol_0_ss_n,
+	myocontrol_1_miso,
+	myocontrol_1_mosi,
+	myocontrol_1_sck,
+	myocontrol_1_ss_n,
+	myocontrol_2_miso,
+	myocontrol_2_mosi,
+	myocontrol_2_sck,
+	myocontrol_2_ss_n,
 	pio_led_external_connection_export,
 	reset_reset_n);	
 
+	output		adc_0_external_interface_sclk;
+	output		adc_0_external_interface_cs_n;
+	input		adc_0_external_interface_dout;
+	output		adc_0_external_interface_din;
 	input		clk_clk;
 	input		hps_0_f2h_cold_reset_req_reset_n;
 	input		hps_0_f2h_debug_reset_req_reset_n;
@@ -151,6 +167,14 @@ module soc_system (
 	output		myocontrol_0_mosi;
 	output		myocontrol_0_sck;
 	output	[7:0]	myocontrol_0_ss_n;
+	input		myocontrol_1_miso;
+	output		myocontrol_1_mosi;
+	output		myocontrol_1_sck;
+	output	[7:0]	myocontrol_1_ss_n;
+	input		myocontrol_2_miso;
+	output		myocontrol_2_mosi;
+	output		myocontrol_2_sck;
+	output	[7:0]	myocontrol_2_ss_n;
 	output	[7:0]	pio_led_external_connection_export;
 	input		reset_reset_n;
 endmodule

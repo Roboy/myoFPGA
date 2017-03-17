@@ -6,13 +6,35 @@
 #include <math.h>
 #include <chrono>
 #include <fstream>
-#include "CommunicationData.h"
 #include "myoControlRegister.hpp"
 
 using namespace std;
 using namespace std::chrono;
 
-//#define DEBUG
+typedef struct
+{
+    int32_t outputPosMax; /*!< maximum control output in the positive direction in counts, max 4000*/
+    int32_t outputNegMax; /*!< maximum control output in the negative direction in counts, max -4000*/
+    int32_t spPosMax;/*<!Positive limit for the set point.*/
+    int32_t spNegMax;/*<!Negative limit for the set point.*/
+	uint16_t Kp;/*!<Gain of the proportional component*/
+	uint16_t Ki;/*!<Gain of the integral component*/
+	uint16_t Kd;/*!<Gain of the differential component*/
+	uint16_t forwardGain; /*!<Gain of  the feed-forward term*/
+	uint16_t deadBand;/*!<Optional deadband threshold for the control response*/
+	int16_t IntegralPosMax; /*!<Integral positive component maximum*/
+	int16_t IntegralNegMax; /*!<Integral negative component maximum*/
+	vector<float> polyPar; /*! polynomial fit from displacement (d)  to tendon force (f)
+				 f=polyPar[0]+polyPar[1]*d +polyPar[2]*d^2+ +polyPar[3]*d^3 + ... */
+	float radPerEncoderCount;
+}control_Parameters_t;
+
+enum CONTROLMODE{
+	POSITION,
+	VELOCITY,
+	DISPLACEMENT,
+	FORCE
+};
 
 class MyoControl{
 public:
@@ -21,16 +43,21 @@ public:
 	/**
 	 * Changes the controller of a motor
 	 * @param motor for this motor
-	 * @param mode choose from Position, Velocity or Force
+	 * @param mode choose from Position, Velocity or Displacement
 	 * @param params with these controller parameters
 	 */
 	void changeControl(int motor, int mode, control_Parameters_t &params);
 	/**
 	 * Changes the controller of a motor with the saved controller parameters
 	 * @param motor for this motor
-	 * @param mode choose from Position, Velocity or Force
+	 * @param mode choose from Position, Velocity or Displacement
 	 */
 	void changeControl(int motor, int mode);
+	/**
+	 * Changes the controller of ALL motors with the saved controller parameters
+	 * @param mode choose from Position, Velocity or Displacement
+	 */
+	void changeControl(int mode);
 	/**
 	 * Toggles SPI transmission
 	 * @return on/off
@@ -53,9 +80,9 @@ public:
 	 */
 	void setVelocity(int motor, int32_t velocity);
 	/**
-	 * Changes setpoint for force controller
+	 * Changes setpoint for displacement controller
 	 * @param motor for this motor
-	 * @param force the new setpoint
+	 * @param displacement the new setpoint
 	 */
 	void setDisplacement(int motor, int32_t displacement);
 	/**
@@ -64,6 +91,11 @@ public:
 	 */
 	void getPIDcontrollerParams(int &Pgain, int &Igain, int &Dgain, int &forwardGain, int &deadband,
 									int &setPoint, int &setPointMin, int &setPointMax, int motor);
+	/**
+	 * Gets the current control_mode of a motor
+	 * @param motor for this motor
+	 */
+	uint16_t getControlMode(int motor);
 	/**
 	 * Gets the current pwm of a motor
 	 * @param motor for this motor
@@ -108,7 +140,7 @@ public:
 	 */
 	void allToVelocity(int32_t vel);
 	/**
-	 * Changes the control mode for all motors to Force
+	 * Changes the control mode for all motors to Displacement
 	 * @param force new setPoint
 	 */
 	void allToDisplacement(int32_t displacement);
@@ -139,9 +171,7 @@ public:
 	void polynomialRegression(int degree, vector<float> &x, vector<float> &y,
 			vector<float> &coeffs);
 
-	map<int,vector<control_Parameters_t>> control_params;
-	vector<int16_t> pwm_control;
-	vector<vector<float>> polyPar;
+	map<int,control_Parameters_t[3]> control_params;
 	uint32_t *adc_base = nullptr;
 	float weight_offset = 0;
 	float adc_weight_parameters[2] = {830.7, -0.455};
@@ -149,6 +179,5 @@ public:
 	uint numberOfMotors;
 private:
 	vector<int32_t*> myo_base;
-	float radPerEncoderCount = 2 * 3.14159265359 / (2000.0 * 53.0);
 	int iter = 0;
 };

@@ -115,14 +115,23 @@ reg unsigned [15:0] deadBand5;
 reg unsigned [15:0] deadBand6;
 reg unsigned [15:0] deadBand7;
 // control mode
-reg [1:0] controller0;
-reg [1:0] controller1;
-reg [1:0] controller2;
-reg [1:0] controller3;
-reg [1:0] controller4;
-reg [1:0] controller5;
-reg [1:0] controller6;
-reg [1:0] controller7;
+reg unsigned [1:0] controller0;
+reg unsigned [1:0] controller1;
+reg unsigned [1:0] controller2;
+reg unsigned [1:0] controller3;
+reg unsigned [1:0] controller4;
+reg unsigned [1:0] controller5;
+reg unsigned [1:0] controller6;
+reg unsigned [1:0] controller7;
+// reset pid_controller
+reg reset_controller0;
+reg reset_controller1;
+reg reset_controller2;
+reg reset_controller3;
+reg reset_controller4;
+reg reset_controller5;
+reg reset_controller6;
+reg reset_controller7;
 
 assign readdata = 
 	((address == 0))? reset_myo_control :
@@ -307,9 +316,8 @@ reg reset_myo_control;
 reg spi_activated;
 reg update_controller;
 
-// when spi is done we save the transfer the results, which would be a bad time to read the values.
-// of course we only need to wait when spi is activated
-assign waitrequest = 0;
+// when spi is done we transfer the results, which would be a bad time to read the values.
+assign waitrequest = update_controller;
 	
 reg [2:0] motor;
 reg [2:0] pid_update;
@@ -370,10 +378,20 @@ always @(posedge clock, posedge reset) begin: MYO_CONTROL_LOGIC
 			motor <= motor + 1;
 		end
 	
+		reset_myo_control <= 0;
+		reset_controller0 <= 0;
+		reset_controller1 <= 0;
+		reset_controller2 <= 0;
+		reset_controller3 <= 0;
+		reset_controller4 <= 0;
+		reset_controller5 <= 0;
+		reset_controller6 <= 0;
+		reset_controller7 <= 0;
+	
 		// if we are writing via avalon bus and waitrequest is deasserted, write the respective register
 		if(write && ~waitrequest) begin
 			case(address)
-				0: reset_myo_control <= (writedata[31:0]!=0); // reset if not zero
+				0: reset_myo_control <= 1; 
 				1: spi_activated		<= (writedata[31:0]!=0); // activate spi if not zero
 				34: Kp0 <= writedata[15:0];
 				35: Kp1 <= writedata[15:0];
@@ -463,6 +481,14 @@ always @(posedge clock, posedge reset) begin: MYO_CONTROL_LOGIC
 				119: controller5 <= writedata[1:0];
 				120: controller6 <= writedata[1:0];
 				121: controller7 <= writedata[1:0];
+				130: reset_controller0 <= 1;
+				131: reset_controller1 <= 1;
+				132: reset_controller2 <= 1;
+				133: reset_controller3 <= 1;
+				134: reset_controller4 <= 1;
+				135: reset_controller5 <= 1;
+				136: reset_controller6 <= 1;
+				137: reset_controller7 <= 1;
 			endcase 
 		end
 	end 
@@ -540,7 +566,7 @@ spi_master #(16, 1'b0, 1'b1, 2, 5) spi(
 
 PIDController pid_controller0(
 	.clock(clock),
-	.reset(reset_myo_control),
+	.reset(reset_myo_control||reset_controller0),
 	.Kp(Kp0),
 	.Kd(Kd0),
 	.Ki(Ki0),
@@ -561,7 +587,7 @@ PIDController pid_controller0(
 
 PIDController pid_controller1(
 	.clock(clock),
-	.reset(reset_myo_control),
+	.reset(reset_myo_control||reset_controller1),
 	.Kp(Kp1),
 	.Kd(Kd1),
 	.Ki(Ki1),
@@ -582,7 +608,7 @@ PIDController pid_controller1(
 
 PIDController pid_controller2(
 	.clock(clock),
-	.reset(reset_myo_control),
+	.reset(reset_myo_control||reset_controller2),
 	.Kp(Kp2),
 	.Kd(Kd2),
 	.Ki(Ki2),
@@ -603,7 +629,7 @@ PIDController pid_controller2(
 
 PIDController pid_controller3(
 	.clock(clock),
-	.reset(reset_myo_control),
+	.reset(reset_myo_control||reset_controller3),
 	.Kp(Kp3),
 	.Kd(Kd3),
 	.Ki(Ki3),
@@ -624,7 +650,7 @@ PIDController pid_controller3(
 
 PIDController pid_controller4(
 	.clock(clock),
-	.reset(reset_myo_control),
+	.reset(reset_myo_control||reset_controller4),
 	.Kp(Kp4),
 	.Kd(Kd4),
 	.Ki(Ki4),
@@ -645,7 +671,7 @@ PIDController pid_controller4(
 
 PIDController pid_controller5(
 	.clock(clock),
-	.reset(reset_myo_control),
+	.reset(reset_myo_control||reset_controller5),
 	.Kp(Kp5),
 	.Kd(Kd5),
 	.Ki(Ki5),
@@ -666,7 +692,7 @@ PIDController pid_controller5(
 
 PIDController pid_controller6(
 	.clock(clock),
-	.reset(reset_myo_control),
+	.reset(reset_myo_control||reset_controller6),
 	.Kp(Kp6),
 	.Kd(Kd6),
 	.Ki(Ki6),
@@ -687,7 +713,7 @@ PIDController pid_controller6(
 
 PIDController pid_controller7(
 	.clock(clock),
-	.reset(reset_myo_control),
+	.reset(reset_myo_control||reset_controller7),
 	.Kp(Kp7),
 	.Kd(Kd7),
 	.Ki(Ki7),

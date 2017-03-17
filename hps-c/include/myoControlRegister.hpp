@@ -43,3 +43,4 @@
 #define MYO_WRITE_IntegralPosMax(base,motor,data) IOWR(base, 98+motor, data)
 #define MYO_WRITE_deadBand(base,motor,data) IOWR(base, 106+motor, data)
 #define MYO_WRITE_control(base,motor,data) IOWR(base, 114+motor, data)
+#define MYO_WRITE_reset_controller(base,motor) IOWR(base, 130+motor, 1)

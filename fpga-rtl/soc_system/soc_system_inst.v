@@ -1,4 +1,8 @@
 	soc_system u0 (
+		.adc_0_external_interface_sclk         (<connected-to-adc_0_external_interface_sclk>),         //    adc_0_external_interface.sclk
+		.adc_0_external_interface_cs_n         (<connected-to-adc_0_external_interface_cs_n>),         //                            .cs_n
+		.adc_0_external_interface_dout         (<connected-to-adc_0_external_interface_dout>),         //                            .dout
+		.adc_0_external_interface_din          (<connected-to-adc_0_external_interface_din>),          //                            .din
 		.clk_clk                               (<connected-to-clk_clk>),                               //                         clk.clk
 		.hps_0_f2h_cold_reset_req_reset_n      (<connected-to-hps_0_f2h_cold_reset_req_reset_n>),      //    hps_0_f2h_cold_reset_req.reset_n
 		.hps_0_f2h_debug_reset_req_reset_n     (<connected-to-hps_0_f2h_debug_reset_req_reset_n>),     //   hps_0_f2h_debug_reset_req.reset_n
@@ -73,6 +77,14 @@
 		.myocontrol_0_mosi                     (<connected-to-myocontrol_0_mosi>),                     //                            .mosi
 		.myocontrol_0_sck                      (<connected-to-myocontrol_0_sck>),                      //                            .sck
 		.myocontrol_0_ss_n                     (<connected-to-myocontrol_0_ss_n>),                     //                            .ss_n
+		.myocontrol_1_miso                     (<connected-to-myocontrol_1_miso>),                     //                myocontrol_1.miso
+		.myocontrol_1_mosi                     (<connected-to-myocontrol_1_mosi>),                     //                            .mosi
+		.myocontrol_1_sck                      (<connected-to-myocontrol_1_sck>),                      //                            .sck
+		.myocontrol_1_ss_n                     (<connected-to-myocontrol_1_ss_n>),                     //                            .ss_n
+		.myocontrol_2_miso                     (<connected-to-myocontrol_2_miso>),                     //                myocontrol_2.miso
+		.myocontrol_2_mosi                     (<connected-to-myocontrol_2_mosi>),                     //                            .mosi
+		.myocontrol_2_sck                      (<connected-to-myocontrol_2_sck>),                      //                            .sck
+		.myocontrol_2_ss_n                     (<connected-to-myocontrol_2_ss_n>),                     //                            .ss_n
 		.pio_led_external_connection_export    (<connected-to-pio_led_external_connection_export>),    // pio_led_external_connection.export
 		.reset_reset_n                         (<connected-to-reset_reset_n>)                          //                       reset.reset_n
 	);

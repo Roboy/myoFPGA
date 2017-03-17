@@ -2,13 +2,12 @@
 
 //! standard query messages
 char welcomestring[] = "commandline tool for controlling myode muscle via de0-nano setup";
-char commandstring[] = "[0]position, [1]velocity, [2]displacement, [3]switch motor, [4]zero weight, [5]allToForce, [6]estimateSpringParams, [7]toggleSPI, [8]reset, [9]exit";
+char commandstring[] = "[0]position, [1]velocity, [2]displacement, [3]switch motor, [4]zero weight, [5]allToDisplacement, [6]estimateSpringParams, [7]toggleSPI, [8]reset, [9]exit";
 char setpointstring[] = "set point (ticks) ?";
 char setvelstring[] = "set velocity (ticks/s) ?";
 char setdisplacementstring[] = "set displacement (ticks)?";
-char motorstring[] = "which motor(0-3)?";
+char motorstring[] = "which motor?";
 char motorinfo[30];
-char ganglionstring[] = "which ganglion(0-5)?";
 char runningstring[] = "running ";
 char recordingstring[] = "recording ";
 char donestring[] = "done ";
@@ -110,12 +109,13 @@ void Interface::querySensoryData() {
 	mvprintw(18, 0, "deadband:        %d       ", deadband);
 	mvprintw(19, 0, "set point:       %d       ", setPoint);
 	print(20, 0, cols, "-");
-	mvprintw(21, 0, "polyPar: %.5f  %.5f  %.5f  %.5f    ", myoControl->polyPar[motor_id][0],
-			myoControl->polyPar[motor_id][1], myoControl->polyPar[motor_id][2],
-			myoControl->polyPar[motor_id][3]);
+//	mvprintw(21, 0, "polyPar: %.5f  %.5f  %.5f  %.5f    ", myoControl->polyPar[motor_id][0],
+//			myoControl->polyPar[motor_id][1], myoControl->polyPar[motor_id][2],
+//			myoControl->polyPar[motor_id][3]);
 	mvprintw(22, 0, "set point limits: %d to %d     ", setPointMin, setPointMax);
 	mvprintw(23, 0, "weight: %.2f     ", myoControl->getWeight());
 	mvprintw(24, 0, "SPI %s               ", (myoControl->spi_active?"active":"inactive"));
+	mvprintw(25, 0, "control_mode %d      ", myoControl->getControlMode(motor_id));
 	refresh();
 }
 
@@ -266,23 +266,23 @@ void Interface::zeroWeight(){
 	print(5, 0, cols, " ");
 }
 
-void Interface::setAllToForce() {
-//	timeout(-1);
-//	echo();
-//	print(4, 0, cols, " ");
-//	print(5, 0, cols, " ");
-//	printMessage(4, 0, setforcestring);
-//	mvchgat(4, 0, strlen(setforcestring), A_BOLD, 1, NULL);
-//	refresh();
-//	mvgetnstr(5, 0, inputstring, 30);
-//	pos = atof(inputstring);
-//	myoControl->allToForce(pos);
-//	processing(runningstring, inputstring, quitstring);
-//	// set back to zero force
-//	myoControl->allToForce(0);
-//	print(4, 0, cols, " ");
-//	print(5, 0, cols, " ");
-//	noecho();
+void Interface::setAllToDisplacement() {
+	timeout(-1);
+	echo();
+	print(4, 0, cols, " ");
+	print(5, 0, cols, " ");
+	printMessage(4, 0, setdisplacementstring);
+	mvchgat(4, 0, strlen(setdisplacementstring), A_BOLD, 1, NULL);
+	refresh();
+	mvgetnstr(5, 0, inputstring, 30);
+	pos = atoi(inputstring);
+	myoControl->allToDisplacement(pos);
+	processing(runningstring, inputstring, quitstring);
+	// set back to zero force
+	myoControl->allToDisplacement(0);
+	print(4, 0, cols, " ");
+	print(5, 0, cols, " ");
+	noecho();
 }
 
 void Interface::estimateSpringParameters(){

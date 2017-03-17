@@ -14,12 +14,12 @@ module PIDController (
 	input signed [15:0] IntegralNegMax,
 	input signed [15:0] IntegralPosMax,
 	input unsigned [15:0] deadBand,
-	input [1:0] controller, // position velocity force
+	input unsigned [1:0] controller, // position velocity displacement
 	input signed [31:0] position,
 	input signed [15:0] velocity,
 	input signed [15:0] displacement,
 	input update_controller,
-	output reg signed [31:0] result
+	output reg signed [15:0] result
 	);
 
 always @(posedge clock, posedge reset) begin: PID_CONTROLLER_PID_CONTROLLERLOGIC

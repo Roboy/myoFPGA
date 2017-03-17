@@ -21,7 +21,39 @@
    {
       datum baseAddress
       {
-         value = "0";
+         value = "3072";
+         type = "String";
+      }
+   }
+   element MYOControl_1
+   {
+      datum _sortIndex
+      {
+         value = "11";
+         type = "int";
+      }
+   }
+   element MYOControl_1.avalon_slave_0
+   {
+      datum baseAddress
+      {
+         value = "2048";
+         type = "String";
+      }
+   }
+   element MYOControl_2
+   {
+      datum _sortIndex
+      {
+         value = "12";
+         type = "int";
+      }
+   }
+   element MYOControl_2.avalon_slave_0
+   {
+      datum baseAddress
+      {
+         value = "1024";
          type = "String";
       }
    }
@@ -37,7 +69,7 @@
    {
       datum baseAddress
       {
-         value = "608";
+         value = "4096";
          type = "String";
       }
    }
@@ -156,7 +188,7 @@
    {
       datum baseAddress
       {
-         value = "1024";
+         value = "4128";
          type = "String";
       }
    }
@@ -250,7 +282,11 @@
  <parameter name="timeStamp" value="0" />
  <parameter name="useTestBenchNamingPattern" value="false" />
  <instanceScript></instanceScript>
- <interface name="adc_0_external_interface" internal="adc_0.external_interface" />
+ <interface
+   name="adc_0_external_interface"
+   internal="adc_0.external_interface"
+   type="conduit"
+   dir="end" />
  <interface name="clk" internal="clk_0.clk_in" type="clock" dir="end" />
  <interface
    name="hps_0_f2h_cold_reset_req"
@@ -286,13 +322,25 @@
    type="conduit"
    dir="end" />
  <interface
+   name="myocontrol_1"
+   internal="MYOControl_1.conduit_end"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="myocontrol_2"
+   internal="MYOControl_2.conduit_end"
+   type="conduit"
+   dir="end" />
+ <interface
    name="pio_led_external_connection"
    internal="pio_led.external_connection"
    type="conduit"
    dir="end" />
  <interface name="reset" internal="clk_0.clk_in_reset" type="reset" dir="end" />
  <module name="MYOControl_0" kind="MYOControl" version="1.0" enabled="1" />
- <module name="adc_0" kind="altera_up_avalon_adc" version="16.1" enabled="0">
+ <module name="MYOControl_1" kind="MYOControl" version="1.0" enabled="1" />
+ <module name="MYOControl_2" kind="MYOControl" version="1.0" enabled="1" />
+ <module name="adc_0" kind="altera_up_avalon_adc" version="16.1" enabled="1">
   <parameter name="AUTO_CLK_CLOCK_RATE" value="50000000" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
   <parameter name="board" value="DE0-Nano-SoC" />
@@ -959,7 +1007,7 @@
    start="hps_0.h2f_lw_axi_master"
    end="adc_0.adc_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0260" />
+  <parameter name="baseAddress" value="0x1000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -977,7 +1025,25 @@
    start="hps_0.h2f_lw_axi_master"
    end="MYOControl_0.avalon_slave_0">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
+  <parameter name="baseAddress" value="0x0c00" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="16.1"
+   start="hps_0.h2f_lw_axi_master"
+   end="MYOControl_1.avalon_slave_0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0800" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="16.1"
+   start="hps_0.h2f_lw_axi_master"
+   end="MYOControl_2.avalon_slave_0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0400" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -995,7 +1061,7 @@
    start="hps_0.h2f_lw_axi_master"
    end="pio_led.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0400" />
+  <parameter name="baseAddress" value="0x1020" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1076,6 +1142,16 @@
    kind="clock"
    version="16.1"
    start="clk_0.clk"
+   end="MYOControl_1.clock_sink" />
+ <connection
+   kind="clock"
+   version="16.1"
+   start="clk_0.clk"
+   end="MYOControl_2.clock_sink" />
+ <connection
+   kind="clock"
+   version="16.1"
+   start="clk_0.clk"
    end="hps_0.f2h_axi_clock" />
  <connection
    kind="clock"
@@ -1126,12 +1202,22 @@
    version="16.1"
    start="clk_0.clk_reset"
    end="sysid_qsys.reset" />
- <connection kind="reset" version="16.1" start="clk_0.clk_reset" end="adc_0.reset" />
  <connection
    kind="reset"
    version="16.1"
    start="clk_0.clk_reset"
    end="MYOControl_0.reset" />
+ <connection kind="reset" version="16.1" start="clk_0.clk_reset" end="adc_0.reset" />
+ <connection
+   kind="reset"
+   version="16.1"
+   start="clk_0.clk_reset"
+   end="MYOControl_1.reset" />
+ <connection
+   kind="reset"
+   version="16.1"
+   start="clk_0.clk_reset"
+   end="MYOControl_2.reset" />
  <connection
    kind="reset"
    version="16.1"

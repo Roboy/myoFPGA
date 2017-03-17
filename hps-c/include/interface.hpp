@@ -42,7 +42,7 @@ public:
 
     void zeroWeight();
 
-    void setAllToForce();
+    void setAllToDisplacement();
 
     void estimateSpringParameters();
 
@@ -54,13 +54,4 @@ private:
     uint ganglion_id = 0;
     uint motor_id = 0;
     char inputstring[30];
-
-    struct MotorData {
-            int32_t jointPos;
-            int32_t actuatorPos;
-            int32_t actuatorVel;
-            uint16 actuatorCurrent;
-            sint16 tendonDisplacement;
-        } motor;
-
 };

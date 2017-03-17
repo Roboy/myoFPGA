@@ -67,7 +67,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   </table>
   <table class="blueBar">
    <tr>
-    <td class="l">2017.03.16.23:57:08</td>
+    <td class="l">2017.03.17.15:27:12</td>
     <td class="r">Datasheet</td>
    </tr>
   </table>
@@ -90,6 +90,15 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      <br/>&#160;&#160;
      <a href="#module_MYOControl_0"><b>MYOControl_0</b>
      </a> MYOControl 1.0
+     <br/>&#160;&#160;
+     <a href="#module_MYOControl_1"><b>MYOControl_1</b>
+     </a> MYOControl 1.0
+     <br/>&#160;&#160;
+     <a href="#module_MYOControl_2"><b>MYOControl_2</b>
+     </a> MYOControl 1.0
+     <br/>&#160;&#160;
+     <a href="#module_adc_0"><b>adc_0</b>
+     </a> altera_up_avalon_adc 16.1
      <br/>&#160;&#160;
      <a href="#module_intr_capturer_0"><b>intr_capturer_0</b>
      </a> intr_capturer 100.99.98.97
@@ -157,9 +166,72 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="slaveb">avalon_slave_0&#160;</td>
     <td class="empty"></td>
     <td class="empty"></td>
-    <td class="addr"><span style="color:#989898">0x</span>00000000</td>
-    <td class="addr"><span style="color:#989898">0x</span>ff200000</td>
-    <td class="addr"><span style="color:#989898">0x</span>ff200000</td>
+    <td class="addr"><span style="color:#989898">0x</span>00000c00</td>
+    <td class="addr"><span style="color:#989898">0x</span>ff200c00</td>
+    <td class="addr"><span style="color:#989898">0x</span>ff200c00</td>
+    <td class="empty"></td>
+   </tr>
+   <tr>
+    <td class="slavemodule">&#160;
+     <a href="#module_MYOControl_1"><b>MYOControl_1</b>
+     </a>
+    </td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+   </tr>
+   <tr>
+    <td class="slaveb">avalon_slave_0&#160;</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>00000800</td>
+    <td class="addr"><span style="color:#989898">0x</span>ff200800</td>
+    <td class="addr"><span style="color:#989898">0x</span>ff200800</td>
+    <td class="empty"></td>
+   </tr>
+   <tr>
+    <td class="slavemodule">&#160;
+     <a href="#module_MYOControl_2"><b>MYOControl_2</b>
+     </a>
+    </td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+   </tr>
+   <tr>
+    <td class="slaveb">avalon_slave_0&#160;</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>00000400</td>
+    <td class="addr"><span style="color:#989898">0x</span>ff200400</td>
+    <td class="addr"><span style="color:#989898">0x</span>ff200400</td>
+    <td class="empty"></td>
+   </tr>
+   <tr>
+    <td class="slavemodule">&#160;
+     <a href="#module_adc_0"><b>adc_0</b>
+     </a>
+    </td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+   </tr>
+   <tr>
+    <td class="slaveb">adc_slave&#160;</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>00001000</td>
+    <td class="addr"><span style="color:#989898">0x</span>ff201000</td>
+    <td class="addr"><span style="color:#989898">0x</span>ff201000</td>
     <td class="empty"></td>
    </tr>
    <tr>
@@ -1117,9 +1189,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="slaveb">s1&#160;</td>
     <td class="empty"></td>
     <td class="empty"></td>
-    <td class="addr"><span style="color:#989898">0x</span>00000400</td>
-    <td class="addr"><span style="color:#989898">0x</span>ff200400</td>
-    <td class="addr"><span style="color:#989898">0x</span>ff200400</td>
+    <td class="addr"><span style="color:#989898">0x</span>00001020</td>
+    <td class="addr"><span style="color:#989898">0x</span>ff201020</td>
+    <td class="addr"><span style="color:#989898">0x</span>ff201020</td>
     <td class="empty"></td>
    </tr>
    <tr>
@@ -1191,6 +1263,227 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <tr>
         <td class="parametername">deviceFamily</td>
         <td class="parametervalue">UNKNOWN</td>
+       </tr>
+       <tr>
+        <td class="parametername">generateLegacySim</td>
+        <td class="parametervalue">false</td>
+       </tr>
+      </table>
+     </td>
+    </tr>
+   </table>&#160;&#160;
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Software Assignments</h2>(none)</td>
+    </tr>
+   </table>
+  </div>
+  <a name="module_MYOControl_1"> </a>
+  <div>
+   <hr/>
+   <h2>MYOControl_1</h2>MYOControl v1.0
+   <br/>
+   <div class="greydiv">
+    <table class="connectionboxes">
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_hps_0_bridges">hps_0_bridges</a>
+      </td>
+      <td class="from">h2f_lw&#160;&#160;</td>
+      <td class="main" rowspan="7">MYOControl_1</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;avalon_slave_0</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="4">
+       <a href="#module_clk_0">clk_0</a>
+      </td>
+      <td class="from">clk&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;clock_sink</td>
+     </tr>
+     <tr>
+      <td class="from">clk_reset&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;reset</td>
+     </tr>
+    </table>
+   </div>
+   <br/>
+   <br/>
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Parameters</h2>
+      <table>
+       <tr>
+        <td class="parametername">deviceFamily</td>
+        <td class="parametervalue">UNKNOWN</td>
+       </tr>
+       <tr>
+        <td class="parametername">generateLegacySim</td>
+        <td class="parametervalue">false</td>
+       </tr>
+      </table>
+     </td>
+    </tr>
+   </table>&#160;&#160;
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Software Assignments</h2>(none)</td>
+    </tr>
+   </table>
+  </div>
+  <a name="module_MYOControl_2"> </a>
+  <div>
+   <hr/>
+   <h2>MYOControl_2</h2>MYOControl v1.0
+   <br/>
+   <div class="greydiv">
+    <table class="connectionboxes">
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_hps_0_bridges">hps_0_bridges</a>
+      </td>
+      <td class="from">h2f_lw&#160;&#160;</td>
+      <td class="main" rowspan="7">MYOControl_2</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;avalon_slave_0</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="4">
+       <a href="#module_clk_0">clk_0</a>
+      </td>
+      <td class="from">clk&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;clock_sink</td>
+     </tr>
+     <tr>
+      <td class="from">clk_reset&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;reset</td>
+     </tr>
+    </table>
+   </div>
+   <br/>
+   <br/>
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Parameters</h2>
+      <table>
+       <tr>
+        <td class="parametername">deviceFamily</td>
+        <td class="parametervalue">UNKNOWN</td>
+       </tr>
+       <tr>
+        <td class="parametername">generateLegacySim</td>
+        <td class="parametervalue">false</td>
+       </tr>
+      </table>
+     </td>
+    </tr>
+   </table>&#160;&#160;
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Software Assignments</h2>(none)</td>
+    </tr>
+   </table>
+  </div>
+  <a name="module_adc_0"> </a>
+  <div>
+   <hr/>
+   <h2>adc_0</h2>altera_up_avalon_adc v16.1
+   <br/>
+   <div class="greydiv">
+    <table class="connectionboxes">
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_hps_0_bridges">hps_0_bridges</a>
+      </td>
+      <td class="from">h2f_lw&#160;&#160;</td>
+      <td class="main" rowspan="7">adc_0</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;adc_slave</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="4">
+       <a href="#module_clk_0">clk_0</a>
+      </td>
+      <td class="from">clk&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;clk</td>
+     </tr>
+     <tr>
+      <td class="from">clk_reset&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;reset</td>
+     </tr>
+    </table>
+   </div>
+   <br/>
+   <br/>
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Parameters</h2>
+      <table>
+       <tr>
+        <td class="parametername">board</td>
+        <td class="parametervalue">DE0-Nano-SoC</td>
+       </tr>
+       <tr>
+        <td class="parametername">board_rev</td>
+        <td class="parametervalue">Autodetect</td>
+       </tr>
+       <tr>
+        <td class="parametername">sclk_freq</td>
+        <td class="parametervalue">12.5</td>
+       </tr>
+       <tr>
+        <td class="parametername">tsclk</td>
+        <td class="parametervalue">4</td>
+       </tr>
+       <tr>
+        <td class="parametername">numch_</td>
+        <td class="parametervalue">1</td>
+       </tr>
+       <tr>
+        <td class="parametername">numch</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">AUTO_DEVICE_FAMILY</td>
+        <td class="parametervalue">CYCLONEV</td>
+       </tr>
+       <tr>
+        <td class="parametername">AUTO_CLK_CLOCK_RATE</td>
+        <td class="parametervalue">50000000</td>
+       </tr>
+       <tr>
+        <td class="parametername">deviceFamily</td>
+        <td class="parametervalue">Cyclone V</td>
        </tr>
        <tr>
         <td class="parametername">generateLegacySim</td>
@@ -20474,7 +20767,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_hps_0_clk_0">hps_0_clk_0</a>
       </td>
       <td class="from">clk_reset&#160;&#160;</td>
-      <td class="main" rowspan="154">hps_0_bridges</td>
+      <td class="main" rowspan="163">hps_0_bridges</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;reset_sink</td>
@@ -21194,6 +21487,22 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td class="from">h2f_lw&#160;&#160;</td>
       <td class="neighbor" rowspan="2">
+       <a href="#module_adc_0">adc_0</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;adc_slave</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">h2f_lw&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
        <a href="#module_jtag_uart">jtag_uart</a>
       </td>
      </tr>
@@ -21211,6 +21520,38 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td class="from">h2f_lw&#160;&#160;</td>
       <td class="neighbor" rowspan="2">
        <a href="#module_MYOControl_0">MYOControl_0</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;avalon_slave_0</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">h2f_lw&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_MYOControl_1">MYOControl_1</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;avalon_slave_0</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">h2f_lw&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_MYOControl_2">MYOControl_2</a>
       </td>
      </tr>
      <tr>
@@ -29813,7 +30154,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">timestamp</td>
-        <td class="parametervalue">1489705020</td>
+        <td class="parametervalue">1489760823</td>
        </tr>
        <tr>
         <td class="parametername">deviceFamily</td>
@@ -29838,7 +30179,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">TIMESTAMP</td>
-        <td class="parametervalue">1489705020</td>
+        <td class="parametervalue">1489760823</td>
        </tr>
       </table>
      </td>
@@ -29847,8 +30188,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   </div>
   <table class="blueBar">
    <tr>
-    <td class="l">generation took 0.02 seconds</td>
-    <td class="r">rendering took 0.28 seconds</td>
+    <td class="l">generation took 0.01 seconds</td>
+    <td class="r">rendering took 0.26 seconds</td>
    </tr>
   </table>
  </body>
