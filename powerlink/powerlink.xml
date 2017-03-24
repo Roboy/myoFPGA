@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openCONFIGURATORProject xmlns="http://sourceforge.net/projects/openconf/configuration" xmlns:ns2="http://ethernet-powerlink.org/POWERLINK" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://sourceforge.net/projects/openconf/configuration openCONFIGURATOR.xsd">
+  <Generator vendor="Kalycito Infotech Private Limited &amp; Bernecker + Rainer Industrie Elektronik Ges.m.b.H." toolName="Ethernet POWERLINK openCONFIGURATOR" toolVersion="2.1.2" createdBy="roboy" createdOn="2017-03-24T17:45:36.642+01:00" modifiedBy="roboy" modifiedOn="2017-03-24T17:50:11.173+01:00" />
+  <ProjectConfiguration activeAutoGenerationSetting="all">
+    <PathSettings>
+      <Path id="defaultOutputPath" path="output" />
+    </PathSettings>
+    <AutoGenerationSettings id="all">
+      <Setting name="GENERATE_MN_MAPPING_FOR_NODES" value="" enabled="true" />
+    </AutoGenerationSettings>
+    <AutoGenerationSettings id="none" />
+    <AutoGenerationSettings id="custom" />
+  </ProjectConfiguration>
+  <NetworkConfiguration lossOfSocTolerance="50000000">
+    <NodeCollection>
+      <MN name="myoMaster" nodeID="240" pathToXDC="deviceConfiguration/DEADBEEF_myoFPGA_MN.xdc" isAsyncOnly="false" isType1Router="false" isType2Router="false" transmitsPRes="true" />
+      <CN nodeID="1" name="myoFPGA" pathToXDC="deviceConfiguration/DEADBEEF_myoFPGA_CN_1_1.xdc" forcedMultiplexedCycle="0" isMultiplexed="false" isChained="false" isAsyncOnly="false" isType1Router="false" isType2Router="false" isMandatory="false" autostartNode="true" resetInOperational="false" verifyAppSwVersion="false" autoAppSwUpdateAllowed="false" verifyDeviceType="true" verifyVendorId="false" verifyRevisionNumber="false" verifyProductCode="false" verifySerialNumber="false" enabled="true" />
+    </NodeCollection>
+  </NetworkConfiguration>
+</openCONFIGURATORProject>

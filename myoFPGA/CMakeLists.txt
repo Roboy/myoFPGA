@@ -1,0 +1,102 @@
+PROJECT(myoFPGA C CXX)
+
+CMAKE_MINIMUM_REQUIRED (VERSION 2.8.7)
+
+# we are cross compiling for arm (make sure to be in embedded_command_shell.sh)
+set(CMAKE_SYSTEM_NAME Linux)
+set(CMAKE_SYSTEM_PROCESSOR armv7l)
+
+set(compiler_path /home/roboy/Downloads/gcc-linaro-arm-linux-gnueabihf-4.7-2012.12-20121214_linux/bin)
+set(CMAKE_C_COMPILER ${compiler_path}/arm-linux-gnueabihf-gcc)
+set(CMAKE_CXX_COMPILER ${compiler_path}/arm-linux-gnueabihf-g++)
+
+set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
+set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
+set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
+set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)
+
+INCLUDE(${CMAKE_CURRENT_SOURCE_DIR}/cmake/options.cmake)
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -O0 -g")
+
+################################################################################
+# Setup project files and definitions
+
+SET(OBJDICT CiA401_CN)              # Set object dictionary to use
+FIND_OPLK_LIBRARY("cn")             # Find suitable openPOWERLINK library
+
+# Set generic sources and include directories for this demo
+SET(SOURCE
+        src/main.cpp
+        src/app.c
+        src/event.c
+        src/powerlink.c
+        src/myoControl.cpp
+        ${CONTRIB_SOURCE_DIR}/console/printlog.c
+        ${CONTRIB_SOURCE_DIR}/getopt/getopt.c
+    )
+
+include(findncurses_arm)
+include(findpcap)
+
+SET(ALT_DEVICE_FAMILY soc_cv_av)
+add_definitions(-D${ALT_DEVICE_FAMILY})
+MESSAGE(STATUS "fpga include dir: $ENV{SOCEDS_DEST_ROOT}/ip/altera/hps/altera_hps/hwlib/${ALT_DEVICE_FAMILY}")
+
+INCLUDE_DIRECTORIES(
+    include/
+        $ENV{SOCEDS_DEST_ROOT}/ip/altera/hps/altera_hps/hwlib/${ALT_DEVICE_FAMILY}
+        $ENV{SOCEDS_DEST_ROOT}/ip/altera/hps/altera_hps/hwlib/include
+        $ENV{SOCEDS_DEST_ROOT}/ip/altera/hps/altera_hps/hwlib/include/${ALT_DEVICE_FAMILY}
+    )
+
+################################################################################
+# Setup compile definitions depending on configuration
+
+# PCAP is used for directlink of userspace daemon
+IF (CFG_KERNEL_STACK_DIRECTLINK OR CFG_KERNEL_STACK_USERSPACE_DAEMON)
+    ADD_DEFINITIONS(-DCONFIG_USE_PCAP)
+    SET (SOURCE ${SOURCE} ${COMMON_SOURCE_DIR}/pcap/pcap-console.c)
+ENDIF (CFG_KERNEL_STACK_DIRECTLINK OR CFG_KERNEL_STACK_USERSPACE_DAEMON)
+
+# Setup compile definitions depending on configuration
+IF (CFG_KERNEL_STACK_DIRECTLINK)
+    UNSET (CFG_DEMO_CN_CONSOLE_USE_SYNCTHREAD CACHE)
+    ADD_DEFINITIONS(-DCONFIG_KERNELSTACK_DIRECTLINK)
+ELSE (CFG_KERNEL_STACK_DIRECTLINK)
+    OPTION (CFG_DEMO_CN_CONSOLE_USE_SYNCTHREAD "Create separate thread for syncronous data exchange" ON)
+    IF (CFG_DEMO_CN_CONSOLE_USE_SYNCTHREAD)
+        ADD_DEFINITIONS(-DCONFIG_USE_SYNCTHREAD)
+    ENDIF (CFG_DEMO_CN_CONSOLE_USE_SYNCTHREAD)
+ENDIF (CFG_KERNEL_STACK_DIRECTLINK)
+
+
+################################################################################
+# Setup the architecture specific definitions
+
+IF(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    include(linux.cmake)
+ELSEIF(CMAKE_SYSTEM_NAME STREQUAL "Windows")
+    include (windows.cmake)
+ELSE()
+    MESSAGE(FATAL_ERROR "System ${CMAKE_SYSTEM_NAME} is not supported!")
+ENDIF()
+
+################################################################################
+# Set the executable
+
+ADD_EXECUTABLE(myoFPGA ${SOURCE} ${DEMO_ARCH_SOURCES})
+SET_PROPERTY(TARGET myoFPGA
+             PROPERTY COMPILE_DEFINITIONS_DEBUG DEBUG;DEF_DEBUG_LVL=${CFG_DEBUG_LVL})
+
+################################################################################
+# Libraries to link
+
+OPLK_LINK_LIBRARIES(myoFPGA)
+TARGET_LINK_LIBRARIES(myoFPGA ${pcap_LIBRARY} ${ncurses_LIBRARY} -lpthread -lrt )
+
+################################################################################
+# Installation rules
+
+INSTALL(TARGETS myoFPGA RUNTIME DESTINATION ${CMAKE_PROJECT_NAME})
+
+
