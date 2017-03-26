@@ -1,8 +1,8 @@
 ################################################################################
 #
-# CMake file of CiA 401 CN console demo application
+# Windows definitions for console demo application
 #
-# Copyright (c) 2014, Bernecker+Rainer Industrie-Elektronik Ges.m.b.H. (B&R)
+# Copyright (c) 2016, Bernecker+Rainer Industrie-Elektronik Ges.m.b.H. (B&R)
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -36,11 +36,12 @@ ADD_DEFINITIONS(-D_CONSOLE -DWPCAP -DHAVE_REMOTE -D_CRT_SECURE_NO_WARNINGS)
 ################################################################################
 # Set architecture specific sources and include directories
 
-SET(DEMO_ARCH_SOURCES
-    ${DEMO_ARCHSOURCES}
-    ${COMMON_SOURCE_DIR}/system/system-windows.c
-    ${CONTRIB_SOURCE_DIR}/console/console-windows.c
-    )
+SET (DEMO_ARCH_SOURCES
+     ${DEMO_ARCHSOURCES}
+     ${COMMON_SOURCE_DIR}/system/system-windows.c
+     ${CONTRIB_SOURCE_DIR}/console/console-windows.c
+     ${CONTRIB_SOURCE_DIR}/trace/trace-windows.c
+     )
 
 INCLUDE_DIRECTORIES(${CONTRIB_SOURCE_DIR}/pcap/windows/WpdPack/Include)
 
@@ -49,7 +50,7 @@ INCLUDE_DIRECTORIES(${CONTRIB_SOURCE_DIR}/pcap/windows/WpdPack/Include)
 
 IF(CMAKE_CL_64)
     LINK_DIRECTORIES(${CONTRIB_SOURCE_DIR}/pcap/windows/WpdPack/Lib/x64)
-ELSE()
+ELSE ()
     LINK_DIRECTORIES(${CONTRIB_SOURCE_DIR}/pcap/windows/WpdPack/Lib)
 ENDIF()
 
@@ -57,17 +58,20 @@ SET(ARCH_LIBRARIES wpcap iphlpapi)
 
 ################################################################################
 # Set architecture specific installation files
-IF(NOT (${OPLKDLL} STREQUAL "OPLKDLL-NOTFOUND"))
-    INSTALL(FILES ${OPLKDLL}
-            DESTINATION ${CMAKE_PROJECT_NAME}
-            CONFIGURATIONS "Release"
-            )
+IF (DEFINED OPLKDLL)
+    IF(NOT (${OPLKDLL} STREQUAL "OPLKDLL-NOTFOUND"))
+        INSTALL(FILES ${OPLKDLL}
+                DESTINATION ${CMAKE_PROJECT_NAME}
+                CONFIGURATIONS "Release"
+                )
+    ENDIF()
 ENDIF()
 
-IF(NOT (${OPLKDLL_DEBUG} STREQUAL "OPLKDLL_DEBUG-NOTFOUND"))
-    INSTALL(FILES ${OPLKDLL_DEBUG}
-            DESTINATION ${CMAKE_PROJECT_NAME}
-            CONFIGURATIONS "Debug"
-            )
+IF (DEFINED OPLKDLL_DEBUG)
+    IF(NOT (${OPLKDLL_DEBUG} STREQUAL "OPLKDLL_DEBUG-NOTFOUND"))
+        INSTALL(FILES ${OPLKDLL_DEBUG}
+                DESTINATION ${CMAKE_PROJECT_NAME}
+                CONFIGURATIONS "Debug"
+                )
+    ENDIF()
 ENDIF()
-

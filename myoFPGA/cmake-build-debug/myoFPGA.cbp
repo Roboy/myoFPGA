@@ -55,20 +55,25 @@
          <Option compiler="gcc" />
          <Compiler>
             <Add option="-Dsoc_cv_av" />
+            <Add option="-DNMT_MAX_NODE_ID=0" />
+            <Add option="-DCONFIG_INCLUDE_PDO" />
+            <Add option="-DCONFIG_INCLUDE_SDO_ASND" />
+            <Add option="-DCONFIG_INCLUDE_MASND" />
             <Add option="-DCONFIG_USE_PCAP" />
             <Add option="-DCONFIG_KERNELSTACK_DIRECTLINK" />
             <Add option="-D_GNU_SOURCE" />
             <Add option="-D_POSIX_C_SOURCE=200112L" />
             <Add option="-DDEBUG" />
             <Add option="-DDEF_DEBUG_LVL=0xEC000000L" />
+            <Add directory="/home/roboy/Downloads/openPowerLink/apps/common/objdicts/CiA401_CN" />
+            <Add directory="/home/roboy/Downloads/openPowerLink/apps/common/src" />
+            <Add directory="/home/roboy/Downloads/openPowerLink/contrib" />
+            <Add directory="/home/roboy/Downloads/openPowerLink/stack/include" />
             <Add directory="/home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/include" />
             <Add directory="/home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/include/soc_cv_av" />
             <Add directory="/home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/soc_cv_av" />
             <Add directory="/home/roboy/workspace/myoFPGA/myoFPGA/include" />
             <Add directory="/home/roboy/workspace/myoFPGA/myoFPGA/ncurses_arm/include" />
-            <Add directory="/home/roboy/workspace/myoFPGA/myoFPGA/openPowerLink/apps/common/src" />
-            <Add directory="/home/roboy/workspace/myoFPGA/myoFPGA/openPowerLink/contrib" />
-            <Add directory="/home/roboy/workspace/myoFPGA/myoFPGA/openPowerLink/stack/include" />
             <Add directory="/home/roboy/workspace/myoFPGA/myoFPGA/usr/include" />
             <Add directory="/usr/include" />
             <Add directory="/usr/include/c++/5" />
@@ -94,20 +99,25 @@
          <Option compiler="gcc" />
          <Compiler>
             <Add option="-Dsoc_cv_av" />
+            <Add option="-DNMT_MAX_NODE_ID=0" />
+            <Add option="-DCONFIG_INCLUDE_PDO" />
+            <Add option="-DCONFIG_INCLUDE_SDO_ASND" />
+            <Add option="-DCONFIG_INCLUDE_MASND" />
             <Add option="-DCONFIG_USE_PCAP" />
             <Add option="-DCONFIG_KERNELSTACK_DIRECTLINK" />
             <Add option="-D_GNU_SOURCE" />
             <Add option="-D_POSIX_C_SOURCE=200112L" />
             <Add option="-DDEBUG" />
             <Add option="-DDEF_DEBUG_LVL=0xEC000000L" />
+            <Add directory="/home/roboy/Downloads/openPowerLink/apps/common/objdicts/CiA401_CN" />
+            <Add directory="/home/roboy/Downloads/openPowerLink/apps/common/src" />
+            <Add directory="/home/roboy/Downloads/openPowerLink/contrib" />
+            <Add directory="/home/roboy/Downloads/openPowerLink/stack/include" />
             <Add directory="/home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/include" />
             <Add directory="/home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/include/soc_cv_av" />
             <Add directory="/home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/soc_cv_av" />
             <Add directory="/home/roboy/workspace/myoFPGA/myoFPGA/include" />
             <Add directory="/home/roboy/workspace/myoFPGA/myoFPGA/ncurses_arm/include" />
-            <Add directory="/home/roboy/workspace/myoFPGA/myoFPGA/openPowerLink/apps/common/src" />
-            <Add directory="/home/roboy/workspace/myoFPGA/myoFPGA/openPowerLink/contrib" />
-            <Add directory="/home/roboy/workspace/myoFPGA/myoFPGA/openPowerLink/stack/include" />
             <Add directory="/home/roboy/workspace/myoFPGA/myoFPGA/usr/include" />
             <Add directory="/usr/include" />
             <Add directory="/usr/include/c++/5" />
@@ -156,25 +166,46 @@
          </MakeCommands>
       </Target>
       </Build>
-      <Unit filename="/home/roboy/workspace/myoFPGA/myoFPGA/openPowerLink/apps/common/src/pcap/pcap-console.c">
+      <Unit filename="/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c">
          <Option target="myoFPGA"/>
       </Unit>
-      <Unit filename="/home/roboy/workspace/myoFPGA/myoFPGA/openPowerLink/apps/common/src/pcap/pcap-console.h">
+      <Unit filename="/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.h">
          <Option target="myoFPGA"/>
       </Unit>
-      <Unit filename="/home/roboy/workspace/myoFPGA/myoFPGA/openPowerLink/apps/common/src/system/system-linux.c">
+      <Unit filename="/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c">
          <Option target="myoFPGA"/>
       </Unit>
-      <Unit filename="/home/roboy/workspace/myoFPGA/myoFPGA/openPowerLink/contrib/console/console-linux.c">
+      <Unit filename="/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.h">
          <Option target="myoFPGA"/>
       </Unit>
-      <Unit filename="/home/roboy/workspace/myoFPGA/myoFPGA/openPowerLink/contrib/console/printlog.c">
+      <Unit filename="/home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c">
          <Option target="myoFPGA"/>
       </Unit>
-      <Unit filename="/home/roboy/workspace/myoFPGA/myoFPGA/openPowerLink/contrib/getopt/getopt.c">
+      <Unit filename="/home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.h">
          <Option target="myoFPGA"/>
       </Unit>
-      <Unit filename="/home/roboy/workspace/myoFPGA/myoFPGA/openPowerLink/contrib/getopt/getopt.h">
+      <Unit filename="/home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c">
+         <Option target="myoFPGA"/>
+      </Unit>
+      <Unit filename="/home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.h">
+         <Option target="myoFPGA"/>
+      </Unit>
+      <Unit filename="/home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c">
+         <Option target="myoFPGA"/>
+      </Unit>
+      <Unit filename="/home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c">
+         <Option target="myoFPGA"/>
+      </Unit>
+      <Unit filename="/home/roboy/Downloads/openPowerLink/contrib/console/printlog.c">
+         <Option target="myoFPGA"/>
+      </Unit>
+      <Unit filename="/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c">
+         <Option target="myoFPGA"/>
+      </Unit>
+      <Unit filename="/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.h">
+         <Option target="myoFPGA"/>
+      </Unit>
+      <Unit filename="/home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c">
          <Option target="myoFPGA"/>
       </Unit>
       <Unit filename="/home/roboy/workspace/myoFPGA/myoFPGA/src/app.c">

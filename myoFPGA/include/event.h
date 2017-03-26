@@ -63,7 +63,7 @@ extern "C"
 
 void initEvents(BOOL* pfGsOff_p);
 tOplkError processEvents(tOplkApiEventType EventType_p,
-                         tOplkApiEventArg* pEventArg_p,
+                         const tOplkApiEventArg* pEventArg_p,
                          void* pUserArg_p);
 
 #ifdef __cplusplus

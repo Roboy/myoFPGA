@@ -1,6 +1,6 @@
 #include "myoControl.hpp"
 
-MyoControl::MyoControl(vector<int32_t*> &myo_base):myo_base(myo_base){
+MyoControl::MyoControl(vector<int32_t*> &myo_base, int argc, char* argv[]):myo_base(myo_base){
 	// initialize control mode
 	numberOfMotors = myo_base.size()*MOTORS_PER_MYOCONTROL;
 	// initialize all controllers with default values
@@ -21,11 +21,11 @@ MyoControl::MyoControl(vector<int32_t*> &myo_base):myo_base(myo_base){
 
 	bool powerlink_initialized = true;
 
-	powerlink::tOplkError                  ret = powerlink::kErrorOk;
-	powerlink::tOptions                    opts;
-	UINT32                      version;
+	powerlink::tOplkError  ret = powerlink::kErrorOk;
+	powerlink::tOptions    opts;
 
-	char* argv = "";
+	if (powerlink::getOptions(argc, argv, &opts) < 0)
+		powerlink_initialized = false;
 
 	if (powerlink::system_init() != 0)
 	{
@@ -33,30 +33,142 @@ MyoControl::MyoControl(vector<int32_t*> &myo_base):myo_base(myo_base){
 		powerlink_initialized = false;
 	}
 
+	powerlink::eventlog_init(opts.logFormat,
+				  opts.logLevel,
+				  opts.logCategory,
+				  (powerlink::tEventlogOutputCb)powerlink::console_printlogadd);
+
 	powerlink::initEvents(&powerlink::fGsOff_l);
 
-	version = powerlink::oplk_getVersion();
 	printf("----------------------------------------------------\n");
 	printf("openPOWERLINK console CN DEMO application\n");
-	printf("using openPOWERLINK Stack: %x.%x.%x\n", PLK_STACK_VER(version), PLK_STACK_REF(version), PLK_STACK_REL(version));
+	printf("Using openPOWERLINK stack: %s\n", powerlink::oplk_getVersionString());
 	printf("----------------------------------------------------\n");
 
-	if ((ret = powerlink::initPowerlink(CYCLE_LEN, powerlink::aMacAddr_l, NODEID))
-		!= powerlink::kErrorOk)
+	powerlink::eventlog_printMessage(powerlink::kEventlogLevelInfo,
+						  powerlink::kEventlogCategoryGeneric,
+						  "demo_cn_console: Stack version:%s Stack configuration:0x%08X",
+						  powerlink::oplk_getVersionString(),
+						  powerlink::oplk_getStackConfiguration());
+
+	ret = powerlink::initPowerlink(CYCLE_LEN,
+						opts.devName,
+						powerlink::aMacAddr_l,
+						opts.nodeId);
+	if (ret != powerlink::kErrorOk)
 		powerlink_initialized = false;
 
-	if ((ret = powerlink::initApp()) != powerlink::kErrorOk)
+	ret = powerlink::initApp();
+	if (ret != powerlink::kErrorOk)
 		powerlink_initialized = false;
 
 	if(powerlink_initialized)
-		powerlink::loopMain();
+		mainLoop();
 }
 
 MyoControl::~MyoControl(){
 	cout << "shutting down myoControl" << endl;
-	powerlink::shutdownPowerlink();
 	powerlink::shutdownApp();
+	powerlink::shutdownPowerlink();
 	powerlink::system_exit();
+}
+
+void MyoControl::mainLoop(){
+	powerlink::tOplkError  ret;
+	char        cKey = 0;
+	BOOL        fExit = FALSE;
+
+#if !defined(CONFIG_KERNELSTACK_DIRECTLINK)
+
+	#if defined(CONFIG_USE_SYNCTHREAD)
+    system_startSyncThread(processSync);
+#endif
+
+#endif
+
+	// start processing
+	ret = powerlink::oplk_execNmtCommand(powerlink::kNmtEventSwReset);
+	if (ret != powerlink::kErrorOk)
+		return;
+
+	printf("Start POWERLINK stack... ok\n");
+	printf("myoControl interface with openPOWERLINK is ready!\n");
+	printf("\n-------------------------------\n");
+	printf("Press Esc to leave the program\n");
+	printf("Press r to reset the node\n");
+	printf("Press i to increase the digital input\n");
+	printf("Press d to decrease the digital input\n");
+	printf("Press p to print the digital outputs\n");
+	printf("-------------------------------\n\n");
+
+	powerlink::setupInputs();
+
+	// wait for key hit
+	while (!fExit)
+	{
+		if (powerlink::console_kbhit())
+		{
+			cKey = (char)powerlink::console_getch();
+
+			switch (cKey)
+			{
+				case 'r':
+					ret = powerlink::oplk_execNmtCommand(powerlink::kNmtEventSwReset);
+					if (ret != powerlink::kErrorOk)
+						fExit = TRUE;
+					break;
+
+				case 'i':
+					powerlink::increaseInputs();
+					break;
+
+				case 'd':
+					powerlink::decreaseInputs();
+					break;
+
+				case 'p':
+					powerlink::printOutputs();
+					break;
+
+				case 0x1B:
+					fExit = TRUE;
+					break;
+
+				default:
+					break;
+			}
+		}
+
+		if (powerlink::system_getTermSignalState() == TRUE)
+		{
+			fExit = TRUE;
+			printf("Received termination signal, exiting...\n");
+			powerlink::eventlog_printMessage(powerlink::kEventlogLevelInfo,
+								  powerlink::kEventlogCategoryControl,
+								  "Received termination signal, exiting...");
+		}
+
+		if (powerlink::oplk_checkKernelStack() == FALSE)
+		{
+			fExit = TRUE;
+			fprintf(stderr, "Kernel stack has gone! Exiting...\n");
+			powerlink::eventlog_printMessage(powerlink::kEventlogLevelFatal,
+								  powerlink::kEventlogCategoryControl,
+								  "Kernel stack has gone! Exiting...");
+		}
+
+#if (defined(CONFIG_USE_SYNCTHREAD) || \
+     defined(CONFIG_KERNELSTACK_DIRECTLINK))
+		powerlink::system_msleep(100);
+#else
+		processSync();
+#endif
+	}
+
+#if (TARGET_SYSTEM == _WIN32_)
+	printf("Press Enter to quit!\n");
+    console_getch();
+#endif
 }
 
 void MyoControl::changeControl(int motor, int mode, control_Parameters_t &params){

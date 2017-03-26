@@ -132,7 +132,7 @@ The function implements the application's stack event handler.
 */
 //------------------------------------------------------------------------------
 tOplkError processEvents(tOplkApiEventType EventType_p,
-                         tOplkApiEventArg* pEventArg_p,
+                         const tOplkApiEventArg* pEventArg_p,
                          void* pUserArg_p)
 {
     tOplkError          ret = kErrorOk;

@@ -34,12 +34,13 @@ MESSAGE(STATUS "CMAKE_SYSTEM_PROCESSOR is ${CMAKE_SYSTEM_PROCESSOR}")
 ################################################################################
 # Set global directories
 ################################################################################
-SET(OPLK_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/openPowerLink)
-SET(COMMON_SOURCE_DIR ${OPLK_ROOT_DIR}/apps/common/src)
-SET(CONTRIB_SOURCE_DIR ${OPLK_ROOT_DIR}/contrib)
-SET(OPLK_INCLUDE_DIR ${OPLK_ROOT_DIR}/stack/include)
-SET(TOOLS_DIR ${OPLK_ROOT_DIR}/tools)
-SET(BOARDS_DIR ${OPLK_ROOT_DIR}/hardware/boards)
+SET(OPLK_BASE_DIR /home/roboy/Downloads/openPowerLink)
+SET(COMMON_SOURCE_DIR ${OPLK_BASE_DIR}/apps/common/src)
+SET(OPENCONFIG_PROJ_DIR ${OPLK_BASE_DIR}/apps/common/openCONFIGURATOR_projects)
+SET(CONTRIB_SOURCE_DIR ${OPLK_BASE_DIR}/contrib)
+SET(OPLK_INCLUDE_DIR ${OPLK_BASE_DIR}/stack/include)
+SET(TOOLS_DIR ${OPLK_BASE_DIR}/tools)
+SET(BOARDS_DIR ${OPLK_BASE_DIR}/hardware/boards)
 
 ################################################################################
 # Include CMake Modules
@@ -57,42 +58,45 @@ INCLUDE(linkoplklib)
 # Set options
 ################################################################################
 
+################################################################################
+# Set options
+################################################################################
+
 STRING(TOLOWER "${CMAKE_SYSTEM_NAME}" SYSTEM_NAME_DIR)
 STRING(TOLOWER "${CMAKE_SYSTEM_PROCESSOR}" SYSTEM_PROCESSOR_DIR)
 
 IF(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-  SET(CMAKE_INSTALL_PREFIX
-    ${OPLK_ROOT_DIR}/bin/${SYSTEM_NAME_DIR}/${SYSTEM_PROCESSOR_DIR} CACHE PATH "openPOWERLINK apps install prefix" FORCE
-    )
+    SET(CMAKE_INSTALL_PREFIX
+            ${OPLK_BASE_DIR}/bin/${SYSTEM_NAME_DIR}/${SYSTEM_PROCESSOR_DIR} CACHE PATH "openPOWERLINK apps install prefix" FORCE
+            )
 ENDIF()
 
 SET(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE INTERNAL "Available Build Configurations" FORCE)
 
 IF(NOT CMAKE_GENERATOR MATCHES "Visual Studio")
     IF(NOT CMAKE_BUILD_TYPE)
-      SET(CMAKE_BUILD_TYPE Release CACHE STRING
-          "Choose the type of build, options are: None Debug Release"
-          FORCE)
+        SET(CMAKE_BUILD_TYPE Release CACHE STRING
+                "Choose the type of build, options are: None Debug Release"
+                FORCE)
     ENDIF()
 ENDIF()
 
-SET(CFG_DEBUG_LVL "0xEC000000L" CACHE STRING "Debug Level for debug output")
+SET(CFG_DEBUG_LVL "0xC0000000L" CACHE STRING "Debug Level for debug output")
 
 # set global include directories
 INCLUDE_DIRECTORIES (
-    ${OPLK_INCLUDE_DIR}
-    ${CONTRIB_SOURCE_DIR}
-    ${COMMON_SOURCE_DIR}
+        ${OPLK_INCLUDE_DIR}
+        ${CONTRIB_SOURCE_DIR}
+        ${COMMON_SOURCE_DIR}
+        ${OBJDICT_DIR}
 )
 
 IF(CMAKE_SYSTEM_NAME STREQUAL "Linux")
     INCLUDE(configure-linux)
 ELSEIF(CMAKE_SYSTEM_NAME STREQUAL "Windows")
     INCLUDE(configure-windows)
-ELSEIF(CMAKE_SYSTEM_NAME STREQUAL "Generic" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "Microblaze")
-    INCLUDE(configure-microblaze)
-ELSEIF(CMAKE_SYSTEM_NAME STREQUAL "Generic" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "zynqarm")
-    INCLUDE(configure-zynqarm)
+ELSEIF(CMAKE_SYSTEM_NAME STREQUAL "Generic" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "Microblazeise")
+    INCLUDE(configure-microblazeise)
 ELSEIF(CMAKE_SYSTEM_NAME STREQUAL "Generic" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "alterac5arm")
     INCLUDE(configure-c5socarm)
 ENDIF()

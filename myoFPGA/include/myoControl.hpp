@@ -8,7 +8,8 @@
 #include <fstream>
 #include "myoControlRegister.hpp"
 namespace powerlink{
-#include "powerlink.h"
+	#include "powerlink.h"
+	const BYTE aMacAddr_l[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 }
 
 using namespace std;
@@ -41,8 +42,12 @@ enum CONTROLMODE{
 
 class MyoControl{
 public:
-	MyoControl(vector<int32_t*> &myo_base);
+	MyoControl(vector<int32_t*> &myo_base, int argc, char* argv[]);
 	~MyoControl();
+	/**
+	 * This is the main loop, receiving commands and sending motor status via powerlink
+	 */
+	void mainLoop();
 	/**
 	 * Changes the controller of a motor
 	 * @param motor for this motor

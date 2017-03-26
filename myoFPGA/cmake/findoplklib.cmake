@@ -3,7 +3,7 @@
 # CMake script for finding the openPOWERLINK library
 #
 # Copyright (c) 2014, Bernecker+Rainer Industrie-Elektronik Ges.m.b.H. (B&R)
-# Copyright (c) 2014, Kalycito Infotech Private Limited
+# Copyright (c) 2016, Kalycito Infotech Private Limited
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -42,22 +42,26 @@ MACRO(FIND_OPLK_LIBRARY OPLK_NODE_TYPE)
             SET(OPLKLIB_NAME oplk${OPLK_NODE_TYPE}app-userintf)
         ELSEIF (CFG_KERNEL_STACK_KERNEL_MODULE)
             SET(OPLKLIB_NAME oplk${OPLK_NODE_TYPE}app-kernelintf)
+        ELSEIF ((CFG_KERNEL_STACK_PCIE_INTF) OR (CFG_KERNEL_STACK_ZYNQ_INTF))
+            SET(OPLKLIB_NAME oplk${OPLK_NODE_TYPE}app-kernelpcp)
         ENDIF (CFG_KERNEL_STACK_DIRECTLINK)
 
     ELSEIF(CMAKE_SYSTEM_NAME STREQUAL "Windows")
 
-        SET(OPLKLIB_NAME oplk${OPLK_NODE_TYPE})
+        IF(CFG_KERNEL_STACK_DIRECTLINK)
+            SET(OPLKLIB_NAME oplk${OPLK_NODE_TYPE})
+        ELSEIF (CFG_KERNEL_STACK_PCIE)
+            SET(OPLKLIB_NAME oplk${OPLK_NODE_TYPE}app-pcieintf)
+        ELSEIF (CFG_KERNEL_STACK_KERNEL_MODULE)
+            SET(OPLKLIB_NAME oplk${OPLK_NODE_TYPE}app-kernelintf)
+        ENDIF (CFG_KERNEL_STACK_DIRECTLINK)
 
-    ELSEIF(CMAKE_SYSTEM_NAME STREQUAL "Generic" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "Microblaze")
+    ELSEIF(CMAKE_SYSTEM_NAME STREQUAL "Generic" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "Microblazeise")
         IF (CFG_KERNEL_STACK_DIRECTLINK)
             SET(OPLKLIB_NAME oplk${OPLK_NODE_TYPE})
         ELSEIF (CFG_KERNEL_STACK_PCP_HOSTIF_MODULE)
             SET(OPLKLIB_NAME oplk${OPLK_NODE_TYPE}app-hostif)
         ENDIF (CFG_KERNEL_STACK_DIRECTLINK)
-
-    ELSEIF (CMAKE_SYSTEM_NAME STREQUAL "Generic" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "zynqarm")
-
-        SET(OPLKLIB_NAME oplk${OPLK_NODE_TYPE}app-dualprocshm)
 
     ELSEIF (CMAKE_SYSTEM_NAME STREQUAL "Generic" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "alterac5arm")
         IF (CFG_KERNEL_STACK_DIRECTLINK)
@@ -79,7 +83,7 @@ MACRO(FIND_OPLK_LIBRARY OPLK_NODE_TYPE)
     SET(OPLKLIB_DEBUG_NAME "${OPLKLIB_NAME}_d")
 
     # Set oplk library directory
-    SET(OPLKLIB_DIR ${OPLK_ROOT_DIR}/stack/lib/${SYSTEM_NAME_DIR}/${SYSTEM_PROCESSOR_DIR})
+    SET(OPLKLIB_DIR ${OPLK_BASE_DIR}/stack/lib/${SYSTEM_NAME_DIR}/${SYSTEM_PROCESSOR_DIR})
 
     IF((CMAKE_GENERATOR MATCHES "Visual Studio") OR (CMAKE_BUILD_TYPE STREQUAL "Release"))
         # Search for release library

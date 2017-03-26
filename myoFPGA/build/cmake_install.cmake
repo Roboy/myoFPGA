@@ -2,7 +2,7 @@
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/roboy/workspace/myoFPGA/myoFPGA/openPowerLink/bin/linux/armv7l")
+  set(CMAKE_INSTALL_PREFIX "/home/roboy/Downloads/openPowerLink/bin/linux/armv7l")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -33,7 +33,7 @@ if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/myoFPGA" TYPE PROGRAM FILES "/home/roboy/workspace/myoFPGA/myoFPGA/openPowerLink/tools/linux/set_prio")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/myoFPGA" TYPE PROGRAM FILES "/home/roboy/Downloads/openPowerLink/tools/linux/set_prio")
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")

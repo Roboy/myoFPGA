@@ -18,7 +18,7 @@
 CFG_BUILD_KERNEL_STACK:STRING=Link to Application
 
 //Debug Level for debug output
-CFG_DEBUG_LVL:STRING=0xEC000000L
+CFG_DEBUG_LVL:STRING=0xC0000000L
 
 //Path to a program.
 CMAKE_AR:FILEPATH=/usr/bin/ar
@@ -86,13 +86,13 @@ CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO:STRING=
 CMAKE_EXPORT_COMPILE_COMMANDS:BOOL=OFF
 
 //openPOWERLINK apps install prefix
-CMAKE_INSTALL_PREFIX:PATH=/home/roboy/workspace/myoFPGA/myoFPGA/openPowerLink/bin/linux/armv7l
+CMAKE_INSTALL_PREFIX:PATH=/home/roboy/Downloads/openPowerLink/bin/linux/armv7l
 
 //Path to a program.
 CMAKE_LINKER:FILEPATH=/usr/bin/ld
 
 //Path to a program.
-CMAKE_MAKE_PROGRAM:FILEPATH=/home/roboy/altera/16.1/embedded/ds-5/bin/make
+CMAKE_MAKE_PROGRAM:FILEPATH=/usr/bin/make
 
 //Flags used by the linker during the creation of modules.
 CMAKE_MODULE_LINKER_FLAGS:STRING=
@@ -171,7 +171,7 @@ CMAKE_STRIP:FILEPATH=/usr/bin/strip
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
 //Path to a library.
-OPLKLIB:FILEPATH=/home/roboy/workspace/myoFPGA/myoFPGA/openPowerLink/stack/lib/linux/armv7l/liboplkcn.a
+OPLKLIB:FILEPATH=/home/roboy/Downloads/openPowerLink/stack/lib/linux/armv7l/liboplkcn.a
 
 //Value Computed by CMake
 myoFPGA_BINARY_DIR:STATIC=/home/roboy/workspace/myoFPGA/myoFPGA/build
@@ -185,7 +185,7 @@ myoFPGA_SOURCE_DIR:STATIC=/home/roboy/workspace/myoFPGA/myoFPGA
 ########################
 
 //STRINGS property for variable: CFG_BUILD_KERNEL_STACK
-CFG_BUILD_KERNEL_STACK-STRINGS:INTERNAL=Link to Application;Linux Userspace Daemon;Linux Kernel Module;None
+CFG_BUILD_KERNEL_STACK-STRINGS:INTERNAL=Link to Application;Linux Userspace Daemon;Linux Kernel Module;Kernel stack on PCIe card;Kernel stack on Zynq PCP;None
 //Link kernel stack directly into application (Single process solution)
 CFG_KERNEL_STACK_DIRECTLINK:INTERNAL=ON
 //ADVANCED property for variable: CMAKE_AR
@@ -318,5 +318,5 @@ CMAKE_UNAME:INTERNAL=/bin/uname
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
 //List of possible kernel stack build types
-KernelStackBuildTypes:INTERNAL=Link to Application;Linux Userspace Daemon;Linux Kernel Module;None
+KernelStackBuildTypes:INTERNAL=Link to Application;Linux Userspace Daemon;Linux Kernel Module;Kernel stack on PCIe card;Kernel stack on Zynq PCP;None
 

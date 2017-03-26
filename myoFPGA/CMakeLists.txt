@@ -33,6 +33,10 @@ SET(SOURCE
         src/myoControl.cpp
         ${CONTRIB_SOURCE_DIR}/console/printlog.c
         ${CONTRIB_SOURCE_DIR}/getopt/getopt.c
+        ${COMMON_SOURCE_DIR}/eventlog/eventlog.c
+        ${COMMON_SOURCE_DIR}/eventlog/eventlogstring.c
+        ${COMMON_SOURCE_DIR}/obdcreate/obdcreate.c
+        ${COMMON_SOURCE_DIR}/pcap/pcap-console.c
     )
 
 include(findncurses_arm)
@@ -41,13 +45,31 @@ include(findpcap)
 SET(ALT_DEVICE_FAMILY soc_cv_av)
 add_definitions(-D${ALT_DEVICE_FAMILY})
 MESSAGE(STATUS "fpga include dir: $ENV{SOCEDS_DEST_ROOT}/ip/altera/hps/altera_hps/hwlib/${ALT_DEVICE_FAMILY}")
-
+MESSAGE(STATUS "objectdic dir: ${OPLK_BASE_DIR}/apps/common/objdicts/${OBJDICT}")
 INCLUDE_DIRECTORIES(
     include/
         $ENV{SOCEDS_DEST_ROOT}/ip/altera/hps/altera_hps/hwlib/${ALT_DEVICE_FAMILY}
         $ENV{SOCEDS_DEST_ROOT}/ip/altera/hps/altera_hps/hwlib/include
         $ENV{SOCEDS_DEST_ROOT}/ip/altera/hps/altera_hps/hwlib/include/${ALT_DEVICE_FAMILY}
+        ${OPLK_BASE_DIR}/apps/common/objdicts/${OBJDICT}
     )
+
+# PResChaining is not supported by non-openMAC targets
+#ADD_DEFINITIONS(-DCONFIG_DLL_PRES_CHAINING_CN)
+ADD_DEFINITIONS(-DNMT_MAX_NODE_ID=0)
+ADD_DEFINITIONS(-DCONFIG_INCLUDE_PDO)
+ADD_DEFINITIONS(-DCONFIG_INCLUDE_SDO_ASND)
+ADD_DEFINITIONS(-DCONFIG_INCLUDE_MASND)
+
+IF(CFG_IP_STACK)
+    ADD_DEFINITIONS(-DCONFIG_INCLUDE_IP)
+    ADD_DEFINITIONS(-DCONFIG_INCLUDE_SDO_UDP)
+ENDIF(CFG_IP_STACK)
+
+IF(CFG_STORE_RESTORE)
+    ADD_DEFINITIONS(-DCONFIG_OBD_USE_STORE_RESTORE)
+ENDIF(CFG_STORE_RESTORE)
+
 
 ################################################################################
 # Setup compile definitions depending on configuration
@@ -55,7 +77,7 @@ INCLUDE_DIRECTORIES(
 # PCAP is used for directlink of userspace daemon
 IF (CFG_KERNEL_STACK_DIRECTLINK OR CFG_KERNEL_STACK_USERSPACE_DAEMON)
     ADD_DEFINITIONS(-DCONFIG_USE_PCAP)
-    SET (SOURCE ${SOURCE} ${COMMON_SOURCE_DIR}/pcap/pcap-console.c)
+    SET (DEMO_SOURCES ${DEMO_SOURCES} ${COMMON_SOURCE_DIR}/pcap/pcap-console.c)
 ENDIF (CFG_KERNEL_STACK_DIRECTLINK OR CFG_KERNEL_STACK_USERSPACE_DAEMON)
 
 # Setup compile definitions depending on configuration
@@ -82,6 +104,8 @@ ELSE()
 ENDIF()
 
 ################################################################################
+
+################################################################################
 # Set the executable
 
 ADD_EXECUTABLE(myoFPGA ${SOURCE} ${DEMO_ARCH_SOURCES})
@@ -92,7 +116,7 @@ SET_PROPERTY(TARGET myoFPGA
 # Libraries to link
 
 OPLK_LINK_LIBRARIES(myoFPGA)
-TARGET_LINK_LIBRARIES(myoFPGA ${pcap_LIBRARY} ${ncurses_LIBRARY} -lpthread -lrt )
+TARGET_LINK_LIBRARIES(myoFPGA ${pcap_LIBRARY} -lpthread -lrt )
 
 ################################################################################
 # Installation rules
