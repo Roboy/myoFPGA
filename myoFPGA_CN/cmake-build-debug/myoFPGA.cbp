@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+   <FileVersion major="1" minor="6" />
+   <Project>
+      <Option title="myoFPGA" />
+      <Option makefile_is_custom="1" />
+      <Option compiler="gcc" />
+      <Option virtualFolders="CMake Files\;CMake Files\cmake\;" />
+      <Build>
+      <Target title="all">
+         <Option working_dir="/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/home/roboy/altera/16.1/embedded/ds-5/bin/make -f &quot;/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug/Makefile&quot;  VERBOSE=1 all" />
+            <CompileFile command="/home/roboy/altera/16.1/embedded/ds-5/bin/make -f &quot;/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/home/roboy/altera/16.1/embedded/ds-5/bin/make -f &quot;/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/home/roboy/altera/16.1/embedded/ds-5/bin/make -f &quot;/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="install">
+         <Option working_dir="/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/home/roboy/altera/16.1/embedded/ds-5/bin/make -f &quot;/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug/Makefile&quot;  VERBOSE=1 install" />
+            <CompileFile command="/home/roboy/altera/16.1/embedded/ds-5/bin/make -f &quot;/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/home/roboy/altera/16.1/embedded/ds-5/bin/make -f &quot;/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/home/roboy/altera/16.1/embedded/ds-5/bin/make -f &quot;/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="list_install_components">
+         <Option working_dir="/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/home/roboy/altera/16.1/embedded/ds-5/bin/make -f &quot;/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug/Makefile&quot;  VERBOSE=1 list_install_components" />
+            <CompileFile command="/home/roboy/altera/16.1/embedded/ds-5/bin/make -f &quot;/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/home/roboy/altera/16.1/embedded/ds-5/bin/make -f &quot;/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/home/roboy/altera/16.1/embedded/ds-5/bin/make -f &quot;/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="rebuild_cache">
+         <Option working_dir="/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/home/roboy/altera/16.1/embedded/ds-5/bin/make -f &quot;/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache" />
+            <CompileFile command="/home/roboy/altera/16.1/embedded/ds-5/bin/make -f &quot;/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/home/roboy/altera/16.1/embedded/ds-5/bin/make -f &quot;/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/home/roboy/altera/16.1/embedded/ds-5/bin/make -f &quot;/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="myoFPGA">
+         <Option output="/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug/myoFPGA" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-Dsoc_cv_av" />
+            <Add option="-DNMT_MAX_NODE_ID=0" />
+            <Add option="-DCONFIG_INCLUDE_PDO" />
+            <Add option="-DCONFIG_INCLUDE_SDO_ASND" />
+            <Add option="-DCONFIG_INCLUDE_MASND" />
+            <Add option="-DCONFIG_USE_PCAP" />
+            <Add option="-DCONFIG_KERNELSTACK_DIRECTLINK" />
+            <Add option="-D_GNU_SOURCE" />
+            <Add option="-D_POSIX_C_SOURCE=200112L" />
+            <Add option="-DDEBUG" />
+            <Add option="-DDEF_DEBUG_LVL=0xC0000000L" />
+            <Add directory="/home/roboy/Downloads/openPowerLink/apps/common/src" />
+            <Add directory="/home/roboy/Downloads/openPowerLink/contrib" />
+            <Add directory="/home/roboy/Downloads/openPowerLink/stack/include" />
+            <Add directory="/home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/include" />
+            <Add directory="/home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/include/soc_cv_av" />
+            <Add directory="/home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/soc_cv_av" />
+            <Add directory="/home/roboy/workspace/myoFPGA/myoFPGA_CN/../powerlink/output" />
+            <Add directory="/home/roboy/workspace/myoFPGA/myoFPGA_CN/include" />
+            <Add directory="/home/roboy/workspace/myoFPGA/myoFPGA_CN/ncurses_arm/include" />
+            <Add directory="/home/roboy/workspace/myoFPGA/myoFPGA_CN/usr/include" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/home/roboy/altera/16.1/embedded/ds-5/bin/make -f &quot;/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug/Makefile&quot;  VERBOSE=1 myoFPGA" />
+            <CompileFile command="/home/roboy/altera/16.1/embedded/ds-5/bin/make -f &quot;/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/home/roboy/altera/16.1/embedded/ds-5/bin/make -f &quot;/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/home/roboy/altera/16.1/embedded/ds-5/bin/make -f &quot;/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="myoFPGA/fast">
+         <Option output="/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug/myoFPGA" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-Dsoc_cv_av" />
+            <Add option="-DNMT_MAX_NODE_ID=0" />
+            <Add option="-DCONFIG_INCLUDE_PDO" />
+            <Add option="-DCONFIG_INCLUDE_SDO_ASND" />
+            <Add option="-DCONFIG_INCLUDE_MASND" />
+            <Add option="-DCONFIG_USE_PCAP" />
+            <Add option="-DCONFIG_KERNELSTACK_DIRECTLINK" />
+            <Add option="-D_GNU_SOURCE" />
+            <Add option="-D_POSIX_C_SOURCE=200112L" />
+            <Add option="-DDEBUG" />
+            <Add option="-DDEF_DEBUG_LVL=0xC0000000L" />
+            <Add directory="/home/roboy/Downloads/openPowerLink/apps/common/src" />
+            <Add directory="/home/roboy/Downloads/openPowerLink/contrib" />
+            <Add directory="/home/roboy/Downloads/openPowerLink/stack/include" />
+            <Add directory="/home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/include" />
+            <Add directory="/home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/include/soc_cv_av" />
+            <Add directory="/home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/soc_cv_av" />
+            <Add directory="/home/roboy/workspace/myoFPGA/myoFPGA_CN/../powerlink/output" />
+            <Add directory="/home/roboy/workspace/myoFPGA/myoFPGA_CN/include" />
+            <Add directory="/home/roboy/workspace/myoFPGA/myoFPGA_CN/ncurses_arm/include" />
+            <Add directory="/home/roboy/workspace/myoFPGA/myoFPGA_CN/usr/include" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/home/roboy/altera/16.1/embedded/ds-5/bin/make -f &quot;/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug/Makefile&quot;  VERBOSE=1 myoFPGA/fast" />
+            <CompileFile command="/home/roboy/altera/16.1/embedded/ds-5/bin/make -f &quot;/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/home/roboy/altera/16.1/embedded/ds-5/bin/make -f &quot;/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/home/roboy/altera/16.1/embedded/ds-5/bin/make -f &quot;/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="install/strip">
+         <Option working_dir="/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/home/roboy/altera/16.1/embedded/ds-5/bin/make -f &quot;/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug/Makefile&quot;  VERBOSE=1 install/strip" />
+            <CompileFile command="/home/roboy/altera/16.1/embedded/ds-5/bin/make -f &quot;/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/home/roboy/altera/16.1/embedded/ds-5/bin/make -f &quot;/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/home/roboy/altera/16.1/embedded/ds-5/bin/make -f &quot;/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="install/local">
+         <Option working_dir="/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/home/roboy/altera/16.1/embedded/ds-5/bin/make -f &quot;/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug/Makefile&quot;  VERBOSE=1 install/local" />
+            <CompileFile command="/home/roboy/altera/16.1/embedded/ds-5/bin/make -f &quot;/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/home/roboy/altera/16.1/embedded/ds-5/bin/make -f &quot;/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/home/roboy/altera/16.1/embedded/ds-5/bin/make -f &quot;/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="edit_cache">
+         <Option working_dir="/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/home/roboy/altera/16.1/embedded/ds-5/bin/make -f &quot;/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache" />
+            <CompileFile command="/home/roboy/altera/16.1/embedded/ds-5/bin/make -f &quot;/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/home/roboy/altera/16.1/embedded/ds-5/bin/make -f &quot;/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/home/roboy/altera/16.1/embedded/ds-5/bin/make -f &quot;/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      </Build>
+      <Unit filename="/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c">
+         <Option target="myoFPGA"/>
+      </Unit>
+      <Unit filename="/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.h">
+         <Option target="myoFPGA"/>
+      </Unit>
+      <Unit filename="/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c">
+         <Option target="myoFPGA"/>
+      </Unit>
+      <Unit filename="/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.h">
+         <Option target="myoFPGA"/>
+      </Unit>
+      <Unit filename="/home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c">
+         <Option target="myoFPGA"/>
+      </Unit>
+      <Unit filename="/home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.h">
+         <Option target="myoFPGA"/>
+      </Unit>
+      <Unit filename="/home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c">
+         <Option target="myoFPGA"/>
+      </Unit>
+      <Unit filename="/home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.h">
+         <Option target="myoFPGA"/>
+      </Unit>
+      <Unit filename="/home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c">
+         <Option target="myoFPGA"/>
+      </Unit>
+      <Unit filename="/home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c">
+         <Option target="myoFPGA"/>
+      </Unit>
+      <Unit filename="/home/roboy/Downloads/openPowerLink/contrib/console/printlog.c">
+         <Option target="myoFPGA"/>
+      </Unit>
+      <Unit filename="/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c">
+         <Option target="myoFPGA"/>
+      </Unit>
+      <Unit filename="/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.h">
+         <Option target="myoFPGA"/>
+      </Unit>
+      <Unit filename="/home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c">
+         <Option target="myoFPGA"/>
+      </Unit>
+      <Unit filename="/home/roboy/workspace/myoFPGA/myoFPGA_CN/src/app.c">
+         <Option target="myoFPGA"/>
+      </Unit>
+      <Unit filename="/home/roboy/workspace/myoFPGA/myoFPGA_CN/src/event.c">
+         <Option target="myoFPGA"/>
+      </Unit>
+      <Unit filename="/home/roboy/workspace/myoFPGA/myoFPGA_CN/src/main.cpp">
+         <Option target="myoFPGA"/>
+      </Unit>
+      <Unit filename="/home/roboy/workspace/myoFPGA/myoFPGA_CN/src/myoControl.cpp">
+         <Option target="myoFPGA"/>
+      </Unit>
+      <Unit filename="/home/roboy/workspace/myoFPGA/myoFPGA_CN/src/powerlink.c">
+         <Option target="myoFPGA"/>
+      </Unit>
+      <Unit filename="/home/roboy/workspace/myoFPGA/myoFPGA_CN/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\" />
+      </Unit>
+      <Unit filename="/home/roboy/workspace/myoFPGA/myoFPGA_CN/linux.cmake">
+          <Option virtualFolder="CMake Files\" />
+      </Unit>
+      <Unit filename="/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake/options.cmake">
+          <Option virtualFolder="CMake Files\cmake\" />
+      </Unit>
+      <Unit filename="/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake/findoplklib.cmake">
+          <Option virtualFolder="CMake Files\cmake\" />
+      </Unit>
+      <Unit filename="/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake/linkoplklib.cmake">
+          <Option virtualFolder="CMake Files\cmake\" />
+      </Unit>
+      <Unit filename="/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake/configure-linux.cmake">
+          <Option virtualFolder="CMake Files\cmake\" />
+      </Unit>
+      <Unit filename="/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake/findncurses_arm.cmake">
+          <Option virtualFolder="CMake Files\cmake\" />
+      </Unit>
+      <Unit filename="/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake/findpcap.cmake">
+          <Option virtualFolder="CMake Files\cmake\" />
+      </Unit>
+   </Project>
+</CodeBlocks_project_file>

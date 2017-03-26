@@ -13,7 +13,7 @@
         <ProfileTechnology>Powerlink</ProfileTechnology>
       </ISO15745Reference>
     </ProfileHeader>
-    <ProfileBody xsi:type="ProfileBody_Device_Powerlink" fileName="DEADBEEF_myoFPGA_CN.xdd" fileCreator="letrend" fileCreationDate="2017-03-24" fileCreationTime="12:00:00+01:00" fileModificationDate="2017-03-24" fileModificationTime="17:40:48+01:00" fileModifiedBy="roboy" fileVersion="01.00" supportedLanguages="en">
+    <ProfileBody xsi:type="ProfileBody_Device_Powerlink" fileName="DEADBEEF_myoFPGA_CN.xdd" fileCreator="letrend" fileCreationDate="2017-03-24" fileCreationTime="12:00:00+01:00" fileModificationDate="2017-03-26" fileModificationTime="21:35:27+02:00" fileModifiedBy="roboy" fileVersion="01.00" supportedLanguages="en">
       <DeviceIdentity>
         <vendorName>roboy</vendorName>
         <vendorID>0xDEADBEEF</vendorID>
@@ -50,7 +50,7 @@
         <ProfileTechnology>Powerlink</ProfileTechnology>
       </ISO15745Reference>
     </ProfileHeader>
-    <ProfileBody xsi:type="ProfileBody_CommunicationNetwork_Powerlink" fileName="DEADBEEF_myoFPGA.xdd" fileCreator="letrend" fileCreationDate="2017-03-24" fileCreationTime="12:00:00+01:00" fileModificationDate="2017-03-24" fileModificationTime="17:40:48+01:00" fileModifiedBy="roboy" fileVersion="01.00" supportedLanguages="en">
+    <ProfileBody xsi:type="ProfileBody_CommunicationNetwork_Powerlink" fileName="DEADBEEF_myoFPGA.xdd" fileCreator="letrend" fileCreationDate="2017-03-24" fileCreationTime="12:00:00+01:00" fileModificationDate="2017-03-26" fileModificationTime="21:35:27+02:00" fileModifiedBy="roboy" fileVersion="01.00" supportedLanguages="en">
       <ApplicationLayers>
         <identity>
           <vendorID>0xDEADBEEF</vendorID>
@@ -145,7 +145,7 @@
           <!-- Communication Profile Area (0x1000 - 0x1FFF): defined by EPSG 301 -->
           <Object index="1000" name="NMT_DeviceType_U32" objectType="7" dataType="0007" accessType="const" PDOmapping="no" defaultValue="0x00000000" />
           <Object index="1001" name="ERR_ErrorRegister_U8" objectType="7" dataType="0005" accessType="ro" PDOmapping="optional" defaultValue="0" />
-          <Object index="1006" name="NMT_CycleLen_U32" objectType="7" dataType="0007" accessType="rw" PDOmapping="no" defaultValue="0" />
+          <Object index="1006" name="NMT_CycleLen_U32" objectType="7" dataType="0007" accessType="rw" PDOmapping="no" defaultValue="0" actualValue="0x0000C350" />
           <Object index="1018" name="NMT_IdentityObject_REC" objectType="9">
             <SubObject subIndex="00" name="NumberOfEntries" objectType="7" dataType="0005" accessType="const" PDOmapping="no" defaultValue="4" />
             <SubObject subIndex="01" name="VendorId_U32" objectType="7" dataType="0007" accessType="const" PDOmapping="no" defaultValue="0x00000000" />
@@ -155,8 +155,8 @@
           </Object>
           <Object index="1020" name="CFM_VerifyConfiguration_REC" objectType="9">
             <SubObject subIndex="00" name="NumberOfEntries" objectType="7" dataType="0005" accessType="const" defaultValue="2" />
-            <SubObject subIndex="01" name="ConfDate_U32" objectType="7" dataType="0007" accessType="rw" defaultValue="0" />
-            <SubObject subIndex="02" name="ConfTime_U32" objectType="7" dataType="0007" accessType="rw" defaultValue="0" />
+            <SubObject subIndex="01" name="ConfDate_U32" objectType="7" dataType="0007" accessType="rw" defaultValue="0" actualValue="0x00002F6A" />
+            <SubObject subIndex="02" name="ConfTime_U32" objectType="7" dataType="0007" accessType="rw" defaultValue="0" actualValue="0x04A202CF" />
           </Object>
           <Object index="1030" name="NMT_InterfaceGroup_0h_REC" objectType="9">
             <SubObject subIndex="00" name="NumberOfEntries" objectType="7" dataType="0005" accessType="const" PDOmapping="no" defaultValue="9" />
@@ -241,7 +241,7 @@
             <SubObject subIndex="00" name="NumberOfEntries" objectType="7" dataType="0005" accessType="const" PDOmapping="no" defaultValue="3" />
             <SubObject subIndex="01" name="CumulativeCnt_U32" objectType="7" dataType="0007" accessType="rw" PDOmapping="no" />
             <SubObject subIndex="02" name="ThresholdCnt_U32" objectType="7" dataType="0007" accessType="ro" PDOmapping="no" />
-            <SubObject subIndex="03" name="Threshold_U32" objectType="7" dataType="0007" accessType="rw" PDOmapping="no" defaultValue="15" />
+            <SubObject subIndex="03" name="Threshold_U32" objectType="7" dataType="0007" accessType="rw" PDOmapping="no" defaultValue="15" actualValue="0x00000050" />
           </Object>
           <Object index="1C0F" name="DLL_CNCRCError_REC" objectType="9">
             <SubObject subIndex="00" name="NumberOfEntries" objectType="7" dataType="0005" accessType="const" PDOmapping="no" defaultValue="3" />
@@ -249,7 +249,7 @@
             <SubObject subIndex="02" name="ThresholdCnt_U32" objectType="7" dataType="0007" accessType="ro" PDOmapping="no" />
             <SubObject subIndex="03" name="Threshold_U32" objectType="7" dataType="0007" accessType="rw" PDOmapping="no" defaultValue="15" />
           </Object>
-          <Object index="1C14" name="DLL_CNLossOfSocTolerance_U32" objectType="7" dataType="0007" accessType="rw" defaultValue="300000" />
+          <Object index="1C14" name="DLL_CNLossOfSocTolerance_U32" objectType="7" dataType="0007" accessType="rw" defaultValue="300000" actualValue="0x02FAF080" />
           <Object index="1F82" name="NMT_FeatureFlags_U32" objectType="7" dataType="0007" accessType="const" PDOmapping="no" defaultValue="0x00000045" />
           <Object index="1F83" name="NMT_EPLVersion_U8" objectType="7" dataType="0005" accessType="const" PDOmapping="no" defaultValue="0x20" />
           <Object index="1F8C" name="NMT_CurrNMTState_U8" objectType="7" dataType="0005" PDOmapping="optional" accessType="ro" />
@@ -264,10 +264,10 @@
             <SubObject subIndex="02" name="IsochrRxMaxPayload_U16" objectType="7" dataType="0006" accessType="const" PDOmapping="no" defaultValue="1490" />
             <SubObject subIndex="03" name="PResMaxLatency_U32" objectType="7" dataType="0007" accessType="const" PDOmapping="no" defaultValue="2000" />
             <SubObject subIndex="04" name="PReqActPayloadLimit_U16" objectType="7" dataType="0006" accessType="rw" PDOmapping="no" defaultValue="36" />
-            <SubObject subIndex="05" name="PResActPayloadLimit_U16" objectType="7" dataType="0006" accessType="rw" PDOmapping="no" defaultValue="36" />
+            <SubObject subIndex="05" name="PResActPayloadLimit_U16" objectType="7" dataType="0006" accessType="rw" PDOmapping="no" defaultValue="36" actualValue="0x0024" />
             <SubObject subIndex="06" name="ASndMaxLatency_U32" objectType="7" dataType="0007" accessType="const" PDOmapping="no" defaultValue="2000" />
-            <SubObject subIndex="07" name="MultiplCycleCnt_U8" objectType="7" dataType="0005" accessType="rw" PDOmapping="no" defaultValue="0" />
-            <SubObject subIndex="08" name="AsyncMTU_U16" objectType="7" dataType="0006" accessType="rw" PDOmapping="no" defaultValue="300" />
+            <SubObject subIndex="07" name="MultiplCycleCnt_U8" objectType="7" dataType="0005" accessType="rw" PDOmapping="no" defaultValue="0" actualValue="0x00" />
+            <SubObject subIndex="08" name="AsyncMTU_U16" objectType="7" dataType="0006" accessType="rw" PDOmapping="no" defaultValue="300" actualValue="0x012C" />
           </Object>
           <Object index="1F99" name="NMT_CNBasicEthernetTimeout_U32" objectType="7" dataType="0007" accessType="rw" PDOmapping="no" defaultValue="5000000" />
           <Object index="1F9E" name="NMT_ResetCmd_U8" objectType="7" dataType="0005" accessType="rw" PDOmapping="no" defaultValue="255" />
