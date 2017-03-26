@@ -6,11 +6,7 @@
 
 #IncludeRegexTransform: 
 
-../../powerlink/output/objdict.h
-obdcreate/obdmacro.h
--
-obdcreate/obdmacro.h
--
+../../powerlink/output/xap.h
 
 ../include/app.h
 oplk/oplk.h
@@ -18,6 +14,12 @@ oplk/oplk.h
 
 ../include/event.h
 oplk/oplk.h
+-
+
+../include/objdict.h
+obdcreate/obdmacro.h
+-
+obdcreate/obdmacro.h
 -
 
 ../include/powerlink.h
@@ -473,6 +475,8 @@ oplk/debugstr.h
 -
 app.h
 /home/roboy/workspace/myoFPGA/myoFPGA_CN/src/app.h
+xap.h
+/home/roboy/workspace/myoFPGA/myoFPGA_CN/src/xap.h
 
 /home/roboy/workspace/myoFPGA/myoFPGA_CN/src/event.c
 oplk/oplk.h

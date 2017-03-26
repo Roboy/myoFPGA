@@ -6,15 +6,7 @@
 
 #IncludeRegexTransform: 
 
-../../powerlink/output/obdpi.h
-oplk/oplk.h
--
-
-../../powerlink/output/objdict.h
-obdcreate/obdmacro.h
--
-obdcreate/obdmacro.h
--
+../../powerlink/output/xap.h
 
 ../include/app.h
 oplk/oplk.h
@@ -24,7 +16,15 @@ oplk/oplk.h
 oplk/oplk.h
 -
 
-../include/xap.h
+../include/obdpi.h
+oplk/oplk.h
+-
+
+../include/objdict.h
+obdcreate/obdmacro.h
+-
+obdcreate/obdmacro.h
+-
 
 /home/roboy/Downloads/openPowerLink/apps/common/objdicts/CiA302-4_MN/obdpi.c
 obdpi.h

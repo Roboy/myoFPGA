@@ -22,6 +22,7 @@ set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)
 
 INCLUDE(${CMAKE_CURRENT_SOURCE_DIR}/cmake/options.cmake)
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -O0 -g")
+SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g")
 
 ################################################################################
 # Setup project files and definitions

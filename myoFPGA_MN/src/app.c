@@ -86,18 +86,32 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //------------------------------------------------------------------------------
 typedef struct
 {
-    UINT                leds;
-    UINT                ledsOld;
-    UINT                input;
-    UINT                inputOld;
-    UINT                period;
-    int                 toggle;
+    // managing node output/ controlled node input
+    signed outputPosMax_I32:32;
+    signed outputNegMax_I32:32;
+    signed spPosMax_I32:32;
+    signed spNegMax_I32:32;
+    unsigned Kp_U16:16;
+    unsigned Ki_U16:16;
+    unsigned Kd_U16:16;
+    unsigned forwardGain_U16:16;
+    unsigned deadBand_U16:16;
+    signed IntegralPosMax_I16:16;
+    signed IntegralNegMax_I16:16;
+    // controlled node output/ managing node input
+    unsigned pwmRef_I16:16;
+    signed actualPosition_I32:32;
+    signed actualVelocity_I16:16;
+    signed actualCurrent_I16:16;
+    signed springDisplacement_I16:16;
+    signed sensor1_I16:16;
+    signed sensor2_I16:16;
 } APP_NODE_VAR_T;
 
 //------------------------------------------------------------------------------
 // local vars
 //------------------------------------------------------------------------------
-static int              aUsedNodeIds_l[] = {1, 32, 110, 0};
+static int              aUsedNodeIds_l[] = {1, 0};
 static UINT             cnt_l;
 static APP_NODE_VAR_T   aNodeVar_l[MAX_NODES];
 static PI_IN*           pProcessImageIn_l;
@@ -132,12 +146,24 @@ tOplkError initApp(void)
 
     for (i = 0; (i < MAX_NODES) && (aUsedNodeIds_l[i] != 0); i++)
     {
-        aNodeVar_l[i].leds = 0;
-        aNodeVar_l[i].ledsOld = 0;
-        aNodeVar_l[i].input = 0;
-        aNodeVar_l[i].inputOld = 0;
-        aNodeVar_l[i].toggle = 0;
-        aNodeVar_l[i].period = 0;
+        aNodeVar_l[i].outputPosMax_I32 = 0;
+        aNodeVar_l[i].outputNegMax_I32 = 0;
+        aNodeVar_l[i].spPosMax_I32 = 0;
+        aNodeVar_l[i].spNegMax_I32 = 0;
+        aNodeVar_l[i].Kp_U16 = 0;
+        aNodeVar_l[i].Ki_U16 = 0;
+        aNodeVar_l[i].Kd_U16 = 0;
+        aNodeVar_l[i].forwardGain_U16 = 0;
+        aNodeVar_l[i].deadBand_U16 = 0;
+        aNodeVar_l[i].IntegralPosMax_I16 = 0;
+        aNodeVar_l[i].IntegralNegMax_I16 = 0;
+        aNodeVar_l[i].pwmRef_I16 = 0;
+        aNodeVar_l[i].actualPosition_I32 = 0;
+        aNodeVar_l[i].actualVelocity_I16 = 0;
+        aNodeVar_l[i].actualCurrent_I16 = 0;
+        aNodeVar_l[i].springDisplacement_I16 = 0;
+        aNodeVar_l[i].sensor1_I16 = 0;
+        aNodeVar_l[i].sensor2_I16 = 0;
     }
 
     ret = initProcessImage();
@@ -196,49 +222,28 @@ tOplkError processSync(void)
 
     cnt_l++;
 
-    aNodeVar_l[0].input = pProcessImageOut_l->CN1_M00_DigitalInput_00h_AU8_DigitalInput;
-    aNodeVar_l[1].input = pProcessImageOut_l->CN32_M00_DigitalInput_00h_AU8_DigitalInput;
-    aNodeVar_l[2].input = pProcessImageOut_l->CN110_M00_DigitalInput_00h_AU8_DigitalInput;
-
     for (i = 0; (i < MAX_NODES) && (aUsedNodeIds_l[i] != 0); i++)
     {
-        /* Running LEDs */
-        /* period for LED flashing determined by inputs */
-        aNodeVar_l[i].period = (aNodeVar_l[i].input == 0) ? 1 : (aNodeVar_l[i].input * 20);
-        if (cnt_l % aNodeVar_l[i].period == 0)
-        {
-            if (aNodeVar_l[i].leds == 0x00)
-            {
-                aNodeVar_l[i].leds = 0x1;
-                aNodeVar_l[i].toggle = 1;
-            }
-            else
-            {
-                if (aNodeVar_l[i].toggle)
-                {
-                    aNodeVar_l[i].leds <<= 1;
-                    if (aNodeVar_l[i].leds == APP_LED_MASK_1)
-                        aNodeVar_l[i].toggle = 0;
-                }
-                else
-                {
-                    aNodeVar_l[i].leds >>= 1;
-                    if (aNodeVar_l[i].leds == 0x01)
-                        aNodeVar_l[i].toggle = 1;
-                }
-            }
-        }
-
-        if (aNodeVar_l[i].input != aNodeVar_l[i].inputOld)
-            aNodeVar_l[i].inputOld = aNodeVar_l[i].input;
-
-        if (aNodeVar_l[i].leds != aNodeVar_l[i].ledsOld)
-            aNodeVar_l[i].ledsOld = aNodeVar_l[i].leds;
+        aNodeVar_l[i].pwmRef_I16 = pProcessImageOut_l->CN1_motorStatus_REC_pwmRef_I16;
+        aNodeVar_l[i].actualPosition_I32 = pProcessImageOut_l->CN1_motorStatus_REC_actualPosition_I32;
+        aNodeVar_l[i].actualVelocity_I16 = pProcessImageOut_l->CN1_motorStatus_REC_actualVelocity_I16;
+        aNodeVar_l[i].actualCurrent_I16 = pProcessImageOut_l->CN1_motorStatus_REC_actualCurrent_I16;
+        aNodeVar_l[i].springDisplacement_I16 = pProcessImageOut_l->CN1_motorStatus_REC_springDisplacement_I16;
+        aNodeVar_l[i].sensor1_I16 = pProcessImageOut_l->CN1_motorStatus_REC_sensor1_I16;
+        aNodeVar_l[i].sensor2_I16 = pProcessImageOut_l->CN1_motorStatus_REC_sensor2_I16;
     }
 
-    pProcessImageIn_l->CN1_M00_DigitalOutput_00h_AU8_DigitalOutput = aNodeVar_l[0].leds;
-    pProcessImageIn_l->CN32_M00_DigitalOutput_00h_AU8_DigitalOutput = aNodeVar_l[1].leds;
-    pProcessImageIn_l->CN110_M00_DigitalOutput_00h_AU8_DigitalOutput = aNodeVar_l[2].leds;
+//    pProcessImageOut_l->CN1_PID_controller_config_REC_outputPosMax_I32 = aNodeVar_l[0].outputPosMax_I32;
+//    pProcessImageOut_l->CN1_PID_controller_config_REC_outputNegMax_I32 = aNodeVar_l[0].outputNegMax_I32;
+//    pProcessImageOut_l->CN1_PID_controller_config_REC_spPosMax_I32 = aNodeVar_l[0].spPosMax_I32;
+//    pProcessImageOut_l->CN1_PID_controller_config_REC_spNegMax_I32 = aNodeVar_l[0].spNegMax_I32;
+//    pProcessImageOut_l->CN1_PID_controller_config_REC_Kp_U16 = aNodeVar_l[0].Kp_U16;
+//    pProcessImageOut_l->CN1_PID_controller_config_REC_Ki_U16 = aNodeVar_l[0].Ki_U16;
+//    pProcessImageOut_l->CN1_PID_controller_config_REC_Kd_U16 = aNodeVar_l[0].Kd_U16;
+//    pProcessImageOut_l->CN1_PID_controller_config_REC_forwardGain_U16 = aNodeVar_l[0].forwardGain_U16;
+//    pProcessImageOut_l->CN1_PID_controller_config_REC_deadBand_U16 = aNodeVar_l[0].deadBand_U16;
+//    pProcessImageOut_l->CN1_PID_controller_config_REC_IntegralPosMax_I16 = aNodeVar_l[0].IntegralPosMax_I16;
+//    pProcessImageOut_l->CN1_PID_controller_config_REC_IntegralNegMax_I16 =aNodeVar_l[0].IntegralNegMax_I16;
 
     ret = oplk_exchangeProcessImageIn();
 

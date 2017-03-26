@@ -96,12 +96,7 @@ void MyoControl::mainLoop(){
 	printf("\n-------------------------------\n");
 	printf("Press Esc to leave the program\n");
 	printf("Press r to reset the node\n");
-	printf("Press i to increase the digital input\n");
-	printf("Press d to decrease the digital input\n");
-	printf("Press p to print the digital outputs\n");
 	printf("-------------------------------\n\n");
-
-	powerlink::setupInputs();
 
 	// wait for key hit
 	while (!fExit)
@@ -116,18 +111,6 @@ void MyoControl::mainLoop(){
 					ret = powerlink::oplk_execNmtCommand(powerlink::kNmtEventSwReset);
 					if (ret != powerlink::kErrorOk)
 						fExit = TRUE;
-					break;
-
-				case 'i':
-					powerlink::increaseInputs();
-					break;
-
-				case 'd':
-					powerlink::decreaseInputs();
-					break;
-
-				case 'p':
-					powerlink::printOutputs();
 					break;
 
 				case 0x1B:

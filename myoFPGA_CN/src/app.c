@@ -76,17 +76,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //------------------------------------------------------------------------------
 // local types
 //------------------------------------------------------------------------------
-/* structure for input process image */
-typedef struct
-{
-   BYTE    digitalIn;
-} PI_IN;
-
-/* structure for output process image */
-typedef struct
-{
-   BYTE    digitalOut;
-} PI_OUT;
+#include "xap.h"
 
 //------------------------------------------------------------------------------
 // local vars
@@ -95,9 +85,31 @@ typedef struct
 static PI_IN*   pProcessImageIn_l;
 static PI_OUT*  pProcessImageOut_l;
 
-/* application variables */
-static BYTE    digitalIn_g;                 // 8 bit digital input
-static BYTE    digitalOut_g;                // 8 bit digital output
+typedef struct
+{
+    // managing node output/ controlled node input
+    signed outputPosMax_I32:32;
+    signed outputNegMax_I32:32;
+    signed spPosMax_I32:32;
+    signed spNegMax_I32:32;
+    unsigned Kp_U16:16;
+    unsigned Ki_U16:16;
+    unsigned Kd_U16:16;
+    unsigned forwardGain_U16:16;
+    unsigned deadBand_U16:16;
+    signed IntegralPosMax_I16:16;
+    signed IntegralNegMax_I16:16;
+    // controlled node output/ managing node input
+    unsigned pwmRef_I16:16;
+    signed actualPosition_I32:32;
+    signed actualVelocity_I16:16;
+    signed actualCurrent_I16:16;
+    signed springDisplacement_I16:16;
+    signed sensor1_I16:16;
+    signed sensor2_I16:16;
+} APP_NODE_VAR_T;
+
+static APP_NODE_VAR_T aNodeVar_l;
 
 //------------------------------------------------------------------------------
 // local function prototypes
@@ -167,118 +179,30 @@ tOplkError processSync(void)
         return ret;
 
     /* read input image - digital outputs */
-    digitalOut_g = pProcessImageOut_l->digitalOut;
-
-    /* setup output image - digital inputs */
-    pProcessImageIn_l->digitalIn = digitalIn_g;
+    aNodeVar_l.outputPosMax_I32 = pProcessImageIn_l->CN1_PID_controller_config_REC_outputPosMax_I32;
+    aNodeVar_l.outputNegMax_I32 = pProcessImageIn_l->CN1_PID_controller_config_REC_outputNegMax_I32;
+    aNodeVar_l.spPosMax_I32 = pProcessImageIn_l->CN1_PID_controller_config_REC_spPosMax_I32;
+    aNodeVar_l.spNegMax_I32 = pProcessImageIn_l->CN1_PID_controller_config_REC_spNegMax_I32;
+    aNodeVar_l.Kp_U16 = pProcessImageIn_l->CN1_PID_controller_config_REC_Kp_U16;
+    aNodeVar_l.Ki_U16 = pProcessImageIn_l->CN1_PID_controller_config_REC_Ki_U16;
+    aNodeVar_l.Kd_U16 = pProcessImageIn_l->CN1_PID_controller_config_REC_Kd_U16;
+    aNodeVar_l.forwardGain_U16 = pProcessImageIn_l->CN1_PID_controller_config_REC_forwardGain_U16;
+    aNodeVar_l.deadBand_U16 = pProcessImageIn_l->CN1_PID_controller_config_REC_deadBand_U16;
+    aNodeVar_l.IntegralPosMax_I16 = pProcessImageIn_l->CN1_PID_controller_config_REC_IntegralPosMax_I16;
+    aNodeVar_l.IntegralNegMax_I16 = pProcessImageIn_l->CN1_PID_controller_config_REC_IntegralNegMax_I16;
+//
+//    /* setup output image - digital inputs */
+    pProcessImageOut_l->CN1_motorStatus_REC_pwmRef_I16 = aNodeVar_l.pwmRef_I16;
+    pProcessImageOut_l->CN1_motorStatus_REC_actualPosition_I32 = aNodeVar_l.actualPosition_I32;
+    pProcessImageOut_l->CN1_motorStatus_REC_actualVelocity_I16 = aNodeVar_l.actualVelocity_I16;
+    pProcessImageOut_l->CN1_motorStatus_REC_actualCurrent_I16 = aNodeVar_l.actualCurrent_I16;
+    pProcessImageOut_l->CN1_motorStatus_REC_springDisplacement_I16 = aNodeVar_l.springDisplacement_I16;
+    pProcessImageOut_l->CN1_motorStatus_REC_sensor1_I16 = aNodeVar_l.sensor1_I16;
+    pProcessImageOut_l->CN1_motorStatus_REC_sensor2_I16 = aNodeVar_l.sensor2_I16;
 
     ret = oplk_exchangeProcessImageIn();
 
     return ret;
-}
-
-//------------------------------------------------------------------------------
-/**
-\brief  Setup inputs
-
-The function initializes the digital input port.
-
-\ingroup module_demo_cn_console
-*/
-//------------------------------------------------------------------------------
-void setupInputs(void)
-{
-    digitalIn_g = 1;
-}
-
-//------------------------------------------------------------------------------
-/**
-\brief  Increase inputs
-
-The function changes the digital input port by shifting the set bit to the
-left (increase the value).
-
-\ingroup module_demo_cn_console
-*/
-//------------------------------------------------------------------------------
-void increaseInputs(void)
-{
-    if (digitalIn_g == 128)
-        digitalIn_g = 1;
-    else
-        digitalIn_g = digitalIn_g << 1;
-    printf("\b \b");
-    printInputs();
-}
-
-//------------------------------------------------------------------------------
-/**
-\brief  Decrease inputs
-
-The function changes the digital input port by shifting the set bit to the
-right (decrease the value).
-
-\ingroup module_demo_cn_console
-*/
-//------------------------------------------------------------------------------
-void decreaseInputs(void)
-{
-    if (digitalIn_g == 1)
-        digitalIn_g = 128;
-    else
-        digitalIn_g = digitalIn_g >> 1;
-    printf("\b \b");
-    printInputs();
-}
-
-
-//------------------------------------------------------------------------------
-/**
-\brief  Print outputs
-
-The function prints the value of the digital output port on the console.
-
-\ingroup module_demo_cn_console
-*/
-//------------------------------------------------------------------------------
-void printOutputs(void)
-{
-    int i;
-
-    printf("\b \b");
-    printf("Digital Outputs: ");
-    for (i = 0; i < 8; i++)
-    {
-        if (((digitalOut_g >> i) & 1) == 1)
-            printf("*");
-        else
-            printf("-");
-    }
-    printf("\n");
-}
-
-//------------------------------------------------------------------------------
-/**
-\brief  Print inputs
-
-The function prints the value of the digital input port on the console.
-
-\ingroup module_demo_cn_console
-*/
-//------------------------------------------------------------------------------
-void printInputs(void)
-{
-    int i;
-
-    printf("Digital Inputs: ");
-    for (i = 0; i < 8; i++)
-    {
-        if (((digitalIn_g >> i) & 1) == 1)
-            printf("*");
-        else
-            printf("-");
-    }
-    printf("\n");
 }
 
 //============================================================================//
@@ -318,9 +242,73 @@ static tOplkError initProcessImage(void)
     /* link process variables used by CN to object dictionary */
     fprintf(stderr, "Linking process image vars:\n");
 
-    obdSize = sizeof(pProcessImageIn_l->digitalIn);
     varEntries = 1;
-    ret = oplk_linkProcessImageObject(0x6000, 0x01, offsetof(PI_IN, digitalIn),
+    ret = oplk_linkProcessImageObject(0x6000, 0x01, 0, FALSE, 4, &varEntries);
+    if (ret != kErrorOk)
+    {
+        fprintf(stderr, "linking process vars failed with \"%s\" (0x%04x)\n", debugstr_getRetValStr(ret), ret);
+        return ret;
+    }else{
+        fprintf(stderr, "link success");
+    }
+    ret = oplk_linkProcessImageObject(0x6000, 0x02, 4, FALSE, 4, &varEntries);
+    if (ret != kErrorOk)
+    {
+        fprintf(stderr, "linking process vars failed with \"%s\" (0x%04x)\n", debugstr_getRetValStr(ret), ret);
+        return ret;
+    }
+    ret = oplk_linkProcessImageObject(0x6000, 0x03, 8, FALSE, 4, &varEntries);
+    if (ret != kErrorOk)
+    {
+        fprintf(stderr, "linking process vars failed with \"%s\" (0x%04x)\n", debugstr_getRetValStr(ret), ret);
+        return ret;
+    }
+    ret = oplk_linkProcessImageObject(0x6000, 0x04, 12, FALSE, 4, &varEntries);
+    if (ret != kErrorOk)
+    {
+        fprintf(stderr, "linking process vars failed with \"%s\" (0x%04x)\n", debugstr_getRetValStr(ret), ret);
+        return ret;
+    }
+    ret = oplk_linkProcessImageObject(0x6000, 0x05, 16, FALSE, 2, &varEntries);
+    if (ret != kErrorOk)
+    {
+        fprintf(stderr, "linking process vars failed with \"%s\" (0x%04x)\n", debugstr_getRetValStr(ret), ret);
+        return ret;
+    }
+    ret = oplk_linkProcessImageObject(0x6000, 0x06, 18, FALSE, 2, &varEntries);
+    if (ret != kErrorOk)
+    {
+        fprintf(stderr, "linking process vars failed with \"%s\" (0x%04x)\n", debugstr_getRetValStr(ret), ret);
+        return ret;
+    }
+    ret = oplk_linkProcessImageObject(0x6000, 0x07, 20, FALSE, 2, &varEntries);
+    if (ret != kErrorOk)
+    {
+        fprintf(stderr, "linking process vars failed with \"%s\" (0x%04x)\n", debugstr_getRetValStr(ret), ret);
+        return ret;
+    }
+    ret = oplk_linkProcessImageObject(0x6000, 0x08, 22,
+                                      FALSE, obdSize, &varEntries);
+    if (ret != kErrorOk)
+    {
+        fprintf(stderr, "linking process vars failed with \"%s\" (0x%04x)\n", debugstr_getRetValStr(ret), ret);
+        return ret;
+    }
+    ret = oplk_linkProcessImageObject(0x6000, 0x09, 24,
+                                      FALSE, obdSize, &varEntries);if (ret != kErrorOk)
+    {
+        fprintf(stderr, "linking process vars failed with \"%s\" (0x%04x)\n", debugstr_getRetValStr(ret), ret);
+        return ret;
+    }
+
+    ret = oplk_linkProcessImageObject(0x6000, 0x0A, 26,
+                                      FALSE, obdSize, &varEntries);
+    if (ret != kErrorOk)
+    {
+        fprintf(stderr, "linking process vars failed with \"%s\" (0x%04x)\n", debugstr_getRetValStr(ret), ret);
+        return ret;
+    }
+    ret = oplk_linkProcessImageObject(0x6000, 0x0B, 28,
                                       FALSE, obdSize, &varEntries);
     if (ret != kErrorOk)
     {
@@ -328,9 +316,57 @@ static tOplkError initProcessImage(void)
         return ret;
     }
 
-    obdSize = sizeof(pProcessImageOut_l->digitalOut);
+    obdSize = sizeof(pProcessImageOut_l);
     varEntries = 1;
-    ret = oplk_linkProcessImageObject(0x6200, 0x01, offsetof(PI_OUT, digitalOut),
+    ret = oplk_linkProcessImageObject(0x6001, 0x01, 0,
+                                      TRUE, obdSize, &varEntries);
+    if (ret != kErrorOk)
+    {
+        fprintf(stderr, "linking process vars failed with \"%s\" (0x%04x)\n", debugstr_getRetValStr(ret), ret);
+        return ret;
+    }
+
+    ret = oplk_linkProcessImageObject(0x6001, 0x02, 4,
+                                      TRUE, obdSize, &varEntries);
+    if (ret != kErrorOk)
+    {
+        fprintf(stderr, "linking process vars failed with \"%s\" (0x%04x)\n", debugstr_getRetValStr(ret), ret);
+        return ret;
+    }
+
+    ret = oplk_linkProcessImageObject(0x6001, 0x03, 8,
+                                      TRUE, obdSize, &varEntries);
+    if (ret != kErrorOk)
+    {
+        fprintf(stderr, "linking process vars failed with \"%s\" (0x%04x)\n", debugstr_getRetValStr(ret), ret);
+        return ret;
+    }
+
+    ret = oplk_linkProcessImageObject(0x6001, 0x04, 10,
+                                      TRUE, obdSize, &varEntries);
+    if (ret != kErrorOk)
+    {
+        fprintf(stderr, "linking process vars failed with \"%s\" (0x%04x)\n", debugstr_getRetValStr(ret), ret);
+        return ret;
+    }
+
+    ret = oplk_linkProcessImageObject(0x6001, 0x05, 12,
+                                      TRUE, obdSize, &varEntries);
+    if (ret != kErrorOk)
+    {
+        fprintf(stderr, "linking process vars failed with \"%s\" (0x%04x)\n", debugstr_getRetValStr(ret), ret);
+        return ret;
+    }
+
+    ret = oplk_linkProcessImageObject(0x6001, 0x06, 14,
+                                      TRUE, obdSize, &varEntries);
+    if (ret != kErrorOk)
+    {
+        fprintf(stderr, "linking process vars failed with \"%s\" (0x%04x)\n", debugstr_getRetValStr(ret), ret);
+        return ret;
+    }
+
+    ret = oplk_linkProcessImageObject(0x6001, 0x07, 16,
                                       TRUE, obdSize, &varEntries);
     if (ret != kErrorOk)
     {

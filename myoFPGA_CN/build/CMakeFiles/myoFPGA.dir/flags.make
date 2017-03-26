@@ -3,7 +3,7 @@
 
 # compile C with /home/roboy/Downloads/gcc-linaro-arm-linux-gnueabihf-4.7-2012.12-20121214_linux/bin/arm-linux-gnueabihf-gcc
 # compile CXX with /home/roboy/Downloads/gcc-linaro-arm-linux-gnueabihf-4.7-2012.12-20121214_linux/bin/arm-linux-gnueabihf-g++
-C_FLAGS =  -Wall -Wextra -pedantic -std=c99 -pthread -O3 -DNDEBUG  
+C_FLAGS =  -g -Wall -Wextra -pedantic -std=c99 -pthread -O3 -DNDEBUG  
 
 C_DEFINES = -DCONFIG_INCLUDE_MASND -DCONFIG_INCLUDE_PDO -DCONFIG_INCLUDE_SDO_ASND -DCONFIG_KERNELSTACK_DIRECTLINK -DCONFIG_USE_PCAP -DNMT_MAX_NODE_ID=0 -D_GNU_SOURCE -D_POSIX_C_SOURCE=200112L -Dsoc_cv_av
 

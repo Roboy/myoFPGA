@@ -13,7 +13,7 @@
         <ProfileTechnology>Powerlink</ProfileTechnology>
       </ISO15745Reference>
     </ProfileHeader>
-    <ProfileBody xsi:type="ProfileBody_Device_Powerlink" fileName="DEADBEEF_myoFPGA_CN.xdd" fileCreator="letrend" fileCreationDate="2017-03-24" fileCreationTime="12:00:00+01:00" fileModificationDate="2017-03-26" fileModificationTime="21:35:27+02:00" fileModifiedBy="roboy" fileVersion="01.00" supportedLanguages="en">
+    <ProfileBody xsi:type="ProfileBody_Device_Powerlink" fileName="DEADBEEF_myoFPGA_CN.xdd" fileCreator="letrend" fileCreationDate="2017-03-24" fileCreationTime="12:00:00+01:00" fileModificationDate="2017-03-27" fileModificationTime="01:09:27+02:00" fileModifiedBy="roboy" fileVersion="01.00" supportedLanguages="en">
       <DeviceIdentity>
         <vendorName>roboy</vendorName>
         <vendorID>0xDEADBEEF</vendorID>
@@ -50,7 +50,7 @@
         <ProfileTechnology>Powerlink</ProfileTechnology>
       </ISO15745Reference>
     </ProfileHeader>
-    <ProfileBody xsi:type="ProfileBody_CommunicationNetwork_Powerlink" fileName="DEADBEEF_myoFPGA.xdd" fileCreator="letrend" fileCreationDate="2017-03-24" fileCreationTime="12:00:00+01:00" fileModificationDate="2017-03-26" fileModificationTime="21:35:27+02:00" fileModifiedBy="roboy" fileVersion="01.00" supportedLanguages="en">
+    <ProfileBody xsi:type="ProfileBody_CommunicationNetwork_Powerlink" fileName="DEADBEEF_myoFPGA.xdd" fileCreator="letrend" fileCreationDate="2017-03-24" fileCreationTime="12:00:00+01:00" fileModificationDate="2017-03-27" fileModificationTime="01:09:27+02:00" fileModifiedBy="roboy" fileVersion="01.00" supportedLanguages="en">
       <ApplicationLayers>
         <identity>
           <vendorID>0xDEADBEEF</vendorID>
@@ -155,8 +155,8 @@
           </Object>
           <Object index="1020" name="CFM_VerifyConfiguration_REC" objectType="9">
             <SubObject subIndex="00" name="NumberOfEntries" objectType="7" dataType="0005" accessType="const" defaultValue="2" />
-            <SubObject subIndex="01" name="ConfDate_U32" objectType="7" dataType="0007" accessType="rw" defaultValue="0" actualValue="0x00002F6A" />
-            <SubObject subIndex="02" name="ConfTime_U32" objectType="7" dataType="0007" accessType="rw" defaultValue="0" actualValue="0x04A202CF" />
+            <SubObject subIndex="01" name="ConfDate_U32" objectType="7" dataType="0007" accessType="rw" defaultValue="0" actualValue="0x00002F6B" />
+            <SubObject subIndex="02" name="ConfTime_U32" objectType="7" dataType="0007" accessType="rw" defaultValue="0" actualValue="0x003F9347" />
           </Object>
           <Object index="1030" name="NMT_InterfaceGroup_0h_REC" objectType="9">
             <SubObject subIndex="00" name="NumberOfEntries" objectType="7" dataType="0005" accessType="const" PDOmapping="no" defaultValue="9" />
@@ -177,18 +177,18 @@
             <SubObject subIndex="02" name="MappingVersion_U8" objectType="7" dataType="0005" accessType="rw" PDOmapping="no" defaultValue="0" />
           </Object>
           <Object index="1600" name="PDO_RxMappParam_00h_AU64" objectType="8">
-            <SubObject subIndex="00" name="NumberOfEntries" objectType="7" dataType="0005" accessType="rw" PDOmapping="no" defaultValue="0" actualValue="0x07" />
-            <SubObject subIndex="01" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" actualValue="0x0010000000012001" />
-            <SubObject subIndex="02" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" actualValue="0x0020001000022001" />
-            <SubObject subIndex="03" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" actualValue="0x0010003000032001" />
-            <SubObject subIndex="04" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" actualValue="0x0010004000042001" />
-            <SubObject subIndex="05" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" actualValue="0x0010005000052001" />
-            <SubObject subIndex="06" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" actualValue="0x0010006000062001" />
-            <SubObject subIndex="07" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" actualValue="0x0010007000072001" />
-            <SubObject subIndex="08" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" />
-            <SubObject subIndex="09" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" />
-            <SubObject subIndex="0A" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" />
-            <SubObject subIndex="0B" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" />
+            <SubObject subIndex="00" name="NumberOfEntries" objectType="7" dataType="0005" accessType="rw" PDOmapping="no" defaultValue="0" actualValue="0x0B" />
+            <SubObject subIndex="01" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" actualValue="0x0020000000016000" />
+            <SubObject subIndex="02" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" actualValue="0x0020002000026000" />
+            <SubObject subIndex="03" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" actualValue="0x0020004000036000" />
+            <SubObject subIndex="04" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" actualValue="0x0020006000046000" />
+            <SubObject subIndex="05" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" actualValue="0x0010008000056000" />
+            <SubObject subIndex="06" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" actualValue="0x0010009000066000" />
+            <SubObject subIndex="07" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" actualValue="0x001000A000076000" />
+            <SubObject subIndex="08" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" actualValue="0x001000B000086000" />
+            <SubObject subIndex="09" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" actualValue="0x001000C000096000" />
+            <SubObject subIndex="0A" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" actualValue="0x001000D0000A6000" />
+            <SubObject subIndex="0B" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" actualValue="0x001000E0000B6000" />
             <SubObject subIndex="0C" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" />
             <SubObject subIndex="0D" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" />
             <SubObject subIndex="0E" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" />
@@ -210,20 +210,20 @@
             <SubObject subIndex="02" name="MappingVersion_U8" objectType="7" dataType="0005" accessType="rw" PDOmapping="no" defaultValue="0" />
           </Object>
           <Object index="1A00" name="PDO_TxMappParam_00h_AU64" objectType="8">
-            <SubObject subIndex="00" name="NumberOfEntries" objectType="7" dataType="0005" accessType="rw" PDOmapping="no" defaultValue="0" actualValue="0x0D" />
-            <SubObject subIndex="01" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" actualValue="0x0008000000001001" />
-            <SubObject subIndex="02" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" actualValue="0x0008000800001F8C" />
-            <SubObject subIndex="03" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" actualValue="0x0020001000012000" />
-            <SubObject subIndex="04" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" actualValue="0x0020003000022000" />
-            <SubObject subIndex="05" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" actualValue="0x0020005000032000" />
-            <SubObject subIndex="06" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" actualValue="0x0020007000042000" />
-            <SubObject subIndex="07" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" actualValue="0x0010009000052000" />
-            <SubObject subIndex="08" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" actualValue="0x001000A000062000" />
-            <SubObject subIndex="09" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" actualValue="0x001000B000072000" />
-            <SubObject subIndex="0A" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" actualValue="0x001000C000082000" />
-            <SubObject subIndex="0B" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" actualValue="0x001000D000092000" />
-            <SubObject subIndex="0C" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" actualValue="0x001000E0000A2000" />
-            <SubObject subIndex="0D" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" actualValue="0x001000F0000B2000" />
+            <SubObject subIndex="00" name="NumberOfEntries" objectType="7" dataType="0005" accessType="rw" PDOmapping="no" defaultValue="0" actualValue="0x07" />
+            <SubObject subIndex="01" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" actualValue="0x0010000000016001" />
+            <SubObject subIndex="02" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" actualValue="0x0020001000026001" />
+            <SubObject subIndex="03" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" actualValue="0x0010003000036001" />
+            <SubObject subIndex="04" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" actualValue="0x0010004000046001" />
+            <SubObject subIndex="05" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" actualValue="0x0010005000056001" />
+            <SubObject subIndex="06" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" actualValue="0x0010006000066001" />
+            <SubObject subIndex="07" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" actualValue="0x0010007000076001" />
+            <SubObject subIndex="08" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" />
+            <SubObject subIndex="09" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" />
+            <SubObject subIndex="0A" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" />
+            <SubObject subIndex="0B" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" />
+            <SubObject subIndex="0C" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" />
+            <SubObject subIndex="0D" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" />
             <SubObject subIndex="0E" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" />
             <SubObject subIndex="0F" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" />
             <SubObject subIndex="10" name="ObjectMapping" objectType="7" dataType="001B" accessType="rw" PDOmapping="no" defaultValue="0x0000000000000000" />
@@ -272,31 +272,31 @@
           <Object index="1F99" name="NMT_CNBasicEthernetTimeout_U32" objectType="7" dataType="0007" accessType="rw" PDOmapping="no" defaultValue="5000000" />
           <Object index="1F9E" name="NMT_ResetCmd_U8" objectType="7" dataType="0005" accessType="rw" PDOmapping="no" defaultValue="255" />
           <!-- Manufacturer Specific Profile Area (0x2000 - 0x5FFF): may freely be used by the device manufacturer -->
-          <Object index="2000" name="PID_controller_config_REC" objectType="9">
-            <SubObject subIndex="00" name="NumberOfEntries" objectType="7" dataType="0005" accessType="const" PDOmapping="no" defaultValue="11" />
-            <SubObject subIndex="01" name="outputPosMax_I32" objectType="7" dataType="0004" accessType="ro" PDOmapping="TPDO" defaultValue="1000" />
-            <SubObject subIndex="02" name="outputNegMax_I32" objectType="7" dataType="0004" accessType="ro" PDOmapping="TPDO" defaultValue="-1000" />
-            <SubObject subIndex="03" name="spPosMax_I32" objectType="7" dataType="0004" accessType="ro" PDOmapping="TPDO" defaultValue="1000000" />
-            <SubObject subIndex="04" name="spNegMax_I32" objectType="7" dataType="0004" accessType="ro" PDOmapping="TPDO" defaultValue="-1000000" />
-            <SubObject subIndex="05" name="Kp_U16" objectType="7" dataType="0006" accessType="ro" PDOmapping="TPDO" defaultValue="1" />
-            <SubObject subIndex="06" name="Ki_U16" objectType="7" dataType="0006" accessType="ro" PDOmapping="TPDO" defaultValue="0" />
-            <SubObject subIndex="07" name="Kd_U16" objectType="7" dataType="0006" accessType="ro" PDOmapping="TPDO" defaultValue="0" />
-            <SubObject subIndex="08" name="forwardGain_U16" objectType="7" dataType="0006" accessType="ro" PDOmapping="TPDO" defaultValue="0" />
-            <SubObject subIndex="09" name="deadBand_U16" objectType="7" dataType="0006" accessType="ro" PDOmapping="TPDO" defaultValue="0" />
-            <SubObject subIndex="0A" name="IntegralPosMax_I16" objectType="7" dataType="0003" accessType="ro" PDOmapping="TPDO" defaultValue="0" />
-            <SubObject subIndex="0B" name="IntegralNegMax_I16" objectType="7" dataType="0003" accessType="ro" PDOmapping="TPDO" defaultValue="0" />
-          </Object>
-          <Object index="2001" name="motorStatus_REC" objectType="9">
-            <SubObject subIndex="00" name="NumberOfEntries" objectType="7" dataType="0005" accessType="const" PDOmapping="no" defaultValue="7" />
-            <SubObject subIndex="01" name="pwmRef_I16" objectType="7" dataType="0006" accessType="rw" PDOmapping="RPDO" />
-            <SubObject subIndex="02" name="actualPosition_I32" objectType="7" dataType="0004" accessType="rw" PDOmapping="RPDO" />
-            <SubObject subIndex="03" name="actualVelocity_I16" objectType="7" dataType="0003" accessType="rw" PDOmapping="RPDO" />
-            <SubObject subIndex="04" name="actualCurrent_I16" objectType="7" dataType="0003" accessType="rw" PDOmapping="RPDO" />
-            <SubObject subIndex="05" name="springDisplacement_I16" objectType="7" dataType="0003" accessType="rw" PDOmapping="RPDO" />
-            <SubObject subIndex="06" name="sensor1_I16" objectType="7" dataType="0003" accessType="rw" PDOmapping="RPDO" />
-            <SubObject subIndex="07" name="sensor2_I16" objectType="7" dataType="0003" accessType="rw" PDOmapping="RPDO" />
-          </Object>
           <!-- Standardised Device Profile Area (0x6000 - 0x9FFF): may be used according to a CiA device profile. The profile to be used is given by NMT_DeviceType_U32 -->
+          <Object index="6000" name="PID_controller_config_REC" objectType="9">
+            <SubObject subIndex="00" name="NumberOfEntries" objectType="7" dataType="0005" accessType="const" PDOmapping="no" defaultValue="11" />
+            <SubObject subIndex="01" name="outputPosMax_I32" objectType="7" dataType="0004" accessType="rw" PDOmapping="RPDO" defaultValue="1000" />
+            <SubObject subIndex="02" name="outputNegMax_I32" objectType="7" dataType="0004" accessType="rw" PDOmapping="RPDO" defaultValue="-1000" />
+            <SubObject subIndex="03" name="spPosMax_I32" objectType="7" dataType="0004" accessType="rw" PDOmapping="RPDO" defaultValue="1000000" />
+            <SubObject subIndex="04" name="spNegMax_I32" objectType="7" dataType="0004" accessType="rw" PDOmapping="RPDO" defaultValue="-1000000" />
+            <SubObject subIndex="05" name="Kp_U16" objectType="7" dataType="0006" accessType="rw" PDOmapping="RPDO" defaultValue="1" />
+            <SubObject subIndex="06" name="Ki_U16" objectType="7" dataType="0006" accessType="rw" PDOmapping="RPDO" defaultValue="0" />
+            <SubObject subIndex="07" name="Kd_U16" objectType="7" dataType="0006" accessType="rw" PDOmapping="RPDO" defaultValue="0" />
+            <SubObject subIndex="08" name="forwardGain_U16" objectType="7" dataType="0006" accessType="rw" PDOmapping="RPDO" defaultValue="0" />
+            <SubObject subIndex="09" name="deadBand_U16" objectType="7" dataType="0006" accessType="rw" PDOmapping="RPDO" defaultValue="0" />
+            <SubObject subIndex="0A" name="IntegralPosMax_I16" objectType="7" dataType="0003" accessType="rw" PDOmapping="RPDO" defaultValue="0" />
+            <SubObject subIndex="0B" name="IntegralNegMax_I16" objectType="7" dataType="0003" accessType="rw" PDOmapping="RPDO" defaultValue="0" />
+          </Object>
+          <Object index="6001" name="motorStatus_REC" objectType="9">
+            <SubObject subIndex="00" name="NumberOfEntries" objectType="7" dataType="0005" accessType="const" PDOmapping="no" defaultValue="7" />
+            <SubObject subIndex="01" name="pwmRef_I16" objectType="7" dataType="0006" accessType="ro" PDOmapping="TPDO" />
+            <SubObject subIndex="02" name="actualPosition_I32" objectType="7" dataType="0004" accessType="ro" PDOmapping="TPDO" />
+            <SubObject subIndex="03" name="actualVelocity_I16" objectType="7" dataType="0003" accessType="ro" PDOmapping="TPDO" />
+            <SubObject subIndex="04" name="actualCurrent_I16" objectType="7" dataType="0003" accessType="ro" PDOmapping="TPDO" />
+            <SubObject subIndex="05" name="springDisplacement_I16" objectType="7" dataType="0003" accessType="ro" PDOmapping="TPDO" />
+            <SubObject subIndex="06" name="sensor1_I16" objectType="7" dataType="0003" accessType="ro" PDOmapping="TPDO" />
+            <SubObject subIndex="07" name="sensor2_I16" objectType="7" dataType="0003" accessType="ro" PDOmapping="TPDO" />
+          </Object>
         </ObjectList>
       </ApplicationLayers>
       <TransportLayers />

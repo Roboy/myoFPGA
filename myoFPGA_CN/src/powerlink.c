@@ -23,14 +23,11 @@ void shutdownPowerlink(void);
 //------------------------------------------------------------------------------
 /**
 \brief  Initialize the openPOWERLINK stack
-
 The function initializes the openPOWERLINK stack.
-
 \param[in]      cycleLen_p          Length of POWERLINK cycle.
 \param[in]      devName_p           Device name string.
 \param[in]      macAddr_p           MAC address to use for POWERLINK interface.
 \param[in]      nodeId_p            POWERLINK node ID.
-
 \return The function returns a tOplkError error code.
 */
 //------------------------------------------------------------------------------
@@ -80,8 +77,8 @@ tOplkError initPowerlink(UINT32 cycleLen_p,
     initParam.isochrTxMaxPayload      = C_DLL_ISOCHR_MAX_PAYL;  // const
     initParam.isochrRxMaxPayload      = C_DLL_ISOCHR_MAX_PAYL;  // const
     initParam.presMaxLatency          = 50000;                  // const; only required for IdentRes
-    initParam.preqActPayloadLimit     = 36;                     // required for initialization (+28 bytes)
-    initParam.presActPayloadLimit     = 36;                     // required for initialization of Pres frame (+28 bytes)
+    initParam.preqActPayloadLimit     = 48;                     // required for initialization (+28 bytes)
+    initParam.presActPayloadLimit     = 60;                     // required for initialization of Pres frame (+28 bytes)
     initParam.asndMaxLatency          = 150000;                 // const; only required for IdentRes
     initParam.multiplCylceCnt         = 0;                      // required for error detection
     initParam.asyncMtu                = 1500;                   // required to set up max frame size
@@ -164,7 +161,6 @@ tOplkError initPowerlink(UINT32 cycleLen_p,
 //------------------------------------------------------------------------------
 /**
 \brief  Main loop of demo application
-
 This function implements the main loop of the demo application.
 - It creates the sync thread which is responsible for the synchronous data
   application.
@@ -201,8 +197,6 @@ void loopMain(void)
     printf("Press p to print the digital outputs\n");
     printf("-------------------------------\n\n");
 
-    setupInputs();
-
     // wait for key hit
     while (!fExit)
     {
@@ -216,18 +210,6 @@ void loopMain(void)
                     ret = oplk_execNmtCommand(kNmtEventSwReset);
                     if (ret != kErrorOk)
                         fExit = TRUE;
-                    break;
-
-                case 'i':
-                    increaseInputs();
-                    break;
-
-                case 'd':
-                    decreaseInputs();
-                    break;
-
-                case 'p':
-                    printOutputs();
                     break;
 
                 case 0x1B:
@@ -274,7 +256,6 @@ void loopMain(void)
 //------------------------------------------------------------------------------
 /**
 \brief  Shutdown the demo application
-
 The function shuts down the demo application.
 */
 //------------------------------------------------------------------------------
@@ -312,14 +293,11 @@ void shutdownPowerlink(void)
 //------------------------------------------------------------------------------
 /**
 \brief  Get command line parameters
-
 The function parses the supplied command line parameters and stores the
 options at pOpts_p.
-
 \param[in]      argc_p              Argument count.
 \param[in]      argv_p              Pointer to arguments.
 \param[out]     pOpts_p             Pointer to store options
-
 \return The function returns the parsing status.
 \retval 0           Successfully parsed
 \retval -1          Parsing error

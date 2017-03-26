@@ -44,6 +44,7 @@ ENDIF()
 
 INCLUDE(${CMAKE_CURRENT_SOURCE_DIR}/cmake/options.cmake)
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -O0 -g")
+SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g")
 
 OPTION(CFG_IP_STACK "Is an IP stack available (support of SDO/UDP)" OFF)
 OPTION(CFG_INCLUDE_MN_REDUNDANCY "Use MN redundancy functions (if compiled into the libraries)" OFF)

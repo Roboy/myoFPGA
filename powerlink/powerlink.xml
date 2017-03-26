@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openCONFIGURATORProject xmlns="http://sourceforge.net/projects/openconf/configuration" xmlns:ns2="http://ethernet-powerlink.org/POWERLINK" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://sourceforge.net/projects/openconf/configuration openCONFIGURATOR.xsd">
-  <Generator vendor="Kalycito Infotech Private Limited &amp; Bernecker + Rainer Industrie Elektronik Ges.m.b.H." toolName="Ethernet POWERLINK openCONFIGURATOR" toolVersion="2.1.2" createdBy="roboy" createdOn="2017-03-24T17:45:36.642+01:00" modifiedBy="roboy" modifiedOn="2017-03-26T21:35:27.386+02:00" />
+  <Generator vendor="Kalycito Infotech Private Limited &amp; Bernecker + Rainer Industrie Elektronik Ges.m.b.H." toolName="Ethernet POWERLINK openCONFIGURATOR" toolVersion="2.1.2" createdBy="roboy" createdOn="2017-03-24T17:45:36.642+01:00" modifiedBy="roboy" modifiedOn="2017-03-27T01:09:27.232+02:00" />
   <ProjectConfiguration activeAutoGenerationSetting="all">
     <PathSettings>
       <Path id="defaultOutputPath" path="output" />

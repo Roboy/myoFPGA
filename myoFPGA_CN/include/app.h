@@ -64,11 +64,6 @@ extern "C"
 tOplkError initApp(void);
 void shutdownApp(void);
 tOplkError processSync(void);
-void printOutputs(void);
-void printInputs(void);
-void setupInputs(void);
-void increaseInputs(void);
-void decreaseInputs(void);
 
 #ifdef __cplusplus
 }

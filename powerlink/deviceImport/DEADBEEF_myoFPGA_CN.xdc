@@ -272,31 +272,32 @@
           <Object index="1F99" name="NMT_CNBasicEthernetTimeout_U32" objectType="7" dataType="0007" accessType="rw" PDOmapping="no" defaultValue="5000000" />
           <Object index="1F9E" name="NMT_ResetCmd_U8" objectType="7" dataType="0005" accessType="rw" PDOmapping="no" defaultValue="255" />
           <!-- Manufacturer Specific Profile Area (0x2000 - 0x5FFF): may freely be used by the device manufacturer -->
-          <Object index="2000" name="PID_controller_config_REC" objectType="9">
-            <SubObject subIndex="00" name="NumberOfEntries" objectType="7" dataType="0005" accessType="const" PDOmapping="no" defaultValue="11" />
-            <SubObject subIndex="01" name="outputPosMax_I32" objectType="7" dataType="0004" accessType="ro" PDOmapping="TPDO" defaultValue="1000" />
-            <SubObject subIndex="02" name="outputNegMax_I32" objectType="7" dataType="0004" accessType="ro" PDOmapping="TPDO" defaultValue="-1000" />
-            <SubObject subIndex="03" name="spPosMax_I32" objectType="7" dataType="0004" accessType="ro" PDOmapping="TPDO" defaultValue="1000000" />
-            <SubObject subIndex="04" name="spNegMax_I32" objectType="7" dataType="0004" accessType="ro" PDOmapping="TPDO" defaultValue="-1000000" />
-            <SubObject subIndex="05" name="Kp_U16" objectType="7" dataType="0006" accessType="ro" PDOmapping="TPDO" defaultValue="1" />
-            <SubObject subIndex="06" name="Ki_U16" objectType="7" dataType="0006" accessType="ro" PDOmapping="TPDO" defaultValue="0" />
-            <SubObject subIndex="07" name="Kd_U16" objectType="7" dataType="0006" accessType="ro" PDOmapping="TPDO" defaultValue="0" />
-            <SubObject subIndex="08" name="forwardGain_U16" objectType="7" dataType="0006" accessType="ro" PDOmapping="TPDO" defaultValue="0" />
-            <SubObject subIndex="09" name="deadBand_U16" objectType="7" dataType="0006" accessType="ro" PDOmapping="TPDO" defaultValue="0" />
-            <SubObject subIndex="0A" name="IntegralPosMax_I16" objectType="7" dataType="0003" accessType="ro" PDOmapping="TPDO" defaultValue="0" />
-            <SubObject subIndex="0B" name="IntegralNegMax_I16" objectType="7" dataType="0003" accessType="ro" PDOmapping="TPDO" defaultValue="0" />
-          </Object>
-          <Object index="2001" name="motorStatus_REC" objectType="9">
-            <SubObject subIndex="00" name="NumberOfEntries" objectType="7" dataType="0005" accessType="const" PDOmapping="no" defaultValue="7" />
-            <SubObject subIndex="01" name="pwmRef_I16" objectType="7" dataType="0006" accessType="rw" PDOmapping="RPDO" />
-            <SubObject subIndex="02" name="actualPosition_I32" objectType="7" dataType="0004" accessType="rw" PDOmapping="RPDO" />
-            <SubObject subIndex="03" name="actualVelocity_I16" objectType="7" dataType="0003" accessType="rw" PDOmapping="RPDO" />
-            <SubObject subIndex="04" name="actualCurrent_I16" objectType="7" dataType="0003" accessType="rw" PDOmapping="RPDO" />
-            <SubObject subIndex="05" name="springDisplacement_I16" objectType="7" dataType="0003" accessType="rw" PDOmapping="RPDO" />
-            <SubObject subIndex="06" name="sensor1_I16" objectType="7" dataType="0003" accessType="rw" PDOmapping="RPDO" />
-            <SubObject subIndex="07" name="sensor2_I16" objectType="7" dataType="0003" accessType="rw" PDOmapping="RPDO" />
-          </Object>
+          
           <!-- Standardised Device Profile Area (0x6000 - 0x9FFF): may be used according to a CiA device profile. The profile to be used is given by NMT_DeviceType_U32 -->
+          <Object index="6000" name="PID_controller_config_REC" objectType="9">
+            <SubObject subIndex="00" name="NumberOfEntries" objectType="7" dataType="0005" accessType="const" PDOmapping="no" defaultValue="11" />
+            <SubObject subIndex="01" name="outputPosMax_I32" objectType="7" dataType="0004" accessType="rw" PDOmapping="RPDO" defaultValue="1000" />
+            <SubObject subIndex="02" name="outputNegMax_I32" objectType="7" dataType="0004" accessType="rw" PDOmapping="RPDO" defaultValue="-1000" />
+            <SubObject subIndex="03" name="spPosMax_I32" objectType="7" dataType="0004" accessType="rw" PDOmapping="RPDO" defaultValue="1000000" />
+            <SubObject subIndex="04" name="spNegMax_I32" objectType="7" dataType="0004" accessType="rw" PDOmapping="RPDO" defaultValue="-1000000" />
+            <SubObject subIndex="05" name="Kp_U16" objectType="7" dataType="0006" accessType="rw" PDOmapping="RPDO" defaultValue="1" />
+            <SubObject subIndex="06" name="Ki_U16" objectType="7" dataType="0006" accessType="rw" PDOmapping="RPDO" defaultValue="0" />
+            <SubObject subIndex="07" name="Kd_U16" objectType="7" dataType="0006" accessType="rw" PDOmapping="RPDO" defaultValue="0" />
+            <SubObject subIndex="08" name="forwardGain_U16" objectType="7" dataType="0006" accessType="rw" PDOmapping="RPDO" defaultValue="0" />
+            <SubObject subIndex="09" name="deadBand_U16" objectType="7" dataType="0006" accessType="rw" PDOmapping="RPDO" defaultValue="0" />
+            <SubObject subIndex="0A" name="IntegralPosMax_I16" objectType="7" dataType="0003" accessType="rw" PDOmapping="RPDO" defaultValue="0" />
+            <SubObject subIndex="0B" name="IntegralNegMax_I16" objectType="7" dataType="0003" accessType="rw" PDOmapping="RPDO" defaultValue="0" />
+          </Object>
+          <Object index="6001" name="motorStatus_REC" objectType="9">
+            <SubObject subIndex="00" name="NumberOfEntries" objectType="7" dataType="0005" accessType="const" PDOmapping="no" defaultValue="7" />
+            <SubObject subIndex="01" name="pwmRef_I16" objectType="7" dataType="0006" accessType="ro" PDOmapping="TPDO" />
+            <SubObject subIndex="02" name="actualPosition_I32" objectType="7" dataType="0004" accessType="ro" PDOmapping="TPDO" />
+            <SubObject subIndex="03" name="actualVelocity_I16" objectType="7" dataType="0003" accessType="ro" PDOmapping="TPDO" />
+            <SubObject subIndex="04" name="actualCurrent_I16" objectType="7" dataType="0003" accessType="ro" PDOmapping="TPDO" />
+            <SubObject subIndex="05" name="springDisplacement_I16" objectType="7" dataType="0003" accessType="ro" PDOmapping="TPDO" />
+            <SubObject subIndex="06" name="sensor1_I16" objectType="7" dataType="0003" accessType="ro" PDOmapping="TPDO" />
+            <SubObject subIndex="07" name="sensor2_I16" objectType="7" dataType="0003" accessType="ro" PDOmapping="TPDO" />
+          </Object>
         </ObjectList>
       </ApplicationLayers>
       <TransportLayers />

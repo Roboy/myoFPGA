@@ -86,7 +86,7 @@ CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eve
  /home/roboy/Downloads/openPowerLink/stack/include/oplk/targetsystem.h
  /home/roboy/Downloads/openPowerLink/stack/include/oplk/version.h
 CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.o
- ../../powerlink/output/objdict.h
+ ../include/objdict.h
  /home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c
  /home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.h
  /home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdmacro.h
@@ -152,9 +152,9 @@ CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/contrib/console/pri
 CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.o
  /home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c
 CMakeFiles/myoFPGA_MN.dir/src/app.c.o
- ../../powerlink/output/obdpi.h
+ ../../powerlink/output/xap.h
  ../include/app.h
- ../include/xap.h
+ ../include/obdpi.h
  /home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.h
  /home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.h
  /home/roboy/Downloads/openPowerLink/stack/include/oplk/basictypes.h
