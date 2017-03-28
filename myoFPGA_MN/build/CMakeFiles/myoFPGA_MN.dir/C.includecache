@@ -16,22 +16,18 @@ oplk/oplk.h
 oplk/oplk.h
 -
 
-../include/obdpi.h
-oplk/oplk.h
--
-
-../include/objdict.h
-obdcreate/obdmacro.h
--
-obdcreate/obdmacro.h
--
-
 /home/roboy/Downloads/openPowerLink/apps/common/objdicts/CiA302-4_MN/obdpi.c
 obdpi.h
 /home/roboy/Downloads/openPowerLink/apps/common/objdicts/CiA302-4_MN/obdpi.h
 
 /home/roboy/Downloads/openPowerLink/apps/common/objdicts/CiA302-4_MN/obdpi.h
 oplk/oplk.h
+-
+
+/home/roboy/Downloads/openPowerLink/apps/common/objdicts/CiA302-4_MN/objdict.h
+obdcreate/obdmacro.h
+-
+obdcreate/obdmacro.h
 -
 
 /home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c

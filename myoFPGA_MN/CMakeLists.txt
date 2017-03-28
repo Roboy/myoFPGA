@@ -61,7 +61,6 @@ SET(SOURCES
         src/app.c
         src/event.c
         ${COMMON_SOURCE_DIR}/obdcreate/obdcreate.c
-        ${OPLK_BASE_DIR}/apps/common/objdicts/${OBJDICT}/obdpi.c
         ${COMMON_SOURCE_DIR}/eventlog/eventlog.c
         ${COMMON_SOURCE_DIR}/eventlog/eventlogstring.c
         ${COMMON_SOURCE_DIR}/system/system-linux.c
@@ -69,11 +68,14 @@ SET(SOURCES
         ${CONTRIB_SOURCE_DIR}/console/printlog.c
         ${CONTRIB_SOURCE_DIR}/getopt/getopt.c
         ${CONTRIB_SOURCE_DIR}/console/console-linux.c
+        /home/roboy/Downloads/openPowerLink/apps/common/objdicts/CiA302-4_MN/obdpi.c
     )
 
 INCLUDE_DIRECTORIES(
         include/
         ${CMAKE_CURRENT_SOURCE_DIR}/../powerlink/output
+#        /home/roboy/Downloads/openPowerLink/apps/common/openCONFIGURATOR_projects/Demo_3CN/output
+        /home/roboy/Downloads/openPowerLink/apps/common/objdicts/CiA302-4_MN
         ${CONTRIB_SOURCE_DIR}
     )
 

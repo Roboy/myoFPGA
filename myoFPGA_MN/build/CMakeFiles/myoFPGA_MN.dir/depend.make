@@ -85,7 +85,7 @@ CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eve
 CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.o: /home/roboy/Downloads/openPowerLink/stack/include/oplk/targetsystem.h
 CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.o: /home/roboy/Downloads/openPowerLink/stack/include/oplk/version.h
 
-CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.o: ../include/objdict.h
+CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.o: /home/roboy/Downloads/openPowerLink/apps/common/objdicts/CiA302-4_MN/objdict.h
 CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.o: /home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c
 CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.o: /home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.h
 CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.o: /home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdmacro.h
@@ -153,7 +153,7 @@ CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/contrib/getopt/geto
 
 CMakeFiles/myoFPGA_MN.dir/src/app.c.o: ../../powerlink/output/xap.h
 CMakeFiles/myoFPGA_MN.dir/src/app.c.o: ../include/app.h
-CMakeFiles/myoFPGA_MN.dir/src/app.c.o: ../include/obdpi.h
+CMakeFiles/myoFPGA_MN.dir/src/app.c.o: /home/roboy/Downloads/openPowerLink/apps/common/objdicts/CiA302-4_MN/obdpi.h
 CMakeFiles/myoFPGA_MN.dir/src/app.c.o: /home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.h
 CMakeFiles/myoFPGA_MN.dir/src/app.c.o: /home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.h
 CMakeFiles/myoFPGA_MN.dir/src/app.c.o: /home/roboy/Downloads/openPowerLink/stack/include/oplk/basictypes.h

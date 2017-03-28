@@ -65,6 +65,7 @@
             <Add option="-D_POSIX_C_SOURCE=200112L" />
             <Add option="-DDEBUG" />
             <Add option="-DDEF_DEBUG_LVL=0xC0000000L" />
+            <Add directory="/home/roboy/Downloads/openPowerLink/apps/common/objdicts/CiA401_CN" />
             <Add directory="/home/roboy/Downloads/openPowerLink/apps/common/src" />
             <Add directory="/home/roboy/Downloads/openPowerLink/contrib" />
             <Add directory="/home/roboy/Downloads/openPowerLink/stack/include" />
@@ -109,6 +110,7 @@
             <Add option="-D_POSIX_C_SOURCE=200112L" />
             <Add option="-DDEBUG" />
             <Add option="-DDEF_DEBUG_LVL=0xC0000000L" />
+            <Add directory="/home/roboy/Downloads/openPowerLink/apps/common/objdicts/CiA401_CN" />
             <Add directory="/home/roboy/Downloads/openPowerLink/apps/common/src" />
             <Add directory="/home/roboy/Downloads/openPowerLink/contrib" />
             <Add directory="/home/roboy/Downloads/openPowerLink/stack/include" />

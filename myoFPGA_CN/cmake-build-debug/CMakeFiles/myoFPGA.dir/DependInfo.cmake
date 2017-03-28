@@ -47,6 +47,7 @@ set(CMAKE_C_TARGET_INCLUDE_PATH
   "/home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/include"
   "/home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/include/soc_cv_av"
   "../../powerlink/output"
+  "/home/roboy/Downloads/openPowerLink/apps/common/objdicts/CiA401_CN"
   )
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/roboy/workspace/myoFPGA/myoFPGA_CN/src/main.cpp" "/home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug/CMakeFiles/myoFPGA.dir/src/main.cpp.o"
@@ -81,6 +82,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "/home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/include"
   "/home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/include/soc_cv_av"
   "../../powerlink/output"
+  "/home/roboy/Downloads/openPowerLink/apps/common/objdicts/CiA401_CN"
   )
 
 # Targets to which this target links.

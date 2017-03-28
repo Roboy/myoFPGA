@@ -1,4 +1,4 @@
-PROJECT(myoFPGA C CXX)
+PROJECT(myoFPGA_CN C CXX)
 
 CMAKE_MINIMUM_REQUIRED (VERSION 2.8.7)
 
@@ -42,7 +42,6 @@ SET(SOURCE
         ${COMMON_SOURCE_DIR}/eventlog/eventlog.c
         ${COMMON_SOURCE_DIR}/eventlog/eventlogstring.c
         ${COMMON_SOURCE_DIR}/obdcreate/obdcreate.c
-        ${COMMON_SOURCE_DIR}/pcap/pcap-console.c
     )
 
 include(findncurses_arm)
@@ -58,6 +57,8 @@ INCLUDE_DIRECTORIES(
         $ENV{SOCEDS_DEST_ROOT}/ip/altera/hps/altera_hps/hwlib/include
         $ENV{SOCEDS_DEST_ROOT}/ip/altera/hps/altera_hps/hwlib/include/${ALT_DEVICE_FAMILY}
         ${CMAKE_CURRENT_SOURCE_DIR}/../powerlink/output
+#        /home/roboy/Downloads/openPowerLink/apps/common/openCONFIGURATOR_projects/Demo_3CN/output
+#        /home/roboy/Downloads/openPowerLink/apps/common/objdicts/CiA401_CN
     )
 
 # PResChaining is not supported by non-openMAC targets
@@ -83,7 +84,7 @@ ENDIF(CFG_STORE_RESTORE)
 # PCAP is used for directlink of userspace daemon
 IF (CFG_KERNEL_STACK_DIRECTLINK OR CFG_KERNEL_STACK_USERSPACE_DAEMON)
     ADD_DEFINITIONS(-DCONFIG_USE_PCAP)
-    SET (DEMO_SOURCES ${DEMO_SOURCES} ${COMMON_SOURCE_DIR}/pcap/pcap-console.c)
+    SET (SOURCE ${SOURCE} ${COMMON_SOURCE_DIR}/pcap/pcap-console.c)
 ENDIF (CFG_KERNEL_STACK_DIRECTLINK OR CFG_KERNEL_STACK_USERSPACE_DAEMON)
 
 # Setup compile definitions depending on configuration
@@ -114,19 +115,19 @@ ENDIF()
 ################################################################################
 # Set the executable
 
-ADD_EXECUTABLE(myoFPGA ${SOURCE} ${DEMO_ARCH_SOURCES})
-SET_PROPERTY(TARGET myoFPGA
+ADD_EXECUTABLE(myoFPGA_CN ${SOURCE} ${DEMO_ARCH_SOURCES})
+SET_PROPERTY(TARGET myoFPGA_CN
              PROPERTY COMPILE_DEFINITIONS_DEBUG DEBUG;DEF_DEBUG_LVL=${CFG_DEBUG_LVL})
 
 ################################################################################
 # Libraries to link
 
-OPLK_LINK_LIBRARIES(myoFPGA)
-TARGET_LINK_LIBRARIES(myoFPGA ${pcap_LIBRARY} -lpthread -lrt )
+OPLK_LINK_LIBRARIES(myoFPGA_CN)
+TARGET_LINK_LIBRARIES(myoFPGA_CN ${pcap_LIBRARY} -lpthread -lrt )
 
 ################################################################################
 # Installation rules
 
-INSTALL(TARGETS myoFPGA RUNTIME DESTINATION ${CMAKE_PROJECT_NAME})
+INSTALL(TARGETS myoFPGA_CN RUNTIME DESTINATION ${CMAKE_PROJECT_NAME})
 
 

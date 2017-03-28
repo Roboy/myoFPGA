@@ -1,11 +1,8 @@
 /**
 ********************************************************************************
 \file   app.c
-
 \brief  Demo CN application which implements a digital input/output node
-
 This file contains a demo application for digital input/output data.
-
 \ingroup module_demo_cn_console
 *******************************************************************************/
 
@@ -14,7 +11,6 @@ Copyright (c) 2014, Bernecker+Rainer Industrie-Elektronik Ges.m.b.H. (B&R)
 Copyright (c) 2013, SYSTEC electronic GmbH
 Copyright (c) 2013, Kalycito Infotech Private Ltd.
 All rights reserved.
-
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
     * Redistributions of source code must retain the above copyright
@@ -25,7 +21,6 @@ modification, are permitted provided that the following conditions are met:
     * Neither the name of the copyright holders nor the
       names of its contributors may be used to endorse or promote products
       derived from this software without specific prior written permission.
-
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -88,17 +83,14 @@ static PI_OUT*  pProcessImageOut_l;
 typedef struct
 {
     // managing node output/ controlled node input
-    signed outputPosMax_I32:32;
-    signed outputNegMax_I32:32;
-    signed spPosMax_I32:32;
-    signed spNegMax_I32:32;
-    unsigned Kp_U16:16;
-    unsigned Ki_U16:16;
-    unsigned Kd_U16:16;
-    unsigned forwardGain_U16:16;
-    unsigned deadBand_U16:16;
-    signed IntegralPosMax_I16:16;
-    signed IntegralNegMax_I16:16;
+    signed CN1_MotorCommand_setPoint_I32_1:32;
+    signed CN1_MotorCommand_setPoint_I32_2:32;
+    signed CN1_MotorCommand_setPoint_I32_3:32;
+    signed CN1_MotorCommand_setPoint_I32_4:32;
+    signed CN1_MotorCommand_setPoint_I32_5:32;
+    signed CN1_MotorCommand_setPoint_I32_6:32;
+    signed CN1_MotorCommand_setPoint_I32_7:32;
+    signed CN1_MotorCommand_setPoint_I32_8:32;
     // controlled node output/ managing node input
     unsigned pwmRef_I16:16;
     signed actualPosition_I32:32;
@@ -123,11 +115,8 @@ static tOplkError initProcessImage(void);
 //------------------------------------------------------------------------------
 /**
 \brief  Initialize the synchronous data application
-
 The function initializes the synchronous data application
-
 \return The function returns a tOplkError error code.
-
 \ingroup module_demo_cn_console
 */
 //------------------------------------------------------------------------------
@@ -143,11 +132,8 @@ tOplkError initApp(void)
 //------------------------------------------------------------------------------
 /**
 \brief  Shutdown the synchronous data application
-
 The function shuts down the synchronous data application
-
 \return The function returns a tOplkError error code.
-
 \ingroup module_demo_cn_console
 */
 //------------------------------------------------------------------------------
@@ -159,11 +145,8 @@ void shutdownApp(void)
 //------------------------------------------------------------------------------
 /**
 \brief  Synchronous data handler
-
 The function implements the synchronous data handler.
-
 \return The function returns a tOplkError error code.
-
 \ingroup module_demo_cn_console
 */
 //------------------------------------------------------------------------------
@@ -179,26 +162,23 @@ tOplkError processSync(void)
         return ret;
 
     /* read input image - digital outputs */
-    aNodeVar_l.outputPosMax_I32 = pProcessImageIn_l->CN1_PID_controller_config_REC_outputPosMax_I32;
-    aNodeVar_l.outputNegMax_I32 = pProcessImageIn_l->CN1_PID_controller_config_REC_outputNegMax_I32;
-    aNodeVar_l.spPosMax_I32 = pProcessImageIn_l->CN1_PID_controller_config_REC_spPosMax_I32;
-    aNodeVar_l.spNegMax_I32 = pProcessImageIn_l->CN1_PID_controller_config_REC_spNegMax_I32;
-    aNodeVar_l.Kp_U16 = pProcessImageIn_l->CN1_PID_controller_config_REC_Kp_U16;
-    aNodeVar_l.Ki_U16 = pProcessImageIn_l->CN1_PID_controller_config_REC_Ki_U16;
-    aNodeVar_l.Kd_U16 = pProcessImageIn_l->CN1_PID_controller_config_REC_Kd_U16;
-    aNodeVar_l.forwardGain_U16 = pProcessImageIn_l->CN1_PID_controller_config_REC_forwardGain_U16;
-    aNodeVar_l.deadBand_U16 = pProcessImageIn_l->CN1_PID_controller_config_REC_deadBand_U16;
-    aNodeVar_l.IntegralPosMax_I16 = pProcessImageIn_l->CN1_PID_controller_config_REC_IntegralPosMax_I16;
-    aNodeVar_l.IntegralNegMax_I16 = pProcessImageIn_l->CN1_PID_controller_config_REC_IntegralNegMax_I16;
-//
-//    /* setup output image - digital inputs */
-    pProcessImageOut_l->CN1_motorStatus_REC_pwmRef_I16 = aNodeVar_l.pwmRef_I16;
-    pProcessImageOut_l->CN1_motorStatus_REC_actualPosition_I32 = aNodeVar_l.actualPosition_I32;
-    pProcessImageOut_l->CN1_motorStatus_REC_actualVelocity_I16 = aNodeVar_l.actualVelocity_I16;
-    pProcessImageOut_l->CN1_motorStatus_REC_actualCurrent_I16 = aNodeVar_l.actualCurrent_I16;
-    pProcessImageOut_l->CN1_motorStatus_REC_springDisplacement_I16 = aNodeVar_l.springDisplacement_I16;
-    pProcessImageOut_l->CN1_motorStatus_REC_sensor1_I16 = aNodeVar_l.sensor1_I16;
-    pProcessImageOut_l->CN1_motorStatus_REC_sensor2_I16 = aNodeVar_l.sensor2_I16;
+    aNodeVar_l.CN1_MotorCommand_setPoint_I32_1 = pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_1;
+    aNodeVar_l.CN1_MotorCommand_setPoint_I32_2 = pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_2;
+    aNodeVar_l.CN1_MotorCommand_setPoint_I32_3 = pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_3;
+    aNodeVar_l.CN1_MotorCommand_setPoint_I32_4 = pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_4;
+    aNodeVar_l.CN1_MotorCommand_setPoint_I32_5 = pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_5;
+    aNodeVar_l.CN1_MotorCommand_setPoint_I32_6 = pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_6;
+    aNodeVar_l.CN1_MotorCommand_setPoint_I32_7 = pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_7;
+    aNodeVar_l.CN1_MotorCommand_setPoint_I32_8 = pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_8;
+////
+////    /* setup output image - digital inputs */
+    pProcessImageOut_l->CN1_MotorStatus_pwmRef_I16 = aNodeVar_l.pwmRef_I16;
+    pProcessImageOut_l->CN1_MotorStatus_actualPosition_I32 = aNodeVar_l.actualPosition_I32;
+    pProcessImageOut_l->CN1_MotorStatus_actualVelocity_I16 = aNodeVar_l.actualVelocity_I16;
+    pProcessImageOut_l->CN1_MotorStatus_actualCurrent_I16 = aNodeVar_l.actualCurrent_I16;
+    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16 = aNodeVar_l.springDisplacement_I16;
+    pProcessImageOut_l->CN1_MotorStatus_sensor1_I16 = aNodeVar_l.sensor1_I16;
+    pProcessImageOut_l->PADDING_VAR_2 = aNodeVar_l.sensor2_I16;
 
     ret = oplk_exchangeProcessImageIn();
 
@@ -214,9 +194,7 @@ tOplkError processSync(void)
 //------------------------------------------------------------------------------
 /**
 \brief  Initialize process image
-
 The function initializes the process image of the application.
-
 \return The function returns a tOplkError error code.
 */
 //------------------------------------------------------------------------------
@@ -243,137 +221,28 @@ static tOplkError initProcessImage(void)
     fprintf(stderr, "Linking process image vars:\n");
 
     varEntries = 1;
-    ret = oplk_linkProcessImageObject(0x6000, 0x01, 0, FALSE, 4, &varEntries);
-    if (ret != kErrorOk)
-    {
-        fprintf(stderr, "linking process vars failed with \"%s\" (0x%04x)\n", debugstr_getRetValStr(ret), ret);
-        return ret;
-    }else{
-        fprintf(stderr, "link success");
-    }
-    ret = oplk_linkProcessImageObject(0x6000, 0x02, 4, FALSE, 4, &varEntries);
-    if (ret != kErrorOk)
-    {
-        fprintf(stderr, "linking process vars failed with \"%s\" (0x%04x)\n", debugstr_getRetValStr(ret), ret);
-        return ret;
-    }
-    ret = oplk_linkProcessImageObject(0x6000, 0x03, 8, FALSE, 4, &varEntries);
-    if (ret != kErrorOk)
-    {
-        fprintf(stderr, "linking process vars failed with \"%s\" (0x%04x)\n", debugstr_getRetValStr(ret), ret);
-        return ret;
-    }
-    ret = oplk_linkProcessImageObject(0x6000, 0x04, 12, FALSE, 4, &varEntries);
-    if (ret != kErrorOk)
-    {
-        fprintf(stderr, "linking process vars failed with \"%s\" (0x%04x)\n", debugstr_getRetValStr(ret), ret);
-        return ret;
-    }
-    ret = oplk_linkProcessImageObject(0x6000, 0x05, 16, FALSE, 2, &varEntries);
-    if (ret != kErrorOk)
-    {
-        fprintf(stderr, "linking process vars failed with \"%s\" (0x%04x)\n", debugstr_getRetValStr(ret), ret);
-        return ret;
-    }
-    ret = oplk_linkProcessImageObject(0x6000, 0x06, 18, FALSE, 2, &varEntries);
-    if (ret != kErrorOk)
-    {
-        fprintf(stderr, "linking process vars failed with \"%s\" (0x%04x)\n", debugstr_getRetValStr(ret), ret);
-        return ret;
-    }
-    ret = oplk_linkProcessImageObject(0x6000, 0x07, 20, FALSE, 2, &varEntries);
-    if (ret != kErrorOk)
-    {
-        fprintf(stderr, "linking process vars failed with \"%s\" (0x%04x)\n", debugstr_getRetValStr(ret), ret);
-        return ret;
-    }
-    ret = oplk_linkProcessImageObject(0x6000, 0x08, 22,
-                                      FALSE, obdSize, &varEntries);
-    if (ret != kErrorOk)
-    {
-        fprintf(stderr, "linking process vars failed with \"%s\" (0x%04x)\n", debugstr_getRetValStr(ret), ret);
-        return ret;
-    }
-    ret = oplk_linkProcessImageObject(0x6000, 0x09, 24,
-                                      FALSE, obdSize, &varEntries);if (ret != kErrorOk)
-    {
-        fprintf(stderr, "linking process vars failed with \"%s\" (0x%04x)\n", debugstr_getRetValStr(ret), ret);
-        return ret;
-    }
-
-    ret = oplk_linkProcessImageObject(0x6000, 0x0A, 26,
-                                      FALSE, obdSize, &varEntries);
-    if (ret != kErrorOk)
-    {
-        fprintf(stderr, "linking process vars failed with \"%s\" (0x%04x)\n", debugstr_getRetValStr(ret), ret);
-        return ret;
-    }
-    ret = oplk_linkProcessImageObject(0x6000, 0x0B, 28,
-                                      FALSE, obdSize, &varEntries);
-    if (ret != kErrorOk)
-    {
-        fprintf(stderr, "linking process vars failed with \"%s\" (0x%04x)\n", debugstr_getRetValStr(ret), ret);
-        return ret;
-    }
-
-    obdSize = sizeof(pProcessImageOut_l);
+    ret &= oplk_linkProcessImageObject(0x6000, 0x01, 0, FALSE, 4, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6000, 0x02, 4, FALSE, 4, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6000, 0x03, 8, FALSE, 4, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6000, 0x04, 12, FALSE, 4, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6000, 0x05, 16, FALSE, 4, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6000, 0x06, 18, FALSE, 4, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6000, 0x07, 20, FALSE, 4, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6000, 0x08, 22, FALSE, 4, &varEntries);
     varEntries = 1;
-    ret = oplk_linkProcessImageObject(0x6001, 0x01, 0,
-                                      TRUE, obdSize, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6001, 0x01, 0, TRUE, 2, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6001, 0x02, 1, TRUE, 2, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6001, 0x03, 2, TRUE, 4, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6001, 0x04, 4, TRUE, 2, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6001, 0x05, 8, TRUE, 2, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6001, 0x06, 10, TRUE, 2, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6001, 0x07, 12, TRUE, 2, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6001, 0x08, 14, TRUE, 2, &varEntries);
     if (ret != kErrorOk)
     {
         fprintf(stderr, "linking process vars failed with \"%s\" (0x%04x)\n", debugstr_getRetValStr(ret), ret);
         return ret;
     }
-
-    ret = oplk_linkProcessImageObject(0x6001, 0x02, 4,
-                                      TRUE, obdSize, &varEntries);
-    if (ret != kErrorOk)
-    {
-        fprintf(stderr, "linking process vars failed with \"%s\" (0x%04x)\n", debugstr_getRetValStr(ret), ret);
-        return ret;
-    }
-
-    ret = oplk_linkProcessImageObject(0x6001, 0x03, 8,
-                                      TRUE, obdSize, &varEntries);
-    if (ret != kErrorOk)
-    {
-        fprintf(stderr, "linking process vars failed with \"%s\" (0x%04x)\n", debugstr_getRetValStr(ret), ret);
-        return ret;
-    }
-
-    ret = oplk_linkProcessImageObject(0x6001, 0x04, 10,
-                                      TRUE, obdSize, &varEntries);
-    if (ret != kErrorOk)
-    {
-        fprintf(stderr, "linking process vars failed with \"%s\" (0x%04x)\n", debugstr_getRetValStr(ret), ret);
-        return ret;
-    }
-
-    ret = oplk_linkProcessImageObject(0x6001, 0x05, 12,
-                                      TRUE, obdSize, &varEntries);
-    if (ret != kErrorOk)
-    {
-        fprintf(stderr, "linking process vars failed with \"%s\" (0x%04x)\n", debugstr_getRetValStr(ret), ret);
-        return ret;
-    }
-
-    ret = oplk_linkProcessImageObject(0x6001, 0x06, 14,
-                                      TRUE, obdSize, &varEntries);
-    if (ret != kErrorOk)
-    {
-        fprintf(stderr, "linking process vars failed with \"%s\" (0x%04x)\n", debugstr_getRetValStr(ret), ret);
-        return ret;
-    }
-
-    ret = oplk_linkProcessImageObject(0x6001, 0x07, 16,
-                                      TRUE, obdSize, &varEntries);
-    if (ret != kErrorOk)
-    {
-        fprintf(stderr, "linking process vars failed with \"%s\" (0x%04x)\n", debugstr_getRetValStr(ret), ret);
-        return ret;
-    }
-
     fprintf(stderr, "Linking process vars... ok\n\n");
 
     return kErrorOk;

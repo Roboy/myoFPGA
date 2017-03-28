@@ -89,17 +89,6 @@ rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
 
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
-
-# Special rule for the target install/strip
-install/strip/fast: install/strip
-
-.PHONY : install/strip/fast
-
 # Special rule for the target install/local
 install/local: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
@@ -110,6 +99,17 @@ install/local: preinstall
 install/local/fast: install/local
 
 .PHONY : install/local/fast
+
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: install/strip
+
+.PHONY : install/strip/fast
 
 # Special rule for the target edit_cache
 edit_cache:
@@ -155,17 +155,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named myoFPGA
+# Target rules for targets named myoFPGA_CN
 
 # Build rule for target.
-myoFPGA: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 myoFPGA
-.PHONY : myoFPGA
+myoFPGA_CN: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 myoFPGA_CN
+.PHONY : myoFPGA_CN
 
 # fast build rule for target.
-myoFPGA/fast:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/build
-.PHONY : myoFPGA/fast
+myoFPGA_CN/fast:
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/build
+.PHONY : myoFPGA_CN/fast
 
 home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.o: home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.o
 
@@ -173,7 +173,7 @@ home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.o: home/rob
 
 # target to build an object file
 home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.o:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.o
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.o
 .PHONY : home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.o
 
 home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.i: home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.i
@@ -182,7 +182,7 @@ home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.i: home/rob
 
 # target to preprocess a source file
 home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.i:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.i
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.i
 .PHONY : home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.i
 
 home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.s: home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.s
@@ -191,7 +191,7 @@ home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.s: home/rob
 
 # target to generate assembly for a file
 home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.s:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.s
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.s
 .PHONY : home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.s
 
 home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.o: home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.o
@@ -200,7 +200,7 @@ home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.o: ho
 
 # target to build an object file
 home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.o:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.o
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.o
 .PHONY : home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.o
 
 home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.i: home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.i
@@ -209,7 +209,7 @@ home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.i: ho
 
 # target to preprocess a source file
 home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.i:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.i
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.i
 .PHONY : home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.i
 
 home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.s: home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.s
@@ -218,7 +218,7 @@ home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.s: ho
 
 # target to generate assembly for a file
 home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.s:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.s
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.s
 .PHONY : home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.s
 
 home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.o: home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.o
@@ -227,7 +227,7 @@ home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.o: home/r
 
 # target to build an object file
 home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.o:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.o
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.o
 .PHONY : home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.o
 
 home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.i: home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.i
@@ -236,7 +236,7 @@ home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.i: home/r
 
 # target to preprocess a source file
 home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.i:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.i
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.i
 .PHONY : home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.i
 
 home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.s: home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.s
@@ -245,7 +245,7 @@ home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.s: home/r
 
 # target to generate assembly for a file
 home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.s:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.s
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.s
 .PHONY : home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.s
 
 home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.o: home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c.o
@@ -254,7 +254,7 @@ home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.o: home/rob
 
 # target to build an object file
 home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c.o:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c.o
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c.o
 .PHONY : home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c.o
 
 home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.i: home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c.i
@@ -263,7 +263,7 @@ home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.i: home/rob
 
 # target to preprocess a source file
 home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c.i:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c.i
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c.i
 .PHONY : home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c.i
 
 home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.s: home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c.s
@@ -272,7 +272,7 @@ home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.s: home/rob
 
 # target to generate assembly for a file
 home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c.s:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c.s
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c.s
 .PHONY : home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c.s
 
 home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.o: home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c.o
@@ -281,7 +281,7 @@ home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.o: home/r
 
 # target to build an object file
 home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c.o:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c.o
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c.o
 .PHONY : home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c.o
 
 home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.i: home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c.i
@@ -290,7 +290,7 @@ home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.i: home/r
 
 # target to preprocess a source file
 home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c.i:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c.i
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c.i
 .PHONY : home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c.i
 
 home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.s: home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c.s
@@ -299,7 +299,7 @@ home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.s: home/r
 
 # target to generate assembly for a file
 home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c.s:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c.s
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c.s
 .PHONY : home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c.s
 
 home/roboy/Downloads/openPowerLink/contrib/console/console-linux.o: home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.o
@@ -308,7 +308,7 @@ home/roboy/Downloads/openPowerLink/contrib/console/console-linux.o: home/roboy/D
 
 # target to build an object file
 home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.o:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.o
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.o
 .PHONY : home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.o
 
 home/roboy/Downloads/openPowerLink/contrib/console/console-linux.i: home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.i
@@ -317,7 +317,7 @@ home/roboy/Downloads/openPowerLink/contrib/console/console-linux.i: home/roboy/D
 
 # target to preprocess a source file
 home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.i:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.i
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.i
 .PHONY : home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.i
 
 home/roboy/Downloads/openPowerLink/contrib/console/console-linux.s: home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.s
@@ -326,7 +326,7 @@ home/roboy/Downloads/openPowerLink/contrib/console/console-linux.s: home/roboy/D
 
 # target to generate assembly for a file
 home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.s:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.s
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.s
 .PHONY : home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.s
 
 home/roboy/Downloads/openPowerLink/contrib/console/printlog.o: home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.o
@@ -335,7 +335,7 @@ home/roboy/Downloads/openPowerLink/contrib/console/printlog.o: home/roboy/Downlo
 
 # target to build an object file
 home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.o:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.o
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.o
 .PHONY : home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.o
 
 home/roboy/Downloads/openPowerLink/contrib/console/printlog.i: home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.i
@@ -344,7 +344,7 @@ home/roboy/Downloads/openPowerLink/contrib/console/printlog.i: home/roboy/Downlo
 
 # target to preprocess a source file
 home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.i:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.i
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.i
 .PHONY : home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.i
 
 home/roboy/Downloads/openPowerLink/contrib/console/printlog.s: home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.s
@@ -353,7 +353,7 @@ home/roboy/Downloads/openPowerLink/contrib/console/printlog.s: home/roboy/Downlo
 
 # target to generate assembly for a file
 home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.s:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.s
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.s
 .PHONY : home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.s
 
 home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.o: home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.o
@@ -362,7 +362,7 @@ home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.o: home/roboy/Downloads
 
 # target to build an object file
 home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.o:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.o
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.o
 .PHONY : home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.o
 
 home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.i: home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.i
@@ -371,7 +371,7 @@ home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.i: home/roboy/Downloads
 
 # target to preprocess a source file
 home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.i:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.i
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.i
 .PHONY : home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.i
 
 home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.s: home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.s
@@ -380,7 +380,7 @@ home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.s: home/roboy/Downloads
 
 # target to generate assembly for a file
 home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.s:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.s
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.s
 .PHONY : home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.s
 
 home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.o: home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.o
@@ -389,7 +389,7 @@ home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.o: home/roboy/Down
 
 # target to build an object file
 home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.o:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.o
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.o
 .PHONY : home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.o
 
 home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.i: home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.i
@@ -398,7 +398,7 @@ home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.i: home/roboy/Down
 
 # target to preprocess a source file
 home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.i:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.i
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.i
 .PHONY : home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.i
 
 home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.s: home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.s
@@ -407,7 +407,7 @@ home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.s: home/roboy/Down
 
 # target to generate assembly for a file
 home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.s:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.s
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.s
 .PHONY : home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.s
 
 src/app.o: src/app.c.o
@@ -416,7 +416,7 @@ src/app.o: src/app.c.o
 
 # target to build an object file
 src/app.c.o:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/src/app.c.o
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/src/app.c.o
 .PHONY : src/app.c.o
 
 src/app.i: src/app.c.i
@@ -425,7 +425,7 @@ src/app.i: src/app.c.i
 
 # target to preprocess a source file
 src/app.c.i:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/src/app.c.i
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/src/app.c.i
 .PHONY : src/app.c.i
 
 src/app.s: src/app.c.s
@@ -434,7 +434,7 @@ src/app.s: src/app.c.s
 
 # target to generate assembly for a file
 src/app.c.s:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/src/app.c.s
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/src/app.c.s
 .PHONY : src/app.c.s
 
 src/event.o: src/event.c.o
@@ -443,7 +443,7 @@ src/event.o: src/event.c.o
 
 # target to build an object file
 src/event.c.o:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/src/event.c.o
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/src/event.c.o
 .PHONY : src/event.c.o
 
 src/event.i: src/event.c.i
@@ -452,7 +452,7 @@ src/event.i: src/event.c.i
 
 # target to preprocess a source file
 src/event.c.i:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/src/event.c.i
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/src/event.c.i
 .PHONY : src/event.c.i
 
 src/event.s: src/event.c.s
@@ -461,7 +461,7 @@ src/event.s: src/event.c.s
 
 # target to generate assembly for a file
 src/event.c.s:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/src/event.c.s
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/src/event.c.s
 .PHONY : src/event.c.s
 
 src/main.o: src/main.cpp.o
@@ -470,7 +470,7 @@ src/main.o: src/main.cpp.o
 
 # target to build an object file
 src/main.cpp.o:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/src/main.cpp.o
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/src/main.cpp.o
 .PHONY : src/main.cpp.o
 
 src/main.i: src/main.cpp.i
@@ -479,7 +479,7 @@ src/main.i: src/main.cpp.i
 
 # target to preprocess a source file
 src/main.cpp.i:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/src/main.cpp.i
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/src/main.cpp.i
 .PHONY : src/main.cpp.i
 
 src/main.s: src/main.cpp.s
@@ -488,7 +488,7 @@ src/main.s: src/main.cpp.s
 
 # target to generate assembly for a file
 src/main.cpp.s:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/src/main.cpp.s
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
 src/myoControl.o: src/myoControl.cpp.o
@@ -497,7 +497,7 @@ src/myoControl.o: src/myoControl.cpp.o
 
 # target to build an object file
 src/myoControl.cpp.o:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/src/myoControl.cpp.o
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/src/myoControl.cpp.o
 .PHONY : src/myoControl.cpp.o
 
 src/myoControl.i: src/myoControl.cpp.i
@@ -506,7 +506,7 @@ src/myoControl.i: src/myoControl.cpp.i
 
 # target to preprocess a source file
 src/myoControl.cpp.i:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/src/myoControl.cpp.i
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/src/myoControl.cpp.i
 .PHONY : src/myoControl.cpp.i
 
 src/myoControl.s: src/myoControl.cpp.s
@@ -515,7 +515,7 @@ src/myoControl.s: src/myoControl.cpp.s
 
 # target to generate assembly for a file
 src/myoControl.cpp.s:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/src/myoControl.cpp.s
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/src/myoControl.cpp.s
 .PHONY : src/myoControl.cpp.s
 
 src/powerlink.o: src/powerlink.c.o
@@ -524,7 +524,7 @@ src/powerlink.o: src/powerlink.c.o
 
 # target to build an object file
 src/powerlink.c.o:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/src/powerlink.c.o
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/src/powerlink.c.o
 .PHONY : src/powerlink.c.o
 
 src/powerlink.i: src/powerlink.c.i
@@ -533,7 +533,7 @@ src/powerlink.i: src/powerlink.c.i
 
 # target to preprocess a source file
 src/powerlink.c.i:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/src/powerlink.c.i
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/src/powerlink.c.i
 .PHONY : src/powerlink.c.i
 
 src/powerlink.s: src/powerlink.c.s
@@ -542,7 +542,7 @@ src/powerlink.s: src/powerlink.c.s
 
 # target to generate assembly for a file
 src/powerlink.c.s:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/src/powerlink.c.s
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/src/powerlink.c.s
 .PHONY : src/powerlink.c.s
 
 # Help Target
@@ -554,9 +554,9 @@ help:
 	@echo "... install"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... myoFPGA"
-	@echo "... install/strip"
+	@echo "... myoFPGA_CN"
 	@echo "... install/local"
+	@echo "... install/strip"
 	@echo "... edit_cache"
 	@echo "... home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.o"
 	@echo "... home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.i"

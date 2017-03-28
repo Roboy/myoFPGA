@@ -60,39 +60,39 @@ CMAKE_SOURCE_DIR = /home/roboy/workspace/myoFPGA/myoFPGA_CN
 CMAKE_BINARY_DIR = /home/roboy/workspace/myoFPGA/myoFPGA_CN/build
 
 #=============================================================================
-# Target rules for target CMakeFiles/myoFPGA.dir
+# Target rules for target CMakeFiles/myoFPGA_CN.dir
 
 # All Build rule for target.
-CMakeFiles/myoFPGA.dir/all:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/depend
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15 "Built target myoFPGA"
-.PHONY : CMakeFiles/myoFPGA.dir/all
+CMakeFiles/myoFPGA_CN.dir/all:
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/depend
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15 "Built target myoFPGA_CN"
+.PHONY : CMakeFiles/myoFPGA_CN.dir/all
 
 # Include target in all.
-all: CMakeFiles/myoFPGA.dir/all
+all: CMakeFiles/myoFPGA_CN.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/myoFPGA.dir/rule: cmake_check_build_system
+CMakeFiles/myoFPGA_CN.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles 15
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/myoFPGA.dir/all
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/myoFPGA_CN.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles 0
-.PHONY : CMakeFiles/myoFPGA.dir/rule
+.PHONY : CMakeFiles/myoFPGA_CN.dir/rule
 
 # Convenience name for target.
-myoFPGA: CMakeFiles/myoFPGA.dir/rule
+myoFPGA_CN: CMakeFiles/myoFPGA_CN.dir/rule
 
-.PHONY : myoFPGA
-
-# clean rule for target.
-CMakeFiles/myoFPGA.dir/clean:
-	$(MAKE) -f CMakeFiles/myoFPGA.dir/build.make CMakeFiles/myoFPGA.dir/clean
-.PHONY : CMakeFiles/myoFPGA.dir/clean
+.PHONY : myoFPGA_CN
 
 # clean rule for target.
-clean: CMakeFiles/myoFPGA.dir/clean
+CMakeFiles/myoFPGA_CN.dir/clean:
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/clean
+.PHONY : CMakeFiles/myoFPGA_CN.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/myoFPGA_CN.dir/clean
 
 .PHONY : clean
 

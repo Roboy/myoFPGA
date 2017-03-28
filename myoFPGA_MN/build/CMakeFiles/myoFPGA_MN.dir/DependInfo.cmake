@@ -38,6 +38,7 @@ set(CMAKE_C_TARGET_INCLUDE_PATH
   "/home/roboy/Downloads/openPowerLink/apps/common/src"
   "../include"
   "../../powerlink/output"
+  "/home/roboy/Downloads/openPowerLink/apps/common/objdicts/CiA302-4_MN"
   )
 
 # Targets to which this target links.
