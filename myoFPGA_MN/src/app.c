@@ -202,6 +202,15 @@ tOplkError processSync(void)
     aNodeVar_l[0].sensor1_I16 = pProcessImageOut_l->CN1_MotorStatus_sensor1_I16;
     aNodeVar_l[0].sensor2_I16 = pProcessImageOut_l->CN1_MotorStatus_sensor2_I16;
 
+    static int iter = 1;
+    if((iter++)%300==0) {
+        printf("\n############## myoFPGA ###################\n");
+        printf("pwmRef:             %d\n", aNodeVar_l[0].pwmRef_I16);
+        printf("actualPosition:     %d\n", aNodeVar_l[0].actualPosition_I32);
+        printf("actualVelocity:     %d\n", aNodeVar_l[0].actualVelocity_I16);
+        printf("actualCurrent:      %d\n", aNodeVar_l[0].actualCurrent_I16);
+        printf("springDisplacement: %d\n", aNodeVar_l[0].springDisplacement_I16);
+    }
     // setpoints for 8 motors
     pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_1 = 0;
     pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_2 = 0;

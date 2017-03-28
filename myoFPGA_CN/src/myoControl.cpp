@@ -5,12 +5,14 @@ static BOOL* pfGsOff_l;
 vector<int32_t*> MyoControl::myo_base;
 vector<SetPoints> MyoControl::setPoints;
 vector<MotorStatus> MyoControl::motorStatus;
-uint8_t MyoControl::motor_selecta;
+uint8_t MyoControl::motor_selecta = 0;
 PI_IN* MyoControl::pProcessImageIn_l;
 PI_OUT* MyoControl::pProcessImageOut_l;
 
 MyoControl::MyoControl(vector<int32_t*> &myobase, int argc, char* argv[]){
     myo_base = myobase;
+    reset();
+    toggleSPI(false);
 	// initialize control mode
 	numberOfMotors = myo_base.size()*MOTORS_PER_MYOCONTROL;
 	// initialize all controllers with default values
@@ -199,13 +201,13 @@ tOplkError MyoControl::initProcessImage(){
     ret &= oplk_linkProcessImageObject(0x6002, 0x01, 0, FALSE, 1, &varEntries);
     varEntries = 1;
     ret &= oplk_linkProcessImageObject(0x6001, 0x01, 0, TRUE, 2, &varEntries);
-    ret &= oplk_linkProcessImageObject(0x6001, 0x02, 1, TRUE, 2, &varEntries);
-    ret &= oplk_linkProcessImageObject(0x6001, 0x03, 2, TRUE, 4, &varEntries);
-    ret &= oplk_linkProcessImageObject(0x6001, 0x04, 4, TRUE, 2, &varEntries);
-    ret &= oplk_linkProcessImageObject(0x6001, 0x05, 8, TRUE, 2, &varEntries);
-    ret &= oplk_linkProcessImageObject(0x6001, 0x06, 10, TRUE, 2, &varEntries);
-    ret &= oplk_linkProcessImageObject(0x6001, 0x07, 12, TRUE, 2, &varEntries);
-    ret &= oplk_linkProcessImageObject(0x6001, 0x08, 14, TRUE, 2, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6001, 0x02, 4, TRUE, 2, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6001, 0x03, 6, TRUE, 4, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6001, 0x04, 10, TRUE, 2, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6001, 0x05, 12, TRUE, 2, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6001, 0x06, 14, TRUE, 2, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6001, 0x07, 16, TRUE, 2, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6001, 0x08, 18, TRUE, 2, &varEntries);
     if (ret != kErrorOk)
     {
         fprintf(stderr, "linking process vars failed with \"%s\" (0x%04x)\n", debugstr_getRetValStr(ret), ret);
@@ -361,7 +363,7 @@ tOplkError MyoControl::processSync(){
     motor_selecta = pProcessImageIn_l->CN1_MotorSelecta_motor_U8;
 
     // write motor info depending on motorSelecta
-    pProcessImageOut_l->CN1_MotorStatus_pwmRef_I16 = getPWM(motor_selecta);
+    pProcessImageOut_l->CN1_MotorStatus_pwmRef_I16 = getPWM(motor_selecta);//getPWM(motor_selecta);
     pProcessImageOut_l->CN1_MotorStatus_actualPosition_I32 = getPosition(motor_selecta);
     pProcessImageOut_l->CN1_MotorStatus_actualVelocity_I16 = getVelocity(motor_selecta);
     pProcessImageOut_l->CN1_MotorStatus_actualCurrent_I16 = getCurrent(motor_selecta);
@@ -464,12 +466,21 @@ tOplkError MyoControl::processStateChangeEvent(tOplkApiEventType EventType_p,
         case kNmtGsResetApplication:
         case kNmtGsResetConfiguration:
         case kNmtGsResetCommunication:
-        case kNmtCsNotActive:               // Implement
+        case kNmtCsNotActive:
+            toggleSPI(false);
+            break;
         case kNmtCsPreOperational1:         // handling of
         case kNmtCsStopped:                 // different
         case kNmtCsPreOperational2:         // states here
         case kNmtCsReadyToOperate:
         case kNmtCsOperational:
+            reset();
+            console_printlog("myoFPGA operational StateChangeEvent(0x%X) originating event = 0x%X (%s)\n",
+                             pNmtStateChange->newNmtState,
+                             pNmtStateChange->nmtEvent,
+                             debugstr_getNmtEventStr(pNmtStateChange->nmtEvent));
+            toggleSPI(true);
+            break;
         case kNmtCsBasicEthernet:           // no break;
 
         default:
@@ -656,11 +667,9 @@ void MyoControl::changeControl(int mode){
 	}
 }
 
-bool MyoControl::toggleSPI(){
-	spi_active = !spi_active;
+void MyoControl::toggleSPI(bool active){
 	for(uint i=0;i<myo_base.size();i++)
-		MYO_WRITE_spi_activated(myo_base[i],spi_active);
-	return spi_active;
+		MYO_WRITE_spi_activated(myo_base[i],active);
 }
 
 void MyoControl::reset(){

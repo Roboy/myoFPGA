@@ -121,11 +121,11 @@ public:
 	 * Toggles SPI transmission
 	 * @return on/off
 	 */
-	bool toggleSPI();
+	static void toggleSPI(bool active);
 	/**
 	 * Resets all myo controllers
 	 */
-	void reset();
+	static void reset();
 	/**
 	 * Changes setpoint for position controller
 	 * @param motor for this motor
