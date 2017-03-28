@@ -7,10 +7,31 @@
 #include <chrono>
 #include <fstream>
 #include "myoControlRegister.hpp"
-namespace powerlink{
-	#include "powerlink.h"
-	const BYTE aMacAddr_l[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
-}
+
+#include "xap.h"
+
+#include <oplk/oplk.h>
+#include <oplk/debugstr.h>
+
+#include <system/system.h>
+#include <obdcreate/obdcreate.h>
+#include <getopt/getopt.h>
+#include <console/console.h>
+#include <eventlog/eventlog.h>
+#include <limits.h>
+
+#if defined(CONFIG_USE_PCAP)
+#include <pcap/pcap-console.h>
+#endif
+
+#include <stdio.h>
+#include <limits.h>
+
+#define CYCLE_LEN         50000
+#define NODEID            1                   // could be changed by command param
+#define IP_ADDR           0xc0a86401          // 192.168.100.1
+#define DEFAULT_GATEWAY   0xC0A864FE          // 192.168.100.C_ADR_RT1_DEF_NODE_ID
+#define SUBNET_MASK       0xFFFFFF00          // 255.255.255.0
 
 using namespace std;
 using namespace std::chrono;
@@ -33,11 +54,41 @@ typedef struct
 	float radPerEncoderCount;
 }control_Parameters_t;
 
+typedef struct
+{
+    UINT32          nodeId;
+    tEventlogFormat logFormat;
+    UINT32          logLevel;
+    UINT32          logCategory;
+    char            devName[128];
+} tOptions;
+
 enum CONTROLMODE{
 	POSITION,
 	VELOCITY,
 	DISPLACEMENT,
 	FORCE
+};
+
+struct MotorStatus{
+    // controlled node output/ managing node input
+    signed pwmRef_I16:16;
+    signed actualPosition_I32:32;
+    signed actualVelocity_I16:16;
+    signed actualCurrent_I16:16;
+    signed springDisplacement_I16:16;
+    signed sensor1_I16:16;
+    signed sensor2_I16:16;
+};
+struct SetPoints{
+    signed CN1_MotorCommand_setPoint_I32_1:32;
+    signed CN1_MotorCommand_setPoint_I32_2:32;
+    signed CN1_MotorCommand_setPoint_I32_3:32;
+    signed CN1_MotorCommand_setPoint_I32_4:32;
+    signed CN1_MotorCommand_setPoint_I32_5:32;
+    signed CN1_MotorCommand_setPoint_I32_6:32;
+    signed CN1_MotorCommand_setPoint_I32_7:32;
+    signed CN1_MotorCommand_setPoint_I32_8:32;
 };
 
 class MyoControl{
@@ -108,27 +159,27 @@ public:
 	 * Gets the current pwm of a motor
 	 * @param motor for this motor
 	 */
-	int16_t getPWM(int motor);
+    static int16_t getPWM(int motor);
 	/**
 	 * Gets the current position of a motor in radians
 	 * @param motor for this motor
 	 */
-	int32_t getPosition(int motor);
+    static int32_t getPosition(int motor);
 	/**
 	 * Gets the current velocity of a motor in radians/seconds
 	 * @param motor for this motor
 	 */
-	int16_t getVelocity(int motor);
+    static int16_t getVelocity(int motor);
 	/**
 	 * Gets the displacement in encoder ticks
 	 * @param motor for this motor
 	 */
-	int16_t getDisplacement(int motor);
+    static int16_t getDisplacement(int motor);
 	/**
 	 * Gets the current in Ampere
 	 * @param motor for this motor
 	 */
-	int16_t getCurrent(int motor);
+    static int16_t getCurrent(int motor);
 
 	/**
 	 * Fills the given params with default values for the corresponding control mode
@@ -179,13 +230,95 @@ public:
 	void polynomialRegression(int degree, vector<float> &x, vector<float> &y,
 			vector<float> &coeffs);
 
-	map<int,control_Parameters_t*> control_params;
+	map<int,map<int,control_Parameters_t>> control_params;
 	uint32_t *adc_base = nullptr;
 	float weight_offset = 0;
 	float adc_weight_parameters[2] = {830.7, -0.455};
 	bool spi_active = false;
 	uint numberOfMotors;
 private:
-	vector<int32_t*> myo_base;
-	int iter = 0;
+    /**
+     * This initializes the process image for openPowerLink
+     * @return errorCode
+     */
+    tOplkError initProcessImage();
+    /**
+     * The function parses the supplied command line parameters and stores the
+     * options at pOpts_p.
+     * @param argc_p Argument count.
+     * @param argv_p Pointer to arguments.
+     * @param pOpts_p Pointer to store options
+     * @return The function returns the parsing status.
+     * @retval 0 Successfully parsed
+     * @retval -1 Parsing error
+    */
+    int getOptions(int argc_p,
+                   char* const argv_p[],
+                   tOptions* pOpts_p);
+    /**
+     * The function initializes the openPOWERLINK stack.
+     * @param cycleLen_p          Length of POWERLINK cycle.
+     * @param devName_p           Device name string.
+     * @param macAddr_p           MAC address to use for POWERLINK interface.
+     * @param nodeId_p            POWERLINK node ID.
+     * @return The function returns a tOplkError error code.
+    */
+    tOplkError initPowerlink(UINT32 cycleLen_p,
+                             const char* devName_p,
+                             const UINT8* macAddr_p,
+                             UINT32 nodeId_p);
+    /**
+     * The function implements the synchronous data handler.
+     * @return The function returns a tOplkError error code.
+    */
+    static tOplkError processSync();
+    /** Shuts down powerLink */
+    void shutdownPowerlink();
+    /**
+     * The function processes error and warning events.
+     * @param  EventType_p         Type of event
+     * @param  pEventArg_p         Pointer to union which describes the event in detail
+     * @param  pUserArg_p          User specific argument
+     * @return The function returns a tOplkError error code.
+    */
+    static tOplkError processEvents(tOplkApiEventType EventType_p,
+                             const tOplkApiEventArg* pEventArg_p,
+                             void* pUserArg_p);
+    /**
+     * The function processes PDO change events.
+     * @param  EventType_p         Type of event
+     * @param  pEventArg_p         Pointer to union which describes the event in detail
+     * @param  pUserArg_p          User specific argument
+     * @return The function returns a tOplkError error code.
+    */
+    static tOplkError processPdoChangeEvent(tOplkApiEventType EventType_p,
+                                     const tOplkApiEventArg* pEventArg_p,
+                                     void* pUserArg_p);
+    /**
+     * The function processes error and warning events.
+     * @param  EventType_p         Type of event
+     * @param  pEventArg_p         Pointer to union which describes the event in detail
+     * @param  pUserArg_p          User specific argument
+     * @return The function returns a tOplkError error code.
+    */
+    static tOplkError processErrorWarningEvent(tOplkApiEventType EventType_p,
+                                        const tOplkApiEventArg* pEventArg_p,
+                                        void* pUserArg_p);
+    /**
+     * The function processes state change events.
+     * @param  EventType_p         Type of event
+     * @param  pEventArg_p         Pointer to union which describes the event in detail
+     * @param  pUserArg_p          User specific argument
+     * @return The function returns a tOplkError error code.
+    */
+    static tOplkError processStateChangeEvent(tOplkApiEventType EventType_p,
+                                       const tOplkApiEventArg* pEventArg_p,
+                                       void* pUserArg_p);
+public:
+    static vector<int32_t*> myo_base;
+    static vector<SetPoints> setPoints;
+    static vector<MotorStatus> motorStatus;
+    static uint8_t motor_selecta;
+    static PI_IN*   pProcessImageIn_l;
+    static PI_OUT*  pProcessImageOut_l;
 };

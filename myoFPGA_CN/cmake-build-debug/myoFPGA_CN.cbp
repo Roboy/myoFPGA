@@ -208,19 +208,10 @@
       <Unit filename="/home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c">
          <Option target="myoFPGA_CN"/>
       </Unit>
-      <Unit filename="/home/roboy/workspace/myoFPGA/myoFPGA_CN/src/app.c">
-         <Option target="myoFPGA_CN"/>
-      </Unit>
-      <Unit filename="/home/roboy/workspace/myoFPGA/myoFPGA_CN/src/event.c">
-         <Option target="myoFPGA_CN"/>
-      </Unit>
       <Unit filename="/home/roboy/workspace/myoFPGA/myoFPGA_CN/src/main.cpp">
          <Option target="myoFPGA_CN"/>
       </Unit>
       <Unit filename="/home/roboy/workspace/myoFPGA/myoFPGA_CN/src/myoControl.cpp">
-         <Option target="myoFPGA_CN"/>
-      </Unit>
-      <Unit filename="/home/roboy/workspace/myoFPGA/myoFPGA_CN/src/powerlink.c">
          <Option target="myoFPGA_CN"/>
       </Unit>
       <Unit filename="/home/roboy/workspace/myoFPGA/myoFPGA_CN/CMakeLists.txt">

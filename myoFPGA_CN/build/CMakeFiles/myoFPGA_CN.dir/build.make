@@ -81,81 +81,9 @@ CMakeFiles/myoFPGA_CN.dir/src/main.cpp.o.provides: CMakeFiles/myoFPGA_CN.dir/src
 CMakeFiles/myoFPGA_CN.dir/src/main.cpp.o.provides.build: CMakeFiles/myoFPGA_CN.dir/src/main.cpp.o
 
 
-CMakeFiles/myoFPGA_CN.dir/src/app.c.o: CMakeFiles/myoFPGA_CN.dir/flags.make
-CMakeFiles/myoFPGA_CN.dir/src/app.c.o: ../src/app.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/myoFPGA_CN.dir/src/app.c.o"
-	/home/roboy/Downloads/gcc-linaro-arm-linux-gnueabihf-4.7-2012.12-20121214_linux/bin/arm-linux-gnueabihf-gcc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/myoFPGA_CN.dir/src/app.c.o   -c /home/roboy/workspace/myoFPGA/myoFPGA_CN/src/app.c
-
-CMakeFiles/myoFPGA_CN.dir/src/app.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/myoFPGA_CN.dir/src/app.c.i"
-	/home/roboy/Downloads/gcc-linaro-arm-linux-gnueabihf-4.7-2012.12-20121214_linux/bin/arm-linux-gnueabihf-gcc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/roboy/workspace/myoFPGA/myoFPGA_CN/src/app.c > CMakeFiles/myoFPGA_CN.dir/src/app.c.i
-
-CMakeFiles/myoFPGA_CN.dir/src/app.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/myoFPGA_CN.dir/src/app.c.s"
-	/home/roboy/Downloads/gcc-linaro-arm-linux-gnueabihf-4.7-2012.12-20121214_linux/bin/arm-linux-gnueabihf-gcc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/roboy/workspace/myoFPGA/myoFPGA_CN/src/app.c -o CMakeFiles/myoFPGA_CN.dir/src/app.c.s
-
-CMakeFiles/myoFPGA_CN.dir/src/app.c.o.requires:
-
-.PHONY : CMakeFiles/myoFPGA_CN.dir/src/app.c.o.requires
-
-CMakeFiles/myoFPGA_CN.dir/src/app.c.o.provides: CMakeFiles/myoFPGA_CN.dir/src/app.c.o.requires
-	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/src/app.c.o.provides.build
-.PHONY : CMakeFiles/myoFPGA_CN.dir/src/app.c.o.provides
-
-CMakeFiles/myoFPGA_CN.dir/src/app.c.o.provides.build: CMakeFiles/myoFPGA_CN.dir/src/app.c.o
-
-
-CMakeFiles/myoFPGA_CN.dir/src/event.c.o: CMakeFiles/myoFPGA_CN.dir/flags.make
-CMakeFiles/myoFPGA_CN.dir/src/event.c.o: ../src/event.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/myoFPGA_CN.dir/src/event.c.o"
-	/home/roboy/Downloads/gcc-linaro-arm-linux-gnueabihf-4.7-2012.12-20121214_linux/bin/arm-linux-gnueabihf-gcc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/myoFPGA_CN.dir/src/event.c.o   -c /home/roboy/workspace/myoFPGA/myoFPGA_CN/src/event.c
-
-CMakeFiles/myoFPGA_CN.dir/src/event.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/myoFPGA_CN.dir/src/event.c.i"
-	/home/roboy/Downloads/gcc-linaro-arm-linux-gnueabihf-4.7-2012.12-20121214_linux/bin/arm-linux-gnueabihf-gcc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/roboy/workspace/myoFPGA/myoFPGA_CN/src/event.c > CMakeFiles/myoFPGA_CN.dir/src/event.c.i
-
-CMakeFiles/myoFPGA_CN.dir/src/event.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/myoFPGA_CN.dir/src/event.c.s"
-	/home/roboy/Downloads/gcc-linaro-arm-linux-gnueabihf-4.7-2012.12-20121214_linux/bin/arm-linux-gnueabihf-gcc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/roboy/workspace/myoFPGA/myoFPGA_CN/src/event.c -o CMakeFiles/myoFPGA_CN.dir/src/event.c.s
-
-CMakeFiles/myoFPGA_CN.dir/src/event.c.o.requires:
-
-.PHONY : CMakeFiles/myoFPGA_CN.dir/src/event.c.o.requires
-
-CMakeFiles/myoFPGA_CN.dir/src/event.c.o.provides: CMakeFiles/myoFPGA_CN.dir/src/event.c.o.requires
-	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/src/event.c.o.provides.build
-.PHONY : CMakeFiles/myoFPGA_CN.dir/src/event.c.o.provides
-
-CMakeFiles/myoFPGA_CN.dir/src/event.c.o.provides.build: CMakeFiles/myoFPGA_CN.dir/src/event.c.o
-
-
-CMakeFiles/myoFPGA_CN.dir/src/powerlink.c.o: CMakeFiles/myoFPGA_CN.dir/flags.make
-CMakeFiles/myoFPGA_CN.dir/src/powerlink.c.o: ../src/powerlink.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/myoFPGA_CN.dir/src/powerlink.c.o"
-	/home/roboy/Downloads/gcc-linaro-arm-linux-gnueabihf-4.7-2012.12-20121214_linux/bin/arm-linux-gnueabihf-gcc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/myoFPGA_CN.dir/src/powerlink.c.o   -c /home/roboy/workspace/myoFPGA/myoFPGA_CN/src/powerlink.c
-
-CMakeFiles/myoFPGA_CN.dir/src/powerlink.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/myoFPGA_CN.dir/src/powerlink.c.i"
-	/home/roboy/Downloads/gcc-linaro-arm-linux-gnueabihf-4.7-2012.12-20121214_linux/bin/arm-linux-gnueabihf-gcc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/roboy/workspace/myoFPGA/myoFPGA_CN/src/powerlink.c > CMakeFiles/myoFPGA_CN.dir/src/powerlink.c.i
-
-CMakeFiles/myoFPGA_CN.dir/src/powerlink.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/myoFPGA_CN.dir/src/powerlink.c.s"
-	/home/roboy/Downloads/gcc-linaro-arm-linux-gnueabihf-4.7-2012.12-20121214_linux/bin/arm-linux-gnueabihf-gcc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/roboy/workspace/myoFPGA/myoFPGA_CN/src/powerlink.c -o CMakeFiles/myoFPGA_CN.dir/src/powerlink.c.s
-
-CMakeFiles/myoFPGA_CN.dir/src/powerlink.c.o.requires:
-
-.PHONY : CMakeFiles/myoFPGA_CN.dir/src/powerlink.c.o.requires
-
-CMakeFiles/myoFPGA_CN.dir/src/powerlink.c.o.provides: CMakeFiles/myoFPGA_CN.dir/src/powerlink.c.o.requires
-	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/src/powerlink.c.o.provides.build
-.PHONY : CMakeFiles/myoFPGA_CN.dir/src/powerlink.c.o.provides
-
-CMakeFiles/myoFPGA_CN.dir/src/powerlink.c.o.provides.build: CMakeFiles/myoFPGA_CN.dir/src/powerlink.c.o
-
-
 CMakeFiles/myoFPGA_CN.dir/src/myoControl.cpp.o: CMakeFiles/myoFPGA_CN.dir/flags.make
 CMakeFiles/myoFPGA_CN.dir/src/myoControl.cpp.o: ../src/myoControl.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/myoFPGA_CN.dir/src/myoControl.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/myoFPGA_CN.dir/src/myoControl.cpp.o"
 	/home/roboy/Downloads/gcc-linaro-arm-linux-gnueabihf-4.7-2012.12-20121214_linux/bin/arm-linux-gnueabihf-g++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/myoFPGA_CN.dir/src/myoControl.cpp.o -c /home/roboy/workspace/myoFPGA/myoFPGA_CN/src/myoControl.cpp
 
 CMakeFiles/myoFPGA_CN.dir/src/myoControl.cpp.i: cmake_force
@@ -179,7 +107,7 @@ CMakeFiles/myoFPGA_CN.dir/src/myoControl.cpp.o.provides.build: CMakeFiles/myoFPG
 
 CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.o: CMakeFiles/myoFPGA_CN.dir/flags.make
 CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.o: /home/roboy/Downloads/openPowerLink/contrib/console/printlog.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.o"
 	/home/roboy/Downloads/gcc-linaro-arm-linux-gnueabihf-4.7-2012.12-20121214_linux/bin/arm-linux-gnueabihf-gcc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.o   -c /home/roboy/Downloads/openPowerLink/contrib/console/printlog.c
 
 CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.i: cmake_force
@@ -203,7 +131,7 @@ CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/console/pri
 
 CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.o: CMakeFiles/myoFPGA_CN.dir/flags.make
 CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.o: /home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.o"
 	/home/roboy/Downloads/gcc-linaro-arm-linux-gnueabihf-4.7-2012.12-20121214_linux/bin/arm-linux-gnueabihf-gcc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.o   -c /home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c
 
 CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.i: cmake_force
@@ -227,7 +155,7 @@ CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/getopt/geto
 
 CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.o: CMakeFiles/myoFPGA_CN.dir/flags.make
 CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.o: /home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.o"
 	/home/roboy/Downloads/gcc-linaro-arm-linux-gnueabihf-4.7-2012.12-20121214_linux/bin/arm-linux-gnueabihf-gcc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.o   -c /home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c
 
 CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.i: cmake_force
@@ -251,7 +179,7 @@ CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eve
 
 CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.o: CMakeFiles/myoFPGA_CN.dir/flags.make
 CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.o: /home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.o"
 	/home/roboy/Downloads/gcc-linaro-arm-linux-gnueabihf-4.7-2012.12-20121214_linux/bin/arm-linux-gnueabihf-gcc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.o   -c /home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c
 
 CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.i: cmake_force
@@ -275,7 +203,7 @@ CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eve
 
 CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.o: CMakeFiles/myoFPGA_CN.dir/flags.make
 CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.o: /home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.o"
 	/home/roboy/Downloads/gcc-linaro-arm-linux-gnueabihf-4.7-2012.12-20121214_linux/bin/arm-linux-gnueabihf-gcc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.o   -c /home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c
 
 CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.i: cmake_force
@@ -299,7 +227,7 @@ CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/obd
 
 CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c.o: CMakeFiles/myoFPGA_CN.dir/flags.make
 CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c.o: /home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building C object CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c.o"
 	/home/roboy/Downloads/gcc-linaro-arm-linux-gnueabihf-4.7-2012.12-20121214_linux/bin/arm-linux-gnueabihf-gcc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c.o   -c /home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c
 
 CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c.i: cmake_force
@@ -323,7 +251,7 @@ CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/pca
 
 CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c.o: CMakeFiles/myoFPGA_CN.dir/flags.make
 CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c.o: /home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building C object CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c.o"
 	/home/roboy/Downloads/gcc-linaro-arm-linux-gnueabihf-4.7-2012.12-20121214_linux/bin/arm-linux-gnueabihf-gcc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c.o   -c /home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c
 
 CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c.i: cmake_force
@@ -347,7 +275,7 @@ CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/sys
 
 CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.o: CMakeFiles/myoFPGA_CN.dir/flags.make
 CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.o: /home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building C object CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.o"
 	/home/roboy/Downloads/gcc-linaro-arm-linux-gnueabihf-4.7-2012.12-20121214_linux/bin/arm-linux-gnueabihf-gcc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.o   -c /home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c
 
 CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.i: cmake_force
@@ -371,7 +299,7 @@ CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/console/con
 
 CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.o: CMakeFiles/myoFPGA_CN.dir/flags.make
 CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.o: /home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building C object CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building C object CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.o"
 	/home/roboy/Downloads/gcc-linaro-arm-linux-gnueabihf-4.7-2012.12-20121214_linux/bin/arm-linux-gnueabihf-gcc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.o   -c /home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c
 
 CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.i: cmake_force
@@ -396,9 +324,6 @@ CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/trace/trace
 # Object files for target myoFPGA_CN
 myoFPGA_CN_OBJECTS = \
 "CMakeFiles/myoFPGA_CN.dir/src/main.cpp.o" \
-"CMakeFiles/myoFPGA_CN.dir/src/app.c.o" \
-"CMakeFiles/myoFPGA_CN.dir/src/event.c.o" \
-"CMakeFiles/myoFPGA_CN.dir/src/powerlink.c.o" \
 "CMakeFiles/myoFPGA_CN.dir/src/myoControl.cpp.o" \
 "CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.o" \
 "CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.o" \
@@ -414,9 +339,6 @@ myoFPGA_CN_OBJECTS = \
 myoFPGA_CN_EXTERNAL_OBJECTS =
 
 myoFPGA_CN: CMakeFiles/myoFPGA_CN.dir/src/main.cpp.o
-myoFPGA_CN: CMakeFiles/myoFPGA_CN.dir/src/app.c.o
-myoFPGA_CN: CMakeFiles/myoFPGA_CN.dir/src/event.c.o
-myoFPGA_CN: CMakeFiles/myoFPGA_CN.dir/src/powerlink.c.o
 myoFPGA_CN: CMakeFiles/myoFPGA_CN.dir/src/myoControl.cpp.o
 myoFPGA_CN: CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.o
 myoFPGA_CN: CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.o
@@ -431,7 +353,7 @@ myoFPGA_CN: CMakeFiles/myoFPGA_CN.dir/build.make
 myoFPGA_CN: /home/roboy/Downloads/openPowerLink/stack/lib/linux/armv7l/liboplkcn.a
 myoFPGA_CN: ../usr/lib/arm-linux-gnueabihf/libpcap.so
 myoFPGA_CN: CMakeFiles/myoFPGA_CN.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Linking CXX executable myoFPGA_CN"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking CXX executable myoFPGA_CN"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/myoFPGA_CN.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -440,9 +362,6 @@ CMakeFiles/myoFPGA_CN.dir/build: myoFPGA_CN
 .PHONY : CMakeFiles/myoFPGA_CN.dir/build
 
 CMakeFiles/myoFPGA_CN.dir/requires: CMakeFiles/myoFPGA_CN.dir/src/main.cpp.o.requires
-CMakeFiles/myoFPGA_CN.dir/requires: CMakeFiles/myoFPGA_CN.dir/src/app.c.o.requires
-CMakeFiles/myoFPGA_CN.dir/requires: CMakeFiles/myoFPGA_CN.dir/src/event.c.o.requires
-CMakeFiles/myoFPGA_CN.dir/requires: CMakeFiles/myoFPGA_CN.dir/src/powerlink.c.o.requires
 CMakeFiles/myoFPGA_CN.dir/requires: CMakeFiles/myoFPGA_CN.dir/src/myoControl.cpp.o.requires
 CMakeFiles/myoFPGA_CN.dir/requires: CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.o.requires
 CMakeFiles/myoFPGA_CN.dir/requires: CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.o.requires

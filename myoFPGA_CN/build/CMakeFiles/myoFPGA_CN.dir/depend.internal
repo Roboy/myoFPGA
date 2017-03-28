@@ -141,117 +141,11 @@ CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/getopt/geto
  /home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c
 CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.o
  /home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c
-CMakeFiles/myoFPGA_CN.dir/src/app.c.o
- ../../powerlink/output/xap.h
- ../include/app.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/basictypes.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/cfm.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/debugstr.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/errordefs.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/event.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/frame.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/nmt.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/obd.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/obdal.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/oplk.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/oplkdefs.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/oplkinc.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/sdo.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/sdoabortcodes.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/targetdefs/c5socarm.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/targetdefs/linux.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/targetdefs/microblaze.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/targetdefs/nios2.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/targetdefs/vxworks.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/targetdefs/wince.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/targetdefs/windows-mingw.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/targetdefs/windows.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/targetdefs/winkernel.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/targetsystem.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/version.h
- /home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/include/alt_cache.h
- /home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/include/hwlib.h
- /home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/include/soc_cv_av/socal/socal.h
- /home/roboy/workspace/myoFPGA/myoFPGA_CN/src/app.c
-CMakeFiles/myoFPGA_CN.dir/src/event.c.o
- ../include/event.h
- /home/roboy/Downloads/openPowerLink/contrib/console/console.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/basictypes.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/cfm.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/debugstr.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/errordefs.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/event.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/frame.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/nmt.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/obd.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/obdal.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/oplk.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/oplkdefs.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/oplkinc.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/sdo.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/sdoabortcodes.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/targetdefs/c5socarm.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/targetdefs/linux.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/targetdefs/microblaze.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/targetdefs/nios2.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/targetdefs/vxworks.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/targetdefs/wince.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/targetdefs/windows-mingw.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/targetdefs/windows.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/targetdefs/winkernel.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/targetsystem.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/version.h
- /home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/include/alt_cache.h
- /home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/include/hwlib.h
- /home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/include/soc_cv_av/socal/socal.h
- /home/roboy/workspace/myoFPGA/myoFPGA_CN/src/event.c
-CMakeFiles/myoFPGA_CN.dir/src/powerlink.c.o
- ../include/app.h
- ../include/event.h
- ../include/powerlink.h
- /home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.h
- /home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.h
- /home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.h
- /home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.h
- /home/roboy/Downloads/openPowerLink/apps/common/src/system/system.h
- /home/roboy/Downloads/openPowerLink/contrib/console/console.h
- /home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/basictypes.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/cfm.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/debugstr.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/errordefs.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/event.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/frame.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/nmt.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/obd.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/obdal.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/oplk.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/oplkdefs.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/oplkinc.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/sdo.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/sdoabortcodes.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/targetdefs/c5socarm.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/targetdefs/linux.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/targetdefs/microblaze.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/targetdefs/nios2.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/targetdefs/vxworks.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/targetdefs/wince.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/targetdefs/windows-mingw.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/targetdefs/windows.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/targetdefs/winkernel.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/targetsystem.h
- /home/roboy/Downloads/openPowerLink/stack/include/oplk/version.h
- /home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/include/alt_cache.h
- /home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/include/hwlib.h
- /home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/include/soc_cv_av/socal/socal.h
- /home/roboy/workspace/myoFPGA/myoFPGA_CN/src/powerlink.c
 CMakeFiles/myoFPGA_CN.dir/src/main.cpp.o
- ../include/app.h
- ../include/event.h
+ ../../powerlink/output/xap.h
  ../include/hps_0.h
  ../include/myoControl.hpp
  ../include/myoControlRegister.hpp
- ../include/powerlink.h
  /home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.h
  /home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.h
  /home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.h
@@ -291,11 +185,9 @@ CMakeFiles/myoFPGA_CN.dir/src/main.cpp.o
  /home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/include/soc_cv_av/socal/socal.h
  /home/roboy/workspace/myoFPGA/myoFPGA_CN/src/main.cpp
 CMakeFiles/myoFPGA_CN.dir/src/myoControl.cpp.o
- ../include/app.h
- ../include/event.h
+ ../../powerlink/output/xap.h
  ../include/myoControl.hpp
  ../include/myoControlRegister.hpp
- ../include/powerlink.h
  /home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.h
  /home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.h
  /home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.h

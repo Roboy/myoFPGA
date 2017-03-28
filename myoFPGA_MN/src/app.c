@@ -86,18 +86,29 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //------------------------------------------------------------------------------
 typedef struct
 {
-    UINT                leds;
-    UINT                ledsOld;
-    UINT                input;
-    UINT                inputOld;
-    UINT                period;
-    int                 toggle;
+    // managing node output/ controlled node input
+    signed CN1_MotorCommand_setPoint_I32_1:32;
+    signed CN1_MotorCommand_setPoint_I32_2:32;
+    signed CN1_MotorCommand_setPoint_I32_3:32;
+    signed CN1_MotorCommand_setPoint_I32_4:32;
+    signed CN1_MotorCommand_setPoint_I32_5:32;
+    signed CN1_MotorCommand_setPoint_I32_6:32;
+    signed CN1_MotorCommand_setPoint_I32_7:32;
+    signed CN1_MotorCommand_setPoint_I32_8:32;
+    unsigned CN1_MotorSelecta_motor_U8:8;
+    // controlled node output/ managing node input
+    signed pwmRef_I16:16;
+    signed actualPosition_I32:32;
+    signed actualVelocity_I16:16;
+    signed actualCurrent_I16:16;
+    signed springDisplacement_I16:16;
+    signed sensor1_I16:16;
+    signed sensor2_I16:16;
 } APP_NODE_VAR_T;
 
 //------------------------------------------------------------------------------
 // local vars
 //------------------------------------------------------------------------------
-static int              aUsedNodeIds_l[] = {1, 32, 110, 0};
 static UINT             cnt_l;
 static APP_NODE_VAR_T   aNodeVar_l[MAX_NODES];
 static PI_IN*           pProcessImageIn_l;
@@ -126,19 +137,7 @@ The function initializes the synchronous data application
 tOplkError initApp(void)
 {
     tOplkError  ret = kErrorOk;
-    int         i;
-
     cnt_l = 0;
-
-    for (i = 0; (i < MAX_NODES) && (aUsedNodeIds_l[i] != 0); i++)
-    {
-        aNodeVar_l[i].leds = 0;
-        aNodeVar_l[i].ledsOld = 0;
-        aNodeVar_l[i].input = 0;
-        aNodeVar_l[i].inputOld = 0;
-        aNodeVar_l[i].toggle = 0;
-        aNodeVar_l[i].period = 0;
-    }
 
     ret = initProcessImage();
 
@@ -184,7 +183,6 @@ The function implements the synchronous data handler.
 tOplkError processSync(void)
 {
     tOplkError  ret;
-    int         i;
 
     ret = oplk_waitSyncEvent(100000);
     if (ret != kErrorOk)
@@ -196,45 +194,25 @@ tOplkError processSync(void)
 
     cnt_l++;
 
-//    aNodeVar_l[0].input = pProcessImageOut_l->CN1_motorStatus_REC_pwmRef_I16;
+    aNodeVar_l[0].pwmRef_I16 = pProcessImageOut_l->CN1_MotorStatus_pwmRef_I16;
+    aNodeVar_l[0].actualPosition_I32 = pProcessImageOut_l->CN1_MotorStatus_actualPosition_I32;
+    aNodeVar_l[0].actualVelocity_I16 = pProcessImageOut_l->CN1_MotorStatus_actualVelocity_I16;
+    aNodeVar_l[0].actualCurrent_I16 = pProcessImageOut_l->CN1_MotorStatus_actualCurrent_I16;
+    aNodeVar_l[0].springDisplacement_I16 = pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16;
+    aNodeVar_l[0].sensor1_I16 = pProcessImageOut_l->CN1_MotorStatus_sensor1_I16;
+    aNodeVar_l[0].sensor2_I16 = pProcessImageOut_l->CN1_MotorStatus_sensor2_I16;
 
-    for (i = 0; (i < MAX_NODES) && (aUsedNodeIds_l[i] != 0); i++)
-    {
-        /* Running LEDs */
-        /* period for LED flashing determined by inputs */
-        aNodeVar_l[i].period = (aNodeVar_l[i].input == 0) ? 1 : (aNodeVar_l[i].input * 20);
-        if (cnt_l % aNodeVar_l[i].period == 0)
-        {
-            if (aNodeVar_l[i].leds == 0x00)
-            {
-                aNodeVar_l[i].leds = 0x1;
-                aNodeVar_l[i].toggle = 1;
-            }
-            else
-            {
-                if (aNodeVar_l[i].toggle)
-                {
-                    aNodeVar_l[i].leds <<= 1;
-                    if (aNodeVar_l[i].leds == APP_LED_MASK_1)
-                        aNodeVar_l[i].toggle = 0;
-                }
-                else
-                {
-                    aNodeVar_l[i].leds >>= 1;
-                    if (aNodeVar_l[i].leds == 0x01)
-                        aNodeVar_l[i].toggle = 1;
-                }
-            }
-        }
-
-        if (aNodeVar_l[i].input != aNodeVar_l[i].inputOld)
-            aNodeVar_l[i].inputOld = aNodeVar_l[i].input;
-
-        if (aNodeVar_l[i].leds != aNodeVar_l[i].ledsOld)
-            aNodeVar_l[i].ledsOld = aNodeVar_l[i].leds;
-    }
-
-//    pProcessImageIn_l->CN1_PID_controller_config_REC_outputPosMax_I32 = aNodeVar_l[0].leds;
+    // setpoints for 8 motors
+    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_1 = 0;
+    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_2 = 0;
+    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_3 = 0;
+    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_4 = 0;
+    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_5 = 0;
+    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_6 = 0;
+    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_7 = 0;
+    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_8 = 0;
+    // select from which motor you want to receive motorStatus
+    pProcessImageIn_l->CN1_MotorSelecta_motor_U8 = 0;
 
     ret = oplk_exchangeProcessImageIn();
 

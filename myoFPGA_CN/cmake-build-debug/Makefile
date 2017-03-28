@@ -410,60 +410,6 @@ home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.s:
 	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.s
 .PHONY : home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.s
 
-src/app.o: src/app.c.o
-
-.PHONY : src/app.o
-
-# target to build an object file
-src/app.c.o:
-	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/src/app.c.o
-.PHONY : src/app.c.o
-
-src/app.i: src/app.c.i
-
-.PHONY : src/app.i
-
-# target to preprocess a source file
-src/app.c.i:
-	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/src/app.c.i
-.PHONY : src/app.c.i
-
-src/app.s: src/app.c.s
-
-.PHONY : src/app.s
-
-# target to generate assembly for a file
-src/app.c.s:
-	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/src/app.c.s
-.PHONY : src/app.c.s
-
-src/event.o: src/event.c.o
-
-.PHONY : src/event.o
-
-# target to build an object file
-src/event.c.o:
-	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/src/event.c.o
-.PHONY : src/event.c.o
-
-src/event.i: src/event.c.i
-
-.PHONY : src/event.i
-
-# target to preprocess a source file
-src/event.c.i:
-	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/src/event.c.i
-.PHONY : src/event.c.i
-
-src/event.s: src/event.c.s
-
-.PHONY : src/event.s
-
-# target to generate assembly for a file
-src/event.c.s:
-	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/src/event.c.s
-.PHONY : src/event.c.s
-
 src/main.o: src/main.cpp.o
 
 .PHONY : src/main.o
@@ -518,33 +464,6 @@ src/myoControl.cpp.s:
 	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/src/myoControl.cpp.s
 .PHONY : src/myoControl.cpp.s
 
-src/powerlink.o: src/powerlink.c.o
-
-.PHONY : src/powerlink.o
-
-# target to build an object file
-src/powerlink.c.o:
-	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/src/powerlink.c.o
-.PHONY : src/powerlink.c.o
-
-src/powerlink.i: src/powerlink.c.i
-
-.PHONY : src/powerlink.i
-
-# target to preprocess a source file
-src/powerlink.c.i:
-	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/src/powerlink.c.i
-.PHONY : src/powerlink.c.i
-
-src/powerlink.s: src/powerlink.c.s
-
-.PHONY : src/powerlink.s
-
-# target to generate assembly for a file
-src/powerlink.c.s:
-	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/src/powerlink.c.s
-.PHONY : src/powerlink.c.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -585,21 +504,12 @@ help:
 	@echo "... home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.o"
 	@echo "... home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.i"
 	@echo "... home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.s"
-	@echo "... src/app.o"
-	@echo "... src/app.i"
-	@echo "... src/app.s"
-	@echo "... src/event.o"
-	@echo "... src/event.i"
-	@echo "... src/event.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
 	@echo "... src/myoControl.o"
 	@echo "... src/myoControl.i"
 	@echo "... src/myoControl.s"
-	@echo "... src/powerlink.o"
-	@echo "... src/powerlink.i"
-	@echo "... src/powerlink.s"
 .PHONY : help
 
 

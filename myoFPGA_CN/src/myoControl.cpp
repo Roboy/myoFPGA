@@ -1,65 +1,77 @@
 #include "myoControl.hpp"
 
-MyoControl::MyoControl(vector<int32_t*> &myo_base, int argc, char* argv[]):myo_base(myo_base){
+static BOOL* pfGsOff_l;
+
+vector<int32_t*> MyoControl::myo_base;
+vector<SetPoints> MyoControl::setPoints;
+vector<MotorStatus> MyoControl::motorStatus;
+uint8_t MyoControl::motor_selecta;
+PI_IN* MyoControl::pProcessImageIn_l;
+PI_OUT* MyoControl::pProcessImageOut_l;
+
+MyoControl::MyoControl(vector<int32_t*> &myobase, int argc, char* argv[]){
+    myo_base = myobase;
 	// initialize control mode
 	numberOfMotors = myo_base.size()*MOTORS_PER_MYOCONTROL;
 	// initialize all controllers with default values
-//	control_Parameters_t params;
-//	getDefaultControlParams(&params, POSITION);
-//	for(uint motor=0;motor<numberOfMotors;motor++){
-//		changeControl(motor, 0, params);
-//		control_params[motor][POSITION] = params;
-//	}
-//	getDefaultControlParams(&params, VELOCITY);
-//	for(uint motor=0;motor<numberOfMotors;motor++){
-//		control_params[motor][VELOCITY] = params;
-//	}
-//	getDefaultControlParams(&params, DISPLACEMENT);
-//	for(uint motor=0;motor<numberOfMotors;motor++){
-//		control_params[motor][DISPLACEMENT] = params;
-//	}
+	control_Parameters_t params;
+	getDefaultControlParams(&params, POSITION);
+	for(uint motor=0;motor<numberOfMotors;motor++){
+		changeControl(motor, 0, params);
+		control_params[motor][POSITION] = params;
+	}
+	getDefaultControlParams(&params, VELOCITY);
+	for(uint motor=0;motor<numberOfMotors;motor++){
+		control_params[motor][VELOCITY] = params;
+	}
+	getDefaultControlParams(&params, DISPLACEMENT);
+	for(uint motor=0;motor<numberOfMotors;motor++){
+		control_params[motor][DISPLACEMENT] = params;
+	}
+
+    setPoints.resize(myo_base.size());
+    motorStatus.resize(numberOfMotors);
 
 	bool powerlink_initialized = true;
 
-	powerlink::tOplkError  ret = powerlink::kErrorOk;
-	powerlink::tOptions    opts;
+	tOplkError  ret = kErrorOk;
+	tOptions    opts;
 
-	if (powerlink::getOptions(argc, argv, &opts) < 0)
+	if (getOptions(argc, argv, &opts) < 0)
 		powerlink_initialized = false;
 
-	if (powerlink::system_init() != 0)
+	if (system_init() != 0)
 	{
 		fprintf(stderr, "Error initializing system!");
 		powerlink_initialized = false;
 	}
 
-	powerlink::eventlog_init(opts.logFormat,
+    pfGsOff_l = new unsigned char;
+
+	eventlog_init(opts.logFormat,
 				  opts.logLevel,
 				  opts.logCategory,
-				  (powerlink::tEventlogOutputCb)powerlink::console_printlogadd);
-
-	powerlink::initEvents(&powerlink::fGsOff_l);
+				  (tEventlogOutputCb)console_printlogadd);
 
 	printf("----------------------------------------------------\n");
-	printf("openPOWERLINK console CN DEMO application\n");
-	printf("Using openPOWERLINK stack: %s\n", powerlink::oplk_getVersionString());
+	printf("openPOWERLINK myoControl CN\n");
+	printf("Using openPOWERLINK stack: %s\n", oplk_getVersionString());
 	printf("----------------------------------------------------\n");
 
-	powerlink::eventlog_printMessage(powerlink::kEventlogLevelInfo,
-						  powerlink::kEventlogCategoryGeneric,
+	eventlog_printMessage(kEventlogLevelInfo,
+						  kEventlogCategoryGeneric,
 						  "demo_cn_console: Stack version:%s Stack configuration:0x%08X",
-						  powerlink::oplk_getVersionString(),
-						  powerlink::oplk_getStackConfiguration());
+						  oplk_getVersionString(),
+						  oplk_getStackConfiguration());
 
-	ret = powerlink::initPowerlink(CYCLE_LEN,
-						opts.devName,
-						powerlink::aMacAddr_l,
-						opts.nodeId);
-	if (ret != powerlink::kErrorOk)
+    const BYTE aMacAddr_l[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+	ret = initPowerlink(CYCLE_LEN, opts.devName, aMacAddr_l, opts.nodeId);
+
+	if (ret != kErrorOk)
 		powerlink_initialized = false;
 
-	ret = powerlink::initApp();
-	if (ret != powerlink::kErrorOk)
+	ret = initProcessImage();
+	if (ret != kErrorOk)
 		powerlink_initialized = false;
 
 	if(powerlink_initialized)
@@ -68,13 +80,13 @@ MyoControl::MyoControl(vector<int32_t*> &myo_base, int argc, char* argv[]):myo_b
 
 MyoControl::~MyoControl(){
 	cout << "shutting down myoControl" << endl;
-	powerlink::shutdownApp();
-	powerlink::shutdownPowerlink();
-	powerlink::system_exit();
+    oplk_freeProcessImage();
+	shutdownPowerlink();
+	system_exit();
 }
 
 void MyoControl::mainLoop(){
-	powerlink::tOplkError  ret;
+	tOplkError  ret;
 	char        cKey = 0;
 	BOOL        fExit = FALSE;
 
@@ -87,8 +99,8 @@ void MyoControl::mainLoop(){
 #endif
 
 	// start processing
-	ret = powerlink::oplk_execNmtCommand(powerlink::kNmtEventSwReset);
-	if (ret != powerlink::kErrorOk)
+	ret = oplk_execNmtCommand(kNmtEventSwReset);
+	if (ret != kErrorOk)
 		return;
 
 	printf("Start POWERLINK stack... ok\n");
@@ -101,15 +113,15 @@ void MyoControl::mainLoop(){
 	// wait for key hit
 	while (!fExit)
 	{
-		if (powerlink::console_kbhit())
+		if (console_kbhit())
 		{
-			cKey = (char)powerlink::console_getch();
+			cKey = (char)console_getch();
 
 			switch (cKey)
 			{
 				case 'r':
-					ret = powerlink::oplk_execNmtCommand(powerlink::kNmtEventSwReset);
-					if (ret != powerlink::kErrorOk)
+					ret = oplk_execNmtCommand(kNmtEventSwReset);
+					if (ret != kErrorOk)
 						fExit = TRUE;
 					break;
 
@@ -122,27 +134,27 @@ void MyoControl::mainLoop(){
 			}
 		}
 
-		if (powerlink::system_getTermSignalState() == TRUE)
+		if (system_getTermSignalState() == TRUE)
 		{
 			fExit = TRUE;
 			printf("Received termination signal, exiting...\n");
-			powerlink::eventlog_printMessage(powerlink::kEventlogLevelInfo,
-								  powerlink::kEventlogCategoryControl,
+			eventlog_printMessage(kEventlogLevelInfo,
+								  kEventlogCategoryControl,
 								  "Received termination signal, exiting...");
 		}
 
-		if (powerlink::oplk_checkKernelStack() == FALSE)
+		if (oplk_checkKernelStack() == FALSE)
 		{
 			fExit = TRUE;
 			fprintf(stderr, "Kernel stack has gone! Exiting...\n");
-			powerlink::eventlog_printMessage(powerlink::kEventlogLevelFatal,
-								  powerlink::kEventlogCategoryControl,
+			eventlog_printMessage(kEventlogLevelFatal,
+								  kEventlogCategoryControl,
 								  "Kernel stack has gone! Exiting...");
 		}
 
 #if (defined(CONFIG_USE_SYNCTHREAD) || \
      defined(CONFIG_KERNELSTACK_DIRECTLINK))
-		powerlink::system_msleep(100);
+		system_msleep(100);
 #else
 		processSync();
 #endif
@@ -152,6 +164,450 @@ void MyoControl::mainLoop(){
 	printf("Press Enter to quit!\n");
     console_getch();
 #endif
+}
+
+tOplkError MyoControl::initProcessImage(){
+    tOplkError      ret = kErrorOk;
+    UINT            varEntries;
+    tObdSize        obdSize;
+
+    /* Allocate process image */
+    printf("Initializing process image...\n");
+    printf("Size of input process image: %ld\n", sizeof(PI_IN));
+    printf("Size of output process image: %ld\n", sizeof(PI_OUT));
+    ret = oplk_allocProcessImage(sizeof(PI_IN), sizeof(PI_OUT));
+    if (ret != kErrorOk)
+    {
+        return ret;
+    }
+
+    pProcessImageIn_l = (PI_IN*)oplk_getProcessImageIn();
+    pProcessImageOut_l = (PI_OUT*)oplk_getProcessImageOut();
+
+    /* link process variables used by CN to object dictionary */
+    fprintf(stderr, "Linking process image vars:\n");
+
+    varEntries = 1;
+    ret &= oplk_linkProcessImageObject(0x6000, 0x01, 0, FALSE, 4, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6000, 0x02, 4, FALSE, 4, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6000, 0x03, 8, FALSE, 4, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6000, 0x04, 12, FALSE, 4, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6000, 0x05, 16, FALSE, 4, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6000, 0x06, 18, FALSE, 4, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6000, 0x07, 20, FALSE, 4, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6000, 0x08, 22, FALSE, 4, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6002, 0x01, 0, FALSE, 1, &varEntries);
+    varEntries = 1;
+    ret &= oplk_linkProcessImageObject(0x6001, 0x01, 0, TRUE, 2, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6001, 0x02, 1, TRUE, 2, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6001, 0x03, 2, TRUE, 4, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6001, 0x04, 4, TRUE, 2, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6001, 0x05, 8, TRUE, 2, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6001, 0x06, 10, TRUE, 2, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6001, 0x07, 12, TRUE, 2, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6001, 0x08, 14, TRUE, 2, &varEntries);
+    if (ret != kErrorOk)
+    {
+        fprintf(stderr, "linking process vars failed with \"%s\" (0x%04x)\n", debugstr_getRetValStr(ret), ret);
+        return ret;
+    }
+    fprintf(stderr, "Linking process vars... ok\n\n");
+
+    return kErrorOk;
+}
+
+tOplkError MyoControl::initPowerlink(UINT32 cycleLen_p, const char* devName_p, const UINT8* macAddr_p, UINT32 nodeId_p){
+    tOplkError          ret = kErrorOk;
+    tOplkApiInitParam   initParam;
+    static char         devName[128];
+
+    printf("Initializing openPOWERLINK stack...\n");
+    eventlog_printMessage(kEventlogLevelInfo,
+                          kEventlogCategoryControl,
+                          "Initializing openPOWERLINK stack");
+
+#if defined(CONFIG_USE_PCAP)
+    eventlog_printMessage(kEventlogLevelInfo,
+                          kEventlogCategoryGeneric,
+                          "Using libpcap for network access");
+    if (devName_p[0] == '\0')
+    {
+        if (selectPcapDevice(devName) < 0)
+            return kErrorIllegalInstance;
+    }
+    else
+        strncpy(devName, devName_p, 128);
+#else
+    UNUSED_PARAMETER(devName_p);
+#endif
+
+    memset(&initParam, 0, sizeof(initParam));
+    initParam.sizeOfInitParam = sizeof(initParam);
+
+    // pass selected device name to Edrv
+    initParam.hwParam.pDevName = devName;
+    initParam.nodeId = nodeId_p;
+    initParam.ipAddress = (0xFFFFFF00 & IP_ADDR) | initParam.nodeId;
+
+    /* write 00:00:00:00:00:00 to MAC address, so that the driver uses the real hardware address */
+    memcpy(initParam.aMacAddress, macAddr_p, sizeof(initParam.aMacAddress));
+
+    initParam.fAsyncOnly              = FALSE;
+    initParam.featureFlags            = UINT_MAX;
+    initParam.cycleLen                = cycleLen_p;             // required for error detection
+    initParam.isochrTxMaxPayload      = C_DLL_ISOCHR_MAX_PAYL;  // const
+    initParam.isochrRxMaxPayload      = C_DLL_ISOCHR_MAX_PAYL;  // const
+    initParam.presMaxLatency          = 50000;                  // const; only required for IdentRes
+    initParam.preqActPayloadLimit     = 48;                     // required for initialization (+28 bytes)
+    initParam.presActPayloadLimit     = 60;                     // required for initialization of Pres frame (+28 bytes)
+    initParam.asndMaxLatency          = 150000;                 // const; only required for IdentRes
+    initParam.multiplCylceCnt         = 0;                      // required for error detection
+    initParam.asyncMtu                = 1500;                   // required to set up max frame size
+    initParam.prescaler               = 2;                      // required for sync
+    initParam.lossOfFrameTolerance    = 500000;
+    initParam.asyncSlotTimeout        = 3000000;
+    initParam.waitSocPreq             = 1000;
+    initParam.deviceType              = UINT_MAX;               // NMT_DeviceType_U32
+    initParam.vendorId                = UINT_MAX;               // NMT_IdentityObject_REC.VendorId_U32
+    initParam.productCode             = UINT_MAX;               // NMT_IdentityObject_REC.ProductCode_U32
+    initParam.revisionNumber          = UINT_MAX;               // NMT_IdentityObject_REC.RevisionNo_U32
+    initParam.serialNumber            = UINT_MAX;               // NMT_IdentityObject_REC.SerialNo_U32
+    initParam.applicationSwDate       = 0;
+    initParam.applicationSwTime       = 0;
+    initParam.subnetMask              = SUBNET_MASK;
+    initParam.defaultGateway          = DEFAULT_GATEWAY;
+    sprintf((char*)initParam.sHostname, "%02x-%08x", initParam.nodeId, initParam.vendorId);
+    initParam.syncNodeId              = C_ADR_SYNC_ON_SOA;
+    initParam.fSyncOnPrcNode          = FALSE;
+
+    // set callback functions
+    initParam.pfnCbEvent = &MyoControl::processEvents;
+
+#if defined(CONFIG_KERNELSTACK_DIRECTLINK)
+    initParam.pfnCbSync = (tSyncCb)&MyoControl::processSync;
+#else
+    initParam.pfnCbSync = NULL;
+#endif
+
+    // Initialize object dictionary
+    ret = obdcreate_initObd(&initParam.obdInitParam);
+    if (ret != kErrorOk)
+    {
+        fprintf(stderr,
+                "obdcreate_initObd() failed with \"%s\" (0x%04x)\n",
+                debugstr_getRetValStr(ret),
+                ret);
+        eventlog_printMessage(kEventlogLevelFatal,
+                              kEventlogCategoryControl,
+                              "obdcreate_initObd() failed with \"%s\" (0x%04x)\n",
+                              debugstr_getRetValStr(ret),
+                              ret);
+        return ret;
+    }
+
+    // initialize POWERLINK stack
+    ret = oplk_initialize();
+    if (ret != kErrorOk)
+    {
+        fprintf(stderr,
+                "oplk_initialize() failed with \"%s\" (0x%04x)\n",
+                debugstr_getRetValStr(ret),
+                ret);
+        eventlog_printMessage(kEventlogLevelFatal,
+                              kEventlogCategoryControl,
+                              "oplk_initialize() failed with \"%s\" (0x%04x)\n",
+                              debugstr_getRetValStr(ret),
+                              ret);
+        return ret;
+    }
+
+    ret = oplk_create(&initParam);
+    if (ret != kErrorOk)
+    {
+        fprintf(stderr,
+                "oplk_create() failed with \"%s\" (0x%04x)\n",
+                debugstr_getRetValStr(ret),
+                ret);
+        eventlog_printMessage(kEventlogLevelFatal,
+                              kEventlogCategoryControl,
+                              "oplk_create() failed with \"%s\" (0x%04x)\n",
+                              debugstr_getRetValStr(ret),
+                              ret);
+        return ret;
+    }
+
+    return kErrorOk;
+}
+
+tOplkError MyoControl::processSync(){
+    tOplkError      ret = kErrorOk;
+
+    if (oplk_waitSyncEvent(100000) != kErrorOk)
+        return ret;
+
+    ret = oplk_exchangeProcessImageOut();
+    if (ret != kErrorOk)
+        return ret;
+
+    // read the setPoints for every motor from process image
+    setPoints.front().CN1_MotorCommand_setPoint_I32_1 = pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_1;
+    setPoints.front().CN1_MotorCommand_setPoint_I32_2 = pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_2;
+    setPoints.front().CN1_MotorCommand_setPoint_I32_3 = pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_3;
+    setPoints.front().CN1_MotorCommand_setPoint_I32_4 = pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_4;
+    setPoints.front().CN1_MotorCommand_setPoint_I32_5 = pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_5;
+    setPoints.front().CN1_MotorCommand_setPoint_I32_6 = pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_6;
+    setPoints.front().CN1_MotorCommand_setPoint_I32_7 = pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_7;
+    setPoints.front().CN1_MotorCommand_setPoint_I32_8 = pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_8;
+    motor_selecta = pProcessImageIn_l->CN1_MotorSelecta_motor_U8;
+
+    // write motor info depending on motorSelecta
+    pProcessImageOut_l->CN1_MotorStatus_pwmRef_I16 = getPWM(motor_selecta);
+    pProcessImageOut_l->CN1_MotorStatus_actualPosition_I32 = getPosition(motor_selecta);
+    pProcessImageOut_l->CN1_MotorStatus_actualVelocity_I16 = getVelocity(motor_selecta);
+    pProcessImageOut_l->CN1_MotorStatus_actualCurrent_I16 = getCurrent(motor_selecta);
+    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16 = getDisplacement(motor_selecta);
+    pProcessImageOut_l->CN1_MotorStatus_sensor1_I16 = 0; //TODO: not implemented on fpga yet
+    pProcessImageOut_l->CN1_MotorStatus_sensor2_I16 = 0; //TODO: not implemented on fpga yet
+
+    ret = oplk_exchangeProcessImageIn();
+
+    return ret;
+}
+
+void MyoControl::shutdownPowerlink(){
+    UINT    i;
+
+    BOOL fGsOff_l = FALSE;
+
+#if (!defined(CONFIG_KERNELSTACK_DIRECTLINK) && \
+     defined(CONFIG_USE_SYNCTHREAD))
+    system_stopSyncThread();
+    system_msleep(100);
+#endif
+
+    // halt the NMT state machine so the processing of POWERLINK frames stops
+    oplk_execNmtCommand(kNmtEventSwitchOff);
+
+    // small loop to implement timeout waiting for thread to terminate
+    for (i = 0; i < 1000; i++)
+    {
+        if (fGsOff_l)
+            break;
+    }
+
+    printf("Stack is in state off ... Shutdown\n");
+    eventlog_printMessage(kEventlogLevelInfo,
+                          kEventlogCategoryControl,
+                          "Stack is in state off ... Shutdown openPOWERLINK");
+
+    oplk_destroy();
+    oplk_exit();
+}
+
+tOplkError MyoControl::processEvents(tOplkApiEventType EventType_p,
+                         const tOplkApiEventArg* pEventArg_p,
+                         void* pUserArg_p){
+    tOplkError          ret = kErrorOk;
+
+    UNUSED_PARAMETER(pUserArg_p);
+
+    switch (EventType_p)
+    {
+        case kOplkApiEventNmtStateChange:
+            ret = processStateChangeEvent(EventType_p, pEventArg_p, pUserArg_p);
+            break;
+
+        case kOplkApiEventCriticalError:
+        case kOplkApiEventWarning:
+            ret = processErrorWarningEvent(EventType_p, pEventArg_p, pUserArg_p);
+            break;
+
+        case kOplkApiEventPdoChange:
+            ret = processPdoChangeEvent(EventType_p, pEventArg_p, pUserArg_p);
+            break;
+
+        default:
+            break;
+    }
+    return ret;
+}
+
+tOplkError MyoControl::processStateChangeEvent(tOplkApiEventType EventType_p,
+                                               const tOplkApiEventArg* pEventArg_p,
+                                               void* pUserArg_p){
+    tOplkError                  ret = kErrorOk;
+    const tEventNmtStateChange*       pNmtStateChange = &pEventArg_p->nmtStateChange;
+
+    UNUSED_PARAMETER(EventType_p);
+    UNUSED_PARAMETER(pUserArg_p);
+
+    if (pfGsOff_l == NULL)
+    {
+        return kErrorGeneralError;
+    }
+
+    switch (pNmtStateChange->newNmtState)
+    {
+        case kNmtGsOff:
+            // NMT state machine was shut down,
+            ret = kErrorShutdown;
+
+            console_printlog("StateChangeEvent:kNmtGsOff originating event = 0x%X (%s)\n",
+                             pNmtStateChange->nmtEvent,
+                             debugstr_getNmtEventStr(pNmtStateChange->nmtEvent));
+
+            // signal that stack is off
+            *pfGsOff_l = TRUE;
+            break;
+
+        case kNmtGsInitialising:
+        case kNmtGsResetApplication:
+        case kNmtGsResetConfiguration:
+        case kNmtGsResetCommunication:
+        case kNmtCsNotActive:               // Implement
+        case kNmtCsPreOperational1:         // handling of
+        case kNmtCsStopped:                 // different
+        case kNmtCsPreOperational2:         // states here
+        case kNmtCsReadyToOperate:
+        case kNmtCsOperational:
+        case kNmtCsBasicEthernet:           // no break;
+
+        default:
+            console_printlog("StateChangeEvent(0x%X) originating event = 0x%X (%s)\n",
+                             pNmtStateChange->newNmtState,
+                             pNmtStateChange->nmtEvent,
+                             debugstr_getNmtEventStr(pNmtStateChange->nmtEvent));
+            break;
+    }
+
+    return ret;
+}
+
+tOplkError MyoControl::processErrorWarningEvent(tOplkApiEventType EventType_p,
+                                                const tOplkApiEventArg* pEventArg_p,
+                                                void* pUserArg_p){
+    // error or warning occurred within the stack or the application
+    // on error the API layer stops the NMT state machine
+
+    const tEventError*            pInternalError = &pEventArg_p->internalError;
+
+    UNUSED_PARAMETER(EventType_p);
+    UNUSED_PARAMETER(pUserArg_p);
+
+    console_printlog("Err/Warn: Source = %s (%02X) OplkError = %s (0x%03X)\n",
+                     debugstr_getEventSourceStr(pInternalError->eventSource),
+                     pInternalError->eventSource,
+                     debugstr_getRetValStr(pInternalError->oplkError),
+                     pInternalError->oplkError);
+
+    // check additional argument
+    switch (pInternalError->eventSource)
+    {
+        case kEventSourceEventk:
+        case kEventSourceEventu:
+            // error occurred within event processing
+            // either in kernel or in user part
+            console_printlog(" OrgSource = %s %02X\n",
+                             debugstr_getEventSourceStr(pInternalError->errorArg.eventSource),
+                             pInternalError->errorArg.eventSource);
+            break;
+
+        case kEventSourceDllk:
+            // error occurred within the data link layer (e.g. interrupt processing)
+            // the DWORD argument contains the DLL state and the NMT event
+            console_printlog(" val = %X\n", pInternalError->errorArg.uintArg);
+            break;
+
+        default:
+            console_printlog("\n");
+            break;
+    }
+    return kErrorOk;
+}
+
+tOplkError MyoControl::processPdoChangeEvent(tOplkApiEventType EventType_p,
+                                             const tOplkApiEventArg* pEventArg_p,
+                                             void* pUserArg_p){
+    const tOplkApiEventPdoChange*     pPdoChange = &pEventArg_p->pdoChange;
+    UINT                        subIndex;
+    UINT64                      mappObject;
+    tOplkError                  ret;
+    UINT                        varLen;
+
+    UNUSED_PARAMETER(EventType_p);
+    UNUSED_PARAMETER(pUserArg_p);
+
+    console_printlog("PDO change event: (%sPDO = 0x%X to node 0x%X with %d objects %s)\n",
+                     (pPdoChange->fTx ? "T" : "R"), pPdoChange->mappParamIndex,
+                     pPdoChange->nodeId, pPdoChange->mappObjectCount,
+                     (pPdoChange->fActivated ? "activated" : "deleted"));
+
+    for (subIndex = 1; subIndex <= pPdoChange->mappObjectCount; subIndex++)
+    {
+        varLen = sizeof(mappObject);
+        ret = oplk_readLocalObject(pPdoChange->mappParamIndex, subIndex, &mappObject, &varLen);
+        if (ret != kErrorOk)
+        {
+            console_printlog("  Reading 0x%X/%d failed with 0x%X\n\"%s\"\n",
+                             pPdoChange->mappParamIndex, subIndex, ret, debugstr_getRetValStr(ret));
+            continue;
+        }
+        console_printlog("  %d. mapped object 0x%X/%d\n", subIndex, mappObject & 0x00FFFFULL,
+                         (mappObject & 0xFF0000ULL) >> 16);
+    }
+    return kErrorOk;
+}
+
+int MyoControl::getOptions(int argc_p, char* const argv_p[], tOptions* pOpts_p){
+    int opt;
+
+    /* setup default parameters */
+    strncpy(pOpts_p->devName, "\0", 128);
+    pOpts_p->nodeId = NODEID;
+    pOpts_p->logFormat = kEventlogFormatReadable;
+    pOpts_p->logCategory = 0xffffffff;
+    pOpts_p->logLevel = 0xffffffff;
+
+    /* get command line parameters */
+    while ((opt = getopt(argc_p, argv_p, "n:pv:t:d:")) != -1)
+    {
+        switch (opt)
+        {
+            case 'n':
+                pOpts_p->nodeId = strtoul(optarg, NULL, 10);
+                break;
+
+            case 'd':
+                strncpy(pOpts_p->devName, optarg, 128);
+                break;
+
+            case 'p':
+                pOpts_p->logFormat = kEventlogFormatParsable;
+                break;
+
+            case 'v':
+                pOpts_p->logLevel = strtoul(optarg, NULL, 16);
+                break;
+
+            case 't':
+                pOpts_p->logCategory = strtoul(optarg, NULL, 16);
+                break;
+
+            default: /* '?' */
+#if defined(CONFIG_USE_PCAP)
+                printf("Usage: %s [-n NODE_ID] [-l LOGFILE] [-d DEV_NAME] [-v LOGLEVEL] [-t LOGCATEGORY] [-p]\n", argv_p[0]);
+                printf(" -d DEV_NAME: Ethernet device name to use e.g. eth1\n");
+#else
+                printf("Usage: %s [-n NODE_ID] [-l LOGFILE] [-v LOGLEVEL] [-t LOGCATEGORY] [-p]\n", argv_p[0]);
+#endif
+                printf(" -p: Use parsable log format\n");
+                printf(" -v LOGLEVEL: A bit mask with log levels to be printed in the event logger\n");
+                printf(" -t LOGCATEGORY: A bit mask with log categories to be printed in the event logger\n");
+
+                return -1;
+        }
+    }
+    return 0;
 }
 
 void MyoControl::changeControl(int motor, int mode, control_Parameters_t &params){

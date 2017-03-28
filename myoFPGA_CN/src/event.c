@@ -211,11 +211,6 @@ static tOplkError processStateChangeEvent(tOplkApiEventType EventType_p,
         case kNmtGsInitialising:
         case kNmtGsResetApplication:
         case kNmtGsResetConfiguration:
-            console_printlog("WHYYYY????   StateChangeEvent(0x%X) originating event = 0x%X (%s)\n",
-                             pNmtStateChange->newNmtState,
-                             pNmtStateChange->nmtEvent,
-                             debugstr_getNmtEventStr(pNmtStateChange->nmtEvent));
-            break;
         case kNmtGsResetCommunication:
         case kNmtCsNotActive:               // Implement
         case kNmtCsPreOperational1:         // handling of

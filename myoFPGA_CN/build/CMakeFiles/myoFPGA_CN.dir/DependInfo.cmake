@@ -14,9 +14,6 @@ set(CMAKE_DEPENDS_CHECK_C
   "/home/roboy/Downloads/openPowerLink/contrib/console/printlog.c" "/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.o"
   "/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c" "/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.o"
   "/home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c" "/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.o"
-  "/home/roboy/workspace/myoFPGA/myoFPGA_CN/src/app.c" "/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles/myoFPGA_CN.dir/src/app.c.o"
-  "/home/roboy/workspace/myoFPGA/myoFPGA_CN/src/event.c" "/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles/myoFPGA_CN.dir/src/event.c.o"
-  "/home/roboy/workspace/myoFPGA/myoFPGA_CN/src/powerlink.c" "/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles/myoFPGA_CN.dir/src/powerlink.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 

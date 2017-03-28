@@ -91,6 +91,7 @@ typedef struct
     signed CN1_MotorCommand_setPoint_I32_6:32;
     signed CN1_MotorCommand_setPoint_I32_7:32;
     signed CN1_MotorCommand_setPoint_I32_8:32;
+    unsigned CN1_MotorSelecta_motor_U8:8;
     // controlled node output/ managing node input
     unsigned pwmRef_I16:16;
     signed actualPosition_I32:32;
@@ -161,7 +162,7 @@ tOplkError processSync(void)
     if (ret != kErrorOk)
         return ret;
 
-    /* read input image - digital outputs */
+    // read the setPoints for every motor from process image
     aNodeVar_l.CN1_MotorCommand_setPoint_I32_1 = pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_1;
     aNodeVar_l.CN1_MotorCommand_setPoint_I32_2 = pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_2;
     aNodeVar_l.CN1_MotorCommand_setPoint_I32_3 = pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_3;
@@ -170,8 +171,9 @@ tOplkError processSync(void)
     aNodeVar_l.CN1_MotorCommand_setPoint_I32_6 = pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_6;
     aNodeVar_l.CN1_MotorCommand_setPoint_I32_7 = pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_7;
     aNodeVar_l.CN1_MotorCommand_setPoint_I32_8 = pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_8;
-////
-////    /* setup output image - digital inputs */
+    aNodeVar_l.CN1_MotorSelecta_motor_U8 = pProcessImageIn_l->CN1_MotorSelecta_motor_U8;
+
+    // write motor info depending on motorSelecta
     pProcessImageOut_l->CN1_MotorStatus_pwmRef_I16 = aNodeVar_l.pwmRef_I16;
     pProcessImageOut_l->CN1_MotorStatus_actualPosition_I32 = aNodeVar_l.actualPosition_I32;
     pProcessImageOut_l->CN1_MotorStatus_actualVelocity_I16 = aNodeVar_l.actualVelocity_I16;

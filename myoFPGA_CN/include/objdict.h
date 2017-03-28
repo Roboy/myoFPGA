@@ -459,6 +459,12 @@ OBD_BEGIN()
             OBD_SUBINDEX_RAM_USERDEF(0x6001, 0x07, kObdTypeInt16, kObdAccVPRW, tObdInteger16, sensor2_I16, 0x00)
         OBD_END_INDEX(0x6001)
 
+        // MotorSelecta
+        OBD_BEGIN_INDEX_RAM(0x6002, 0x02, FALSE)
+            OBD_SUBINDEX_RAM_VAR(0x6002, 0x00, kObdTypeUInt8, kObdAccConst, tObdUnsigned8, NumberOfEntries, 0x01)
+            OBD_SUBINDEX_RAM_USERDEF(0x6002, 0x01, kObdTypeUInt8, kObdAccVPRW, tObdUnsigned8, motor_U8, 0x00)
+        OBD_END_INDEX(0x6002)
+
     OBD_END_PART()
 
 OBD_END()

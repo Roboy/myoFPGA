@@ -6,48 +6,10 @@
 
 #IncludeRegexTransform: 
 
-../../powerlink/output/xap.h
-
-../include/app.h
-oplk/oplk.h
--
-
-../include/event.h
-oplk/oplk.h
--
-
 ../include/objdict.h
 obdcreate/obdmacro.h
 -
 obdcreate/obdmacro.h
--
-
-../include/powerlink.h
-app.h
-../include/app.h
-event.h
-../include/event.h
-oplk/oplk.h
--
-oplk/debugstr.h
--
-system/system.h
--
-obdcreate/obdcreate.h
--
-getopt/getopt.h
--
-console/console.h
--
-eventlog/eventlog.h
--
-limits.h
--
-pcap/pcap-console.h
--
-stdio.h
--
-limits.h
 -
 
 ../usr/include/pcap.h
@@ -176,8 +138,6 @@ fcntl.h
 termios.h
 -
 
-/home/roboy/Downloads/openPowerLink/contrib/console/console.h
-
 /home/roboy/Downloads/openPowerLink/contrib/console/printlog.c
 stdio.h
 -
@@ -193,8 +153,6 @@ stdlib.h
 -
 string.h
 -
-
-/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.h
 
 /home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c
 stdio.h
@@ -465,30 +423,4 @@ stdbool.h
 -
 stdint.h
 -
-
-/home/roboy/workspace/myoFPGA/myoFPGA_CN/src/app.c
-stddef.h
--
-oplk/oplk.h
--
-oplk/debugstr.h
--
-app.h
-/home/roboy/workspace/myoFPGA/myoFPGA_CN/src/app.h
-xap.h
-/home/roboy/workspace/myoFPGA/myoFPGA_CN/src/xap.h
-
-/home/roboy/workspace/myoFPGA/myoFPGA_CN/src/event.c
-oplk/oplk.h
--
-oplk/debugstr.h
--
-console/console.h
--
-event.h
-/home/roboy/workspace/myoFPGA/myoFPGA_CN/src/event.h
-
-/home/roboy/workspace/myoFPGA/myoFPGA_CN/src/powerlink.c
-powerlink.h
-/home/roboy/workspace/myoFPGA/myoFPGA_CN/src/powerlink.h
 
