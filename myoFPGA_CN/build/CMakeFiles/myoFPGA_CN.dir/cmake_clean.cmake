@@ -6,6 +6,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.o"
   "CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.o"
   "CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.o"
+  "CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.c.o"
+  "CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.c.o"
   "CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c.o"
   "CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c.o"
   "CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.o"

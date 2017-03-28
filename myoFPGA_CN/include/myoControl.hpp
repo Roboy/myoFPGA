@@ -27,6 +27,10 @@
 #include <stdio.h>
 #include <limits.h>
 
+#include <user/sdoudp.h>
+
+#include <arpa/inet.h>
+
 #define CYCLE_LEN         50000
 #define NODEID            1                   // could be changed by command param
 #define IP_ADDR           0xc0a86401          // 192.168.100.1
@@ -131,19 +135,19 @@ public:
 	 * @param motor for this motor
 	 * @param position the new setpoint
 	 */
-	void setPosition(int motor, int32_t position);
+	static void setPosition(int motor, int32_t position);
 	/**
 	 * Changes setpoint for velocity controller
 	 * @param motor for this motor
 	 * @param velocity the new setpoint
 	 */
-	void setVelocity(int motor, int32_t velocity);
+	static void setVelocity(int motor, int32_t velocity);
 	/**
 	 * Changes setpoint for displacement controller
 	 * @param motor for this motor
 	 * @param displacement the new setpoint
 	 */
-	void setDisplacement(int motor, int32_t displacement);
+	static void setDisplacement(int motor, int32_t displacement);
 	/**
 	 * Get the parameters for the PID controller of a motor
 	 * @param motor for this motor
@@ -314,6 +318,10 @@ private:
     static tOplkError processStateChangeEvent(tOplkApiEventType EventType_p,
                                        const tOplkApiEventArg* pEventArg_p,
                                        void* pUserArg_p);
+
+    static tOplkError processSDO(tSdoConHdl conHdl_p,
+                                 const tAsySdoSeq* pSdoSeqData_p,
+                                 UINT dataSize_p);
 public:
     static vector<int32_t*> myo_base;
     static vector<SetPoints> setPoints;
@@ -321,4 +329,6 @@ public:
     static uint8_t motor_selecta;
     static PI_IN*   pProcessImageIn_l;
     static PI_OUT*  pProcessImageOut_l;
+    static tSdoUdpCon socket;
+    static tPlkFrame pSrcData_p;
 };

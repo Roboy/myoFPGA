@@ -1,8 +1,0 @@
-/usr/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/roboy/workspace/myoFPGA/myoFPGA_MN
--- Configuring myoFPGA_MN
--- CMAKE_SYSTEM_NAME is Linux
--- CMAKE_SYSTEM_PROCESSOR is x86_64
--- Searching for LIBRARY oplkmn_d in /home/roboy/Downloads/openPowerLink/stack/lib/linux/x86_64
--- Configuring done
--- Generating done
--- Build files have been written to: /home/roboy/workspace/myoFPGA/myoFPGA_MN/cmake-build-debug

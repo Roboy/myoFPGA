@@ -410,6 +410,60 @@ home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.s:
 	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.s
 .PHONY : home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.s
 
+home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.o: home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.c.o
+
+.PHONY : home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.o
+
+# target to build an object file
+home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.c.o:
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.c.o
+.PHONY : home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.c.o
+
+home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.i: home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.c.i
+
+.PHONY : home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.i
+
+# target to preprocess a source file
+home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.c.i:
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.c.i
+.PHONY : home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.c.i
+
+home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.s: home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.c.s
+
+.PHONY : home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.s
+
+# target to generate assembly for a file
+home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.c.s:
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.c.s
+.PHONY : home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.c.s
+
+home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.o: home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.c.o
+
+.PHONY : home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.o
+
+# target to build an object file
+home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.c.o:
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.c.o
+.PHONY : home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.c.o
+
+home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.i: home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.c.i
+
+.PHONY : home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.i
+
+# target to preprocess a source file
+home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.c.i:
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.c.i
+.PHONY : home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.c.i
+
+home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.s: home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.c.s
+
+.PHONY : home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.s
+
+# target to generate assembly for a file
+home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.c.s:
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.c.s
+.PHONY : home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.c.s
+
 src/main.o: src/main.cpp.o
 
 .PHONY : src/main.o
@@ -504,6 +558,12 @@ help:
 	@echo "... home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.o"
 	@echo "... home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.i"
 	@echo "... home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.s"
+	@echo "... home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.o"
+	@echo "... home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.i"
+	@echo "... home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.s"
+	@echo "... home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.o"
+	@echo "... home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.i"
+	@echo "... home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

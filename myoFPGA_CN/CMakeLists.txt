@@ -39,11 +39,12 @@ SET(SOURCE
         ${COMMON_SOURCE_DIR}/eventlog/eventlog.c
         ${COMMON_SOURCE_DIR}/eventlog/eventlogstring.c
         ${COMMON_SOURCE_DIR}/obdcreate/obdcreate.c
+        ${OPLK_BASE_DIR}/stack/src/user/sdo/sdoudp-linux.c
+        ${OPLK_BASE_DIR}/stack/src/user/sdo/sdoudp.c
     )
 
 include(findncurses_arm)
 include(findpcap)
-
 SET(ALT_DEVICE_FAMILY soc_cv_av)
 add_definitions(-D${ALT_DEVICE_FAMILY})
 MESSAGE(STATUS "fpga include dir: $ENV{SOCEDS_DEST_ROOT}/ip/altera/hps/altera_hps/hwlib/${ALT_DEVICE_FAMILY}")
@@ -54,8 +55,7 @@ INCLUDE_DIRECTORIES(
         $ENV{SOCEDS_DEST_ROOT}/ip/altera/hps/altera_hps/hwlib/include
         $ENV{SOCEDS_DEST_ROOT}/ip/altera/hps/altera_hps/hwlib/include/${ALT_DEVICE_FAMILY}
         ${CMAKE_CURRENT_SOURCE_DIR}/../powerlink/output
-#        /home/roboy/Downloads/openPowerLink/apps/common/openCONFIGURATOR_projects/Demo_3CN/output
-#        /home/roboy/Downloads/openPowerLink/apps/common/objdicts/CiA401_CN
+        ${OPLK_BASE_DIR}/stack/proj/linux/liboplkmndrv-pcap
     )
 
 # PResChaining is not supported by non-openMAC targets
@@ -120,7 +120,7 @@ SET_PROPERTY(TARGET myoFPGA_CN
 # Libraries to link
 
 OPLK_LINK_LIBRARIES(myoFPGA_CN)
-TARGET_LINK_LIBRARIES(myoFPGA_CN ${pcap_LIBRARY} -lpthread -lrt )
+TARGET_LINK_LIBRARIES(myoFPGA_CN ${pcap_LIBRARY} ${pcap_udp_LIBRARY} -lpthread -lrt )
 
 ################################################################################
 # Installation rules

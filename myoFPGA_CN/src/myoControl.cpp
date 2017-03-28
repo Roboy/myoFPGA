@@ -1,3 +1,5 @@
+#include <user/sdoudp.h>
+#include <oplk/frame.h>
 #include "myoControl.hpp"
 
 static BOOL* pfGsOff_l;
@@ -8,6 +10,8 @@ vector<MotorStatus> MyoControl::motorStatus;
 uint8_t MyoControl::motor_selecta = 0;
 PI_IN* MyoControl::pProcessImageIn_l;
 PI_OUT* MyoControl::pProcessImageOut_l;
+tSdoUdpCon MyoControl::socket;
+tPlkFrame MyoControl::pSrcData_p;
 
 MyoControl::MyoControl(vector<int32_t*> &myobase, int argc, char* argv[]){
     myo_base = myobase;
@@ -76,7 +80,32 @@ MyoControl::MyoControl(vector<int32_t*> &myobase, int argc, char* argv[]){
 	if (ret != kErrorOk)
 		powerlink_initialized = false;
 
-	if(powerlink_initialized)
+    // initialize SDO over UDP
+    sdoudp_init(&MyoControl::processSDO);
+
+
+    socket.ipAddr = inet_addr("192.168.0.101");
+    socket.port = 8200;
+    sdoudp_createSocket(&socket);
+
+    pSrcData_p.aDstMac[0] = 0x4c;
+    pSrcData_p.aDstMac[1] = 0xcc;
+    pSrcData_p.aDstMac[2] = 0x6a;
+    pSrcData_p.aDstMac[3] = 0x6b;
+    pSrcData_p.aDstMac[4] = 0xe1;
+    pSrcData_p.aDstMac[5] = 0x0f;
+//
+    pSrcData_p.aSrcMac[0] = 0x12;
+    pSrcData_p.aSrcMac[1] = 0x34;
+    pSrcData_p.aSrcMac[2] = 0x56;
+    pSrcData_p.aSrcMac[3] = 0x78;
+    pSrcData_p.aSrcMac[4] = 0x90;
+    pSrcData_p.aSrcMac[5] = 0x12;
+    pSrcData_p.dstNodeId = 240;
+    pSrcData_p.srcNodeId = NODEID;
+    pSrcData_p.etherType = 0x88ab;
+
+    if(powerlink_initialized)
 		mainLoop();
 }
 
@@ -360,6 +389,14 @@ tOplkError MyoControl::processSync(){
     setPoints.front().CN1_MotorCommand_setPoint_I32_6 = pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_6;
     setPoints.front().CN1_MotorCommand_setPoint_I32_7 = pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_7;
     setPoints.front().CN1_MotorCommand_setPoint_I32_8 = pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_8;
+    setPosition(0,setPoints.front().CN1_MotorCommand_setPoint_I32_1);
+    setPosition(1,setPoints.front().CN1_MotorCommand_setPoint_I32_2);
+    setPosition(2,setPoints.front().CN1_MotorCommand_setPoint_I32_3);
+    setPosition(3,setPoints.front().CN1_MotorCommand_setPoint_I32_4);
+    setPosition(4,setPoints.front().CN1_MotorCommand_setPoint_I32_5);
+    setPosition(5,setPoints.front().CN1_MotorCommand_setPoint_I32_6);
+    setPosition(6,setPoints.front().CN1_MotorCommand_setPoint_I32_7);
+    setPosition(7,setPoints.front().CN1_MotorCommand_setPoint_I32_8);
     motor_selecta = pProcessImageIn_l->CN1_MotorSelecta_motor_U8;
 
     // write motor info depending on motorSelecta
@@ -372,6 +409,8 @@ tOplkError MyoControl::processSync(){
     pProcessImageOut_l->CN1_MotorStatus_sensor2_I16 = 0; //TODO: not implemented on fpga yet
 
     ret = oplk_exchangeProcessImageIn();
+
+    sdoudp_sendToSocket(&socket,&pSrcData_p,sizeof(pSrcData_p));
 
     return ret;
 }
@@ -492,6 +531,13 @@ tOplkError MyoControl::processStateChangeEvent(tOplkApiEventType EventType_p,
     }
 
     return ret;
+}
+
+tOplkError MyoControl::processSDO(tSdoConHdl conHdl_p,
+                      const tAsySdoSeq* pSdoSeqData_p,
+                      UINT dataSize_p){
+
+
 }
 
 tOplkError MyoControl::processErrorWarningEvent(tOplkApiEventType EventType_p,
