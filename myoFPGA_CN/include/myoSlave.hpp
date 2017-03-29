@@ -15,7 +15,6 @@
 
 #include <system/system.h>
 #include <obdcreate/obdcreate.h>
-#include <getopt/getopt.h>
 #include <console/console.h>
 #include <eventlog/eventlog.h>
 #include <limits.h>
@@ -39,26 +38,10 @@
 #define DEFAULT_GATEWAY   0xC0A864FE          // 192.168.100.C_ADR_RT1_DEF_NODE_ID
 #define SUBNET_MASK       0xFFFFFF00          // 255.255.255.0
 
+#include "UDPSocket.hpp"
+
 using namespace std;
 using namespace std::chrono;
-
-typedef struct
-{
-    int32_t outputPosMax; /*!< maximum control output in the positive direction in counts, max 4000*/
-    int32_t outputNegMax; /*!< maximum control output in the negative direction in counts, max -4000*/
-    int32_t spPosMax;/*<!Positive limit for the set point.*/
-    int32_t spNegMax;/*<!Negative limit for the set point.*/
-	uint16_t Kp;/*!<Gain of the proportional component*/
-	uint16_t Ki;/*!<Gain of the integral component*/
-	uint16_t Kd;/*!<Gain of the differential component*/
-	uint16_t forwardGain; /*!<Gain of  the feed-forward term*/
-	uint16_t deadBand;/*!<Optional deadband threshold for the control response*/
-	int16_t IntegralPosMax; /*!<Integral positive component maximum*/
-	int16_t IntegralNegMax; /*!<Integral negative component maximum*/
-	vector<float> polyPar; /*! polynomial fit from displacement (d)  to tendon force (f)
-				 f=polyPar[0]+polyPar[1]*d +polyPar[2]*d^2+ +polyPar[3]*d^3 + ... */
-	float radPerEncoderCount;
-}control_Parameters_t;
 
 typedef struct
 {
@@ -68,34 +51,6 @@ typedef struct
     UINT32          logCategory;
     char            devName[128];
 } tOptions;
-
-enum CONTROLMODE{
-	POSITION,
-	VELOCITY,
-	DISPLACEMENT,
-	FORCE
-};
-
-struct MotorStatus{
-    // controlled node output/ managing node input
-    signed pwmRef_I16:16;
-    signed actualPosition_I32:32;
-    signed actualVelocity_I16:16;
-    signed actualCurrent_I16:16;
-    signed springDisplacement_I16:16;
-    signed sensor1_I16:16;
-    signed sensor2_I16:16;
-};
-struct SetPoints{
-    signed CN1_MotorCommand_setPoint_I32_1:32;
-    signed CN1_MotorCommand_setPoint_I32_2:32;
-    signed CN1_MotorCommand_setPoint_I32_3:32;
-    signed CN1_MotorCommand_setPoint_I32_4:32;
-    signed CN1_MotorCommand_setPoint_I32_5:32;
-    signed CN1_MotorCommand_setPoint_I32_6:32;
-    signed CN1_MotorCommand_setPoint_I32_7:32;
-    signed CN1_MotorCommand_setPoint_I32_8:32;
-};
 
 class MyoSlave{
 public:
@@ -111,18 +66,18 @@ public:
 	 * @param mode choose from Position, Velocity or Displacement
 	 * @param params with these controller parameters
 	 */
-	void changeControl(int motor, int mode, control_Parameters_t &params);
+	static void changeControl(int motor, int mode, control_Parameters_t &params);
 	/**
 	 * Changes the controller of a motor with the saved controller parameters
 	 * @param motor for this motor
 	 * @param mode choose from Position, Velocity or Displacement
 	 */
-	void changeControl(int motor, int mode);
+	static void changeControl(int motor, int mode);
 	/**
 	 * Changes the controller of ALL motors with the saved controller parameters
 	 * @param mode choose from Position, Velocity or Displacement
 	 */
-	void changeControl(int mode);
+	static void changeControl(int mode);
 	/**
 	 * Toggles SPI transmission
 	 * @return on/off
@@ -154,13 +109,13 @@ public:
 	 * Get the parameters for the PID controller of a motor
 	 * @param motor for this motor
 	 */
-	void getPIDcontrollerParams(int &Pgain, int &Igain, int &Dgain, int &forwardGain, int &deadband,
+	static void getPIDcontrollerParams(int &Pgain, int &Igain, int &Dgain, int &forwardGain, int &deadband,
 									int &setPoint, int &setPointMin, int &setPointMax, int motor);
 	/**
 	 * Gets the current control_mode of a motor
 	 * @param motor for this motor
 	 */
-	uint16_t getControlMode(int motor);
+	static uint16_t getControlMode(int motor);
 	/**
 	 * Gets the current pwm of a motor
 	 * @param motor for this motor
@@ -192,23 +147,23 @@ public:
 	 * @param params pointer to control struct
 	 * @param control_mode Position, Velocity, Force
 	 */
-	void getDefaultControlParams(control_Parameters_t *params, int control_mode);
+	static void getDefaultControlParams(control_Parameters_t *params, int control_mode);
 
 	/**
 	 * Changes the control mode for all motors to Position
 	 * @param pos new setPoint
 	 */
-	void allToPosition(int32_t pos);
+	static void allToPosition(int32_t pos);
 	/**
 	 * Changes the control mode for all motors to Velocity
 	 * @param pos new setPoint
 	 */
-	void allToVelocity(int32_t vel);
+	static void allToVelocity(int32_t vel);
 	/**
 	 * Changes the control mode for all motors to Displacement
 	 * @param force new setPoint
 	 */
-	void allToDisplacement(int32_t displacement);
+	static void allToDisplacement(int32_t displacement);
 	/**
 	 * Zeros the current weight
 	 */
@@ -233,7 +188,7 @@ public:
 	 * @param X the x-data
 	 * @param Y the y-data
 	 */
-	void polynomialRegression(int degree, vector<float> &x, vector<float> &y,
+	static void polynomialRegression(int degree, vector<float> &x, vector<float> &y,
 			vector<float> &coeffs);
 
 	map<int,map<int,control_Parameters_t>> control_params;
@@ -241,7 +196,7 @@ public:
 	float weight_offset = 0;
 	float adc_weight_parameters[2] = {830.7, -0.455};
 	bool spi_active = false;
-	uint numberOfMotors;
+	static uint numberOfMotors;
 private:
     /**
      * This initializes the process image for openPowerLink
@@ -324,12 +279,10 @@ private:
     static tOplkError processSDO(tSdoConHdl conHdl_p,
                                  const tAsySdoSeq* pSdoSeqData_p,
                                  UINT dataSize_p);
+    static UDPSocket *socket;
 public:
     static vector<int32_t*> myo_base;
-    static vector<SetPoints> setPoints;
-    static vector<MotorStatus> motorStatus;
     static PI_IN*   pProcessImageIn_l;
     static PI_OUT*  pProcessImageOut_l;
-    static tSdoUdpCon socket;
-    static tPlkFrame pSrcData_p;
+    static control_Parameters_t MotorConfig[3];
 };

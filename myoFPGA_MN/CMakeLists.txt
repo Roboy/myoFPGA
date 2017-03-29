@@ -59,6 +59,7 @@ FIND_OPLK_LIBRARY("mn")         # Find suitable openPOWERLINK library
 SET(SOURCES
         src/main.cpp
         src/myoMaster.cpp
+        src/UDPSocket.cpp
         ${COMMON_SOURCE_DIR}/obdcreate/obdcreate.c
         ${COMMON_SOURCE_DIR}/eventlog/eventlog.c
         ${COMMON_SOURCE_DIR}/eventlog/eventlogstring.c
@@ -67,8 +68,6 @@ SET(SOURCES
         ${CONTRIB_SOURCE_DIR}/console/printlog.c
         ${CONTRIB_SOURCE_DIR}/getopt/getopt.c
         ${CONTRIB_SOURCE_DIR}/console/console-linux.c
-        ${OPLK_BASE_DIR}/stack/src/user/sdo/sdoudp-linux.c
-        ${OPLK_BASE_DIR}/stack/src/user/sdo/sdoudp.c
         ${OPLK_BASE_DIR}/apps/common/objdicts/CiA302-4_MN/obdpi.c
     )
 

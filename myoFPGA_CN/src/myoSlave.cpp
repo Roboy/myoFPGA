@@ -1,14 +1,14 @@
+#include <UDPSocket.hpp>
 #include "myoSlave.hpp"
 
 static BOOL* pfGsOff_l;
 
 vector<int32_t*> MyoSlave::myo_base;
-vector<SetPoints> MyoSlave::setPoints;
-vector<MotorStatus> MyoSlave::motorStatus;
 PI_IN* MyoSlave::pProcessImageIn_l;
 PI_OUT* MyoSlave::pProcessImageOut_l;
-tSdoUdpCon MyoSlave::socket;
-tPlkFrame MyoSlave::pSrcData_p;
+UDPSocket *MyoSlave::socket;
+control_Parameters_t MyoSlave::MotorConfig[3];
+uint MyoSlave::numberOfMotors;
 
 MyoSlave::MyoSlave(vector<int32_t*> &myobase, int argc, char* argv[]){
     myo_base = myobase;
@@ -31,9 +31,6 @@ MyoSlave::MyoSlave(vector<int32_t*> &myobase, int argc, char* argv[]){
 	for(uint motor=0;motor<numberOfMotors;motor++){
 		control_params[motor][DISPLACEMENT] = params;
 	}
-
-    setPoints.resize(myo_base.size());
-    motorStatus.resize(numberOfMotors);
 
 	bool powerlink_initialized = true;
 
@@ -77,30 +74,7 @@ MyoSlave::MyoSlave(vector<int32_t*> &myobase, int argc, char* argv[]){
 	if (ret != kErrorOk)
 		powerlink_initialized = false;
 
-    // initialize SDO over UDP
-    sdoudp_init(&MyoSlave::processSDO);
-
-
-    socket.ipAddr = inet_addr("192.168.0.100");
-    socket.port = 8200;
-    sdoudp_createSocket(&socket);
-
-    pSrcData_p.aDstMac[0] = 0x4c;
-    pSrcData_p.aDstMac[1] = 0xcc;
-    pSrcData_p.aDstMac[2] = 0x6a;
-    pSrcData_p.aDstMac[3] = 0x6b;
-    pSrcData_p.aDstMac[4] = 0xe1;
-    pSrcData_p.aDstMac[5] = 0x0f;
-//
-    pSrcData_p.aSrcMac[0] = 0x12;
-    pSrcData_p.aSrcMac[1] = 0x34;
-    pSrcData_p.aSrcMac[2] = 0x56;
-    pSrcData_p.aSrcMac[3] = 0x78;
-    pSrcData_p.aSrcMac[4] = 0x90;
-    pSrcData_p.aSrcMac[5] = 0x12;
-    pSrcData_p.dstNodeId = 240;
-    pSrcData_p.srcNodeId = NODEID;
-    pSrcData_p.etherType = 0x88ab;
+    socket = new UDPSocket("192.168.0.100", 8000);
 
     if(powerlink_initialized)
 		mainLoop();
@@ -430,7 +404,14 @@ tOplkError MyoSlave::processSync(){
 
     ret = oplk_exchangeProcessImageIn();
 
-    sdoudp_sendToSocket(&socket,&pSrcData_p,sizeof(pSrcData_p));
+    control_Parameters_t params;
+    if(socket->receiveMotorConfig(params)){
+        printf("received motor config\n");
+        MotorConfig[params.control_mode] = params;
+        for(uint motor=0; motor<16; motor++){
+            changeControl(motor,params.control_mode);
+        }
+    }
 
     return ret;
 }
@@ -557,6 +538,7 @@ tOplkError MyoSlave::processSDO(tSdoConHdl conHdl_p,
                       const tAsySdoSeq* pSdoSeqData_p,
                       UINT dataSize_p){
 
+    printf("received UDP %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c \n", &pSdoSeqData_p->sdoSeqPayload.aCommandData[0]);
 
 }
 
@@ -690,29 +672,29 @@ int MyoSlave::getOptions(int argc_p, char* const argv_p[], tOptions* pOpts_p){
 void MyoSlave::changeControl(int motor, int mode, control_Parameters_t &params){
 	MYO_WRITE_control(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, mode);
 	MYO_WRITE_reset_controller(myo_base[motor/MOTORS_PER_MYOCONTROL], motor);
-	MYO_WRITE_Kp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, params.Kp);
-	MYO_WRITE_Kd(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, params.Kd);
-	MYO_WRITE_Ki(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, params.Ki);
-	MYO_WRITE_forwardGain(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, params.forwardGain);
-	MYO_WRITE_deadBand(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, params.deadBand);
-	MYO_WRITE_IntegralPosMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, params.IntegralPosMax);
-	MYO_WRITE_IntegralNegMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, params.IntegralNegMax);
-	MYO_WRITE_outputPosMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, params.outputPosMax);
-	MYO_WRITE_outputNegMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, params.outputNegMax);
+	MYO_WRITE_Kp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, params.Kp[motor]);
+	MYO_WRITE_Kd(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, params.Kd[motor]);
+	MYO_WRITE_Ki(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, params.Ki[motor]);
+	MYO_WRITE_forwardGain(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, params.forwardGain[motor]);
+	MYO_WRITE_deadBand(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, params.deadBand[motor]);
+	MYO_WRITE_IntegralPosMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, params.IntegralPosMax[motor]);
+	MYO_WRITE_IntegralNegMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, params.IntegralNegMax[motor]);
+	MYO_WRITE_outputPosMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, params.outputPosMax[motor]);
+	MYO_WRITE_outputNegMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, params.outputNegMax[motor]);
 }
 
 void MyoSlave::changeControl(int motor, int mode){
 	MYO_WRITE_control(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, mode);
 	MYO_WRITE_reset_controller(myo_base[motor/MOTORS_PER_MYOCONTROL], motor);
-	MYO_WRITE_Kp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, control_params[motor][mode].Kp);
-	MYO_WRITE_Kd(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, control_params[motor][mode].Kd);
-	MYO_WRITE_Ki(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, control_params[motor][mode].Ki);
-	MYO_WRITE_forwardGain(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, control_params[motor][mode].forwardGain);
-	MYO_WRITE_deadBand(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, (control_params[motor][mode].deadBand));
-	MYO_WRITE_IntegralPosMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, control_params[motor][mode].IntegralPosMax);
-	MYO_WRITE_IntegralNegMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, control_params[motor][mode].IntegralNegMax);
-	MYO_WRITE_outputPosMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, control_params[motor][mode].outputPosMax);
-	MYO_WRITE_outputNegMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, control_params[motor][mode].outputNegMax);
+	MYO_WRITE_Kp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, MotorConfig[mode].Kp[motor]);
+	MYO_WRITE_Kd(myo_base[motor/MOTORS_PER_MYOCONTROL], motor,  MotorConfig[mode].Kd[motor]);
+	MYO_WRITE_Ki(myo_base[motor/MOTORS_PER_MYOCONTROL], motor,  MotorConfig[mode].Ki[motor]);
+	MYO_WRITE_forwardGain(myo_base[motor/MOTORS_PER_MYOCONTROL], motor,  MotorConfig[mode].forwardGain[motor]);
+	MYO_WRITE_deadBand(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, ( MotorConfig[mode].deadBand[motor]));
+	MYO_WRITE_IntegralPosMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor,  MotorConfig[mode].IntegralPosMax[motor]);
+	MYO_WRITE_IntegralNegMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor,  MotorConfig[mode].IntegralNegMax[motor]);
+	MYO_WRITE_outputPosMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor,  MotorConfig[mode].outputPosMax[motor]);
+	MYO_WRITE_outputNegMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor,  MotorConfig[mode].outputNegMax[motor]);
 	MYO_WRITE_control(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, mode);
 }
 
@@ -720,15 +702,15 @@ void MyoSlave::changeControl(int mode){
 	for(uint motor=0;motor<numberOfMotors;motor++){
 		MYO_WRITE_control(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, mode);
 		MYO_WRITE_reset_controller(myo_base[motor/MOTORS_PER_MYOCONTROL], motor);
-		MYO_WRITE_Kp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, control_params[motor][mode].Kp);
-		MYO_WRITE_Kd(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, control_params[motor][mode].Kd);
-		MYO_WRITE_Ki(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, control_params[motor][mode].Ki);
-		MYO_WRITE_forwardGain(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, control_params[motor][mode].forwardGain);
-		MYO_WRITE_deadBand(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, (control_params[motor][mode].deadBand));
-		MYO_WRITE_IntegralPosMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, control_params[motor][mode].IntegralPosMax);
-		MYO_WRITE_IntegralNegMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, control_params[motor][mode].IntegralNegMax);
-		MYO_WRITE_outputPosMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, control_params[motor][mode].outputPosMax);
-		MYO_WRITE_outputNegMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, control_params[motor][mode].outputNegMax);
+		MYO_WRITE_Kp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor,  MotorConfig[mode].Kp[motor]);
+		MYO_WRITE_Kd(myo_base[motor/MOTORS_PER_MYOCONTROL], motor,  MotorConfig[mode].Kd[motor]);
+		MYO_WRITE_Ki(myo_base[motor/MOTORS_PER_MYOCONTROL], motor,  MotorConfig[mode].Ki[motor]);
+		MYO_WRITE_forwardGain(myo_base[motor/MOTORS_PER_MYOCONTROL], motor,  MotorConfig[mode].forwardGain[motor]);
+		MYO_WRITE_deadBand(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, ( MotorConfig[mode].deadBand[motor]));
+		MYO_WRITE_IntegralPosMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor,  MotorConfig[mode].IntegralPosMax[motor]);
+		MYO_WRITE_IntegralNegMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor,  MotorConfig[mode].IntegralNegMax[motor]);
+		MYO_WRITE_outputPosMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor,  MotorConfig[mode].outputPosMax[motor]);
+		MYO_WRITE_outputNegMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor,  MotorConfig[mode].outputNegMax[motor]);
 		MYO_WRITE_control(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, mode);
 	}
 }
@@ -794,44 +776,44 @@ int16_t MyoSlave::getCurrent(int motor){
 }
 
 void MyoSlave::getDefaultControlParams(control_Parameters_t *params, int control_mode){
-	params->outputPosMax = 1000;
-	params->outputNegMax = -1000;
+    fill_n(params->outputPosMax, 16, 1000);
+    fill_n(params->outputNegMax, 16, -1000);
 
-	params->radPerEncoderCount = 2 * 3.14159265359 / (2000.0 * 53.0);
+    fill_n(params->radPerEncoderCount, 16, 2 * 3.14159265359 / (2000.0 * 53.0));
 
 switch(control_mode){
 case POSITION:
-	params->spPosMax = 10000000;
-	params->spNegMax = -10000000;
-	params->Kp = 1.0;
-	params->Ki = 0;
-	params->Kd = 0;
-	params->forwardGain = 0;
-	params->deadBand = 0;
-	params->IntegralPosMax = 100;
-	params->IntegralNegMax = -100;
+    fill_n(params->spPosMax, 16, 10000000);
+    fill_n(params->spNegMax, 16, -10000000);
+    fill_n(params->Kp, 16, 1);
+    fill_n(params->Ki, 16, 0);
+    fill_n(params->Kd, 16, 0);
+    fill_n(params->forwardGain, 16, 0);
+    fill_n(params->deadBand, 16, 0);
+    fill_n(params->IntegralPosMax, 16, 100);
+    fill_n(params->IntegralNegMax, 16, -100);
 	break;
 case VELOCITY:
-	params->spPosMax = 100;
-	params->spNegMax = -100;
-	params->Kp = 1.0;
-	params->Ki = 0;
-	params->Kd = 0;
-	params->forwardGain = 0;
-	params->deadBand = 0;
-	params->IntegralPosMax = 100;
-	params->IntegralNegMax = -100;
+    fill_n(params->spPosMax, 16, 100);
+    fill_n(params->spNegMax, 16, -100);
+    fill_n(params->Kp, 16, 1);
+    fill_n(params->Ki, 16, 0);
+    fill_n(params->Kd, 16, 0);
+    fill_n(params->forwardGain, 16, 0);
+    fill_n(params->deadBand, 16, 0);
+    fill_n(params->IntegralPosMax, 16, 100);
+    fill_n(params->IntegralNegMax, 16, -100);
 	break;
 case DISPLACEMENT:
-	params->spPosMax = 2000;
-	params->spNegMax = 0;
-	params->Kp = 1.0;
-	params->Ki = 0;
-	params->Kd = 0;
-	params->forwardGain = 0;
-	params->deadBand = 0;
-	params->IntegralPosMax = 100;
-	params->IntegralNegMax = 0;
+    fill_n(params->spPosMax, 16, 2000);
+    fill_n(params->spNegMax, 16, 0);
+    fill_n(params->Kp, 16, 1);
+    fill_n(params->Ki, 16, 0);
+    fill_n(params->Kd, 16, 0);
+    fill_n(params->forwardGain, 16, 0);
+    fill_n(params->deadBand, 16, 0);
+    fill_n(params->IntegralPosMax, 16, 100);
+    fill_n(params->IntegralNegMax, 16, 0);
 	break;
 default:
 	cout << "unknown control mode" << endl;

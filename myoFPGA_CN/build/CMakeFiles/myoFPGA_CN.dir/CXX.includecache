@@ -6,6 +6,50 @@
 
 #IncludeRegexTransform: 
 
+../../myoFPGA_MN/include/UDPSocket.hpp
+stdlib.h
+-
+errno.h
+-
+string.h
+-
+sys/types.h
+-
+sys/socket.h
+-
+netinet/in.h
+-
+arpa/inet.h
+-
+netdb.h
+-
+string
+-
+ifaddrs.h
+-
+stdio.h
+-
+unistd.h
+-
+stdlib.h
+-
+errno.h
+-
+string.h
+-
+time.h
+-
+sys/types.h
+-
+sys/socket.h
+-
+netinet/in.h
+-
+arpa/inet.h
+-
+vector
+-
+
 ../../powerlink/output/xap.h
 
 ../include/hps_0.h
@@ -37,8 +81,6 @@ system/system.h
 -
 obdcreate/obdcreate.h
 -
-getopt/getopt.h
--
 console/console.h
 -
 eventlog/eventlog.h
@@ -59,6 +101,8 @@ user/sdoudp.h
 -
 oplk/frame.h
 -
+UDPSocket.hpp
+../include/UDPSocket.hpp
 
 /home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.h
 oplk/oplk.h
@@ -87,8 +131,6 @@ oplk/oplk.h
 -
 
 /home/roboy/Downloads/openPowerLink/contrib/console/console.h
-
-/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.h
 
 /home/roboy/Downloads/openPowerLink/contrib/trace/trace.h
 
@@ -427,6 +469,12 @@ myoSlave.hpp
 /home/roboy/workspace/myoFPGA/myoFPGA_CN/src/myoSlave.hpp
 
 /home/roboy/workspace/myoFPGA/myoFPGA_CN/src/myoSlave.cpp
+UDPSocket.hpp
+-
 myoSlave.hpp
 /home/roboy/workspace/myoFPGA/myoFPGA_CN/src/myoSlave.hpp
+
+/home/roboy/workspace/myoFPGA/myoFPGA_MN/src/UDPSocket.cpp
+UDPSocket.hpp
+/home/roboy/workspace/myoFPGA/myoFPGA_MN/src/UDPSocket.hpp
 

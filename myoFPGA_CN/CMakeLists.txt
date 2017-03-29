@@ -34,13 +34,12 @@ FIND_OPLK_LIBRARY("cn")             # Find suitable openPOWERLINK library
 SET(SOURCE
         src/main.cpp
         src/myoSlave.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/../myoFPGA_MN/src/UDPSocket.cpp
         ${CONTRIB_SOURCE_DIR}/console/printlog.c
         ${CONTRIB_SOURCE_DIR}/getopt/getopt.c
         ${COMMON_SOURCE_DIR}/eventlog/eventlog.c
         ${COMMON_SOURCE_DIR}/eventlog/eventlogstring.c
         ${COMMON_SOURCE_DIR}/obdcreate/obdcreate.c
-        ${OPLK_BASE_DIR}/stack/src/user/sdo/sdoudp-linux.c
-        ${OPLK_BASE_DIR}/stack/src/user/sdo/sdoudp.c
     )
 
 include(findncurses_arm)
@@ -55,6 +54,7 @@ INCLUDE_DIRECTORIES(
         $ENV{SOCEDS_DEST_ROOT}/ip/altera/hps/altera_hps/hwlib/include
         $ENV{SOCEDS_DEST_ROOT}/ip/altera/hps/altera_hps/hwlib/include/${ALT_DEVICE_FAMILY}
         ${CMAKE_CURRENT_SOURCE_DIR}/../powerlink/output
+        ${CMAKE_CURRENT_SOURCE_DIR}/../myoFPGA_MN/include
         ${OPLK_BASE_DIR}/stack/proj/linux/liboplkmndrv-pcap
     )
 

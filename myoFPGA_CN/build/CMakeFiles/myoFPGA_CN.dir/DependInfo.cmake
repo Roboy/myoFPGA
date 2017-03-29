@@ -14,8 +14,6 @@ set(CMAKE_DEPENDS_CHECK_C
   "/home/roboy/Downloads/openPowerLink/contrib/console/printlog.c" "/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.o"
   "/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c" "/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.o"
   "/home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c" "/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.o"
-  "/home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.c" "/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.c.o"
-  "/home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.c" "/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 
@@ -44,9 +42,11 @@ set(CMAKE_C_TARGET_INCLUDE_PATH
   "/home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/include"
   "/home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/include/soc_cv_av"
   "../../powerlink/output"
+  "../../myoFPGA_MN/include"
   "/home/roboy/Downloads/openPowerLink/stack/proj/linux/liboplkmndrv-pcap"
   )
 set(CMAKE_DEPENDS_CHECK_CXX
+  "/home/roboy/workspace/myoFPGA/myoFPGA_MN/src/UDPSocket.cpp" "/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles/myoFPGA_CN.dir/home/roboy/workspace/myoFPGA/myoFPGA_MN/src/UDPSocket.cpp.o"
   "/home/roboy/workspace/myoFPGA/myoFPGA_CN/src/main.cpp" "/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles/myoFPGA_CN.dir/src/main.cpp.o"
   "/home/roboy/workspace/myoFPGA/myoFPGA_CN/src/myoSlave.cpp" "/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles/myoFPGA_CN.dir/src/myoSlave.cpp.o"
   )
@@ -77,6 +77,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "/home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/include"
   "/home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/include/soc_cv_av"
   "../../powerlink/output"
+  "../../myoFPGA_MN/include"
   "/home/roboy/Downloads/openPowerLink/stack/proj/linux/liboplkmndrv-pcap"
   )
 

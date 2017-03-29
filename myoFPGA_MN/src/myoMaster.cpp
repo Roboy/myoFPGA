@@ -1,9 +1,13 @@
+#include <oplk/frame.h>
+#include <UDPSocket.hpp>
 #include "myoMaster.hpp"
 
 static BOOL* pfGsOff_l;
 
 PI_IN* MyoMaster::pProcessImageIn_l;
 const PI_OUT* MyoMaster::pProcessImageOut_l;
+UDPSocket *MyoMaster::socket;
+bool MyoMaster::updateControllerConfig = false;
 
 MyoMaster::MyoMaster(int argc, char *argv[]) {
     tOplkError ret = kErrorOk;
@@ -52,6 +56,8 @@ MyoMaster::MyoMaster(int argc, char *argv[]) {
     ret = initProcessImage();
     if (ret != kErrorOk)
         powerlink_initialized = false;
+
+    socket = new UDPSocket("192.168.0.104", 8000);
 
     if(powerlink_initialized)
         mainLoop();
@@ -396,6 +402,8 @@ tOplkError MyoMaster::processSync() {
         printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_14);
         printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_15);
         printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_16);
+        control_Parameters_t config;
+        socket->sendMotorConfig(&config);
     }
     // setpoints for 16 motors
     pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_1 = 0;
@@ -416,7 +424,6 @@ tOplkError MyoMaster::processSync() {
     pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_16 = 0;
 
     ret = oplk_exchangeProcessImageIn();
-
     return ret;
 }
 
@@ -689,5 +696,5 @@ tOplkError MyoMaster::processPdoChangeEvent(const tOplkApiEventPdoChange* pPdoCh
 tOplkError MyoMaster::processSDO(tSdoConHdl conHdl_p,
                                  const tAsySdoSeq *pSdoSeqData_p,
                                  UINT dataSize_p){
-
+    printf("received UDP\n");
 }

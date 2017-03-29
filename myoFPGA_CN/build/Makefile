@@ -410,59 +410,32 @@ home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.s:
 	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.s
 .PHONY : home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.s
 
-home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.o: home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.c.o
+home/roboy/workspace/myoFPGA/myoFPGA_MN/src/UDPSocket.o: home/roboy/workspace/myoFPGA/myoFPGA_MN/src/UDPSocket.cpp.o
 
-.PHONY : home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.o
-
-# target to build an object file
-home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.c.o:
-	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.c.o
-.PHONY : home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.c.o
-
-home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.i: home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.c.i
-
-.PHONY : home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.i
-
-# target to preprocess a source file
-home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.c.i:
-	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.c.i
-.PHONY : home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.c.i
-
-home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.s: home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.c.s
-
-.PHONY : home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.s
-
-# target to generate assembly for a file
-home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.c.s:
-	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.c.s
-.PHONY : home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.c.s
-
-home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.o: home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.c.o
-
-.PHONY : home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.o
+.PHONY : home/roboy/workspace/myoFPGA/myoFPGA_MN/src/UDPSocket.o
 
 # target to build an object file
-home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.c.o:
-	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.c.o
-.PHONY : home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.c.o
+home/roboy/workspace/myoFPGA/myoFPGA_MN/src/UDPSocket.cpp.o:
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/workspace/myoFPGA/myoFPGA_MN/src/UDPSocket.cpp.o
+.PHONY : home/roboy/workspace/myoFPGA/myoFPGA_MN/src/UDPSocket.cpp.o
 
-home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.i: home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.c.i
+home/roboy/workspace/myoFPGA/myoFPGA_MN/src/UDPSocket.i: home/roboy/workspace/myoFPGA/myoFPGA_MN/src/UDPSocket.cpp.i
 
-.PHONY : home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.i
+.PHONY : home/roboy/workspace/myoFPGA/myoFPGA_MN/src/UDPSocket.i
 
 # target to preprocess a source file
-home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.c.i:
-	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.c.i
-.PHONY : home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.c.i
+home/roboy/workspace/myoFPGA/myoFPGA_MN/src/UDPSocket.cpp.i:
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/workspace/myoFPGA/myoFPGA_MN/src/UDPSocket.cpp.i
+.PHONY : home/roboy/workspace/myoFPGA/myoFPGA_MN/src/UDPSocket.cpp.i
 
-home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.s: home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.c.s
+home/roboy/workspace/myoFPGA/myoFPGA_MN/src/UDPSocket.s: home/roboy/workspace/myoFPGA/myoFPGA_MN/src/UDPSocket.cpp.s
 
-.PHONY : home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.s
+.PHONY : home/roboy/workspace/myoFPGA/myoFPGA_MN/src/UDPSocket.s
 
 # target to generate assembly for a file
-home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.c.s:
-	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.c.s
-.PHONY : home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.c.s
+home/roboy/workspace/myoFPGA/myoFPGA_MN/src/UDPSocket.cpp.s:
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/workspace/myoFPGA/myoFPGA_MN/src/UDPSocket.cpp.s
+.PHONY : home/roboy/workspace/myoFPGA/myoFPGA_MN/src/UDPSocket.cpp.s
 
 src/main.o: src/main.cpp.o
 
@@ -558,12 +531,9 @@ help:
 	@echo "... home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.o"
 	@echo "... home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.i"
 	@echo "... home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.s"
-	@echo "... home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.o"
-	@echo "... home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.i"
-	@echo "... home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp-linux.s"
-	@echo "... home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.o"
-	@echo "... home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.i"
-	@echo "... home/roboy/Downloads/openPowerLink/stack/src/user/sdo/sdoudp.s"
+	@echo "... home/roboy/workspace/myoFPGA/myoFPGA_MN/src/UDPSocket.o"
+	@echo "... home/roboy/workspace/myoFPGA/myoFPGA_MN/src/UDPSocket.i"
+	@echo "... home/roboy/workspace/myoFPGA/myoFPGA_MN/src/UDPSocket.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
