@@ -60,6 +60,7 @@ SET(SOURCES
         src/main.cpp
         src/myoMaster.cpp
         src/UDPSocket.cpp
+        src/interface.cpp
         ${COMMON_SOURCE_DIR}/obdcreate/obdcreate.c
         ${COMMON_SOURCE_DIR}/eventlog/eventlog.c
         ${COMMON_SOURCE_DIR}/eventlog/eventlogstring.c
@@ -146,7 +147,7 @@ SET_PROPERTY(TARGET myoFPGA_MN
 ################################################################################
 # Libraries to link
 OPLK_LINK_LIBRARIES(myoFPGA_MN)
-TARGET_LINK_LIBRARIES(myoFPGA_MN -lpcap -lpthread -lrt)
+TARGET_LINK_LIBRARIES(myoFPGA_MN -lpcap -lpthread -lrt -lncurses)
 
 ################################################################################
 # Installation rules

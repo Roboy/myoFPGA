@@ -1,6 +1,12 @@
-#include "myoMaster.hpp"
+#include "interface.hpp"
 
-int main(int argc, char* argv[]) {
+using namespace ncursesInterface;
+
+int main(int argc, char *argv[]) {
+
     MyoMaster myoMaster(argc,argv);
+    while(true){
+
+    }
 }
 

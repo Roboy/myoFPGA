@@ -1,5 +1,3 @@
-#include <oplk/frame.h>
-#include <UDPSocket.hpp>
 #include "myoMaster.hpp"
 
 static BOOL* pfGsOff_l;
@@ -8,6 +6,9 @@ PI_IN* MyoMaster::pProcessImageIn_l;
 const PI_OUT* MyoMaster::pProcessImageOut_l;
 UDPSocket *MyoMaster::socket;
 bool MyoMaster::updateControllerConfig = false;
+int32_t MyoMaster::setPoints[16];
+control_Parameters_t MyoMaster::MotorConfig;
+bool MyoMaster::fExit = false;
 
 MyoMaster::MyoMaster(int argc, char *argv[]) {
     tOplkError ret = kErrorOk;
@@ -59,11 +60,16 @@ MyoMaster::MyoMaster(int argc, char *argv[]) {
 
     socket = new UDPSocket("192.168.0.104", 8000);
 
-    if(powerlink_initialized)
-        mainLoop();
+    if(powerlink_initialized) {
+        powerLinkThread = new std::thread(&MyoMaster::mainLoop, this);
+        powerLinkThread->detach();
+    }
 }
 
 MyoMaster::~MyoMaster() {
+    fExit = true;
+    if(powerLinkThread->joinable())
+        powerLinkThread->join();
     shutdownPowerlink();
     system_exit();
 }
@@ -71,7 +77,6 @@ MyoMaster::~MyoMaster() {
 void MyoMaster::mainLoop() {
     tOplkError ret = kErrorOk;
     char cKey = 0;
-    BOOL fExit = FALSE;
 
 #if !defined(CONFIG_KERNELSTACK_DIRECTLINK)
 
@@ -107,7 +112,7 @@ void MyoMaster::mainLoop() {
                                 "oplk_execNmtCommand() failed with \"%s\" (0x%04x)\n",
                                 debugstr_getRetValStr(ret),
                                 ret);
-                        fExit = TRUE;
+                        fExit = true;
                     }
                     break;
 
@@ -118,12 +123,12 @@ void MyoMaster::mainLoop() {
                                 "oplk_execNmtCommand() failed with \"%s\" (0x%04x)\n",
                                 debugstr_getRetValStr(ret),
                                 ret);
-                        fExit = TRUE;
+                        fExit = true;
                     }
                     break;
 
                 case 0x1B:
-                    fExit = TRUE;
+                    fExit = true;
                     break;
 
                 default:
@@ -132,7 +137,7 @@ void MyoMaster::mainLoop() {
         }
 
         if (system_getTermSignalState() == TRUE) {
-            fExit = TRUE;
+            fExit = true;
             printf("Received termination signal, exiting...\n");
             eventlog_printMessage(kEventlogLevelInfo,
                                   kEventlogCategoryControl,
@@ -140,7 +145,7 @@ void MyoMaster::mainLoop() {
         }
 
         if (oplk_checkKernelStack() == FALSE) {
-            fExit = TRUE;
+            fExit = true;
             fprintf(stderr, "Kernel stack has gone! Exiting...\n");
             eventlog_printMessage(kEventlogLevelFatal,
                                   kEventlogCategoryControl,
@@ -154,6 +159,26 @@ void MyoMaster::mainLoop() {
         processSync();
 #endif
     }
+}
+
+void MyoMaster::changeControl(int motor, int mode){
+    MotorConfig.control_mode[motor] = mode;
+}
+
+void MyoMaster::changeControl(int mode){
+    fill_n(MotorConfig.control_mode,16,mode);
+}
+
+void MyoMaster::changeSetPoint(int motor, int setPoint){
+    setPoints[motor] = setPoint;
+}
+
+void MyoMaster::changeSetPoint(int setPoint){
+    fill_n(setPoints,16,setPoint);
+}
+
+void MyoMaster::sendControllerConfig(){
+    updateControllerConfig = true;
 }
 
 tOplkError MyoMaster::initProcessImage() {
@@ -384,7 +409,7 @@ tOplkError MyoMaster::processSync() {
         return ret;
 
     static int iter = 1;
-    if ((iter++) % 300 == 0) {
+    if ((iter++) % 50 == 0) {
         printf("\n############## myoFPGA ###################\n");
         printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_1);
         printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_2);
@@ -402,28 +427,32 @@ tOplkError MyoMaster::processSync() {
         printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_14);
         printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_15);
         printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_16);
-        control_Parameters_t config;
-        socket->sendMotorConfig(&config);
     }
     // setpoints for 16 motors
-    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_1 = 0;
-    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_2 = 0;
-    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_3 = 0;
-    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_4 = 0;
-    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_5 = 0;
-    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_6 = 0;
-    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_7 = 0;
-    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_8 = 0;
-    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_9 = 0;
-    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_10 = 0;
-    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_11 = 0;
-    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_12 = 0;
-    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_13 = 0;
-    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_14 = 0;
-    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_15 = 0;
-    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_16 = 0;
+    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_1 = setPoints[0];
+    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_2 = setPoints[1];
+    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_3 = setPoints[2];
+    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_4 = setPoints[3];
+    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_5 = setPoints[4];
+    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_6 = setPoints[5];
+    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_7 = setPoints[6];
+    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_8 = setPoints[7];
+    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_9 = setPoints[8];
+    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_10 = setPoints[9];
+    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_11 = setPoints[10];
+    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_12 = setPoints[11];
+    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_13 = setPoints[12];
+    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_14 = setPoints[13];
+    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_15 = setPoints[14];
+    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_16 = setPoints[15];
 
     ret = oplk_exchangeProcessImageIn();
+
+    if(updateControllerConfig){
+        socket->sendMotorConfig(&MotorConfig);
+        updateControllerConfig = false;
+    }
+
     return ret;
 }
 

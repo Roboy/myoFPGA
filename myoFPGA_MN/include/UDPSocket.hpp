@@ -42,7 +42,7 @@ bool convertText2Byte(char *inet_str, uint32_t &inet);
 
 typedef struct
 {
-    uint8_t control_mode;
+    uint8_t control_mode[16];
     int32_t outputPosMax[16]; /*!< maximum control output in the positive direction in counts, max 4000*/
     int32_t outputNegMax[16]; /*!< maximum control output in the negative direction in counts, max -4000*/
     int32_t spPosMax[16];/*<!Positive limit for the set point.*/

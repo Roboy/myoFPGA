@@ -41,6 +41,7 @@ set(CMAKE_C_TARGET_INCLUDE_PATH
   )
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/roboy/workspace/myoFPGA/myoFPGA_MN/src/UDPSocket.cpp" "/home/roboy/workspace/myoFPGA/myoFPGA_MN/build/CMakeFiles/myoFPGA_MN.dir/src/UDPSocket.cpp.o"
+  "/home/roboy/workspace/myoFPGA/myoFPGA_MN/src/interface.cpp" "/home/roboy/workspace/myoFPGA/myoFPGA_MN/build/CMakeFiles/myoFPGA_MN.dir/src/interface.cpp.o"
   "/home/roboy/workspace/myoFPGA/myoFPGA_MN/src/main.cpp" "/home/roboy/workspace/myoFPGA/myoFPGA_MN/build/CMakeFiles/myoFPGA_MN.dir/src/main.cpp.o"
   "/home/roboy/workspace/myoFPGA/myoFPGA_MN/src/myoMaster.cpp" "/home/roboy/workspace/myoFPGA/myoFPGA_MN/build/CMakeFiles/myoFPGA_MN.dir/src/myoMaster.cpp.o"
   )

@@ -52,6 +52,18 @@ arpa/inet.h
 vector
 -
 
+../include/interface.hpp
+myoMaster.hpp
+../include/myoMaster.hpp
+ncurses.h
+-
+vector
+-
+cstring
+-
+unistd.h
+-
+
 ../include/myoMaster.hpp
 xap.h
 ../include/xap.h
@@ -85,6 +97,8 @@ obdpi.h
 -
 UDPSocket.hpp
 ../include/UDPSocket.hpp
+thread
+-
 
 /home/roboy/Downloads/openPowerLink/apps/common/objdicts/CiA302-4_MN/obdpi.h
 oplk/oplk.h
@@ -398,15 +412,15 @@ oplk/frame.h
 UDPSocket.hpp
 /home/roboy/workspace/myoFPGA/myoFPGA_MN/src/UDPSocket.hpp
 
+/home/roboy/workspace/myoFPGA/myoFPGA_MN/src/interface.cpp
+interface.hpp
+/home/roboy/workspace/myoFPGA/myoFPGA_MN/src/interface.hpp
+
 /home/roboy/workspace/myoFPGA/myoFPGA_MN/src/main.cpp
-myoMaster.hpp
-/home/roboy/workspace/myoFPGA/myoFPGA_MN/src/myoMaster.hpp
+interface.hpp
+/home/roboy/workspace/myoFPGA/myoFPGA_MN/src/interface.hpp
 
 /home/roboy/workspace/myoFPGA/myoFPGA_MN/src/myoMaster.cpp
-oplk/frame.h
--
-UDPSocket.hpp
--
 myoMaster.hpp
 /home/roboy/workspace/myoFPGA/myoFPGA_MN/src/myoMaster.hpp
 

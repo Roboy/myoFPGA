@@ -2,6 +2,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/myoFPGA_MN.dir/src/main.cpp.o"
   "CMakeFiles/myoFPGA_MN.dir/src/myoMaster.cpp.o"
   "CMakeFiles/myoFPGA_MN.dir/src/UDPSocket.cpp.o"
+  "CMakeFiles/myoFPGA_MN.dir/src/interface.cpp.o"
   "CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.o"
   "CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.o"
   "CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.o"

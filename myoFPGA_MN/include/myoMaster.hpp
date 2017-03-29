@@ -31,6 +31,8 @@
 
 #include "UDPSocket.hpp"
 
+#include <thread>
+
 typedef struct
 {
     char            cdcFile[256];
@@ -49,6 +51,36 @@ public:
 	 * This is the main loop, receiving commands and sending motor status via powerlink
 	 */
     void mainLoop();
+    /**
+     * Changes the control mode of a motor
+     * @param motor for this motor
+     * @param mode POSITION, VECLOCITY, DISPLACEMENT
+     * @return
+     */
+    void changeControl(int motor, int mode);
+    /**
+     * Changes the control mode of all motors
+     * @param mode POSITION, VECLOCITY, DISPLACEMENT
+     * @return
+     */
+    void changeControl(int mode);
+    /**
+     * Changes the setPoint of a motor
+     * @param motor for this motor
+     * @param setPoint to this setpoint
+     * @return
+     */
+    void changeSetPoint(int motor, int setPoint);
+    /**
+     * Changes the setPoint of all motor
+     * @param setPoint to this setpoint
+     * @return
+     */
+    void changeSetPoint(int setPoint);
+    /**
+     * This actually updates the controller parameters by sending a UDP package with the config to the myoSlave
+     */
+    void sendControllerConfig();
 private:
     /**
      * This initializes the process image for openPowerLink
@@ -153,4 +185,8 @@ private:
     static bool updateControllerConfig;
     BOOL         fGsOff_l;
     static UDPSocket *socket;
+    static control_Parameters_t MotorConfig;
+    static int32_t setPoints[16];
+    std::thread *powerLinkThread;
+    static bool fExit;
 };

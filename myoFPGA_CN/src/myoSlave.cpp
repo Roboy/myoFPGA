@@ -402,14 +402,16 @@ tOplkError MyoSlave::processSync(){
     pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_15 = getDisplacement(14);
     pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_16 = getDisplacement(15);
 
+//    printf("%d\n", getDisplacement(0));
+
     ret = oplk_exchangeProcessImageIn();
 
     control_Parameters_t params;
     if(socket->receiveMotorConfig(params)){
         printf("received motor config\n");
-        MotorConfig[params.control_mode] = params;
         for(uint motor=0; motor<16; motor++){
-            changeControl(motor,params.control_mode);
+//            MotorConfig[params.control_mode[0]] = params;
+//            changeControl(motor,params.control_mode);
         }
     }
 
