@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openCONFIGURATORProject xmlns="http://sourceforge.net/projects/openconf/configuration" xmlns:ns2="http://ethernet-powerlink.org/POWERLINK" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://sourceforge.net/projects/openconf/configuration openCONFIGURATOR.xsd">
-  <Generator vendor="Kalycito Infotech Private Limited &amp; Bernecker + Rainer Industrie Elektronik Ges.m.b.H." toolName="Ethernet POWERLINK openCONFIGURATOR" toolVersion="2.1.2" createdBy="roboy" createdOn="2015-02-17T16:36:58" modifiedBy="roboy" modifiedOn="2017-03-28T19:26:57.325+02:00" />
+  <Generator vendor="Kalycito Infotech Private Limited &amp; Bernecker + Rainer Industrie Elektronik Ges.m.b.H." toolName="Ethernet POWERLINK openCONFIGURATOR" toolVersion="2.1.2" createdBy="roboy" createdOn="2015-02-17T16:36:58" modifiedBy="roboy" modifiedOn="2017-03-29T16:37:14.490+02:00" />
   <IDEConfiguration activeViewSetting="BASIC">
     <ViewSettings type="BASIC">
       <Setting name="default" value="SIMPLE" />
@@ -21,12 +21,12 @@
   </ProjectConfiguration>
   <NetworkConfiguration lossOfSocTolerance="50000000">
     <NodeCollection>
-      <MN name="myoMaster" nodeID="240" pathToXDC="deviceConfiguration/00000000_POWERLINK_CiA302-4_MN.xdc" isAsyncOnly="false" isType1Router="false" isType2Router="false" transmitsPRes="false" />
+      <MN name="myoMaster" nodeID="240" pathToXDC="deviceConfiguration/00000000_POWERLINK_CiA302-4_MN.xdc" isAsyncOnly="false" isType1Router="false" isType2Router="false" transmitsPRes="true" />
       <CN name="myoFPGA" nodeID="1" pathToXDC="deviceConfiguration/00000000_POWERLINK_CiA401_CN_1.xdc" autostartNode="true" isMandatory="false" resetInOperational="false" verifyAppSwVersion="false" autoAppSwUpdateAllowed="false" isAsyncOnly="false" isMultiplexed="false" isType1Router="false" isType2Router="false" isChained="false">
         <ForcedObjects>
           <Object index="1F98" subindex="04" />
           <Object index="1F98" subindex="05" />
-          <Object index="1F8D" subindex="F0" />
+          <Object index="1F8D" subindex="01" />
         </ForcedObjects>
       </CN>
     </NodeCollection>

@@ -8,7 +8,7 @@
 #include "socal/alt_gpio.h"
 #include "hps_0.h"
 #include <vector>
-#include "myoControl.hpp"
+#include "myoSlave.hpp"
 
 using namespace std;
 
@@ -50,7 +50,7 @@ int main(int argc, char *argv[]) {
     h2p_lw_myo_addr.push_back((int32_t*)(virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + MYOCONTROL_1_BASE ) & ( unsigned long)( HW_REGS_MASK )) ));
     h2p_lw_myo_addr.push_back((int32_t*)(virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + MYOCONTROL_2_BASE ) & ( unsigned long)( HW_REGS_MASK )) ));
 
-     MyoControl myoControl(h2p_lw_myo_addr, argc, argv);
+     MyoSlave myoControl(h2p_lw_myo_addr, argc, argv);
      myoControl.adc_base = (uint32_t*)h2p_lw_adc_addr;
 //
 ////	vector<float> x(5), y(5);

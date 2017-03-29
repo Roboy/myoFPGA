@@ -33,7 +33,7 @@ FIND_OPLK_LIBRARY("cn")             # Find suitable openPOWERLINK library
 # Set generic sources and include directories for this demo
 SET(SOURCE
         src/main.cpp
-        src/myoControl.cpp
+        src/myoSlave.cpp
         ${CONTRIB_SOURCE_DIR}/console/printlog.c
         ${CONTRIB_SOURCE_DIR}/getopt/getopt.c
         ${COMMON_SOURCE_DIR}/eventlog/eventlog.c

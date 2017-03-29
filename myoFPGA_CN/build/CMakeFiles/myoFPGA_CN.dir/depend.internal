@@ -219,8 +219,8 @@ CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/stack/src/user/sdo/
 CMakeFiles/myoFPGA_CN.dir/src/main.cpp.o
  ../../powerlink/output/xap.h
  ../include/hps_0.h
- ../include/myoControl.hpp
  ../include/myoControlRegister.hpp
+ ../include/myoSlave.hpp
  /home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.h
  /home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.h
  /home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.h
@@ -267,10 +267,10 @@ CMakeFiles/myoFPGA_CN.dir/src/main.cpp.o
  /home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/include/soc_cv_av/socal/hps.h
  /home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/include/soc_cv_av/socal/socal.h
  /home/roboy/workspace/myoFPGA/myoFPGA_CN/src/main.cpp
-CMakeFiles/myoFPGA_CN.dir/src/myoControl.cpp.o
+CMakeFiles/myoFPGA_CN.dir/src/myoSlave.cpp.o
  ../../powerlink/output/xap.h
- ../include/myoControl.hpp
  ../include/myoControlRegister.hpp
+ ../include/myoSlave.hpp
  /home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.h
  /home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.h
  /home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.h
@@ -314,4 +314,4 @@ CMakeFiles/myoFPGA_CN.dir/src/myoControl.cpp.o
  /home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/include/alt_cache.h
  /home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/include/hwlib.h
  /home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/include/soc_cv_av/socal/socal.h
- /home/roboy/workspace/myoFPGA/myoFPGA_CN/src/myoControl.cpp
+ /home/roboy/workspace/myoFPGA/myoFPGA_CN/src/myoSlave.cpp

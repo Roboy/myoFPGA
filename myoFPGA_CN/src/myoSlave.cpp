@@ -1,19 +1,16 @@
-#include <user/sdoudp.h>
-#include <oplk/frame.h>
-#include "myoControl.hpp"
+#include "myoSlave.hpp"
 
 static BOOL* pfGsOff_l;
 
-vector<int32_t*> MyoControl::myo_base;
-vector<SetPoints> MyoControl::setPoints;
-vector<MotorStatus> MyoControl::motorStatus;
-uint8_t MyoControl::motor_selecta = 0;
-PI_IN* MyoControl::pProcessImageIn_l;
-PI_OUT* MyoControl::pProcessImageOut_l;
-tSdoUdpCon MyoControl::socket;
-tPlkFrame MyoControl::pSrcData_p;
+vector<int32_t*> MyoSlave::myo_base;
+vector<SetPoints> MyoSlave::setPoints;
+vector<MotorStatus> MyoSlave::motorStatus;
+PI_IN* MyoSlave::pProcessImageIn_l;
+PI_OUT* MyoSlave::pProcessImageOut_l;
+tSdoUdpCon MyoSlave::socket;
+tPlkFrame MyoSlave::pSrcData_p;
 
-MyoControl::MyoControl(vector<int32_t*> &myobase, int argc, char* argv[]){
+MyoSlave::MyoSlave(vector<int32_t*> &myobase, int argc, char* argv[]){
     myo_base = myobase;
     reset();
     toggleSPI(false);
@@ -81,10 +78,10 @@ MyoControl::MyoControl(vector<int32_t*> &myobase, int argc, char* argv[]){
 		powerlink_initialized = false;
 
     // initialize SDO over UDP
-    sdoudp_init(&MyoControl::processSDO);
+    sdoudp_init(&MyoSlave::processSDO);
 
 
-    socket.ipAddr = inet_addr("192.168.0.101");
+    socket.ipAddr = inet_addr("192.168.0.100");
     socket.port = 8200;
     sdoudp_createSocket(&socket);
 
@@ -109,14 +106,14 @@ MyoControl::MyoControl(vector<int32_t*> &myobase, int argc, char* argv[]){
 		mainLoop();
 }
 
-MyoControl::~MyoControl(){
+MyoSlave::~MyoSlave(){
 	cout << "shutting down myoControl" << endl;
     oplk_freeProcessImage();
 	shutdownPowerlink();
 	system_exit();
 }
 
-void MyoControl::mainLoop(){
+void MyoSlave::mainLoop(){
 	tOplkError  ret;
 	char        cKey = 0;
 	BOOL        fExit = FALSE;
@@ -197,7 +194,7 @@ void MyoControl::mainLoop(){
 #endif
 }
 
-tOplkError MyoControl::initProcessImage(){
+tOplkError MyoSlave::initProcessImage(){
     tOplkError      ret = kErrorOk;
     UINT            varEntries;
     tObdSize        obdSize;
@@ -224,19 +221,34 @@ tOplkError MyoControl::initProcessImage(){
     ret &= oplk_linkProcessImageObject(0x6000, 0x03, 8, FALSE, 4, &varEntries);
     ret &= oplk_linkProcessImageObject(0x6000, 0x04, 12, FALSE, 4, &varEntries);
     ret &= oplk_linkProcessImageObject(0x6000, 0x05, 16, FALSE, 4, &varEntries);
-    ret &= oplk_linkProcessImageObject(0x6000, 0x06, 18, FALSE, 4, &varEntries);
-    ret &= oplk_linkProcessImageObject(0x6000, 0x07, 20, FALSE, 4, &varEntries);
-    ret &= oplk_linkProcessImageObject(0x6000, 0x08, 22, FALSE, 4, &varEntries);
-    ret &= oplk_linkProcessImageObject(0x6002, 0x01, 0, FALSE, 1, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6000, 0x06, 20, FALSE, 4, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6000, 0x07, 24, FALSE, 4, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6000, 0x08, 28, FALSE, 4, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6000, 0x09, 32, FALSE, 4, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6000, 0x0A, 36, FALSE, 4, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6000, 0x0B, 40, FALSE, 4, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6000, 0x0C, 44, FALSE, 4, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6000, 0x0D, 48, FALSE, 4, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6000, 0x0E, 52, FALSE, 4, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6000, 0x0F, 56, FALSE, 4, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6000, 0x10, 60, FALSE, 4, &varEntries);
     varEntries = 1;
     ret &= oplk_linkProcessImageObject(0x6001, 0x01, 0, TRUE, 2, &varEntries);
-    ret &= oplk_linkProcessImageObject(0x6001, 0x02, 4, TRUE, 2, &varEntries);
-    ret &= oplk_linkProcessImageObject(0x6001, 0x03, 6, TRUE, 4, &varEntries);
-    ret &= oplk_linkProcessImageObject(0x6001, 0x04, 10, TRUE, 2, &varEntries);
-    ret &= oplk_linkProcessImageObject(0x6001, 0x05, 12, TRUE, 2, &varEntries);
-    ret &= oplk_linkProcessImageObject(0x6001, 0x06, 14, TRUE, 2, &varEntries);
-    ret &= oplk_linkProcessImageObject(0x6001, 0x07, 16, TRUE, 2, &varEntries);
-    ret &= oplk_linkProcessImageObject(0x6001, 0x08, 18, TRUE, 2, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6001, 0x02, 2, TRUE, 2, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6001, 0x03, 4, TRUE, 2, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6001, 0x04, 6, TRUE, 2, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6001, 0x05, 8, TRUE, 2, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6001, 0x06, 10, TRUE, 2, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6001, 0x07, 12, TRUE, 2, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6001, 0x08, 14, TRUE, 2, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6001, 0x09, 16, TRUE, 2, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6001, 0x0A, 18, TRUE, 2, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6001, 0x0B, 20, TRUE, 2, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6001, 0x0C, 22, TRUE, 2, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6001, 0x0D, 24, TRUE, 2, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6001, 0x0E, 26, TRUE, 2, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6001, 0x0F, 28, TRUE, 2, &varEntries);
+    ret &= oplk_linkProcessImageObject(0x6001, 0x10, 30, TRUE, 2, &varEntries);
     if (ret != kErrorOk)
     {
         fprintf(stderr, "linking process vars failed with \"%s\" (0x%04x)\n", debugstr_getRetValStr(ret), ret);
@@ -247,7 +259,7 @@ tOplkError MyoControl::initProcessImage(){
     return kErrorOk;
 }
 
-tOplkError MyoControl::initPowerlink(UINT32 cycleLen_p, const char* devName_p, const UINT8* macAddr_p, UINT32 nodeId_p){
+tOplkError MyoSlave::initPowerlink(UINT32 cycleLen_p, const char* devName_p, const UINT8* macAddr_p, UINT32 nodeId_p){
     tOplkError          ret = kErrorOk;
     tOplkApiInitParam   initParam;
     static char         devName[128];
@@ -312,10 +324,10 @@ tOplkError MyoControl::initPowerlink(UINT32 cycleLen_p, const char* devName_p, c
     initParam.fSyncOnPrcNode          = FALSE;
 
     // set callback functions
-    initParam.pfnCbEvent = &MyoControl::processEvents;
+    initParam.pfnCbEvent = &MyoSlave::processEvents;
 
 #if defined(CONFIG_KERNELSTACK_DIRECTLINK)
-    initParam.pfnCbSync = (tSyncCb)&MyoControl::processSync;
+    initParam.pfnCbSync = (tSyncCb)&MyoSlave::processSync;
 #else
     initParam.pfnCbSync = NULL;
 #endif
@@ -370,7 +382,7 @@ tOplkError MyoControl::initPowerlink(UINT32 cycleLen_p, const char* devName_p, c
     return kErrorOk;
 }
 
-tOplkError MyoControl::processSync(){
+tOplkError MyoSlave::processSync(){
     tOplkError      ret = kErrorOk;
 
     if (oplk_waitSyncEvent(100000) != kErrorOk)
@@ -380,33 +392,41 @@ tOplkError MyoControl::processSync(){
     if (ret != kErrorOk)
         return ret;
 
-    // read the setPoints for every motor from process image
-    setPoints.front().CN1_MotorCommand_setPoint_I32_1 = pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_1;
-    setPoints.front().CN1_MotorCommand_setPoint_I32_2 = pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_2;
-    setPoints.front().CN1_MotorCommand_setPoint_I32_3 = pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_3;
-    setPoints.front().CN1_MotorCommand_setPoint_I32_4 = pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_4;
-    setPoints.front().CN1_MotorCommand_setPoint_I32_5 = pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_5;
-    setPoints.front().CN1_MotorCommand_setPoint_I32_6 = pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_6;
-    setPoints.front().CN1_MotorCommand_setPoint_I32_7 = pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_7;
-    setPoints.front().CN1_MotorCommand_setPoint_I32_8 = pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_8;
-    setPosition(0,setPoints.front().CN1_MotorCommand_setPoint_I32_1);
-    setPosition(1,setPoints.front().CN1_MotorCommand_setPoint_I32_2);
-    setPosition(2,setPoints.front().CN1_MotorCommand_setPoint_I32_3);
-    setPosition(3,setPoints.front().CN1_MotorCommand_setPoint_I32_4);
-    setPosition(4,setPoints.front().CN1_MotorCommand_setPoint_I32_5);
-    setPosition(5,setPoints.front().CN1_MotorCommand_setPoint_I32_6);
-    setPosition(6,setPoints.front().CN1_MotorCommand_setPoint_I32_7);
-    setPosition(7,setPoints.front().CN1_MotorCommand_setPoint_I32_8);
-    motor_selecta = pProcessImageIn_l->CN1_MotorSelecta_motor_U8;
-
-    // write motor info depending on motorSelecta
-    pProcessImageOut_l->CN1_MotorStatus_pwmRef_I16 = getPWM(motor_selecta);//getPWM(motor_selecta);
-    pProcessImageOut_l->CN1_MotorStatus_actualPosition_I32 = getPosition(motor_selecta);
-    pProcessImageOut_l->CN1_MotorStatus_actualVelocity_I16 = getVelocity(motor_selecta);
-    pProcessImageOut_l->CN1_MotorStatus_actualCurrent_I16 = getCurrent(motor_selecta);
-    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16 = getDisplacement(motor_selecta);
-    pProcessImageOut_l->CN1_MotorStatus_sensor1_I16 = 0; //TODO: not implemented on fpga yet
-    pProcessImageOut_l->CN1_MotorStatus_sensor2_I16 = 0; //TODO: not implemented on fpga yet
+//    // apply the setPoints for every motor from process image
+//    setPosition(0,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_1);
+//    setPosition(1,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_2);
+//    setPosition(2,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_3);
+//    setPosition(3,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_4);
+//    setPosition(4,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_5);
+//    setPosition(5,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_6);
+//    setPosition(6,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_7);
+//    setPosition(7,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_8);
+//    setPosition(8,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_9);
+//    setPosition(9,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_10);
+//    setPosition(10,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_11);
+//    setPosition(11,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_12);
+//    setPosition(12,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_13);
+//    setPosition(13,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_14);
+//    setPosition(14,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_15);
+//    setPosition(15,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_16);
+//
+//    // write motor info
+//    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_1 = getDisplacement(0);
+//    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_2 = getDisplacement(1);
+//    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_3 = getDisplacement(2);
+//    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_4 = getDisplacement(3);
+//    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_5 = getDisplacement(4);
+//    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_6 = getDisplacement(5);
+//    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_7 = getDisplacement(6);
+//    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_8 = getDisplacement(7);
+//    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_9 = getDisplacement(8);
+//    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_10 = getDisplacement(9);
+//    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_11 = getDisplacement(10);
+//    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_12 = getDisplacement(11);
+//    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_13 = getDisplacement(12);
+//    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_14 = getDisplacement(13);
+//    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_15 = getDisplacement(14);
+//    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_16 = getDisplacement(15);
 
     ret = oplk_exchangeProcessImageIn();
 
@@ -415,7 +435,7 @@ tOplkError MyoControl::processSync(){
     return ret;
 }
 
-void MyoControl::shutdownPowerlink(){
+void MyoSlave::shutdownPowerlink(){
     UINT    i;
 
     BOOL fGsOff_l = FALSE;
@@ -445,7 +465,7 @@ void MyoControl::shutdownPowerlink(){
     oplk_exit();
 }
 
-tOplkError MyoControl::processEvents(tOplkApiEventType EventType_p,
+tOplkError MyoSlave::processEvents(tOplkApiEventType EventType_p,
                          const tOplkApiEventArg* pEventArg_p,
                          void* pUserArg_p){
     tOplkError          ret = kErrorOk;
@@ -473,7 +493,7 @@ tOplkError MyoControl::processEvents(tOplkApiEventType EventType_p,
     return ret;
 }
 
-tOplkError MyoControl::processStateChangeEvent(tOplkApiEventType EventType_p,
+tOplkError MyoSlave::processStateChangeEvent(tOplkApiEventType EventType_p,
                                                const tOplkApiEventArg* pEventArg_p,
                                                void* pUserArg_p){
     tOplkError                  ret = kErrorOk;
@@ -533,14 +553,14 @@ tOplkError MyoControl::processStateChangeEvent(tOplkApiEventType EventType_p,
     return ret;
 }
 
-tOplkError MyoControl::processSDO(tSdoConHdl conHdl_p,
+tOplkError MyoSlave::processSDO(tSdoConHdl conHdl_p,
                       const tAsySdoSeq* pSdoSeqData_p,
                       UINT dataSize_p){
 
 
 }
 
-tOplkError MyoControl::processErrorWarningEvent(tOplkApiEventType EventType_p,
+tOplkError MyoSlave::processErrorWarningEvent(tOplkApiEventType EventType_p,
                                                 const tOplkApiEventArg* pEventArg_p,
                                                 void* pUserArg_p){
     // error or warning occurred within the stack or the application
@@ -582,7 +602,7 @@ tOplkError MyoControl::processErrorWarningEvent(tOplkApiEventType EventType_p,
     return kErrorOk;
 }
 
-tOplkError MyoControl::processPdoChangeEvent(tOplkApiEventType EventType_p,
+tOplkError MyoSlave::processPdoChangeEvent(tOplkApiEventType EventType_p,
                                              const tOplkApiEventArg* pEventArg_p,
                                              void* pUserArg_p){
     const tOplkApiEventPdoChange*     pPdoChange = &pEventArg_p->pdoChange;
@@ -615,7 +635,7 @@ tOplkError MyoControl::processPdoChangeEvent(tOplkApiEventType EventType_p,
     return kErrorOk;
 }
 
-int MyoControl::getOptions(int argc_p, char* const argv_p[], tOptions* pOpts_p){
+int MyoSlave::getOptions(int argc_p, char* const argv_p[], tOptions* pOpts_p){
     int opt;
 
     /* setup default parameters */
@@ -667,7 +687,7 @@ int MyoControl::getOptions(int argc_p, char* const argv_p[], tOptions* pOpts_p){
     return 0;
 }
 
-void MyoControl::changeControl(int motor, int mode, control_Parameters_t &params){
+void MyoSlave::changeControl(int motor, int mode, control_Parameters_t &params){
 	MYO_WRITE_control(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, mode);
 	MYO_WRITE_reset_controller(myo_base[motor/MOTORS_PER_MYOCONTROL], motor);
 	MYO_WRITE_Kp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, params.Kp);
@@ -681,7 +701,7 @@ void MyoControl::changeControl(int motor, int mode, control_Parameters_t &params
 	MYO_WRITE_outputNegMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, params.outputNegMax);
 }
 
-void MyoControl::changeControl(int motor, int mode){
+void MyoSlave::changeControl(int motor, int mode){
 	MYO_WRITE_control(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, mode);
 	MYO_WRITE_reset_controller(myo_base[motor/MOTORS_PER_MYOCONTROL], motor);
 	MYO_WRITE_Kp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, control_params[motor][mode].Kp);
@@ -696,7 +716,7 @@ void MyoControl::changeControl(int motor, int mode){
 	MYO_WRITE_control(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, mode);
 }
 
-void MyoControl::changeControl(int mode){
+void MyoSlave::changeControl(int mode){
 	for(uint motor=0;motor<numberOfMotors;motor++){
 		MYO_WRITE_control(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, mode);
 		MYO_WRITE_reset_controller(myo_base[motor/MOTORS_PER_MYOCONTROL], motor);
@@ -713,31 +733,31 @@ void MyoControl::changeControl(int mode){
 	}
 }
 
-void MyoControl::toggleSPI(bool active){
+void MyoSlave::toggleSPI(bool active){
 	for(uint i=0;i<myo_base.size();i++)
 		MYO_WRITE_spi_activated(myo_base[i],active);
 }
 
-void MyoControl::reset(){
+void MyoSlave::reset(){
 	for(uint i=0;i<myo_base.size();i++){
 		MYO_WRITE_reset_myo_control(myo_base[i],true);
 		MYO_WRITE_reset_myo_control(myo_base[i],false);
 	}
 }
 
-void MyoControl::setPosition(int motor, int32_t position){
+void MyoSlave::setPosition(int motor, int32_t position){
 	MYO_WRITE_sp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, position);
 }
 
-void MyoControl::setVelocity(int motor, int32_t velocity){
+void MyoSlave::setVelocity(int motor, int32_t velocity){
 	MYO_WRITE_sp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, velocity);
 }
 
-void MyoControl::setDisplacement(int motor, int32_t displacement){
+void MyoSlave::setDisplacement(int motor, int32_t displacement){
 	MYO_WRITE_sp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, displacement);
 }
 
-void MyoControl::getPIDcontrollerParams(int &Pgain, int &Igain, int &Dgain, int &forwardGain, int &deadband,
+void MyoSlave::getPIDcontrollerParams(int &Pgain, int &Igain, int &Dgain, int &forwardGain, int &deadband,
 									int &setPoint, int &setPointMin, int &setPointMax, int motor){
 	Pgain = MYO_READ_Kp(myo_base[motor/MOTORS_PER_MYOCONTROL],motor);
 	Igain = MYO_READ_Ki(myo_base[motor/MOTORS_PER_MYOCONTROL],motor);
@@ -749,31 +769,31 @@ void MyoControl::getPIDcontrollerParams(int &Pgain, int &Igain, int &Dgain, int 
 	setPointMax = 0;
 }
 
-uint16_t MyoControl::getControlMode(int motor){
+uint16_t MyoSlave::getControlMode(int motor){
 	return MYO_READ_control(myo_base[motor/MOTORS_PER_MYOCONTROL],motor);
 }
 
-int16_t MyoControl::getPWM(int motor){
+int16_t MyoSlave::getPWM(int motor){
 	return MYO_READ_pwmRef(myo_base[motor/MOTORS_PER_MYOCONTROL],motor);
 }
 
-int32_t MyoControl::getPosition(int motor){
+int32_t MyoSlave::getPosition(int motor){
 	return MYO_READ_position(myo_base[motor/MOTORS_PER_MYOCONTROL],motor);
 }
 
-int16_t MyoControl::getVelocity(int motor){
+int16_t MyoSlave::getVelocity(int motor){
 	return MYO_READ_velocity(myo_base[motor/MOTORS_PER_MYOCONTROL],motor);
 }
 
-int16_t MyoControl::getDisplacement(int motor){
+int16_t MyoSlave::getDisplacement(int motor){
 	return MYO_READ_displacement(myo_base[motor/MOTORS_PER_MYOCONTROL],motor);
 }
 
-int16_t MyoControl::getCurrent(int motor){
+int16_t MyoSlave::getCurrent(int motor){
 	return MYO_READ_current(myo_base[motor/MOTORS_PER_MYOCONTROL],motor);
 }
 
-void MyoControl::getDefaultControlParams(control_Parameters_t *params, int control_mode){
+void MyoSlave::getDefaultControlParams(control_Parameters_t *params, int control_mode){
 	params->outputPosMax = 1000;
 	params->outputNegMax = -1000;
 
@@ -820,32 +840,32 @@ default:
 
 }
 
-void MyoControl::allToPosition(int32_t pos){
+void MyoSlave::allToPosition(int32_t pos){
 	changeControl(POSITION);
 	for(uint motor=0; motor<numberOfMotors; motor++){
 		MYO_WRITE_sp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, pos);
 	}
 }
 
-void MyoControl::allToVelocity(int32_t vel){
+void MyoSlave::allToVelocity(int32_t vel){
 	changeControl(VELOCITY);
 	for(uint motor=0; motor<numberOfMotors; motor++){
 		MYO_WRITE_sp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, vel);
 	}
 }
 
-void MyoControl::allToDisplacement(int32_t displacement){
+void MyoSlave::allToDisplacement(int32_t displacement){
 	changeControl(DISPLACEMENT);
 	for(uint motor=0; motor<numberOfMotors; motor++){
 		MYO_WRITE_sp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, displacement);
 	}
 }
 
-void MyoControl::zeroWeight(){
+void MyoSlave::zeroWeight(){
 	weight_offset = -getWeight();
 }
 
-float MyoControl::getWeight(){
+float MyoSlave::getWeight(){
 	float weight = 0;
 	uint32_t adc_value = 0;
 	if(adc_base!=nullptr){
@@ -856,7 +876,7 @@ float MyoControl::getWeight(){
 	return weight;
 }
 
-void MyoControl::estimateSpringParameters(int motor, int timeout,  uint numberOfDataPoints){
+void MyoSlave::estimateSpringParameters(int motor, int timeout,  uint numberOfDataPoints){
 	vector<float> weight, displacement, coeffs;
 	setDisplacement(motor,0);
 	changeControl(motor,DISPLACEMENT);
@@ -885,7 +905,7 @@ void MyoControl::estimateSpringParameters(int motor, int timeout,  uint numberOf
 	outfile.close();
 }
 
-void MyoControl::polynomialRegression(int degree, vector<float> &x, vector<float> &y,
+void MyoSlave::polynomialRegression(int degree, vector<float> &x, vector<float> &y,
 			vector<float> &coeffs){
 		int N = x.size(), i, j, k;
 	    double X[2*degree+1];                        //Array that will store the values of sigma(xi),sigma(xi^2),sigma(xi^3)....sigma(xi^2n)

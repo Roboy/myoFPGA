@@ -30,6 +30,8 @@
 #include <user/sdoudp.h>
 
 #include <arpa/inet.h>
+#include <user/sdoudp.h>
+#include <oplk/frame.h>
 
 #define CYCLE_LEN         50000
 #define NODEID            1                   // could be changed by command param
@@ -95,10 +97,10 @@ struct SetPoints{
     signed CN1_MotorCommand_setPoint_I32_8:32;
 };
 
-class MyoControl{
+class MyoSlave{
 public:
-	MyoControl(vector<int32_t*> &myo_base, int argc, char* argv[]);
-	~MyoControl();
+	MyoSlave(vector<int32_t*> &myo_base, int argc, char* argv[]);
+	~MyoSlave();
 	/**
 	 * This is the main loop, receiving commands and sending motor status via powerlink
 	 */
@@ -326,7 +328,6 @@ public:
     static vector<int32_t*> myo_base;
     static vector<SetPoints> setPoints;
     static vector<MotorStatus> motorStatus;
-    static uint8_t motor_selecta;
     static PI_IN*   pProcessImageIn_l;
     static PI_OUT*  pProcessImageOut_l;
     static tSdoUdpCon socket;

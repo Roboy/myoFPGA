@@ -57,9 +57,8 @@ FIND_OPLK_LIBRARY("mn")         # Find suitable openPOWERLINK library
 
 # Set generic sources and include directories for this demo
 SET(SOURCES
-        src/main.c
-        src/app.c
-        src/event.c
+        src/main.cpp
+        src/myoMaster.cpp
         ${COMMON_SOURCE_DIR}/obdcreate/obdcreate.c
         ${COMMON_SOURCE_DIR}/eventlog/eventlog.c
         ${COMMON_SOURCE_DIR}/eventlog/eventlogstring.c
@@ -68,15 +67,16 @@ SET(SOURCES
         ${CONTRIB_SOURCE_DIR}/console/printlog.c
         ${CONTRIB_SOURCE_DIR}/getopt/getopt.c
         ${CONTRIB_SOURCE_DIR}/console/console-linux.c
-        /home/roboy/Downloads/openPowerLink/apps/common/objdicts/CiA302-4_MN/obdpi.c
+        ${OPLK_BASE_DIR}/stack/src/user/sdo/sdoudp-linux.c
+        ${OPLK_BASE_DIR}/stack/src/user/sdo/sdoudp.c
+        ${OPLK_BASE_DIR}/apps/common/objdicts/CiA302-4_MN/obdpi.c
     )
 
 INCLUDE_DIRECTORIES(
         include/
         ${CMAKE_CURRENT_SOURCE_DIR}/../powerlink/output
-#        /home/roboy/Downloads/openPowerLink/apps/common/openCONFIGURATOR_projects/Demo_3CN/output
-        /home/roboy/Downloads/openPowerLink/apps/common/objdicts/CiA302-4_MN
-        ${CONTRIB_SOURCE_DIR}
+        ${OPLK_BASE_DIR}/apps/common/objdicts/CiA302-4_MN
+        ${OPLK_BASE_DIR}/stack/proj/linux/liboplkmndrv-pcap
     )
 
 ADD_DEFINITIONS(-DNMT_MAX_NODE_ID=254)

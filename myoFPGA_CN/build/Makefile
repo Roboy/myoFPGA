@@ -491,32 +491,32 @@ src/main.cpp.s:
 	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
-src/myoControl.o: src/myoControl.cpp.o
+src/myoSlave.o: src/myoSlave.cpp.o
 
-.PHONY : src/myoControl.o
+.PHONY : src/myoSlave.o
 
 # target to build an object file
-src/myoControl.cpp.o:
-	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/src/myoControl.cpp.o
-.PHONY : src/myoControl.cpp.o
+src/myoSlave.cpp.o:
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/src/myoSlave.cpp.o
+.PHONY : src/myoSlave.cpp.o
 
-src/myoControl.i: src/myoControl.cpp.i
+src/myoSlave.i: src/myoSlave.cpp.i
 
-.PHONY : src/myoControl.i
+.PHONY : src/myoSlave.i
 
 # target to preprocess a source file
-src/myoControl.cpp.i:
-	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/src/myoControl.cpp.i
-.PHONY : src/myoControl.cpp.i
+src/myoSlave.cpp.i:
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/src/myoSlave.cpp.i
+.PHONY : src/myoSlave.cpp.i
 
-src/myoControl.s: src/myoControl.cpp.s
+src/myoSlave.s: src/myoSlave.cpp.s
 
-.PHONY : src/myoControl.s
+.PHONY : src/myoSlave.s
 
 # target to generate assembly for a file
-src/myoControl.cpp.s:
-	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/src/myoControl.cpp.s
-.PHONY : src/myoControl.cpp.s
+src/myoSlave.cpp.s:
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/src/myoSlave.cpp.s
+.PHONY : src/myoSlave.cpp.s
 
 # Help Target
 help:
@@ -567,9 +567,9 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
-	@echo "... src/myoControl.o"
-	@echo "... src/myoControl.i"
-	@echo "... src/myoControl.s"
+	@echo "... src/myoSlave.o"
+	@echo "... src/myoSlave.i"
+	@echo "... src/myoSlave.s"
 .PHONY : help
 
 

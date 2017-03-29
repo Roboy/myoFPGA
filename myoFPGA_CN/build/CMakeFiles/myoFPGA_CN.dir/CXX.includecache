@@ -10,7 +10,9 @@
 
 ../include/hps_0.h
 
-../include/myoControl.hpp
+../include/myoControlRegister.hpp
+
+../include/myoSlave.hpp
 vector
 -
 map
@@ -53,8 +55,10 @@ user/sdoudp.h
 -
 arpa/inet.h
 -
-
-../include/myoControlRegister.hpp
+user/sdoudp.h
+-
+oplk/frame.h
+-
 
 /home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.h
 oplk/oplk.h
@@ -419,14 +423,10 @@ hps_0.h
 /home/roboy/workspace/myoFPGA/myoFPGA_CN/src/hps_0.h
 vector
 -
-myoControl.hpp
-/home/roboy/workspace/myoFPGA/myoFPGA_CN/src/myoControl.hpp
+myoSlave.hpp
+/home/roboy/workspace/myoFPGA/myoFPGA_CN/src/myoSlave.hpp
 
-/home/roboy/workspace/myoFPGA/myoFPGA_CN/src/myoControl.cpp
-user/sdoudp.h
--
-oplk/frame.h
--
-myoControl.hpp
-/home/roboy/workspace/myoFPGA/myoFPGA_CN/src/myoControl.hpp
+/home/roboy/workspace/myoFPGA/myoFPGA_CN/src/myoSlave.cpp
+myoSlave.hpp
+/home/roboy/workspace/myoFPGA/myoFPGA_CN/src/myoSlave.hpp
 

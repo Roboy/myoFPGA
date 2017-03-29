@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/myoFPGA_CN.dir/src/main.cpp.o"
-  "CMakeFiles/myoFPGA_CN.dir/src/myoControl.cpp.o"
+  "CMakeFiles/myoFPGA_CN.dir/src/myoSlave.cpp.o"
   "CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.o"
   "CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.o"
   "CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.o"

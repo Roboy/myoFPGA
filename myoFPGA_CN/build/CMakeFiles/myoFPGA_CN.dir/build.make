@@ -81,28 +81,28 @@ CMakeFiles/myoFPGA_CN.dir/src/main.cpp.o.provides: CMakeFiles/myoFPGA_CN.dir/src
 CMakeFiles/myoFPGA_CN.dir/src/main.cpp.o.provides.build: CMakeFiles/myoFPGA_CN.dir/src/main.cpp.o
 
 
-CMakeFiles/myoFPGA_CN.dir/src/myoControl.cpp.o: CMakeFiles/myoFPGA_CN.dir/flags.make
-CMakeFiles/myoFPGA_CN.dir/src/myoControl.cpp.o: ../src/myoControl.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/myoFPGA_CN.dir/src/myoControl.cpp.o"
-	/home/roboy/Downloads/gcc-linaro-arm-linux-gnueabihf-4.7-2012.12-20121214_linux/bin/arm-linux-gnueabihf-g++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/myoFPGA_CN.dir/src/myoControl.cpp.o -c /home/roboy/workspace/myoFPGA/myoFPGA_CN/src/myoControl.cpp
+CMakeFiles/myoFPGA_CN.dir/src/myoSlave.cpp.o: CMakeFiles/myoFPGA_CN.dir/flags.make
+CMakeFiles/myoFPGA_CN.dir/src/myoSlave.cpp.o: ../src/myoSlave.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/myoFPGA_CN.dir/src/myoSlave.cpp.o"
+	/home/roboy/Downloads/gcc-linaro-arm-linux-gnueabihf-4.7-2012.12-20121214_linux/bin/arm-linux-gnueabihf-g++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/myoFPGA_CN.dir/src/myoSlave.cpp.o -c /home/roboy/workspace/myoFPGA/myoFPGA_CN/src/myoSlave.cpp
 
-CMakeFiles/myoFPGA_CN.dir/src/myoControl.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/myoFPGA_CN.dir/src/myoControl.cpp.i"
-	/home/roboy/Downloads/gcc-linaro-arm-linux-gnueabihf-4.7-2012.12-20121214_linux/bin/arm-linux-gnueabihf-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/roboy/workspace/myoFPGA/myoFPGA_CN/src/myoControl.cpp > CMakeFiles/myoFPGA_CN.dir/src/myoControl.cpp.i
+CMakeFiles/myoFPGA_CN.dir/src/myoSlave.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/myoFPGA_CN.dir/src/myoSlave.cpp.i"
+	/home/roboy/Downloads/gcc-linaro-arm-linux-gnueabihf-4.7-2012.12-20121214_linux/bin/arm-linux-gnueabihf-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/roboy/workspace/myoFPGA/myoFPGA_CN/src/myoSlave.cpp > CMakeFiles/myoFPGA_CN.dir/src/myoSlave.cpp.i
 
-CMakeFiles/myoFPGA_CN.dir/src/myoControl.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/myoFPGA_CN.dir/src/myoControl.cpp.s"
-	/home/roboy/Downloads/gcc-linaro-arm-linux-gnueabihf-4.7-2012.12-20121214_linux/bin/arm-linux-gnueabihf-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/roboy/workspace/myoFPGA/myoFPGA_CN/src/myoControl.cpp -o CMakeFiles/myoFPGA_CN.dir/src/myoControl.cpp.s
+CMakeFiles/myoFPGA_CN.dir/src/myoSlave.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/myoFPGA_CN.dir/src/myoSlave.cpp.s"
+	/home/roboy/Downloads/gcc-linaro-arm-linux-gnueabihf-4.7-2012.12-20121214_linux/bin/arm-linux-gnueabihf-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/roboy/workspace/myoFPGA/myoFPGA_CN/src/myoSlave.cpp -o CMakeFiles/myoFPGA_CN.dir/src/myoSlave.cpp.s
 
-CMakeFiles/myoFPGA_CN.dir/src/myoControl.cpp.o.requires:
+CMakeFiles/myoFPGA_CN.dir/src/myoSlave.cpp.o.requires:
 
-.PHONY : CMakeFiles/myoFPGA_CN.dir/src/myoControl.cpp.o.requires
+.PHONY : CMakeFiles/myoFPGA_CN.dir/src/myoSlave.cpp.o.requires
 
-CMakeFiles/myoFPGA_CN.dir/src/myoControl.cpp.o.provides: CMakeFiles/myoFPGA_CN.dir/src/myoControl.cpp.o.requires
-	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/src/myoControl.cpp.o.provides.build
-.PHONY : CMakeFiles/myoFPGA_CN.dir/src/myoControl.cpp.o.provides
+CMakeFiles/myoFPGA_CN.dir/src/myoSlave.cpp.o.provides: CMakeFiles/myoFPGA_CN.dir/src/myoSlave.cpp.o.requires
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/src/myoSlave.cpp.o.provides.build
+.PHONY : CMakeFiles/myoFPGA_CN.dir/src/myoSlave.cpp.o.provides
 
-CMakeFiles/myoFPGA_CN.dir/src/myoControl.cpp.o.provides.build: CMakeFiles/myoFPGA_CN.dir/src/myoControl.cpp.o
+CMakeFiles/myoFPGA_CN.dir/src/myoSlave.cpp.o.provides.build: CMakeFiles/myoFPGA_CN.dir/src/myoSlave.cpp.o
 
 
 CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.o: CMakeFiles/myoFPGA_CN.dir/flags.make
@@ -372,7 +372,7 @@ CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/trace/trace
 # Object files for target myoFPGA_CN
 myoFPGA_CN_OBJECTS = \
 "CMakeFiles/myoFPGA_CN.dir/src/main.cpp.o" \
-"CMakeFiles/myoFPGA_CN.dir/src/myoControl.cpp.o" \
+"CMakeFiles/myoFPGA_CN.dir/src/myoSlave.cpp.o" \
 "CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.o" \
 "CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.o" \
 "CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.o" \
@@ -389,7 +389,7 @@ myoFPGA_CN_OBJECTS = \
 myoFPGA_CN_EXTERNAL_OBJECTS =
 
 myoFPGA_CN: CMakeFiles/myoFPGA_CN.dir/src/main.cpp.o
-myoFPGA_CN: CMakeFiles/myoFPGA_CN.dir/src/myoControl.cpp.o
+myoFPGA_CN: CMakeFiles/myoFPGA_CN.dir/src/myoSlave.cpp.o
 myoFPGA_CN: CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.o
 myoFPGA_CN: CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.o
 myoFPGA_CN: CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.o
@@ -414,7 +414,7 @@ CMakeFiles/myoFPGA_CN.dir/build: myoFPGA_CN
 .PHONY : CMakeFiles/myoFPGA_CN.dir/build
 
 CMakeFiles/myoFPGA_CN.dir/requires: CMakeFiles/myoFPGA_CN.dir/src/main.cpp.o.requires
-CMakeFiles/myoFPGA_CN.dir/requires: CMakeFiles/myoFPGA_CN.dir/src/myoControl.cpp.o.requires
+CMakeFiles/myoFPGA_CN.dir/requires: CMakeFiles/myoFPGA_CN.dir/src/myoSlave.cpp.o.requires
 CMakeFiles/myoFPGA_CN.dir/requires: CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.o.requires
 CMakeFiles/myoFPGA_CN.dir/requires: CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.o.requires
 CMakeFiles/myoFPGA_CN.dir/requires: CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.o.requires

@@ -48,7 +48,7 @@ set(CMAKE_C_TARGET_INCLUDE_PATH
   )
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/roboy/workspace/myoFPGA/myoFPGA_CN/src/main.cpp" "/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles/myoFPGA_CN.dir/src/main.cpp.o"
-  "/home/roboy/workspace/myoFPGA/myoFPGA_CN/src/myoControl.cpp" "/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles/myoFPGA_CN.dir/src/myoControl.cpp.o"
+  "/home/roboy/workspace/myoFPGA/myoFPGA_CN/src/myoSlave.cpp" "/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles/myoFPGA_CN.dir/src/myoSlave.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
