@@ -377,43 +377,43 @@ tOplkError MyoMaster::processSync() {
     if (ret != kErrorOk)
         return ret;
 
-//    static int iter = 1;
-//    if ((iter++) % 300 == 0) {
-//        printf("\n############## myoFPGA ###################\n");
-//        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorSpringDisplacement_springDisplacement_I16_1);
-//        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorSpringDisplacement_springDisplacement_I16_2);
-//        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorSpringDisplacement_springDisplacement_I16_3);
-//        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorSpringDisplacement_springDisplacement_I16_4);
-//        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorSpringDisplacement_springDisplacement_I16_5);
-//        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorSpringDisplacement_springDisplacement_I16_6);
-//        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorSpringDisplacement_springDisplacement_I16_7);
-//        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorSpringDisplacement_springDisplacement_I16_8);
-//        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorSpringDisplacement_springDisplacement_I16_9);
-//        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorSpringDisplacement_springDisplacement_I16_10);
-//        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorSpringDisplacement_springDisplacement_I16_11);
-//        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorSpringDisplacement_springDisplacement_I16_12);
-//        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorSpringDisplacement_springDisplacement_I16_13);
-//        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorSpringDisplacement_springDisplacement_I16_14);
-//        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorSpringDisplacement_springDisplacement_I16_15);
-//        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorSpringDisplacement_springDisplacement_I16_16);
-//    }
-    // setpoints for 8 motors
-//    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_1 = 0;
-//    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_2 = 0;
-//    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_3 = 0;
-//    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_4 = 0;
-//    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_5 = 0;
-//    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_6 = 0;
-//    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_7 = 0;
-//    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_8 = 0;
-//    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_9 = 0;
-//    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_10 = 0;
-//    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_11 = 0;
-//    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_12 = 0;
-//    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_13 = 0;
-//    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_14 = 0;
-//    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_15 = 0;
-//    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_16 = 0;
+    static int iter = 1;
+    if ((iter++) % 300 == 0) {
+        printf("\n############## myoFPGA ###################\n");
+        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_1);
+        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_2);
+        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_3);
+        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_4);
+        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_5);
+        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_6);
+        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_7);
+        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_8);
+        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_9);
+        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_10);
+        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_11);
+        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_12);
+        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_13);
+        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_14);
+        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_15);
+        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_16);
+    }
+    // setpoints for 16 motors
+    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_1 = 0;
+    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_2 = 0;
+    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_3 = 0;
+    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_4 = 0;
+    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_5 = 0;
+    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_6 = 0;
+    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_7 = 0;
+    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_8 = 0;
+    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_9 = 0;
+    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_10 = 0;
+    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_11 = 0;
+    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_12 = 0;
+    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_13 = 0;
+    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_14 = 0;
+    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_15 = 0;
+    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_16 = 0;
 
     ret = oplk_exchangeProcessImageIn();
 

@@ -392,41 +392,41 @@ tOplkError MyoSlave::processSync(){
     if (ret != kErrorOk)
         return ret;
 
-//    // apply the setPoints for every motor from process image
-//    setPosition(0,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_1);
-//    setPosition(1,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_2);
-//    setPosition(2,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_3);
-//    setPosition(3,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_4);
-//    setPosition(4,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_5);
-//    setPosition(5,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_6);
-//    setPosition(6,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_7);
-//    setPosition(7,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_8);
-//    setPosition(8,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_9);
-//    setPosition(9,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_10);
-//    setPosition(10,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_11);
-//    setPosition(11,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_12);
-//    setPosition(12,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_13);
-//    setPosition(13,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_14);
-//    setPosition(14,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_15);
-//    setPosition(15,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_16);
-//
-//    // write motor info
-//    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_1 = getDisplacement(0);
-//    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_2 = getDisplacement(1);
-//    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_3 = getDisplacement(2);
-//    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_4 = getDisplacement(3);
-//    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_5 = getDisplacement(4);
-//    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_6 = getDisplacement(5);
-//    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_7 = getDisplacement(6);
-//    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_8 = getDisplacement(7);
-//    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_9 = getDisplacement(8);
-//    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_10 = getDisplacement(9);
-//    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_11 = getDisplacement(10);
-//    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_12 = getDisplacement(11);
-//    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_13 = getDisplacement(12);
-//    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_14 = getDisplacement(13);
-//    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_15 = getDisplacement(14);
-//    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_16 = getDisplacement(15);
+    // apply the setPoints for every motor from process image
+    setPosition(0,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_1);
+    setPosition(1,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_2);
+    setPosition(2,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_3);
+    setPosition(3,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_4);
+    setPosition(4,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_5);
+    setPosition(5,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_6);
+    setPosition(6,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_7);
+    setPosition(7,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_8);
+    setPosition(8,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_9);
+    setPosition(9,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_10);
+    setPosition(10,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_11);
+    setPosition(11,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_12);
+    setPosition(12,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_13);
+    setPosition(13,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_14);
+    setPosition(14,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_15);
+    setPosition(15,pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_16);
+
+    // write motor info
+    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_1 = getDisplacement(0);
+    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_2 = getDisplacement(1);
+    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_3 = getDisplacement(2);
+    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_4 = getDisplacement(3);
+    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_5 = getDisplacement(4);
+    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_6 = getDisplacement(5);
+    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_7 = getDisplacement(6);
+    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_8 = getDisplacement(7);
+    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_9 = getDisplacement(8);
+    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_10 = getDisplacement(9);
+    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_11 = getDisplacement(10);
+    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_12 = getDisplacement(11);
+    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_13 = getDisplacement(12);
+    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_14 = getDisplacement(13);
+    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_15 = getDisplacement(14);
+    pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_16 = getDisplacement(15);
 
     ret = oplk_exchangeProcessImageIn();
 
