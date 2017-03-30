@@ -10,10 +10,6 @@
 #include "interface.hpp"
 #include <limits.h>
 
-namespace powerlink{
-#include "powerlink.h"
-}
-
 #define HW_REGS_BASE ( ALT_STM_OFST )
 #define HW_REGS_SPAN ( 0x04000000 )
 #define HW_REGS_MASK ( HW_REGS_SPAN - 1 )
@@ -50,46 +46,10 @@ int main(int argc, char *argv[]) {
 	h2p_lw_adc_addr=virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + ADC_0_BASE ) & ( unsigned long)( HW_REGS_MASK ) );
 	h2p_lw_myo_addr.push_back((int32_t*)(virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + MYOCONTROL_0_BASE ) & ( unsigned long)( HW_REGS_MASK )) ));
 	h2p_lw_myo_addr.push_back((int32_t*)(virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + MYOCONTROL_1_BASE ) & ( unsigned long)( HW_REGS_MASK )) ));
-	h2p_lw_myo_addr.push_back((int32_t*)(virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + MYOCONTROL_2_BASE ) & ( unsigned long)( HW_REGS_MASK )) ));
 
-
-	powerlink::tOplkError ret = powerlink::kErrorOk;
-	powerlink::tOptions opts;
-	UINT32 version;
-
-	powerlink::getOptions(argc, argv, &opts);
-
-	if (powerlink::system_init() != 0)
-	{
-		fprintf(stderr, "Error initializing system!");
-		return 0;
-	}
-
-	powerlink::initEvents(&powerlink::fGsOff_l);
-
-	version = powerlink::oplk_getVersion();
-	printf("----------------------------------------------------\n");
-	printf("openPOWERLINK console CN DEMO application\n");
-	printf("using openPOWERLINK Stack: %x.%x.%x\n", PLK_STACK_VER(version), PLK_STACK_REF(version), PLK_STACK_REL(version));
-	printf("----------------------------------------------------\n");
-
-	if ((ret = powerlink::initPowerlink(CYCLE_LEN, powerlink::aMacAddr_l, opts.nodeId))
-		!= powerlink::kErrorOk)
-		goto Exit;
-
-	if ((ret = powerlink::initApp()) != powerlink::kErrorOk)
-		goto Exit;
-
-	powerlink::loopMain();
-
-Exit:
-powerlink::shutdownPowerlink();
-powerlink::shutdownApp();
-powerlink::system_exit();
-
-//	Interface interface(h2p_lw_myo_addr);
-//	interface.myoControl->adc_base = (uint32_t*)h2p_lw_adc_addr;
-//	interface.timeout_ms = 10;
+	Interface interface(h2p_lw_myo_addr);
+	interface.myoControl->adc_base = (uint32_t*)h2p_lw_adc_addr;
+	interface.timeout_ms = 10;
 //
 ////	vector<float> x(5), y(5);
 ////	x[0] = 0;
@@ -105,55 +65,55 @@ powerlink::system_exit();
 ////	vector<float> coeffs;
 ////	interface.myoControl->polynomialRegression(1,x,y,coeffs);
 //
-//	char cmd;
-//	  noecho();
-//	  do {
-//	    timeout(interface.timeout_ms);
-//	    cmd = mvgetch(4, 0);
-//	    switch (cmd) {
-//	    case '0':
-//	    	interface.positionControl();
-//	      break;
-//	    case '1':
-//	    	interface.velocityControl();
-//	      break;
-//	    case '2':
-//	    	interface.displacementControl();
-//	      break;
-//	    case '3':
-//	    	interface.switchMotor();
-//	      break;
-//	    case '4':
-//	    	interface.zeroWeight();
-//	      break;
-//	    case '5':
-//	    	interface.setAllToDisplacement();
-//	      break;
-//	    case '6':
-//			interface.estimateSpringParameters();
-//		  break;
-//	    case '7':
-//			interface.toggleSPI();
-//		  break;
-//	    case '8':
-//	    	interface.reset();
-//		  break;
-//	    }
-//	    interface.querySensoryData();
-//	    *(uint32_t *)h2p_lw_led_addr = ~led_mask;
-//		// update led mask
-//		if (led_direction == 0){
-//			led_mask <<= 1;
-//			if (led_mask == (0x01 << (PIO_LED_DATA_WIDTH-1)))
-//				 led_direction = 1;
-//		}else{
-//			led_mask >>= 1;
-//			if (led_mask == 0x01){
-//				led_direction = 0;
-//				loop_count++;
-//			}
-//		}
-//	  } while (cmd != '9');
+	char cmd;
+	  noecho();
+	  do {
+	    timeout(interface.timeout_ms);
+	    cmd = mvgetch(4, 0);
+	    switch (cmd) {
+	    case '0':
+	    	interface.positionControl();
+	      break;
+	    case '1':
+	    	interface.velocityControl();
+	      break;
+	    case '2':
+	    	interface.displacementControl();
+	      break;
+	    case '3':
+	    	interface.switchMotor();
+	      break;
+	    case '4':
+	    	interface.zeroWeight();
+	      break;
+	    case '5':
+	    	interface.setAllToDisplacement();
+	      break;
+	    case '6':
+			interface.estimateSpringParameters();
+		  break;
+	    case '7':
+			interface.toggleSPI();
+		  break;
+	    case '8':
+	    	interface.reset();
+		  break;
+	    }
+	    interface.querySensoryData();
+	    *(uint32_t *)h2p_lw_led_addr = ~led_mask;
+		// update led mask
+		if (led_direction == 0){
+			led_mask <<= 1;
+			if (led_mask == (0x01 << (PIO_LED_DATA_WIDTH-1)))
+				 led_direction = 1;
+		}else{
+			led_mask >>= 1;
+			if (led_mask == 0x01){
+				led_direction = 0;
+				loop_count++;
+			}
+		}
+	  } while (cmd != '9');
 
 //	int iter = 0;
 //	time_t rawtime;

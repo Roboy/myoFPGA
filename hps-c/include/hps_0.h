@@ -54,17 +54,6 @@
 #define ONCHIP_MEMORY2_0_MEMORY_INFO_MEM_INIT_FILENAME soc_system_onchip_memory2_0
 
 /*
- * Macros for device 'MYOControl_2', class 'MYOControl'
- * The macros are prefixed with 'MYOCONTROL_2_'.
- * The prefix is the slave descriptor.
- */
-#define MYOCONTROL_2_COMPONENT_TYPE MYOControl
-#define MYOCONTROL_2_COMPONENT_NAME MYOControl_2
-#define MYOCONTROL_2_BASE 0x400
-#define MYOCONTROL_2_SPAN 1024
-#define MYOCONTROL_2_END 0x7ff
-
-/*
  * Macros for device 'MYOControl_1', class 'MYOControl'
  * The macros are prefixed with 'MYOCONTROL_1_'.
  * The prefix is the slave descriptor.
@@ -132,7 +121,7 @@
 #define SYSID_QSYS_SPAN 8
 #define SYSID_QSYS_END 0x10007
 #define SYSID_QSYS_ID 2899645186
-#define SYSID_QSYS_TIMESTAMP 1489760823
+#define SYSID_QSYS_TIMESTAMP 1490874183
 
 /*
  * Macros for device 'jtag_uart', class 'altera_avalon_jtag_uart'

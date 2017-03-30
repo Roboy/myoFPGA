@@ -171,7 +171,7 @@ public:
 	void polynomialRegression(int degree, vector<float> &x, vector<float> &y,
 			vector<float> &coeffs);
 
-	map<int,control_Parameters_t[3]> control_params;
+	map<int,map<int,control_Parameters_t>> control_params;
 	uint32_t *adc_base = nullptr;
 	float weight_offset = 0;
 	float adc_weight_parameters[2] = {830.7, -0.455};

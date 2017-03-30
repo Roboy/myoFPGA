@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SopcSystem>
  <!-- An entire SOPC Builder system -->
- <!-- 2017.03.17.15:41:56 -->
+ <!-- 2017.03.30.14:01:53 -->
  <name>soc_system</name>
  <version>1.0</version>
  <sopcVersion>1.0</sopcVersion>
@@ -30,18 +30,6 @@
    <frequency>0</frequency>
   </clockConnection>
   <path>MYOControl_1</path>
- </module>
- <module>
-  <name>MYOControl_2</name>
-  <version>1.0</version>
-  <className>MYOControl</className>
-  <clockConnection>
-   <moduleName>MYOControl_2</moduleName>
-   <localSlaveName>clock_sink</localSlaveName>
-   <systemConnectionName>MYOControl_2.clock_sink</systemConnectionName>
-   <frequency>0</frequency>
-  </clockConnection>
-  <path>MYOControl_2</path>
  </module>
  <module>
   <name>adc_0</name>
@@ -293,45 +281,6 @@
     <baseAddress>0</baseAddress>
     <basePhysicalAddress>0</basePhysicalAddress>
     <span>65536</span>
-    <isBigEndian>false</isBigEndian>
-    <isInstructionAccessible>false</isInstructionAccessible>
-    <isDataAccessible>false</isDataAccessible>
-    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
-    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
-    <hasIrq>false</hasIrq>
-    <irqNumber>-1</irqNumber>
-    <irqInterruptControllerID>-1</irqInterruptControllerID>
-    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
-    <interruptControllerID>-1</interruptControllerID>
-   </connectedDevice>
-   <connectedDevice>
-    <moduleName>MYOControl_2</moduleName>
-    <slaveDesc>MYOControl_2</slaveDesc>
-    <slave>
-     <name>avalon_slave_0</name>
-     <version>16.1</version>
-     <assignment>
-      <name>embeddedsw.configuration.isFlash</name>
-      <value>0</value>
-     </assignment>
-     <assignment>
-      <name>embeddedsw.configuration.isMemoryDevice</name>
-      <value>0</value>
-     </assignment>
-     <assignment>
-      <name>embeddedsw.configuration.isNonVolatileStorage</name>
-      <value>0</value>
-     </assignment>
-     <assignment>
-      <name>embeddedsw.configuration.isPrintableDevice</name>
-      <value>0</value>
-     </assignment>
-     <systemSlaveName>MYOControl_2.avalon_slave_0</systemSlaveName>
-     <addressGroup>0</addressGroup>
-    </slave>
-    <baseAddress>1024</baseAddress>
-    <basePhysicalAddress>1024</basePhysicalAddress>
-    <span>1024</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
     <isDataAccessible>false</isDataAccessible>
@@ -719,45 +668,6 @@
     <baseAddress>0</baseAddress>
     <basePhysicalAddress>0</basePhysicalAddress>
     <span>65536</span>
-    <isBigEndian>false</isBigEndian>
-    <isInstructionAccessible>false</isInstructionAccessible>
-    <isDataAccessible>false</isDataAccessible>
-    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
-    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
-    <hasIrq>false</hasIrq>
-    <irqNumber>-1</irqNumber>
-    <irqInterruptControllerID>-1</irqInterruptControllerID>
-    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
-    <interruptControllerID>-1</interruptControllerID>
-   </connectedDevice>
-   <connectedDevice>
-    <moduleName>MYOControl_2</moduleName>
-    <slaveDesc>MYOControl_2</slaveDesc>
-    <slave>
-     <name>avalon_slave_0</name>
-     <version>16.1</version>
-     <assignment>
-      <name>embeddedsw.configuration.isFlash</name>
-      <value>0</value>
-     </assignment>
-     <assignment>
-      <name>embeddedsw.configuration.isMemoryDevice</name>
-      <value>0</value>
-     </assignment>
-     <assignment>
-      <name>embeddedsw.configuration.isNonVolatileStorage</name>
-      <value>0</value>
-     </assignment>
-     <assignment>
-      <name>embeddedsw.configuration.isPrintableDevice</name>
-      <value>0</value>
-     </assignment>
-     <systemSlaveName>MYOControl_2.avalon_slave_0</systemSlaveName>
-     <addressGroup>0</addressGroup>
-    </slave>
-    <baseAddress>1024</baseAddress>
-    <basePhysicalAddress>1024</basePhysicalAddress>
-    <span>1024</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
     <isDataAccessible>false</isDataAccessible>
@@ -2218,45 +2128,6 @@
     <interruptControllerID>-1</interruptControllerID>
    </connectedDevice>
    <connectedDevice>
-    <moduleName>MYOControl_2</moduleName>
-    <slaveDesc>MYOControl_2</slaveDesc>
-    <slave>
-     <name>avalon_slave_0</name>
-     <version>16.1</version>
-     <assignment>
-      <name>embeddedsw.configuration.isFlash</name>
-      <value>0</value>
-     </assignment>
-     <assignment>
-      <name>embeddedsw.configuration.isMemoryDevice</name>
-      <value>0</value>
-     </assignment>
-     <assignment>
-      <name>embeddedsw.configuration.isNonVolatileStorage</name>
-      <value>0</value>
-     </assignment>
-     <assignment>
-      <name>embeddedsw.configuration.isPrintableDevice</name>
-      <value>0</value>
-     </assignment>
-     <systemSlaveName>MYOControl_2.avalon_slave_0</systemSlaveName>
-     <addressGroup>0</addressGroup>
-    </slave>
-    <baseAddress>4280288256</baseAddress>
-    <basePhysicalAddress>4280288256</basePhysicalAddress>
-    <span>1024</span>
-    <isBigEndian>false</isBigEndian>
-    <isInstructionAccessible>false</isInstructionAccessible>
-    <isDataAccessible>false</isDataAccessible>
-    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
-    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
-    <hasIrq>false</hasIrq>
-    <irqNumber>-1</irqNumber>
-    <irqInterruptControllerID>-1</irqInterruptControllerID>
-    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
-    <interruptControllerID>-1</interruptControllerID>
-   </connectedDevice>
-   <connectedDevice>
     <moduleName>MYOControl_1</moduleName>
     <slaveDesc>MYOControl_1</slaveDesc>
     <slave>
@@ -3660,45 +3531,6 @@
     <baseAddress>3221225472</baseAddress>
     <basePhysicalAddress>3221225472</basePhysicalAddress>
     <span>65536</span>
-    <isBigEndian>false</isBigEndian>
-    <isInstructionAccessible>false</isInstructionAccessible>
-    <isDataAccessible>false</isDataAccessible>
-    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
-    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
-    <hasIrq>false</hasIrq>
-    <irqNumber>-1</irqNumber>
-    <irqInterruptControllerID>-1</irqInterruptControllerID>
-    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
-    <interruptControllerID>-1</interruptControllerID>
-   </connectedDevice>
-   <connectedDevice>
-    <moduleName>MYOControl_2</moduleName>
-    <slaveDesc>MYOControl_2</slaveDesc>
-    <slave>
-     <name>avalon_slave_0</name>
-     <version>16.1</version>
-     <assignment>
-      <name>embeddedsw.configuration.isFlash</name>
-      <value>0</value>
-     </assignment>
-     <assignment>
-      <name>embeddedsw.configuration.isMemoryDevice</name>
-      <value>0</value>
-     </assignment>
-     <assignment>
-      <name>embeddedsw.configuration.isNonVolatileStorage</name>
-      <value>0</value>
-     </assignment>
-     <assignment>
-      <name>embeddedsw.configuration.isPrintableDevice</name>
-      <value>0</value>
-     </assignment>
-     <systemSlaveName>MYOControl_2.avalon_slave_0</systemSlaveName>
-     <addressGroup>0</addressGroup>
-    </slave>
-    <baseAddress>4280288256</baseAddress>
-    <basePhysicalAddress>4280288256</basePhysicalAddress>
-    <span>1024</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
     <isDataAccessible>false</isDataAccessible>
@@ -8022,7 +7854,7 @@
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1489760823</value>
+   <value>1490874183</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -8042,7 +7874,7 @@
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1489760823</value>
+   <value>1490874183</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>

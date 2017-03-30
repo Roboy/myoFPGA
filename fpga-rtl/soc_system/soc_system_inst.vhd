@@ -82,10 +82,6 @@
 			myocontrol_1_mosi                     : out   std_logic;                                        -- mosi
 			myocontrol_1_sck                      : out   std_logic;                                        -- sck
 			myocontrol_1_ss_n                     : out   std_logic_vector(7 downto 0);                     -- ss_n
-			myocontrol_2_miso                     : in    std_logic                     := 'X';             -- miso
-			myocontrol_2_mosi                     : out   std_logic;                                        -- mosi
-			myocontrol_2_sck                      : out   std_logic;                                        -- sck
-			myocontrol_2_ss_n                     : out   std_logic_vector(7 downto 0);                     -- ss_n
 			pio_led_external_connection_export    : out   std_logic_vector(7 downto 0);                     -- export
 			reset_reset_n                         : in    std_logic                     := 'X'              -- reset_n
 		);
@@ -175,10 +171,6 @@
 			myocontrol_1_mosi                     => CONNECTED_TO_myocontrol_1_mosi,                     --                            .mosi
 			myocontrol_1_sck                      => CONNECTED_TO_myocontrol_1_sck,                      --                            .sck
 			myocontrol_1_ss_n                     => CONNECTED_TO_myocontrol_1_ss_n,                     --                            .ss_n
-			myocontrol_2_miso                     => CONNECTED_TO_myocontrol_2_miso,                     --                myocontrol_2.miso
-			myocontrol_2_mosi                     => CONNECTED_TO_myocontrol_2_mosi,                     --                            .mosi
-			myocontrol_2_sck                      => CONNECTED_TO_myocontrol_2_sck,                      --                            .sck
-			myocontrol_2_ss_n                     => CONNECTED_TO_myocontrol_2_ss_n,                     --                            .ss_n
 			pio_led_external_connection_export    => CONNECTED_TO_pio_led_external_connection_export,    -- pio_led_external_connection.export
 			reset_reset_n                         => CONNECTED_TO_reset_reset_n                          --                       reset.reset_n
 		);

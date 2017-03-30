@@ -81,10 +81,6 @@
 		.myocontrol_1_mosi                     (<connected-to-myocontrol_1_mosi>),                     //                            .mosi
 		.myocontrol_1_sck                      (<connected-to-myocontrol_1_sck>),                      //                            .sck
 		.myocontrol_1_ss_n                     (<connected-to-myocontrol_1_ss_n>),                     //                            .ss_n
-		.myocontrol_2_miso                     (<connected-to-myocontrol_2_miso>),                     //                myocontrol_2.miso
-		.myocontrol_2_mosi                     (<connected-to-myocontrol_2_mosi>),                     //                            .mosi
-		.myocontrol_2_sck                      (<connected-to-myocontrol_2_sck>),                      //                            .sck
-		.myocontrol_2_ss_n                     (<connected-to-myocontrol_2_ss_n>),                     //                            .ss_n
 		.pio_led_external_connection_export    (<connected-to-pio_led_external_connection_export>),    // pio_led_external_connection.export
 		.reset_reset_n                         (<connected-to-reset_reset_n>)                          //                       reset.reset_n
 	);
