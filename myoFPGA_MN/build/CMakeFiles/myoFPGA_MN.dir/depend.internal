@@ -151,9 +151,13 @@ CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/contrib/console/pri
  /home/roboy/Downloads/openPowerLink/contrib/console/printlog.c
 CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.o
  /home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c
+CMakeFiles/myoFPGA_MN.dir/myoFPGA.pb.cc.o
+ /home/roboy/workspace/myoFPGA/myoFPGA_MN/build/myoFPGA.pb.cc
+ /home/roboy/workspace/myoFPGA/myoFPGA_MN/build/myoFPGA.pb.h
 CMakeFiles/myoFPGA_MN.dir/src/UDPSocket.cpp.o
  ../include/UDPSocket.hpp
  /home/roboy/workspace/myoFPGA/myoFPGA_MN/src/UDPSocket.cpp
+ myoFPGA.pb.h
 CMakeFiles/myoFPGA_MN.dir/src/interface.cpp.o
  ../../powerlink/output/xap.h
  ../include/UDPSocket.hpp
@@ -200,6 +204,7 @@ CMakeFiles/myoFPGA_MN.dir/src/interface.cpp.o
  /home/roboy/Downloads/openPowerLink/stack/include/user/sdoudp.h
  /home/roboy/Downloads/openPowerLink/stack/proj/linux/liboplkmndrv-pcap/oplkcfg.h
  /home/roboy/workspace/myoFPGA/myoFPGA_MN/src/interface.cpp
+ myoFPGA.pb.h
 CMakeFiles/myoFPGA_MN.dir/src/main.cpp.o
  ../../powerlink/output/xap.h
  ../include/UDPSocket.hpp
@@ -246,6 +251,7 @@ CMakeFiles/myoFPGA_MN.dir/src/main.cpp.o
  /home/roboy/Downloads/openPowerLink/stack/include/user/sdoudp.h
  /home/roboy/Downloads/openPowerLink/stack/proj/linux/liboplkmndrv-pcap/oplkcfg.h
  /home/roboy/workspace/myoFPGA/myoFPGA_MN/src/main.cpp
+ myoFPGA.pb.h
 CMakeFiles/myoFPGA_MN.dir/src/myoMaster.cpp.o
  ../../powerlink/output/xap.h
  ../include/UDPSocket.hpp
@@ -291,3 +297,4 @@ CMakeFiles/myoFPGA_MN.dir/src/myoMaster.cpp.o
  /home/roboy/Downloads/openPowerLink/stack/include/user/sdoudp.h
  /home/roboy/Downloads/openPowerLink/stack/proj/linux/liboplkmndrv-pcap/oplkcfg.h
  /home/roboy/workspace/myoFPGA/myoFPGA_MN/src/myoMaster.cpp
+ myoFPGA.pb.h

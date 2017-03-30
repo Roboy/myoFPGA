@@ -151,8 +151,12 @@ CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/contrib/console/pri
 
 CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.o: /home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c
 
+CMakeFiles/myoFPGA_MN.dir/myoFPGA.pb.cc.o: myoFPGA.pb.cc
+CMakeFiles/myoFPGA_MN.dir/myoFPGA.pb.cc.o: myoFPGA.pb.h
+
 CMakeFiles/myoFPGA_MN.dir/src/UDPSocket.cpp.o: ../include/UDPSocket.hpp
 CMakeFiles/myoFPGA_MN.dir/src/UDPSocket.cpp.o: ../src/UDPSocket.cpp
+CMakeFiles/myoFPGA_MN.dir/src/UDPSocket.cpp.o: myoFPGA.pb.h
 
 CMakeFiles/myoFPGA_MN.dir/src/interface.cpp.o: ../../powerlink/output/xap.h
 CMakeFiles/myoFPGA_MN.dir/src/interface.cpp.o: ../include/UDPSocket.hpp
@@ -199,6 +203,7 @@ CMakeFiles/myoFPGA_MN.dir/src/interface.cpp.o: /home/roboy/Downloads/openPowerLi
 CMakeFiles/myoFPGA_MN.dir/src/interface.cpp.o: /home/roboy/Downloads/openPowerLink/stack/include/user/sdoudp.h
 CMakeFiles/myoFPGA_MN.dir/src/interface.cpp.o: /home/roboy/Downloads/openPowerLink/stack/proj/linux/liboplkmndrv-pcap/oplkcfg.h
 CMakeFiles/myoFPGA_MN.dir/src/interface.cpp.o: ../src/interface.cpp
+CMakeFiles/myoFPGA_MN.dir/src/interface.cpp.o: myoFPGA.pb.h
 
 CMakeFiles/myoFPGA_MN.dir/src/main.cpp.o: ../../powerlink/output/xap.h
 CMakeFiles/myoFPGA_MN.dir/src/main.cpp.o: ../include/UDPSocket.hpp
@@ -245,6 +250,7 @@ CMakeFiles/myoFPGA_MN.dir/src/main.cpp.o: /home/roboy/Downloads/openPowerLink/st
 CMakeFiles/myoFPGA_MN.dir/src/main.cpp.o: /home/roboy/Downloads/openPowerLink/stack/include/user/sdoudp.h
 CMakeFiles/myoFPGA_MN.dir/src/main.cpp.o: /home/roboy/Downloads/openPowerLink/stack/proj/linux/liboplkmndrv-pcap/oplkcfg.h
 CMakeFiles/myoFPGA_MN.dir/src/main.cpp.o: ../src/main.cpp
+CMakeFiles/myoFPGA_MN.dir/src/main.cpp.o: myoFPGA.pb.h
 
 CMakeFiles/myoFPGA_MN.dir/src/myoMaster.cpp.o: ../../powerlink/output/xap.h
 CMakeFiles/myoFPGA_MN.dir/src/myoMaster.cpp.o: ../include/UDPSocket.hpp
@@ -290,4 +296,5 @@ CMakeFiles/myoFPGA_MN.dir/src/myoMaster.cpp.o: /home/roboy/Downloads/openPowerLi
 CMakeFiles/myoFPGA_MN.dir/src/myoMaster.cpp.o: /home/roboy/Downloads/openPowerLink/stack/include/user/sdoudp.h
 CMakeFiles/myoFPGA_MN.dir/src/myoMaster.cpp.o: /home/roboy/Downloads/openPowerLink/stack/proj/linux/liboplkmndrv-pcap/oplkcfg.h
 CMakeFiles/myoFPGA_MN.dir/src/myoMaster.cpp.o: ../src/myoMaster.cpp
+CMakeFiles/myoFPGA_MN.dir/src/myoMaster.cpp.o: myoFPGA.pb.h
 

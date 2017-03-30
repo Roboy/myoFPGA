@@ -4,9 +4,8 @@ using namespace ncursesInterface;
 
 int main(int argc, char *argv[]) {
 
-    MyoMaster myoMaster(argc,argv);
-    while(true){
+//    Interface interface(argc,argv);
 
-    }
+    MyoMaster myoMaster(argc,argv);
 }
 

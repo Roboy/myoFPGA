@@ -42,6 +42,14 @@ SET(SOURCE
         ${COMMON_SOURCE_DIR}/obdcreate/obdcreate.c
     )
 
+# protobuf
+find_package(Protobuf REQUIRED)
+include_directories(usr/local/include)
+set(protobuf_LIBRARY ${CMAKE_CURRENT_SOURCE_DIR}/usr/local/lib/libprotobuf.a)
+message(STATUS ${PROTOBUF_INCLUDE_DIR})
+protobuf_generate_cpp(PROTO_SRCS PROTO_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/../protobuf/myoFPGA.proto)
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
+
 include(findncurses_arm)
 include(findpcap)
 SET(ALT_DEVICE_FAMILY soc_cv_av)
@@ -73,7 +81,6 @@ ENDIF(CFG_IP_STACK)
 IF(CFG_STORE_RESTORE)
     ADD_DEFINITIONS(-DCONFIG_OBD_USE_STORE_RESTORE)
 ENDIF(CFG_STORE_RESTORE)
-
 
 ################################################################################
 # Setup compile definitions depending on configuration
@@ -112,7 +119,7 @@ ENDIF()
 ################################################################################
 # Set the executable
 
-ADD_EXECUTABLE(myoFPGA_CN ${SOURCE} ${DEMO_ARCH_SOURCES})
+ADD_EXECUTABLE(myoFPGA_CN ${SOURCE} ${DEMO_ARCH_SOURCES} ${PROTO_SRCS} ${PROTO_HDRS})
 SET_PROPERTY(TARGET myoFPGA_CN
              PROPERTY COMPILE_DEFINITIONS_DEBUG DEBUG;DEF_DEBUG_LVL=${CFG_DEBUG_LVL})
 
@@ -120,7 +127,7 @@ SET_PROPERTY(TARGET myoFPGA_CN
 # Libraries to link
 
 OPLK_LINK_LIBRARIES(myoFPGA_CN)
-TARGET_LINK_LIBRARIES(myoFPGA_CN ${pcap_LIBRARY} ${pcap_udp_LIBRARY} -lpthread -lrt )
+TARGET_LINK_LIBRARIES(myoFPGA_CN ${pcap_LIBRARY} ${pcap_udp_LIBRARY} -lpthread -lrt ${protobuf_LIBRARY})
 
 ################################################################################
 # Installation rules

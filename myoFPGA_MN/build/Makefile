@@ -410,6 +410,33 @@ home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.s:
 	$(MAKE) -f CMakeFiles/myoFPGA_MN.dir/build.make CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.s
 .PHONY : home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.s
 
+myoFPGA.pb.o: myoFPGA.pb.cc.o
+
+.PHONY : myoFPGA.pb.o
+
+# target to build an object file
+myoFPGA.pb.cc.o:
+	$(MAKE) -f CMakeFiles/myoFPGA_MN.dir/build.make CMakeFiles/myoFPGA_MN.dir/myoFPGA.pb.cc.o
+.PHONY : myoFPGA.pb.cc.o
+
+myoFPGA.pb.i: myoFPGA.pb.cc.i
+
+.PHONY : myoFPGA.pb.i
+
+# target to preprocess a source file
+myoFPGA.pb.cc.i:
+	$(MAKE) -f CMakeFiles/myoFPGA_MN.dir/build.make CMakeFiles/myoFPGA_MN.dir/myoFPGA.pb.cc.i
+.PHONY : myoFPGA.pb.cc.i
+
+myoFPGA.pb.s: myoFPGA.pb.cc.s
+
+.PHONY : myoFPGA.pb.s
+
+# target to generate assembly for a file
+myoFPGA.pb.cc.s:
+	$(MAKE) -f CMakeFiles/myoFPGA_MN.dir/build.make CMakeFiles/myoFPGA_MN.dir/myoFPGA.pb.cc.s
+.PHONY : myoFPGA.pb.cc.s
+
 src/UDPSocket.o: src/UDPSocket.cpp.o
 
 .PHONY : src/UDPSocket.o
@@ -558,6 +585,9 @@ help:
 	@echo "... home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.o"
 	@echo "... home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.i"
 	@echo "... home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.s"
+	@echo "... myoFPGA.pb.o"
+	@echo "... myoFPGA.pb.i"
+	@echo "... myoFPGA.pb.s"
 	@echo "... src/UDPSocket.o"
 	@echo "... src/UDPSocket.i"
 	@echo "... src/UDPSocket.s"

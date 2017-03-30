@@ -222,19 +222,6 @@ UDPSocket::~UDPSocket() {
     close(sockfd);
 }
 
-bool UDPSocket::receiveMotorConfig(control_Parameters_t &config) {
-    if(receiveUDPFromClient() && numbytes == sizeof(control_Parameters_t)){
-        return true;
-    }
-    return false;
-}
-
-bool UDPSocket::sendMotorConfig(control_Parameters_t *config) {
-    numbytes = sizeof(control_Parameters_t);
-    memcpy(buf,config,numbytes);
-    return sendUDPToClient();
-}
-
 bool UDPSocket::setTimeOut(int usecs) {
 // set 10ms timeout
     struct timeval tv;

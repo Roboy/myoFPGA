@@ -4,7 +4,8 @@ static BOOL* pfGsOff_l;
 
 PI_IN* MyoMaster::pProcessImageIn_l;
 const PI_OUT* MyoMaster::pProcessImageOut_l;
-UDPSocket *MyoMaster::socket;
+UDPSocket *MyoMaster::motorConfigSocket;
+UDPSocket *MyoMaster::motorStatusSocket;
 bool MyoMaster::updateControllerConfig = false;
 int32_t MyoMaster::setPoints[16];
 control_Parameters_t MyoMaster::MotorConfig;
@@ -58,18 +59,25 @@ MyoMaster::MyoMaster(int argc, char *argv[]) {
     if (ret != kErrorOk)
         powerlink_initialized = false;
 
-    socket = new UDPSocket("192.168.0.104", 8000);
+    motorConfigSocket = new UDPSocket("192.168.0.104", 8000);
+    motorStatusSocket = new UDPSocket("192.168.0.104", 8001);
 
     if(powerlink_initialized) {
+#ifdef RUN_IN_THREAD
         powerLinkThread = new std::thread(&MyoMaster::mainLoop, this);
         powerLinkThread->detach();
+#else
+    mainLoop();
+#endif
     }
 }
 
 MyoMaster::~MyoMaster() {
     fExit = true;
+#ifdef RUN_IN_THREAD
     if(powerLinkThread->joinable())
         powerLinkThread->join();
+#endif
     shutdownPowerlink();
     system_exit();
 }
@@ -412,21 +420,23 @@ tOplkError MyoMaster::processSync() {
     if ((iter++) % 50 == 0) {
         printf("\n############## myoFPGA ###################\n");
         printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_1);
-        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_2);
-        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_3);
-        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_4);
-        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_5);
-        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_6);
-        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_7);
-        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_8);
-        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_9);
-        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_10);
-        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_11);
-        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_12);
-        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_13);
-        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_14);
-        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_15);
-        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_16);
+//        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_2);
+//        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_3);
+//        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_4);
+//        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_5);
+//        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_6);
+//        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_7);
+//        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_8);
+//        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_9);
+//        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_10);
+//        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_11);
+//        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_12);
+//        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_13);
+//        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_14);
+//        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_15);
+//        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_16);
+        MyoFPGAProtobuf::motorConfig msg;
+        motorConfigSocket->sendMessage<MyoFPGAProtobuf::motorConfig>(msg);
     }
     // setpoints for 16 motors
     pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_1 = setPoints[0];
@@ -448,10 +458,22 @@ tOplkError MyoMaster::processSync() {
 
     ret = oplk_exchangeProcessImageIn();
 
-    if(updateControllerConfig){
-        socket->sendMotorConfig(&MotorConfig);
-        updateControllerConfig = false;
+    MyoFPGAProtobuf::motorStatus msg;
+    if(motorStatusSocket->receiveMessage<MyoFPGAProtobuf::motorStatus>(msg)){
+        for(int motor=0; motor<msg.current_size(); motor++){
+            printf("-----------------------------------------------\n");
+            printf("pwmRef:       %d\n", msg.pwmref(motor));
+            printf("position:     %d\n", msg.position(motor));
+            printf("velocity:     %d\n", msg.velocity(motor));
+            printf("displacement: %d\n", msg.displacement(motor));
+            printf("current:      %d\n", msg.current(motor));
+        }
     }
+
+//    if(updateControllerConfig){
+//        socket->sendMotorConfig(&MotorConfig);
+//        updateControllerConfig = false;
+//    }
 
     return ret;
 }

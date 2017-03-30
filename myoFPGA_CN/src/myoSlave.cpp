@@ -6,7 +6,8 @@ static BOOL* pfGsOff_l;
 vector<int32_t*> MyoSlave::myo_base;
 PI_IN* MyoSlave::pProcessImageIn_l;
 PI_OUT* MyoSlave::pProcessImageOut_l;
-UDPSocket *MyoSlave::socket;
+UDPSocket *MyoSlave::motorConfigSocket;
+UDPSocket *MyoSlave::motorInfoSocket;
 control_Parameters_t MyoSlave::MotorConfig[3];
 uint MyoSlave::numberOfMotors;
 
@@ -74,7 +75,8 @@ MyoSlave::MyoSlave(vector<int32_t*> &myobase, int argc, char* argv[]){
 	if (ret != kErrorOk)
 		powerlink_initialized = false;
 
-    socket = new UDPSocket("192.168.0.100", 8000);
+    motorConfigSocket = new UDPSocket("192.168.0.100", 8000);
+    motorInfoSocket = new UDPSocket("192.168.0.100", 8001);
 
     if(powerlink_initialized)
 		mainLoop();
@@ -406,13 +408,19 @@ tOplkError MyoSlave::processSync(){
 
     ret = oplk_exchangeProcessImageIn();
 
-    control_Parameters_t params;
-    if(socket->receiveMotorConfig(params)){
+    MyoFPGAProtobuf::motorStatus msg;
+    for(uint motor=2; motor<8; motor++){
+        msg.add_pwmref(getPWM(motor));
+        msg.add_position(getPosition(motor));
+        msg.add_velocity(getVelocity(motor));
+        msg.add_displacement(getDisplacement(motor));
+        msg.add_current(getCurrent(motor));
+    }
+    motorInfoSocket->sendMessage<MyoFPGAProtobuf::motorStatus>(msg);
+
+    MyoFPGAProtobuf::motorConfig conf;
+    if(motorConfigSocket->receiveMessage<MyoFPGAProtobuf::motorConfig>(conf)){
         printf("received motor config\n");
-        for(uint motor=0; motor<16; motor++){
-//            MotorConfig[params.control_mode[0]] = params;
-//            changeControl(motor,params.control_mode);
-        }
     }
 
     return ret;

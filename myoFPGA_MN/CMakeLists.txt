@@ -55,6 +55,13 @@ OPTION(CFG_INCLUDE_MN_REDUNDANCY "Use MN redundancy functions (if compiled into 
 SET(OBJDICT CiA302-4_MN)        # Set object dictionary to use
 FIND_OPLK_LIBRARY("mn")         # Find suitable openPOWERLINK library
 
+# protobuf
+find_package(Protobuf REQUIRED)
+include_directories(${PROTOBUF_INCLUDE_DIR})
+message(STATUS ${PROTOBUF_INCLUDE_DIR})
+protobuf_generate_cpp(PROTO_SRCS PROTO_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/../protobuf/myoFPGA.proto)
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
+
 # Set generic sources and include directories for this demo
 SET(SOURCES
         src/main.cpp
@@ -140,14 +147,14 @@ ENDIF()
 ################################################################################
 # Set the executable
 
-ADD_EXECUTABLE(myoFPGA_MN ${SOURCES} ${CMAKE_CURRENT_SOURCE_DIR}/../powerlink/output/mnobd.cdc)
+ADD_EXECUTABLE(myoFPGA_MN ${SOURCES} ${CMAKE_CURRENT_SOURCE_DIR}/../powerlink/output/mnobd.cdc ${PROTO_SRCS} ${PROTO_HDRS})
 SET_PROPERTY(TARGET myoFPGA_MN
              PROPERTY COMPILE_DEFINITIONS_DEBUG DEBUG;DEF_DEBUG_LVL=${CFG_DEBUG_LVL})
 
 ################################################################################
 # Libraries to link
 OPLK_LINK_LIBRARIES(myoFPGA_MN)
-TARGET_LINK_LIBRARIES(myoFPGA_MN -lpcap -lpthread -lrt -lncurses)
+TARGET_LINK_LIBRARIES(myoFPGA_MN -lpcap -lpthread -lrt -lncurses ${PROTOBUF_LIBRARY})
 
 ################################################################################
 # Installation rules

@@ -57,9 +57,17 @@ include CMakeFiles/myoFPGA_MN.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/myoFPGA_MN.dir/flags.make
 
+myoFPGA.pb.cc: /home/roboy/workspace/myoFPGA/protobuf/myoFPGA.proto
+myoFPGA.pb.cc: /usr/bin/protoc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_MN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Running C++ protocol buffer compiler on /home/roboy/workspace/myoFPGA/myoFPGA_MN/../protobuf/myoFPGA.proto"
+	/usr/bin/protoc --cpp_out /home/roboy/workspace/myoFPGA/myoFPGA_MN/build -I /home/roboy/workspace/myoFPGA/protobuf /home/roboy/workspace/myoFPGA/protobuf/myoFPGA.proto
+
+myoFPGA.pb.h: myoFPGA.pb.cc
+	@$(CMAKE_COMMAND) -E touch_nocreate myoFPGA.pb.h
+
 CMakeFiles/myoFPGA_MN.dir/src/main.cpp.o: CMakeFiles/myoFPGA_MN.dir/flags.make
 CMakeFiles/myoFPGA_MN.dir/src/main.cpp.o: ../src/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_MN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/myoFPGA_MN.dir/src/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_MN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/myoFPGA_MN.dir/src/main.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/myoFPGA_MN.dir/src/main.cpp.o -c /home/roboy/workspace/myoFPGA/myoFPGA_MN/src/main.cpp
 
 CMakeFiles/myoFPGA_MN.dir/src/main.cpp.i: cmake_force
@@ -83,7 +91,7 @@ CMakeFiles/myoFPGA_MN.dir/src/main.cpp.o.provides.build: CMakeFiles/myoFPGA_MN.d
 
 CMakeFiles/myoFPGA_MN.dir/src/myoMaster.cpp.o: CMakeFiles/myoFPGA_MN.dir/flags.make
 CMakeFiles/myoFPGA_MN.dir/src/myoMaster.cpp.o: ../src/myoMaster.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_MN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/myoFPGA_MN.dir/src/myoMaster.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_MN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/myoFPGA_MN.dir/src/myoMaster.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/myoFPGA_MN.dir/src/myoMaster.cpp.o -c /home/roboy/workspace/myoFPGA/myoFPGA_MN/src/myoMaster.cpp
 
 CMakeFiles/myoFPGA_MN.dir/src/myoMaster.cpp.i: cmake_force
@@ -107,7 +115,7 @@ CMakeFiles/myoFPGA_MN.dir/src/myoMaster.cpp.o.provides.build: CMakeFiles/myoFPGA
 
 CMakeFiles/myoFPGA_MN.dir/src/UDPSocket.cpp.o: CMakeFiles/myoFPGA_MN.dir/flags.make
 CMakeFiles/myoFPGA_MN.dir/src/UDPSocket.cpp.o: ../src/UDPSocket.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_MN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/myoFPGA_MN.dir/src/UDPSocket.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_MN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/myoFPGA_MN.dir/src/UDPSocket.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/myoFPGA_MN.dir/src/UDPSocket.cpp.o -c /home/roboy/workspace/myoFPGA/myoFPGA_MN/src/UDPSocket.cpp
 
 CMakeFiles/myoFPGA_MN.dir/src/UDPSocket.cpp.i: cmake_force
@@ -131,7 +139,7 @@ CMakeFiles/myoFPGA_MN.dir/src/UDPSocket.cpp.o.provides.build: CMakeFiles/myoFPGA
 
 CMakeFiles/myoFPGA_MN.dir/src/interface.cpp.o: CMakeFiles/myoFPGA_MN.dir/flags.make
 CMakeFiles/myoFPGA_MN.dir/src/interface.cpp.o: ../src/interface.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_MN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/myoFPGA_MN.dir/src/interface.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_MN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/myoFPGA_MN.dir/src/interface.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/myoFPGA_MN.dir/src/interface.cpp.o -c /home/roboy/workspace/myoFPGA/myoFPGA_MN/src/interface.cpp
 
 CMakeFiles/myoFPGA_MN.dir/src/interface.cpp.i: cmake_force
@@ -155,7 +163,7 @@ CMakeFiles/myoFPGA_MN.dir/src/interface.cpp.o.provides.build: CMakeFiles/myoFPGA
 
 CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.o: CMakeFiles/myoFPGA_MN.dir/flags.make
 CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.o: /home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_MN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_MN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.o"
 	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.o   -c /home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c
 
 CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.i: cmake_force
@@ -179,7 +187,7 @@ CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/obd
 
 CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.o: CMakeFiles/myoFPGA_MN.dir/flags.make
 CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.o: /home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_MN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_MN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.o"
 	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.o   -c /home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c
 
 CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.i: cmake_force
@@ -203,7 +211,7 @@ CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eve
 
 CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.o: CMakeFiles/myoFPGA_MN.dir/flags.make
 CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.o: /home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_MN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_MN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.o"
 	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.o   -c /home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c
 
 CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.i: cmake_force
@@ -227,7 +235,7 @@ CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eve
 
 CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c.o: CMakeFiles/myoFPGA_MN.dir/flags.make
 CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c.o: /home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_MN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_MN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c.o"
 	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c.o   -c /home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c
 
 CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c.i: cmake_force
@@ -251,7 +259,7 @@ CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/sys
 
 CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c.o: CMakeFiles/myoFPGA_MN.dir/flags.make
 CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c.o: /home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_MN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_MN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c.o"
 	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c.o   -c /home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c
 
 CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c.i: cmake_force
@@ -275,7 +283,7 @@ CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/pca
 
 CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.o: CMakeFiles/myoFPGA_MN.dir/flags.make
 CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.o: /home/roboy/Downloads/openPowerLink/contrib/console/printlog.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_MN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_MN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building C object CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.o"
 	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.o   -c /home/roboy/Downloads/openPowerLink/contrib/console/printlog.c
 
 CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.i: cmake_force
@@ -299,7 +307,7 @@ CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/contrib/console/pri
 
 CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.o: CMakeFiles/myoFPGA_MN.dir/flags.make
 CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.o: /home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_MN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building C object CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_MN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building C object CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.o"
 	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.o   -c /home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c
 
 CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.i: cmake_force
@@ -323,7 +331,7 @@ CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/contrib/getopt/geto
 
 CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.o: CMakeFiles/myoFPGA_MN.dir/flags.make
 CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.o: /home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_MN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building C object CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_MN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building C object CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.o"
 	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.o   -c /home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c
 
 CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.i: cmake_force
@@ -347,7 +355,7 @@ CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/contrib/console/con
 
 CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/objdicts/CiA302-4_MN/obdpi.c.o: CMakeFiles/myoFPGA_MN.dir/flags.make
 CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/objdicts/CiA302-4_MN/obdpi.c.o: /home/roboy/Downloads/openPowerLink/apps/common/objdicts/CiA302-4_MN/obdpi.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_MN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building C object CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/objdicts/CiA302-4_MN/obdpi.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_MN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building C object CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/objdicts/CiA302-4_MN/obdpi.c.o"
 	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/objdicts/CiA302-4_MN/obdpi.c.o   -c /home/roboy/Downloads/openPowerLink/apps/common/objdicts/CiA302-4_MN/obdpi.c
 
 CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/objdicts/CiA302-4_MN/obdpi.c.i: cmake_force
@@ -369,6 +377,30 @@ CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/objdict
 CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/objdicts/CiA302-4_MN/obdpi.c.o.provides.build: CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/objdicts/CiA302-4_MN/obdpi.c.o
 
 
+CMakeFiles/myoFPGA_MN.dir/myoFPGA.pb.cc.o: CMakeFiles/myoFPGA_MN.dir/flags.make
+CMakeFiles/myoFPGA_MN.dir/myoFPGA.pb.cc.o: myoFPGA.pb.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_MN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/myoFPGA_MN.dir/myoFPGA.pb.cc.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/myoFPGA_MN.dir/myoFPGA.pb.cc.o -c /home/roboy/workspace/myoFPGA/myoFPGA_MN/build/myoFPGA.pb.cc
+
+CMakeFiles/myoFPGA_MN.dir/myoFPGA.pb.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/myoFPGA_MN.dir/myoFPGA.pb.cc.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/roboy/workspace/myoFPGA/myoFPGA_MN/build/myoFPGA.pb.cc > CMakeFiles/myoFPGA_MN.dir/myoFPGA.pb.cc.i
+
+CMakeFiles/myoFPGA_MN.dir/myoFPGA.pb.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/myoFPGA_MN.dir/myoFPGA.pb.cc.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/roboy/workspace/myoFPGA/myoFPGA_MN/build/myoFPGA.pb.cc -o CMakeFiles/myoFPGA_MN.dir/myoFPGA.pb.cc.s
+
+CMakeFiles/myoFPGA_MN.dir/myoFPGA.pb.cc.o.requires:
+
+.PHONY : CMakeFiles/myoFPGA_MN.dir/myoFPGA.pb.cc.o.requires
+
+CMakeFiles/myoFPGA_MN.dir/myoFPGA.pb.cc.o.provides: CMakeFiles/myoFPGA_MN.dir/myoFPGA.pb.cc.o.requires
+	$(MAKE) -f CMakeFiles/myoFPGA_MN.dir/build.make CMakeFiles/myoFPGA_MN.dir/myoFPGA.pb.cc.o.provides.build
+.PHONY : CMakeFiles/myoFPGA_MN.dir/myoFPGA.pb.cc.o.provides
+
+CMakeFiles/myoFPGA_MN.dir/myoFPGA.pb.cc.o.provides.build: CMakeFiles/myoFPGA_MN.dir/myoFPGA.pb.cc.o
+
+
 # Object files for target myoFPGA_MN
 myoFPGA_MN_OBJECTS = \
 "CMakeFiles/myoFPGA_MN.dir/src/main.cpp.o" \
@@ -383,7 +415,8 @@ myoFPGA_MN_OBJECTS = \
 "CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.o" \
 "CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.o" \
 "CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.o" \
-"CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/objdicts/CiA302-4_MN/obdpi.c.o"
+"CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/objdicts/CiA302-4_MN/obdpi.c.o" \
+"CMakeFiles/myoFPGA_MN.dir/myoFPGA.pb.cc.o"
 
 # External object files for target myoFPGA_MN
 myoFPGA_MN_EXTERNAL_OBJECTS =
@@ -401,10 +434,12 @@ myoFPGA_MN: CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/contrib
 myoFPGA_MN: CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.o
 myoFPGA_MN: CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.o
 myoFPGA_MN: CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/objdicts/CiA302-4_MN/obdpi.c.o
+myoFPGA_MN: CMakeFiles/myoFPGA_MN.dir/myoFPGA.pb.cc.o
 myoFPGA_MN: CMakeFiles/myoFPGA_MN.dir/build.make
 myoFPGA_MN: /home/roboy/Downloads/openPowerLink/stack/lib/linux/x86_64/liboplkmn.a
+myoFPGA_MN: /usr/lib/x86_64-linux-gnu/libprotobuf.so
 myoFPGA_MN: CMakeFiles/myoFPGA_MN.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_MN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Linking CXX executable myoFPGA_MN"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA_MN/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Linking CXX executable myoFPGA_MN"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/myoFPGA_MN.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -425,6 +460,7 @@ CMakeFiles/myoFPGA_MN.dir/requires: CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloa
 CMakeFiles/myoFPGA_MN.dir/requires: CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.o.requires
 CMakeFiles/myoFPGA_MN.dir/requires: CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.o.requires
 CMakeFiles/myoFPGA_MN.dir/requires: CMakeFiles/myoFPGA_MN.dir/home/roboy/Downloads/openPowerLink/apps/common/objdicts/CiA302-4_MN/obdpi.c.o.requires
+CMakeFiles/myoFPGA_MN.dir/requires: CMakeFiles/myoFPGA_MN.dir/myoFPGA.pb.cc.o.requires
 
 .PHONY : CMakeFiles/myoFPGA_MN.dir/requires
 
@@ -432,7 +468,8 @@ CMakeFiles/myoFPGA_MN.dir/clean:
 	$(CMAKE_COMMAND) -P CMakeFiles/myoFPGA_MN.dir/cmake_clean.cmake
 .PHONY : CMakeFiles/myoFPGA_MN.dir/clean
 
-CMakeFiles/myoFPGA_MN.dir/depend:
+CMakeFiles/myoFPGA_MN.dir/depend: myoFPGA.pb.cc
+CMakeFiles/myoFPGA_MN.dir/depend: myoFPGA.pb.h
 	cd /home/roboy/workspace/myoFPGA/myoFPGA_MN/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/roboy/workspace/myoFPGA/myoFPGA_MN /home/roboy/workspace/myoFPGA/myoFPGA_MN /home/roboy/workspace/myoFPGA/myoFPGA_MN/build /home/roboy/workspace/myoFPGA/myoFPGA_MN/build /home/roboy/workspace/myoFPGA/myoFPGA_MN/build/CMakeFiles/myoFPGA_MN.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/myoFPGA_MN.dir/depend
 

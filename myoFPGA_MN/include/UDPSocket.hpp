@@ -21,6 +21,8 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <vector>
+// protobuf
+#include "myoFPGA.pb.h"
 
 #define MAXBUFLENGTH 1024
 
@@ -92,15 +94,33 @@ public:
      */
     UDPSocket(int port, bool broadcaster);
     ~UDPSocket();
-
     /**
-     * Receive motor config values
-     * @param config the controller parameters
+     * Receives a google protobuf message from the client
+     * @param message reference to protbuf message
      * @return success
      */
-    bool receiveMotorConfig(control_Parameters_t &config);
-
-    bool sendMotorConfig(control_Parameters_t *config);
+    template<typename T>
+    bool receiveMessage(T &message){
+        if(exclusive?!receiveUDPFromClient():!receiveUDP())
+            return false;
+//        ROS_INFO_STREAM_THROTTLE(1,message.DebugString());
+        return message.ParseFromArray(buf,numbytes);
+    }
+    /**
+     * Sends a google protobuf message to the client
+     * @param message reference to protbuf message
+     * @return success
+     */
+    template<typename T>
+    bool sendMessage(T &message){
+        if(!message.SerializeToArray(buf,message.ByteSize()))
+            return false;
+        numbytes = message.ByteSize();
+        if(exclusive)
+            return sendUDPToClient();
+        else
+            fprintf(stderr,"trying to send UDP to unknown client");
+    }
 
     pair<uint32_t,string> myIP;
 private:
@@ -119,7 +139,7 @@ private:
     bool whatsMyIP(string &IP);
 
     bool initialized = false;
-
+public:
     /**
     * receive from anyone
     * @return success
@@ -140,15 +160,15 @@ private:
      * @return success
      */
     bool broadcastUDP();
+    ssize_t numbytes; /* message byte size */
+    char buf[MAXBUFLENGTH];
 private:
     int sockfd; //* socket
     struct sockaddr_in server_addr; /* server's addr */
     struct sockaddr_in broadcast_addr; /* server's addr */
     struct sockaddr_in client_addr; /* client addr */
     socklen_t client_addr_len, server_addr_len, broadcast_addr_len; /* byte size of addresses */
-    ssize_t numbytes; /* message byte size */
     struct addrinfo *servinfo;
-    char buf[MAXBUFLENGTH];
     bool exclusive;
-    int timeout = 10000;
+    int timeout = 100;
 };

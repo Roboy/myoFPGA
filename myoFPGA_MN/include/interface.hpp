@@ -47,5 +47,6 @@ namespace ncursesInterface {
         uint ganglion_id = 0;
         uint motor_id = 0;
         char inputstring[30];
+        WINDOW *window;
     };
 }

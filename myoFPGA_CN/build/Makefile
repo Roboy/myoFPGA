@@ -437,6 +437,33 @@ home/roboy/workspace/myoFPGA/myoFPGA_MN/src/UDPSocket.cpp.s:
 	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/home/roboy/workspace/myoFPGA/myoFPGA_MN/src/UDPSocket.cpp.s
 .PHONY : home/roboy/workspace/myoFPGA/myoFPGA_MN/src/UDPSocket.cpp.s
 
+myoFPGA.pb.o: myoFPGA.pb.cc.o
+
+.PHONY : myoFPGA.pb.o
+
+# target to build an object file
+myoFPGA.pb.cc.o:
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/myoFPGA.pb.cc.o
+.PHONY : myoFPGA.pb.cc.o
+
+myoFPGA.pb.i: myoFPGA.pb.cc.i
+
+.PHONY : myoFPGA.pb.i
+
+# target to preprocess a source file
+myoFPGA.pb.cc.i:
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/myoFPGA.pb.cc.i
+.PHONY : myoFPGA.pb.cc.i
+
+myoFPGA.pb.s: myoFPGA.pb.cc.s
+
+.PHONY : myoFPGA.pb.s
+
+# target to generate assembly for a file
+myoFPGA.pb.cc.s:
+	$(MAKE) -f CMakeFiles/myoFPGA_CN.dir/build.make CMakeFiles/myoFPGA_CN.dir/myoFPGA.pb.cc.s
+.PHONY : myoFPGA.pb.cc.s
+
 src/main.o: src/main.cpp.o
 
 .PHONY : src/main.o
@@ -534,6 +561,9 @@ help:
 	@echo "... home/roboy/workspace/myoFPGA/myoFPGA_MN/src/UDPSocket.o"
 	@echo "... home/roboy/workspace/myoFPGA/myoFPGA_MN/src/UDPSocket.i"
 	@echo "... home/roboy/workspace/myoFPGA/myoFPGA_MN/src/UDPSocket.s"
+	@echo "... myoFPGA.pb.o"
+	@echo "... myoFPGA.pb.i"
+	@echo "... myoFPGA.pb.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

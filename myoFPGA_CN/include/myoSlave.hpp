@@ -279,7 +279,7 @@ private:
     static tOplkError processSDO(tSdoConHdl conHdl_p,
                                  const tAsySdoSeq* pSdoSeqData_p,
                                  UINT dataSize_p);
-    static UDPSocket *socket;
+    static UDPSocket *motorConfigSocket, *motorInfoSocket;
 public:
     static vector<int32_t*> myo_base;
     static PI_IN*   pProcessImageIn_l;

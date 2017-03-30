@@ -29,9 +29,12 @@
 #define SUBNET_MASK         0xFFFFFF00          // 255.255.255.0
 #define DEFAULT_GATEWAY     0xC0A864FE          // 192.168.100.C_ADR_RT1_DEF_NODE_ID
 
+//#define RUN_IN_THREAD
+
 #include "UDPSocket.hpp"
 
 #include <thread>
+#include <sys/stat.h>
 
 typedef struct
 {
@@ -184,7 +187,7 @@ private:
     static const PI_OUT*    pProcessImageOut_l;
     static bool updateControllerConfig;
     BOOL         fGsOff_l;
-    static UDPSocket *socket;
+    static UDPSocket *motorConfigSocket, *motorStatusSocket;
     static control_Parameters_t MotorConfig;
     static int32_t setPoints[16];
     std::thread *powerLinkThread;
