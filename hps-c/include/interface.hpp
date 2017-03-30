@@ -42,7 +42,7 @@ public:
 
     void zeroWeight();
 
-    void setAllToDisplacement();
+    void setAllTo();
 
     void estimateSpringParameters();
 

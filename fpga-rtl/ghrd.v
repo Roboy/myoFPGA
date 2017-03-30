@@ -148,15 +148,15 @@ module ghrd(
  soc_system u0 (
       .pio_led_external_connection_export(LED),
 		// myo_control #0
-		.myocontrol_0_mosi(GPIO_0[0]),
-		.myocontrol_0_miso(GPIO_0[1]), 
-		.myocontrol_0_sck(GPIO_0[2]),
+		.myocontrol_0_mosi(GPIO_0[35]),
+		.myocontrol_0_miso(GPIO_0[34]), 
+		.myocontrol_0_sck(GPIO_0[33]),
 		.myocontrol_0_ss_n(GPIO_1[7:0]), 
 		// myo_control #1
-		.myocontrol_1_mosi(GPIO_0[3]),
-		.myocontrol_1_miso(GPIO_0[4]), 
-		.myocontrol_1_sck(GPIO_0[5]),
-		.myocontrol_1_ss_n(GPIO_1[15:8]), 
+		.myocontrol_1_mosi(GPIO_0[31]),
+		.myocontrol_1_miso(GPIO_0[30]), 
+		.myocontrol_1_sck(GPIO_0[29]),
+		.myocontrol_1_ss_n(GPIO_1[35:28]), 
 		//Clock&Reset
 	  .clk_clk                               (FPGA_CLK1_50 ),                        //  clk.clk
 	  .reset_reset_n                         (1'b1         ),                        //  reset.reset_n

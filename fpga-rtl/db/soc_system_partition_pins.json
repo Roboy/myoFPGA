@@ -36,15 +36,63 @@
 					"strict" : false
 				},
 				{
-					"name" : "GPIO_0[0]",
+					"name" : "GPIO_0[33]",
 					"strict" : false
 				},
 				{
-					"name" : "GPIO_0[1]",
+					"name" : "GPIO_0[34]",
 					"strict" : false
 				},
 				{
-					"name" : "GPIO_0[2]",
+					"name" : "GPIO_0[35]",
+					"strict" : false
+				},
+				{
+					"name" : "GPIO_1[6]",
+					"strict" : false
+				},
+				{
+					"name" : "GPIO_1[7]",
+					"strict" : false
+				},
+				{
+					"name" : "GPIO_0[29]",
+					"strict" : false
+				},
+				{
+					"name" : "GPIO_0[30]",
+					"strict" : false
+				},
+				{
+					"name" : "GPIO_0[31]",
+					"strict" : false
+				},
+				{
+					"name" : "GPIO_1[32]",
+					"strict" : false
+				},
+				{
+					"name" : "GPIO_1[33]",
+					"strict" : false
+				},
+				{
+					"name" : "GPIO_1[34]",
+					"strict" : false
+				},
+				{
+					"name" : "GPIO_1[35]",
+					"strict" : false
+				},
+				{
+					"name" : "GPIO_1[31]",
+					"strict" : false
+				},
+				{
+					"name" : "GPIO_1[29]",
+					"strict" : false
+				},
+				{
+					"name" : "GPIO_1[30]",
 					"strict" : false
 				},
 				{
@@ -72,55 +120,7 @@
 					"strict" : false
 				},
 				{
-					"name" : "GPIO_1[6]",
-					"strict" : false
-				},
-				{
-					"name" : "GPIO_1[7]",
-					"strict" : false
-				},
-				{
-					"name" : "GPIO_0[3]",
-					"strict" : false
-				},
-				{
-					"name" : "GPIO_0[4]",
-					"strict" : false
-				},
-				{
-					"name" : "GPIO_0[5]",
-					"strict" : false
-				},
-				{
-					"name" : "GPIO_1[8]",
-					"strict" : false
-				},
-				{
-					"name" : "GPIO_1[9]",
-					"strict" : false
-				},
-				{
-					"name" : "GPIO_1[10]",
-					"strict" : false
-				},
-				{
-					"name" : "GPIO_1[11]",
-					"strict" : false
-				},
-				{
-					"name" : "GPIO_1[12]",
-					"strict" : false
-				},
-				{
-					"name" : "GPIO_1[13]",
-					"strict" : false
-				},
-				{
-					"name" : "GPIO_1[14]",
-					"strict" : false
-				},
-				{
-					"name" : "GPIO_1[15]",
+					"name" : "GPIO_1[28]",
 					"strict" : false
 				},
 				{

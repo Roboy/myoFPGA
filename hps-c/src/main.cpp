@@ -87,7 +87,7 @@ int main(int argc, char *argv[]) {
 	    	interface.zeroWeight();
 	      break;
 	    case '5':
-	    	interface.setAllToDisplacement();
+	    	interface.setAllTo();
 	      break;
 	    case '6':
 			interface.estimateSpringParameters();

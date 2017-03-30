@@ -2,8 +2,10 @@
 
 //! standard query messages
 char welcomestring[] = "commandline tool for controlling myode muscle via de0-nano setup";
-char commandstring[] = "[0]position, [1]velocity, [2]displacement, [3]switch motor, [4]zero weight, [5]allToDisplacement, [6]estimateSpringParams, [7]toggleSPI, [8]reset, [9]exit";
-char setpointstring[] = "set point (ticks) ?";
+char commandstring[] = "[0]position, [1]velocity, [2]displacement, [3]switch motor, [4]zero weight, [5]allTo, [6]estimateSpringParams, [7]toggleSPI, [8]reset, [9]exit";
+char choosecontrolstring[] = "choose control mode (0: Position, 1:Velocity, 2: Force)?";
+char setpointstring[] = "set point?";
+char setpositionstring[] = "set position (ticks)?";
 char setvelstring[] = "set velocity (ticks/s) ?";
 char setdisplacementstring[] = "set displacement (ticks)?";
 char motorstring[] = "which motor?";
@@ -266,20 +268,48 @@ void Interface::zeroWeight(){
 	print(5, 0, cols, " ");
 }
 
-void Interface::setAllToDisplacement() {
+void Interface::setAllTo() {
 	timeout(-1);
 	echo();
 	print(4, 0, cols, " ");
 	print(5, 0, cols, " ");
-	printMessage(4, 0, setdisplacementstring);
-	mvchgat(4, 0, strlen(setdisplacementstring), A_BOLD, 1, NULL);
+	printMessage(4, 0, choosecontrolstring);
+	mvchgat(4, 0, strlen(choosecontrolstring), A_BOLD, 1, NULL);
 	refresh();
 	mvgetnstr(5, 0, inputstring, 30);
 	pos = atoi(inputstring);
-	myoControl->allToDisplacement(pos);
-	processing(runningstring, inputstring, quitstring);
-	// set back to zero force
-	myoControl->allToDisplacement(0);
+	switch(pos){
+	case 0:
+		printMessage(5, 0, setpositionstring);
+		mvchgat(4, 0, strlen(setpositionstring), A_BOLD, 1, NULL);
+		refresh();
+		mvgetnstr(5, 0, inputstring, 30);
+		pos = atoi(inputstring);
+		myoControl->allToPosition(pos);
+		break;
+	case 1:
+		printMessage(5, 0, setvelstring);
+		mvchgat(4, 0, strlen(setvelstring), A_BOLD, 1, NULL);
+		refresh();
+		mvgetnstr(5, 0, inputstring, 30);
+		pos = atoi(inputstring);
+		myoControl->allToVelocity(pos);
+		break;
+	case 2:
+		printMessage(5, 0, setpositionstring);
+		mvchgat(4, 0, strlen(setdisplacementstring), A_BOLD, 1, NULL);
+		refresh();
+		mvgetnstr(5, 0, inputstring, 30);
+		pos = atoi(inputstring);
+		myoControl->allToDisplacement(pos);
+		break;
+	default:
+		print(4, 0, cols, " ");
+		print(5, 0, cols, " ");
+		printMessage(5, 0, invalidstring, RED);
+		break;
+	}
+	usleep(10000);
 	print(4, 0, cols, " ");
 	print(5, 0, cols, " ");
 	noecho();

@@ -27,6 +27,9 @@ reg write_ack_prev;
 reg next_value;
 reg start_frame;
 reg data_read_valid_prev;
+reg [5:0] delay_counter;
+
+`define ENABLE_DELAY
 
 always @(posedge clock, posedge reset) begin: SPICONTROL_SPILOGIC
 	if (reset == 1) begin
@@ -57,12 +60,27 @@ always @(posedge clock, posedge reset) begin: SPICONTROL_SPILOGIC
 			endcase
 			// reset next_value
 			next_value <= 0;
+			
+`ifdef ENABLE_DELAY
+			// start delay counter
+			delay_counter <= 1;
+`else
 			// trigger transmission with wren
 			wren <= 1;
+`endif
 			// reset start_frame
 			if(start_frame)
 				start_frame <= 0;
 		end
+		
+`ifdef ENABLE_DELAY
+		if(wren==0 && next_value==0) begin // this adds a delay of 64/50 approx. 1.28us
+			if(delay_counter==0)
+				wren <= 1;
+			else if (delay_counter>0)
+				delay_counter <= delay_counter + 1;
+		end
+`endif /*ENABLE_DELAY*/
 		
 		data_read_valid_prev <= data_read_valid;
 		// if data_read_valid goes high, we can put the received data into correspondig register
