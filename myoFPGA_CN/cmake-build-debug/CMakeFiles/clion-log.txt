@@ -1,0 +1,11 @@
+/usr/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/roboy/workspace/myoFPGA/myoFPGA_CN
+-- CMAKE_SYSTEM_NAME is Linux
+-- CMAKE_SYSTEM_PROCESSOR is armv7l
+-- Searching for LIBRARY oplkcn_d in /home/roboy/Downloads/openPowerLink/stack/lib/linux/armv7l
+-- ncurses lib: /home/roboy/workspace/myoFPGA/myoFPGA_CN/ncurses_arm/lib/libncurses.a
+-- pcap lib: /home/roboy/workspace/myoFPGA/myoFPGA_CN/usr/lib/arm-linux-gnueabihf/libpcap.so
+-- fpga include dir: /home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/soc_cv_av
+-- objectdic dir: /home/roboy/Downloads/openPowerLink/apps/common/objdicts/CiA401_CN
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/roboy/workspace/myoFPGA/myoFPGA_CN/cmake-build-debug
