@@ -1,0 +1,2 @@
+communication:roboy_controlled_node_fpga:roboy_managing_node
+-DCATKIN_DEVEL_PREFIX=/home/roboy/workspace/myoFPGA/myoFPGA/devel -DCMAKE_INSTALL_PREFIX=/home/roboy/workspace/myoFPGA/myoFPGA/install -G Unix Makefiles

@@ -25,56 +25,62 @@ MyoControl::~MyoControl(){
 }
 
 void MyoControl::changeControl(int motor, int mode, control_Parameters_t &params){
-	MYO_WRITE_control(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, mode);
-	MYO_WRITE_reset_controller(myo_base[motor/MOTORS_PER_MYOCONTROL], motor);
-	MYO_WRITE_Kp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, params.Kp);
-	MYO_WRITE_Kd(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, params.Kd);
-	MYO_WRITE_Ki(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, params.Ki);
-	MYO_WRITE_forwardGain(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, params.forwardGain);
-	MYO_WRITE_deadBand(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, params.deadBand);
-	MYO_WRITE_IntegralPosMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, params.IntegralPosMax);
-	MYO_WRITE_IntegralNegMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, params.IntegralNegMax);
-	MYO_WRITE_outputPosMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, params.outputPosMax);
-	MYO_WRITE_outputNegMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, params.outputNegMax);
+	int motorOffset = motor>=MOTORS_PER_MYOCONTROL?MOTORS_PER_MYOCONTROL:0;
+	MYO_WRITE_control(myo_base[motor/MOTORS_PER_MYOCONTROL], motor-motorOffset, mode);
+	MYO_WRITE_reset_controller(myo_base[motor/MOTORS_PER_MYOCONTROL], motor-motorOffset);
+	MYO_WRITE_Kp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor-motorOffset, params.Kp);
+	MYO_WRITE_Kd(myo_base[motor/MOTORS_PER_MYOCONTROL], motor-motorOffset, params.Kd);
+	MYO_WRITE_Ki(myo_base[motor/MOTORS_PER_MYOCONTROL], motor-motorOffset, params.Ki);
+	MYO_WRITE_forwardGain(myo_base[motor/MOTORS_PER_MYOCONTROL], motor-motorOffset, params.forwardGain);
+	MYO_WRITE_deadBand(myo_base[motor/MOTORS_PER_MYOCONTROL], motor-motorOffset, params.deadBand);
+	MYO_WRITE_IntegralPosMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor-motorOffset, params.IntegralPosMax);
+	MYO_WRITE_IntegralNegMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor-motorOffset, params.IntegralNegMax);
+	MYO_WRITE_outputPosMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor-motorOffset, params.outputPosMax);
+	MYO_WRITE_outputNegMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor-motorOffset, params.outputNegMax);
 }
 
 void MyoControl::changeControl(int motor, int mode){
-	MYO_WRITE_control(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, mode);
-	MYO_WRITE_reset_controller(myo_base[motor/MOTORS_PER_MYOCONTROL], motor);
-	MYO_WRITE_Kp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, control_params[motor][mode].Kp);
-	MYO_WRITE_Kd(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, control_params[motor][mode].Kd);
+	int motorOffset = motor>=MOTORS_PER_MYOCONTROL?MOTORS_PER_MYOCONTROL:0;
+	MYO_WRITE_control(myo_base[motor/MOTORS_PER_MYOCONTROL], motor-motorOffset, mode);
+	MYO_WRITE_reset_controller(myo_base[motor/MOTORS_PER_MYOCONTROL], motor-motorOffset);
+	MYO_WRITE_Kp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor-motorOffset, control_params[motor][mode].Kp);
+	MYO_WRITE_Kd(myo_base[motor/MOTORS_PER_MYOCONTROL], motor-motorOffset, control_params[motor][mode].Kd);
 	MYO_WRITE_Ki(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, control_params[motor][mode].Ki);
-	MYO_WRITE_forwardGain(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, control_params[motor][mode].forwardGain);
-	MYO_WRITE_deadBand(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, (control_params[motor][mode].deadBand));
-	MYO_WRITE_IntegralPosMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, control_params[motor][mode].IntegralPosMax);
-	MYO_WRITE_IntegralNegMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, control_params[motor][mode].IntegralNegMax);
-	MYO_WRITE_outputPosMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, control_params[motor][mode].outputPosMax);
-	MYO_WRITE_outputNegMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, control_params[motor][mode].outputNegMax);
-	MYO_WRITE_control(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, mode);
+	MYO_WRITE_forwardGain(myo_base[motor/MOTORS_PER_MYOCONTROL], motor-motorOffset, control_params[motor][mode].forwardGain);
+	MYO_WRITE_deadBand(myo_base[motor/MOTORS_PER_MYOCONTROL], motor-motorOffset, (control_params[motor][mode].deadBand));
+	MYO_WRITE_IntegralPosMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor-motorOffset, control_params[motor][mode].IntegralPosMax);
+	MYO_WRITE_IntegralNegMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor-motorOffset, control_params[motor][mode].IntegralNegMax);
+	MYO_WRITE_outputPosMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor-motorOffset, control_params[motor][mode].outputPosMax);
+	MYO_WRITE_outputNegMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor-motorOffset, control_params[motor][mode].outputNegMax);
+	MYO_WRITE_control(myo_base[motor/MOTORS_PER_MYOCONTROL], motor-motorOffset, mode);
 }
 
 void MyoControl::changeControl(int mode){
 	for(uint motor=0;motor<numberOfMotors;motor++){
-		MYO_WRITE_control(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, mode);
-		MYO_WRITE_reset_controller(myo_base[motor/MOTORS_PER_MYOCONTROL], motor);
-		MYO_WRITE_Kp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, control_params[motor][mode].Kp);
-		MYO_WRITE_Kd(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, control_params[motor][mode].Kd);
-		MYO_WRITE_Ki(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, control_params[motor][mode].Ki);
-		MYO_WRITE_forwardGain(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, control_params[motor][mode].forwardGain);
-		MYO_WRITE_deadBand(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, (control_params[motor][mode].deadBand));
-		MYO_WRITE_IntegralPosMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, control_params[motor][mode].IntegralPosMax);
-		MYO_WRITE_IntegralNegMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, control_params[motor][mode].IntegralNegMax);
-		MYO_WRITE_outputPosMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, control_params[motor][mode].outputPosMax);
-		MYO_WRITE_outputNegMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, control_params[motor][mode].outputNegMax);
-		MYO_WRITE_control(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, mode);
+		int motorOffset = motor>=MOTORS_PER_MYOCONTROL?MOTORS_PER_MYOCONTROL:0;
+		MYO_WRITE_control(myo_base[motor/MOTORS_PER_MYOCONTROL], motor-motorOffset, mode);
+		MYO_WRITE_reset_controller(myo_base[motor/MOTORS_PER_MYOCONTROL], motor-motorOffset);
+		MYO_WRITE_Kp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor-motorOffset, control_params[motor][mode].Kp);
+		MYO_WRITE_Kd(myo_base[motor/MOTORS_PER_MYOCONTROL], motor-motorOffset, control_params[motor][mode].Kd);
+		MYO_WRITE_Ki(myo_base[motor/MOTORS_PER_MYOCONTROL], motor-motorOffset, control_params[motor][mode].Ki);
+		MYO_WRITE_forwardGain(myo_base[motor/MOTORS_PER_MYOCONTROL], motor-motorOffset, control_params[motor][mode].forwardGain);
+		MYO_WRITE_deadBand(myo_base[motor/MOTORS_PER_MYOCONTROL], motor-motorOffset, (control_params[motor][mode].deadBand));
+		MYO_WRITE_IntegralPosMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor-motorOffset, control_params[motor][mode].IntegralPosMax);
+		MYO_WRITE_IntegralNegMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor-motorOffset, control_params[motor][mode].IntegralNegMax);
+		MYO_WRITE_outputPosMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor-motorOffset, control_params[motor][mode].outputPosMax);
+		MYO_WRITE_outputNegMax(myo_base[motor/MOTORS_PER_MYOCONTROL], motor-motorOffset, control_params[motor][mode].outputNegMax);
+		MYO_WRITE_control(myo_base[motor/MOTORS_PER_MYOCONTROL], motor-motorOffset, mode);
 	}
 }
 
 bool MyoControl::toggleSPI(){
-	spi_active = !spi_active;
-	for(uint i=0;i<myo_base.size();i++)
-		MYO_WRITE_spi_activated(myo_base[i],spi_active);
-	return spi_active;
+	bool spi_active;
+	for(uint i=0;i<myo_base.size();i++){
+		spi_active = MYO_READ_spi_activated(myo_base[i]);
+		MYO_WRITE_spi_activated(myo_base[i],!spi_active);
+	}
+
+	return !spi_active;
 }
 
 void MyoControl::reset(){
@@ -85,51 +91,59 @@ void MyoControl::reset(){
 }
 
 void MyoControl::setPosition(int motor, int32_t position){
-	MYO_WRITE_sp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, position);
+	MYO_WRITE_sp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor-(motor>=MOTORS_PER_MYOCONTROL?MOTORS_PER_MYOCONTROL:0), position);
 }
 
-void MyoControl::setVelocity(int motor, int32_t velocity){
-	MYO_WRITE_sp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, velocity);
+void MyoControl::setVelocity(int motor, int16_t velocity){
+	MYO_WRITE_sp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor-(motor>=MOTORS_PER_MYOCONTROL?MOTORS_PER_MYOCONTROL:0), velocity);
 }
 
-void MyoControl::setDisplacement(int motor, int32_t displacement){
-	MYO_WRITE_sp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, displacement);
+void MyoControl::setDisplacement(int motor, int16_t displacement){
+	MYO_WRITE_sp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor-(motor>=MOTORS_PER_MYOCONTROL?MOTORS_PER_MYOCONTROL:0), displacement);
+}
+
+bool MyoControl::setSPIactive(int motor, bool active){
+	MYO_WRITE_spi_activated(myo_base[motor/MOTORS_PER_MYOCONTROL], active);
 }
 
 void MyoControl::getPIDcontrollerParams(int &Pgain, int &Igain, int &Dgain, int &forwardGain, int &deadband,
 									int &setPoint, int &setPointMin, int &setPointMax, int motor){
-	Pgain = MYO_READ_Kp(myo_base[motor/MOTORS_PER_MYOCONTROL],motor);
-	Igain = MYO_READ_Ki(myo_base[motor/MOTORS_PER_MYOCONTROL],motor);
-	Dgain = MYO_READ_Kd(myo_base[motor/MOTORS_PER_MYOCONTROL],motor);
-	forwardGain = MYO_READ_forwardGain(myo_base[motor/MOTORS_PER_MYOCONTROL],motor);
-	deadband = MYO_READ_deadBand(myo_base[motor/MOTORS_PER_MYOCONTROL],motor);
-	setPoint = MYO_READ_sp(myo_base[motor/MOTORS_PER_MYOCONTROL],motor);
+	Pgain = MYO_READ_Kp(myo_base[motor/MOTORS_PER_MYOCONTROL],motor-(motor>=MOTORS_PER_MYOCONTROL?MOTORS_PER_MYOCONTROL:0));
+	Igain = MYO_READ_Ki(myo_base[motor/MOTORS_PER_MYOCONTROL],motor-(motor>=MOTORS_PER_MYOCONTROL?MOTORS_PER_MYOCONTROL:0));
+	Dgain = MYO_READ_Kd(myo_base[motor/MOTORS_PER_MYOCONTROL],motor-(motor>=MOTORS_PER_MYOCONTROL?MOTORS_PER_MYOCONTROL:0));
+	forwardGain = MYO_READ_forwardGain(myo_base[motor/MOTORS_PER_MYOCONTROL],motor-(motor>=MOTORS_PER_MYOCONTROL?MOTORS_PER_MYOCONTROL:0));
+	deadband = MYO_READ_deadBand(myo_base[motor/MOTORS_PER_MYOCONTROL],motor-(motor>=MOTORS_PER_MYOCONTROL?MOTORS_PER_MYOCONTROL:0));
+	setPoint = MYO_READ_sp(myo_base[motor/MOTORS_PER_MYOCONTROL],motor-(motor>=MOTORS_PER_MYOCONTROL?MOTORS_PER_MYOCONTROL:0));
 	setPointMin = 0;
 	setPointMax = 0;
 }
 
 uint16_t MyoControl::getControlMode(int motor){
-	return MYO_READ_control(myo_base[motor/MOTORS_PER_MYOCONTROL],motor);
+	return MYO_READ_control(myo_base[motor/MOTORS_PER_MYOCONTROL],motor-(motor>=MOTORS_PER_MYOCONTROL?MOTORS_PER_MYOCONTROL:0));
 }
 
 int16_t MyoControl::getPWM(int motor){
-	return MYO_READ_pwmRef(myo_base[motor/MOTORS_PER_MYOCONTROL],motor);
+	return MYO_READ_pwmRef(myo_base[motor/MOTORS_PER_MYOCONTROL],motor-(motor>=MOTORS_PER_MYOCONTROL?MOTORS_PER_MYOCONTROL:0));
 }
 
 int32_t MyoControl::getPosition(int motor){
-	return MYO_READ_position(myo_base[motor/MOTORS_PER_MYOCONTROL],motor);
+	return MYO_READ_position(myo_base[motor/MOTORS_PER_MYOCONTROL],motor-(motor>=MOTORS_PER_MYOCONTROL?MOTORS_PER_MYOCONTROL:0));
 }
 
 int16_t MyoControl::getVelocity(int motor){
-	return MYO_READ_velocity(myo_base[motor/MOTORS_PER_MYOCONTROL],motor);
+	return MYO_READ_velocity(myo_base[motor/MOTORS_PER_MYOCONTROL],motor-(motor>=MOTORS_PER_MYOCONTROL?MOTORS_PER_MYOCONTROL:0));
 }
 
 int16_t MyoControl::getDisplacement(int motor){
-	return MYO_READ_displacement(myo_base[motor/MOTORS_PER_MYOCONTROL],motor);
+	return MYO_READ_displacement(myo_base[motor/MOTORS_PER_MYOCONTROL],motor-(motor>=MOTORS_PER_MYOCONTROL?MOTORS_PER_MYOCONTROL:0));
 }
 
 int16_t MyoControl::getCurrent(int motor){
-	return MYO_READ_current(myo_base[motor/MOTORS_PER_MYOCONTROL],motor);
+	return MYO_READ_current(myo_base[motor/MOTORS_PER_MYOCONTROL],motor-(motor>=MOTORS_PER_MYOCONTROL?MOTORS_PER_MYOCONTROL:0));
+}
+
+bool MyoControl::getSPIactive(int motor){
+	return MYO_READ_spi_activated(myo_base[motor/MOTORS_PER_MYOCONTROL]);
 }
 
 void MyoControl::getDefaultControlParams(control_Parameters_t *params, int control_mode){
@@ -182,21 +196,21 @@ default:
 void MyoControl::allToPosition(int32_t pos){
 	changeControl(POSITION);
 	for(uint motor=0; motor<numberOfMotors; motor++){
-		MYO_WRITE_sp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, pos);
+		MYO_WRITE_sp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor-(motor>=MOTORS_PER_MYOCONTROL?MOTORS_PER_MYOCONTROL:0), pos);
 	}
 }
 
-void MyoControl::allToVelocity(int32_t vel){
+void MyoControl::allToVelocity(int16_t vel){
 	changeControl(VELOCITY);
 	for(uint motor=0; motor<numberOfMotors; motor++){
-		MYO_WRITE_sp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, vel);
+		MYO_WRITE_sp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor-(motor>=MOTORS_PER_MYOCONTROL?MOTORS_PER_MYOCONTROL:0), vel);
 	}
 }
 
-void MyoControl::allToDisplacement(int32_t displacement){
+void MyoControl::allToDisplacement(int16_t displacement){
 	changeControl(DISPLACEMENT);
 	for(uint motor=0; motor<numberOfMotors; motor++){
-		MYO_WRITE_sp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor, displacement);
+		MYO_WRITE_sp(myo_base[motor/MOTORS_PER_MYOCONTROL], motor-(motor>=MOTORS_PER_MYOCONTROL?MOTORS_PER_MYOCONTROL:0), displacement);
 	}
 }
 

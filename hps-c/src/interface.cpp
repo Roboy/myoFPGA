@@ -37,7 +37,7 @@ Interface::Interface(vector<int32_t*> &myo_base) {
 	//! start ncurses mode
 	initscr();
 	//! Start color functionality
-//        start_color();
+    start_color();
 	init_pair(CYAN, COLOR_CYAN, COLOR_BLACK);
 	init_pair(RED, COLOR_RED, COLOR_BLACK);
 	init_pair(GREEN, COLOR_GREEN, COLOR_BLACK);
@@ -47,7 +47,7 @@ Interface::Interface(vector<int32_t*> &myo_base) {
 	print(0, 0, cols, "-");
 	printMessage(1, 0, welcomestring);
 	print(2, 0, cols, "-");
-	print(6, 0, cols, "-");
+	print(7, 0, cols, "-");
 	querySensoryData();
 	printMessage(3, 0, commandstring);
 }
@@ -93,31 +93,33 @@ void Interface::querySensoryData() {
 	int16_t displacement = myoControl->getDisplacement(motor_id);
 	int16_t pwm = myoControl->getPWM(motor_id);
 
+	int row = 8;
 	sprintf(motorinfo, "motor %d   ", motor_id);
-	printMessage(7, 0, motorinfo, CYAN);
-	mvprintw(8, 0, "pwm:                 %d\t\t 0x%032x        ", pwm, pwm);
-	mvprintw(9, 0, "actuatorPos :        %d\t\t 0x%032x        ", pos, pos);
-	mvprintw(10, 0, "actuatorVel:        %d\t\t 0x%032x        ", vel, vel);
-	mvprintw(11, 0, "actuatorCurrent:    %d\t\t 0x%032x        ", current, current);
-	mvprintw(12, 0, "tendonDisplacement: %d\t\t 0x%032x        ", displacement, displacement);
+	printMessage(row++, 0, motorinfo, CYAN);
+	mvprintw(row++, 0, "pwm:                    %d\t\t 0x%032x        ", pwm, pwm);
+	mvprintw(row++, 0, "actuatorPos (ticks):    %d\t\t 0x%032x        ", pos, pos);
+	mvprintw(row++, 0, "actuatorPos (degree):   %f\t\t                ", pos*(2* 3.14159265359f / (2000.0f * 53.0f))*180/3.14159265359f);
+	mvprintw(row++, 0, "actuatorVel:            %d\t\t 0x%032x        ", vel, vel);
+	mvprintw(row++, 0, "actuatorCurrent:        %d\t\t 0x%032x        ", current, current);
+	mvprintw(row++, 0, "tendonDisplacement:     %d\t\t 0x%032x        ", displacement, displacement);
 
-	print(13, 0, cols, "-");
+	print(row++, 0, cols, "-");
 	int Pgain, Igain, Dgain, forwardGain, deadband, setPoint, setPointMin, setPointMax;
 	myoControl->getPIDcontrollerParams(Pgain, Igain, Dgain, forwardGain, deadband, setPoint, setPointMin, setPointMax, motor_id);
-	mvprintw(14, 0, "P gain:          %d       ", Pgain);
-	mvprintw(15, 0, "I gain:          %d       ", Igain);
-	mvprintw(16, 0, "D gain:          %d       ", Dgain);
-	mvprintw(17, 0, "forward gain:    %d       ", forwardGain);
-	mvprintw(18, 0, "deadband:        %d       ", deadband);
-	mvprintw(19, 0, "set point:       %d       ", setPoint);
-	print(20, 0, cols, "-");
+	mvprintw(row++, 0, "P gain:          %d       ", Pgain);
+	mvprintw(row++, 0, "I gain:          %d       ", Igain);
+	mvprintw(row++, 0, "D gain:          %d       ", Dgain);
+	mvprintw(row++, 0, "forward gain:    %d       ", forwardGain);
+	mvprintw(row++, 0, "deadband:        %d       ", deadband);
+	mvprintw(row++, 0, "set point:       %d       ", setPoint);
+	print(row++, 0, cols, "-");
 //	mvprintw(21, 0, "polyPar: %.5f  %.5f  %.5f  %.5f    ", myoControl->polyPar[motor_id][0],
 //			myoControl->polyPar[motor_id][1], myoControl->polyPar[motor_id][2],
 //			myoControl->polyPar[motor_id][3]);
-	mvprintw(22, 0, "set point limits: %d to %d     ", setPointMin, setPointMax);
-	mvprintw(23, 0, "weight: %.2f     ", myoControl->getWeight());
-	mvprintw(24, 0, "SPI %s               ", (myoControl->spi_active?"active":"inactive"));
-	mvprintw(25, 0, "control_mode %d      ", myoControl->getControlMode(motor_id));
+	mvprintw(row++, 0, "set point limits: %d to %d     ", setPointMin, setPointMax);
+	mvprintw(row++, 0, "weight: %.2f     ", myoControl->getWeight());
+	mvprintw(row++, 0, "SPI %s               ", (myoControl->getSPIactive(motor_id)?"active":"inactive"));
+	mvprintw(row++, 0, "control_mode %d      ", myoControl->getControlMode(motor_id));
 	refresh();
 }
 
@@ -127,16 +129,16 @@ void Interface::processing(char *msg1, char *what, char *msg2) {
 	uint b = strlen(what);
 	uint c = strlen(msg2);
 
-	print(5, 0, cols, " ");
-	printMessage(5, 0, msg1);
-	printMessage(5, a + 1, what);
-	printMessage(5, a + 1 + b + 1, msg2);
-	mvchgat(5, 0, a + 1 + b, A_BLINK, 2, NULL);
-	mvchgat(5, a + 1 + b + 1, a + 1 + b + 1 + c, A_BLINK, 1, NULL);
+	print(6, 0, cols, " ");
+	printMessage(6, 0, msg1);
+	printMessage(6, a + 1, what);
+	printMessage(6, a + 1 + b + 1, msg2);
+	mvchgat(6, 0, a + 1 + b, A_BLINK, 2, NULL);
+	mvchgat(6, a + 1 + b + 1, a + 1 + b + 1 + c, A_BLINK, 1, NULL);
 	timeout(timeout_ms);
 	do {
 		querySensoryData();
-		cmd = mvgetch(5, a + 1 + b + 1 + c);
+		cmd = mvgetch(6, a + 1 + b + 1 + c);
 	} while (cmd != 'q');
 	timeout(-1);
 }
@@ -146,181 +148,181 @@ void Interface::processing(char *msg1, char *msg2) {
 	uint a = strlen(msg1);
 	uint c = strlen(msg2);
 
-	print(5, 0, cols, " ");
-	printMessage(5, 0, msg1);
-	printMessage(5, a + 1, msg2);
-	mvchgat(5, 0, a, A_BLINK, 2, NULL);
-	mvchgat(5, a + 1, a + 1 + c, A_BLINK, 1, NULL);
+	print(6, 0, cols, " ");
+	printMessage(6, 0, msg1);
+	printMessage(6, a + 1, msg2);
+	mvchgat(6, 0, a, A_BLINK, 2, NULL);
+	mvchgat(6, a + 1, a + 1 + c, A_BLINK, 1, NULL);
 	timeout(timeout_ms);
 	do {
 		querySensoryData();
-		cmd = mvgetch(5, a + 1 + c);
+		cmd = mvgetch(6, a + 1 + c);
 	} while (cmd != 'q');
 	timeout(-1);
 }
 
 void Interface::toggleSPI(){
 	echo();
-	print(4, 0, cols, " ");
 	print(5, 0, cols, " ");
+	print(6, 0, cols, " ");
 	bool spi_active = myoControl->toggleSPI();
 	if(spi_active)
-		printMessage(4, 0, "SPI active", GREEN);
+		printMessage(5, 0, "SPI active", GREEN);
 	else
-		printMessage(4, 0, "SPI inactive", RED);
+		printMessage(5, 0, "SPI inactive", RED);
 	refresh();
 	usleep(1000*100);
-	print(4, 0, cols, " ");
 	print(5, 0, cols, " ");
+	print(6, 0, cols, " ");
 }
 
 void Interface::reset(){
 	echo();
-	print(4, 0, cols, " ");
 	print(5, 0, cols, " ");
+	print(6, 0, cols, " ");
 	myoControl->reset();
-	printMessage(4, 0, "myo control reset", GREEN);
+	printMessage(5, 0, "myo control reset", GREEN);
 	refresh();
 	usleep(1000*100);
-	print(4, 0, cols, " ");
 	print(5, 0, cols, " ");
+	print(6, 0, cols, " ");
 }
 
 void Interface::positionControl() {
 	timeout(-1);
 	echo();
-	print(4, 0, cols, " ");
 	print(5, 0, cols, " ");
-	myoControl->changeControl(motor_id, 0);
-	printMessage(4, 0, setpointstring);
-	mvchgat(4, 0, strlen(setpointstring), A_BOLD, 1, NULL);
+	print(6, 0, cols, " ");
+	myoControl->changeControl(motor_id, POSITION);
+	printMessage(5, 0, setpositionstring);
+	mvchgat(5, 0, strlen(setpositionstring), A_BOLD, 1, NULL);
 	refresh();
-	mvgetnstr(5, 0, inputstring, 30);
+	mvgetnstr(6, 0, inputstring, 30);
 	pos = atoi(inputstring);
 	myoControl->setPosition(motor_id, pos);
-	print(4, 0, cols, " ");
 	print(5, 0, cols, " ");
+	print(6, 0, cols, " ");
 	noecho();
 }
 
 void Interface::velocityControl() {
 	timeout(-1);
 	echo();
-	print(4, 0, cols, " ");
 	print(5, 0, cols, " ");
-	myoControl->changeControl(motor_id, 1);
-	printMessage(4, 0, setvelstring);
-	mvchgat(4, 0, strlen(setvelstring), A_BOLD, 1, NULL);
+	print(6, 0, cols, " ");
+	myoControl->changeControl(motor_id, VELOCITY);
+	printMessage(5, 0, setvelstring);
+	mvchgat(5, 0, strlen(setvelstring), A_BOLD, 1, NULL);
 	refresh();
-	mvgetnstr(5, 0, inputstring, 30);
+	mvgetnstr(6, 0, inputstring, 30);
 	pos = atoi(inputstring);
 	myoControl->setVelocity(motor_id, pos);
-	print(4, 0, cols, " ");
 	print(5, 0, cols, " ");
+	print(6, 0, cols, " ");
 	noecho();
 }
 
 void Interface::displacementControl() {
 	timeout(-1);
 	echo();
-	print(4, 0, cols, " ");
 	print(5, 0, cols, " ");
-	myoControl->changeControl(motor_id, 2);
-	printMessage(4, 0, setdisplacementstring);
-	mvchgat(4, 0, strlen(setdisplacementstring), A_BOLD, 1, NULL);
+	print(6, 0, cols, " ");
+	myoControl->changeControl(motor_id, DISPLACEMENT);
+	printMessage(5, 0, setdisplacementstring);
+	mvchgat(5, 0, strlen(setdisplacementstring), A_BOLD, 1, NULL);
 	refresh();
-	mvgetnstr(5, 0, inputstring, 30);
+	mvgetnstr(6, 0, inputstring, 30);
 	pos = atof(inputstring);
 	myoControl->setDisplacement(motor_id, pos);
-	print(4, 0, cols, " ");
 	print(5, 0, cols, " ");
+	print(6, 0, cols, " ");
 	noecho();
 }
 
 void Interface::switchMotor() {
 	timeout(-1);
 	echo();
-	print(4, 0, cols, " ");
 	print(5, 0, cols, " ");
-	printMessage(4, 0, motorstring, GREEN);
-	mvgetnstr(5, 0, inputstring, 30);
+	print(6, 0, cols, " ");
+	printMessage(5, 0, motorstring, GREEN);
+	mvgetnstr(6, 0, inputstring, 30);
 	uint motorrequest = atoi(inputstring);
 	if (motorrequest < myoControl->numberOfMotors)
 		motor_id = motorrequest;
 	else {
-		print(4, 0, cols, " ");
 		print(5, 0, cols, " ");
-		printMessage(5, 0, invalidstring, RED);
+		print(6, 0, cols, " ");
+		printMessage(6, 0, invalidstring, RED);
 		return;
 	}
-	print(4, 0, cols, " ");
 	print(5, 0, cols, " ");
+	print(6, 0, cols, " ");
 	noecho();
 }
 
 void Interface::zeroWeight(){
 	echo();
-	print(4, 0, cols, " ");
 	print(5, 0, cols, " ");
+	print(6, 0, cols, " ");
 	printMessage(4, 0, "zeroing weight");
 	myoControl->zeroWeight();
-	print(4, 0, cols, " ");
 	print(5, 0, cols, " ");
+	print(6, 0, cols, " ");
 }
 
 void Interface::setAllTo() {
 	timeout(-1);
 	echo();
-	print(4, 0, cols, " ");
 	print(5, 0, cols, " ");
-	printMessage(4, 0, choosecontrolstring);
-	mvchgat(4, 0, strlen(choosecontrolstring), A_BOLD, 1, NULL);
+	print(6, 0, cols, " ");
+	printMessage(5, 0, choosecontrolstring);
+	mvchgat(5, 0, strlen(choosecontrolstring), A_BOLD, 1, NULL);
 	refresh();
-	mvgetnstr(5, 0, inputstring, 30);
+	mvgetnstr(6, 0, inputstring, 30);
 	pos = atoi(inputstring);
 	switch(pos){
 	case 0:
-		printMessage(5, 0, setpositionstring);
-		mvchgat(4, 0, strlen(setpositionstring), A_BOLD, 1, NULL);
+		printMessage(6, 0, setpositionstring);
+		mvchgat(5, 0, strlen(setpositionstring), A_BOLD, 1, NULL);
 		refresh();
-		mvgetnstr(5, 0, inputstring, 30);
+		mvgetnstr(6, 0, inputstring, 30);
 		pos = atoi(inputstring);
 		myoControl->allToPosition(pos);
 		break;
 	case 1:
-		printMessage(5, 0, setvelstring);
-		mvchgat(4, 0, strlen(setvelstring), A_BOLD, 1, NULL);
+		printMessage(6, 0, setvelstring);
+		mvchgat(5, 0, strlen(setvelstring), A_BOLD, 1, NULL);
 		refresh();
-		mvgetnstr(5, 0, inputstring, 30);
+		mvgetnstr(6, 0, inputstring, 30);
 		pos = atoi(inputstring);
 		myoControl->allToVelocity(pos);
 		break;
 	case 2:
-		printMessage(5, 0, setpositionstring);
-		mvchgat(4, 0, strlen(setdisplacementstring), A_BOLD, 1, NULL);
+		printMessage(6, 0, setpositionstring);
+		mvchgat(5, 0, strlen(setdisplacementstring), A_BOLD, 1, NULL);
 		refresh();
-		mvgetnstr(5, 0, inputstring, 30);
+		mvgetnstr(6, 0, inputstring, 30);
 		pos = atoi(inputstring);
 		myoControl->allToDisplacement(pos);
 		break;
 	default:
-		print(4, 0, cols, " ");
 		print(5, 0, cols, " ");
-		printMessage(5, 0, invalidstring, RED);
+		print(6, 0, cols, " ");
+		printMessage(6, 0, invalidstring, RED);
 		break;
 	}
 	usleep(10000);
-	print(4, 0, cols, " ");
 	print(5, 0, cols, " ");
+	print(6, 0, cols, " ");
 	noecho();
 }
 
 void Interface::estimateSpringParameters(){
 	echo();
-	print(4, 0, cols, " ");
 	print(5, 0, cols, " ");
-	printMessage(4, 0, "estimating spring paramters, please wait...");
+	print(6, 0, cols, " ");
+	printMessage(5, 0, "estimating spring paramters, please wait...");
 	myoControl->estimateSpringParameters(motor_id, 600000, 1000);
-	print(4, 0, cols, " ");
 	print(5, 0, cols, " ");
+	print(6, 0, cols, " ");
 }

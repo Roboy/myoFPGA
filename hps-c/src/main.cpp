@@ -69,7 +69,7 @@ int main(int argc, char *argv[]) {
 	  noecho();
 	  do {
 	    timeout(interface.timeout_ms);
-	    cmd = mvgetch(4, 0);
+	    cmd = mvgetch(5, 0);
 	    switch (cmd) {
 	    case '0':
 	    	interface.positionControl();

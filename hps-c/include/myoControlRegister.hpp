@@ -6,7 +6,7 @@
  */
 #pragma once
 
-#define MOTORS_PER_MYOCONTROL 8
+#define MOTORS_PER_MYOCONTROL 7
 
 #define IORD(base,reg) (*(((volatile int32_t*)base)+reg))
 #define IOWR(base,reg,data) (*(((volatile int32_t*)base)+reg)=data)

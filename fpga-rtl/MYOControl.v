@@ -17,7 +17,7 @@ module MYOControl (
 	output signed [31:0] readdata,
 	output waitrequest,
 	// these are the spi ports
-	output [7:0] ss_n_o,
+	output [6:0] ss_n_o,
 	input miso,
 	output mosi,
 	output sck
@@ -32,7 +32,6 @@ reg unsigned [15:0] Kp3;
 reg unsigned [15:0] Kp4;
 reg unsigned [15:0] Kp5;
 reg unsigned [15:0] Kp6;
-reg unsigned [15:0] Kp7;
 // d gains
 reg unsigned [15:0] Kd0;
 reg unsigned [15:0] Kd1;
@@ -41,7 +40,6 @@ reg unsigned [15:0] Kd3;
 reg unsigned [15:0] Kd4;
 reg unsigned [15:0] Kd5;
 reg unsigned [15:0] Kd6;
-reg unsigned [15:0] Kd7;
 // i gains
 reg unsigned [15:0] Ki0;
 reg unsigned [15:0] Ki1;
@@ -50,7 +48,6 @@ reg unsigned [15:0] Ki3;
 reg unsigned [15:0] Ki4;
 reg unsigned [15:0] Ki5;
 reg unsigned [15:0] Ki6;
-reg unsigned [15:0] Ki7;
 // setpoints
 reg signed [31:0] sp0;
 reg signed [31:0] sp1;
@@ -59,7 +56,6 @@ reg signed [31:0] sp3;
 reg signed [31:0] sp4;
 reg signed [31:0] sp5;
 reg signed [31:0] sp6;
-reg signed [31:0] sp7;
 // forward gains
 reg signed [15:0] forwardGain0;
 reg signed [15:0] forwardGain1;
@@ -68,7 +64,6 @@ reg signed [15:0] forwardGain3;
 reg signed [15:0] forwardGain4;
 reg signed [15:0] forwardGain5;
 reg signed [15:0] forwardGain6;
-reg signed [15:0] forwardGain7;
 // output positive limits
 reg signed [15:0] outputPosMax0;
 reg signed [15:0] outputPosMax1;
@@ -77,7 +72,6 @@ reg signed [15:0] outputPosMax3;
 reg signed [15:0] outputPosMax4;
 reg signed [15:0] outputPosMax5;
 reg signed [15:0] outputPosMax6;
-reg signed [15:0] outputPosMax7;
 // output negative limits
 reg signed [15:0] outputNegMax0;
 reg signed [15:0] outputNegMax1;
@@ -86,7 +80,6 @@ reg signed [15:0] outputNegMax3;
 reg signed [15:0] outputNegMax4;
 reg signed [15:0] outputNegMax5;
 reg signed [15:0] outputNegMax6;
-reg signed [15:0] outputNegMax7;
 // integral negative limits
 reg signed [15:0] IntegralNegMax0;
 reg signed [15:0] IntegralNegMax1;
@@ -95,7 +88,6 @@ reg signed [15:0] IntegralNegMax3;
 reg signed [15:0] IntegralNegMax4;
 reg signed [15:0] IntegralNegMax5;
 reg signed [15:0] IntegralNegMax6;
-reg signed [15:0] IntegralNegMax7;
 // integral positive limits
 reg signed [15:0] IntegralPosMax0;
 reg signed [15:0] IntegralPosMax1;
@@ -104,7 +96,6 @@ reg signed [15:0] IntegralPosMax3;
 reg signed [15:0] IntegralPosMax4;
 reg signed [15:0] IntegralPosMax5;
 reg signed [15:0] IntegralPosMax6;
-reg signed [15:0] IntegralPosMax7;
 // deadband
 reg unsigned [15:0] deadBand0;
 reg unsigned [15:0] deadBand1;
@@ -113,7 +104,6 @@ reg unsigned [15:0] deadBand3;
 reg unsigned [15:0] deadBand4;
 reg unsigned [15:0] deadBand5;
 reg unsigned [15:0] deadBand6;
-reg unsigned [15:0] deadBand7;
 // control mode
 reg unsigned [1:0] controller0;
 reg unsigned [1:0] controller1;
@@ -122,7 +112,6 @@ reg unsigned [1:0] controller3;
 reg unsigned [1:0] controller4;
 reg unsigned [1:0] controller5;
 reg unsigned [1:0] controller6;
-reg unsigned [1:0] controller7;
 // reset pid_controller
 reg reset_controller0;
 reg reset_controller1;
@@ -131,7 +120,6 @@ reg reset_controller3;
 reg reset_controller4;
 reg reset_controller5;
 reg reset_controller6;
-reg reset_controller7;
 
 assign readdata = 
 	((address == 0))? reset_myo_control :
@@ -143,7 +131,6 @@ assign readdata =
 	((address == 6))? position4 :
 	((address == 7))? position5 :
 	((address == 8))? position6 :
-	((address == 9))? position7 :
 	((address == 10))? velocity0 :
 	((address == 11))? velocity1 :
 	((address == 12))? velocity2 :
@@ -151,7 +138,6 @@ assign readdata =
 	((address == 14))? velocity4 :
 	((address == 15))? velocity5 :
 	((address == 16))? velocity6 :
-	((address == 17))? velocity7 :
 	((address == 18))? current0 :
 	((address == 19))? current1 :
 	((address == 20))? current2 :
@@ -159,7 +145,6 @@ assign readdata =
 	((address == 22))? current4 :
 	((address == 23))? current5 :
 	((address == 24))? current6 :
-	((address == 25))? current7 :
 	((address == 26))? displacement0 :
 	((address == 27))? displacement1 :
 	((address == 28))? displacement2 :
@@ -167,7 +152,6 @@ assign readdata =
 	((address == 30))? displacement4 :
 	((address == 31))? displacement5 :
 	((address == 32))? displacement6 :
-	((address == 33))? displacement7 :
 	((address == 34))? Kp0:
 	((address == 35))? Kp1:
 	((address == 36))? Kp2:
@@ -175,7 +159,6 @@ assign readdata =
 	((address == 38))? Kp4:
 	((address == 39))? Kp5:
 	((address == 40))? Kp6:
-	((address == 41))? Kp7:
 	((address == 42))? Kd0:
 	((address == 43))? Kd1:
 	((address == 44))? Kd2:
@@ -183,7 +166,6 @@ assign readdata =
 	((address == 46))? Kd4:
 	((address == 47))? Kd5:
 	((address == 48))? Kd6:
-	((address == 49))? Kd7:
 	((address == 50))? Ki0:
 	((address == 51))? Ki1:
 	((address == 52))? Ki2:
@@ -191,7 +173,6 @@ assign readdata =
 	((address == 54))? Ki4:
 	((address == 55))? Ki5:
 	((address == 56))? Ki6:
-	((address == 57))? Ki7:
 	((address == 58))? sp0:
 	((address == 59))? sp1:
 	((address == 60))? sp2:
@@ -199,7 +180,6 @@ assign readdata =
 	((address == 62))? sp4:
 	((address == 63))? sp5:
 	((address == 64))? sp6:
-	((address == 65))? sp7:
 	((address == 66))? forwardGain0:
 	((address == 67))? forwardGain1:
 	((address == 68))? forwardGain2:
@@ -207,7 +187,6 @@ assign readdata =
 	((address == 70))? forwardGain4:
 	((address == 71))? forwardGain5:
 	((address == 72))? forwardGain6:
-	((address == 73))? forwardGain7:
 	((address == 74))? outputPosMax0:
 	((address == 75))? outputPosMax1:
 	((address == 76))? outputPosMax2:
@@ -215,7 +194,6 @@ assign readdata =
 	((address == 78))? outputPosMax4:
 	((address == 79))? outputPosMax5:
 	((address == 80))? outputPosMax6:
-	((address == 81))? outputPosMax7:
 	((address == 82))? outputNegMax0:
 	((address == 83))? outputNegMax1:
 	((address == 84))? outputNegMax2:
@@ -223,7 +201,6 @@ assign readdata =
 	((address == 86))? outputNegMax4:
 	((address == 87))? outputNegMax5:
 	((address == 88))? outputNegMax6:
-	((address == 89))? outputNegMax7:
 	((address == 90))? IntegralNegMax0:
 	((address == 91))? IntegralNegMax1:
 	((address == 92))? IntegralNegMax2:
@@ -231,7 +208,6 @@ assign readdata =
 	((address == 94))? IntegralNegMax4:
 	((address == 95))? IntegralNegMax5:
 	((address == 96))? IntegralNegMax6:
-	((address == 97))? IntegralNegMax7:
 	((address == 98))? IntegralPosMax0:
 	((address == 99))? IntegralPosMax1:
 	((address == 100))? IntegralPosMax2:
@@ -239,7 +215,6 @@ assign readdata =
 	((address == 102))? IntegralPosMax4:
 	((address == 103))? IntegralPosMax5:
 	((address == 104))? IntegralPosMax6:
-	((address == 105))? IntegralPosMax7:
 	((address == 106))? deadBand0:
 	((address == 107))? deadBand1:
 	((address == 108))? deadBand2:
@@ -247,7 +222,6 @@ assign readdata =
 	((address == 110))? deadBand4:
 	((address == 111))? deadBand5:
 	((address == 112))? deadBand6:
-	((address == 113))? deadBand7:
 	((address == 114))? controller0:
 	((address == 115))? controller1:
 	((address == 116))? controller2:
@@ -255,7 +229,6 @@ assign readdata =
 	((address == 118))? controller4:
 	((address == 119))? controller5:
 	((address == 120))? controller6:
-	((address == 121))? controller7:
 	((address == 122))? pwmRef0:
 	((address == 123))? pwmRef1:
 	((address == 124))? pwmRef2:
@@ -263,7 +236,6 @@ assign readdata =
 	((address == 126))? pwmRef4:
 	((address == 127))? pwmRef5:
 	((address == 128))? pwmRef6:
-	((address == 129))? pwmRef7:
 	32'hDEAD_BEEF;
 
 wire signed [0:15] pwmRef0;
@@ -273,7 +245,6 @@ wire signed [0:15] pwmRef3;
 wire signed [0:15] pwmRef4;
 wire signed [0:15] pwmRef5;
 wire signed [0:15] pwmRef6;
-wire signed [0:15] pwmRef7;
 
 // positions for the eight motors
 reg signed [31:0] position0;
@@ -283,7 +254,6 @@ reg signed [31:0] position3;
 reg signed [31:0] position4;
 reg signed [31:0] position5;
 reg signed [31:0] position6;
-reg signed [31:0] position7;
 // velocitys for the eight motors
 reg signed [15:0] velocity0;
 reg signed [15:0] velocity1;
@@ -292,7 +262,6 @@ reg signed [15:0] velocity3;
 reg signed [15:0] velocity4;
 reg signed [15:0] velocity5;
 reg signed [15:0] velocity6;
-reg signed [15:0] velocity7;
 // currents for the eight motors
 reg signed [15:0] current0;
 reg signed [15:0] current1;
@@ -301,7 +270,6 @@ reg signed [15:0] current3;
 reg signed [15:0] current4;
 reg signed [15:0] current5;
 reg signed [15:0] current6;
-reg signed [15:0] current7;
 // displacements for the eight motors
 reg signed [15:0] displacement0;
 reg signed [15:0] displacement1;
@@ -310,7 +278,6 @@ reg signed [15:0] displacement3;
 reg signed [15:0] displacement4;
 reg signed [15:0] displacement5;
 reg signed [15:0] displacement6;
-reg signed [15:0] displacement7;
 	
 reg reset_myo_control;
 reg spi_activated;
@@ -341,7 +308,6 @@ always @(posedge clock, posedge reset) begin: MYO_CONTROL_LOGIC
 				4: position4[31:0] <= position[0:31];
 				5: position5[31:0] <= position[0:31];
 				6: position6[31:0] <= position[0:31];
-				7: position7[31:0] <= position[0:31];
 			endcase
 			case(motor)
 				0: velocity0[15:0] <= velocity[0:15];
@@ -351,7 +317,6 @@ always @(posedge clock, posedge reset) begin: MYO_CONTROL_LOGIC
 				4: velocity4[15:0] <= velocity[0:15];
 				5: velocity5[15:0] <= velocity[0:15];
 				6: velocity6[15:0] <= velocity[0:15];
-				7: velocity7[15:0] <= velocity[0:15];
 			endcase
 			case(motor)
 				0: current0[15:0] <= current[0:15];
@@ -361,7 +326,6 @@ always @(posedge clock, posedge reset) begin: MYO_CONTROL_LOGIC
 				4: current4[15:0] <= current[0:15];
 				5: current5[15:0] <= current[0:15];
 				6: current6[15:0] <= current[0:15];
-				7: current7[15:0] <= current[0:15];
 			endcase
 			case(motor)
 				0: displacement0[15:0] <= displacement[0:15];
@@ -371,11 +335,13 @@ always @(posedge clock, posedge reset) begin: MYO_CONTROL_LOGIC
 				4: displacement4[15:0] <= displacement[0:15];
 				5: displacement5[15:0] <= displacement[0:15];
 				6: displacement6[15:0] <= displacement[0:15];
-				7: displacement7[15:0] <= displacement[0:15];
 			endcase
 			update_controller <= 1;
 			pid_update <= motor;
-			motor <= motor + 1;
+			if(motor==6)
+				motor <= 0;
+			else
+				motor <= motor + 1;
 		end
 	
 		reset_myo_control <= 0;
@@ -386,7 +352,6 @@ always @(posedge clock, posedge reset) begin: MYO_CONTROL_LOGIC
 		reset_controller4 <= 0;
 		reset_controller5 <= 0;
 		reset_controller6 <= 0;
-		reset_controller7 <= 0;
 	
 		// if we are writing via avalon bus and waitrequest is deasserted, write the respective register
 		if(write && ~waitrequest) begin
@@ -400,7 +365,6 @@ always @(posedge clock, posedge reset) begin: MYO_CONTROL_LOGIC
 				38: Kp4 <= writedata[15:0];
 				39: Kp5 <= writedata[15:0];
 				40: Kp6 <= writedata[15:0];
-				41: Kp7 <= writedata[15:0];
 				42: Kd0 <= writedata[15:0];
 				43: Kd1 <= writedata[15:0];
 				44: Kd2 <= writedata[15:0];
@@ -408,7 +372,6 @@ always @(posedge clock, posedge reset) begin: MYO_CONTROL_LOGIC
 				46: Kd4 <= writedata[15:0];
 				47: Kd5 <= writedata[15:0];
 				48: Kd6 <= writedata[15:0];
-				49: Kd7 <= writedata[15:0];
 				50: Ki0 <= writedata[15:0];
 				51: Ki1 <= writedata[15:0];
 				52: Ki2 <= writedata[15:0];
@@ -416,7 +379,6 @@ always @(posedge clock, posedge reset) begin: MYO_CONTROL_LOGIC
 				54: Ki4 <= writedata[15:0];
 				55: Ki5 <= writedata[15:0];
 				56: Ki6 <= writedata[15:0];
-				57: Ki7 <= writedata[15:0];
 				58: sp0 <= writedata[31:0];
 				59: sp1 <= writedata[31:0];
 				60: sp2 <= writedata[31:0];
@@ -424,7 +386,6 @@ always @(posedge clock, posedge reset) begin: MYO_CONTROL_LOGIC
 				62: sp4 <= writedata[31:0];
 				63: sp5 <= writedata[31:0];
 				64: sp6 <= writedata[31:0];
-				65: sp7 <= writedata[31:0];
 				66: forwardGain0 <= writedata[15:0];
 				67: forwardGain1 <= writedata[15:0];
 				68: forwardGain2 <= writedata[15:0];
@@ -432,7 +393,6 @@ always @(posedge clock, posedge reset) begin: MYO_CONTROL_LOGIC
 				70: forwardGain4 <= writedata[15:0];
 				71: forwardGain5 <= writedata[15:0];
 				72: forwardGain6 <= writedata[15:0];
-				73: forwardGain7 <= writedata[15:0];
 				74: outputPosMax0 <= writedata[15:0];
 				75: outputPosMax1 <= writedata[15:0];
 				76: outputPosMax2 <= writedata[15:0];
@@ -440,7 +400,6 @@ always @(posedge clock, posedge reset) begin: MYO_CONTROL_LOGIC
 				78: outputPosMax4 <= writedata[15:0];
 				79: outputPosMax5 <= writedata[15:0];
 				80: outputPosMax6 <= writedata[15:0];
-				81: outputPosMax7 <= writedata[15:0];
 				82: outputNegMax0 <= writedata[15:0];
 				83: outputNegMax1 <= writedata[15:0];
 				84: outputNegMax2 <= writedata[15:0];
@@ -448,7 +407,6 @@ always @(posedge clock, posedge reset) begin: MYO_CONTROL_LOGIC
 				86: outputNegMax4 <= writedata[15:0];
 				87: outputNegMax5 <= writedata[15:0];
 				88: outputNegMax6 <= writedata[15:0];
-				89: outputNegMax7 <= writedata[15:0];
 				90: IntegralNegMax0 <= writedata[15:0];
 				91: IntegralNegMax1 <= writedata[15:0];
 				92: IntegralNegMax2 <= writedata[15:0];
@@ -456,7 +414,6 @@ always @(posedge clock, posedge reset) begin: MYO_CONTROL_LOGIC
 				94: IntegralNegMax4 <= writedata[15:0];
 				95: IntegralNegMax5 <= writedata[15:0];
 				96: IntegralNegMax6 <= writedata[15:0];
-				97: IntegralNegMax7 <= writedata[15:0];
 				98: IntegralPosMax0 <= writedata[15:0];
 				99: IntegralPosMax1 <= writedata[15:0];
 				100: IntegralPosMax2 <= writedata[15:0];
@@ -464,7 +421,6 @@ always @(posedge clock, posedge reset) begin: MYO_CONTROL_LOGIC
 				102: IntegralPosMax4 <= writedata[15:0];
 				103: IntegralPosMax5 <= writedata[15:0];
 				104: IntegralPosMax6 <= writedata[15:0];
-				105: IntegralPosMax7 <= writedata[15:0];
 				106: deadBand0 <= writedata[15:0];
 				107: deadBand1 <= writedata[15:0];
 				108: deadBand2 <= writedata[15:0];
@@ -472,7 +428,6 @@ always @(posedge clock, posedge reset) begin: MYO_CONTROL_LOGIC
 				110: deadBand4 <= writedata[15:0];
 				111: deadBand5 <= writedata[15:0];
 				112: deadBand6 <= writedata[15:0];
-				113: deadBand7 <= writedata[15:0];
 				114: controller0 <= writedata[1:0];
 				115: controller1 <= writedata[1:0];
 				116: controller2 <= writedata[1:0];
@@ -480,7 +435,6 @@ always @(posedge clock, posedge reset) begin: MYO_CONTROL_LOGIC
 				118: controller4 <= writedata[1:0];
 				119: controller5 <= writedata[1:0];
 				120: controller6 <= writedata[1:0];
-				121: controller7 <= writedata[1:0];
 				130: reset_controller0 <= 1;
 				131: reset_controller1 <= 1;
 				132: reset_controller2 <= 1;
@@ -488,7 +442,6 @@ always @(posedge clock, posedge reset) begin: MYO_CONTROL_LOGIC
 				134: reset_controller4 <= 1;
 				135: reset_controller5 <= 1;
 				136: reset_controller6 <= 1;
-				137: reset_controller7 <= 1;
 			endcase 
 		end
 	end 
@@ -514,7 +467,6 @@ assign pwmRef =
 (motor==4)?pwmRef4:
 (motor==5)?pwmRef5:
 (motor==6)?pwmRef6:
-(motor==7)?pwmRef7:
 0;
 
 assign ss_n_o[0] = (motor==0?ss_n:1);
@@ -524,7 +476,6 @@ assign ss_n_o[3] = (motor==3?ss_n:1);
 assign ss_n_o[4] = (motor==4?ss_n:1);
 assign ss_n_o[5] = (motor==5?ss_n:1);
 assign ss_n_o[6] = (motor==6?ss_n:1);
-assign ss_n_o[7] = (motor==7?ss_n:1);
 
 SpiControl spi_control(
 	.clock(clock),
@@ -709,27 +660,6 @@ PIDController pid_controller6(
 	.displacement(displacement6),
 	.update_controller(pid_update==6 && update_controller),
 	.result(pwmRef6)
-);
-
-PIDController pid_controller7(
-	.clock(clock),
-	.reset(reset_myo_control||reset_controller7),
-	.Kp(Kp7),
-	.Kd(Kd7),
-	.Ki(Ki7),
-	.sp(sp7),
-	.forwardGain(forwardGain7),
-	.outputPosMax(outputPosMax7),
-	.outputNegMax(outputNegMax7),
-	.IntegralNegMax(IntegralNegMax7),
-	.IntegralPosMax(IntegralPosMax7),
-	.deadBand(deadBand7),
-	.controller(controller7), // position velocity force
-	.position(position7),
-	.velocity(velocity7),
-	.displacement(displacement7),
-	.update_controller(pid_update==7 && update_controller),
-	.result(pwmRef7)
 );
 
 endmodule

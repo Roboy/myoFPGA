@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="soc_system" kind="system" version="16.1" fabric="QSYS">
  <!-- Format version 16.1 203 (Future versions may contain additional information.) -->
- <!-- 2017.03.30.13:43:49 -->
+ <!-- 2017.03.31.23:39:50 -->
  <!-- A collection of modules and connections -->
  <parameter name="clockCrossingAdapter">
   <type>com.altera.sopcmodel.ensemble.EClockAdapter</type>
@@ -53,7 +53,7 @@
  </parameter>
  <parameter name="generationId">
   <type>int</type>
-  <value>1490874183</value>
+  <value>1490996344</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>true</visible>
@@ -645,7 +645,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>ss_n_o</name>
     <direction>Output</direction>
-    <width>8</width>
+    <width>7</width>
     <role>ss_n</role>
    </port>
   </interface>
@@ -1193,7 +1193,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>ss_n_o</name>
     <direction>Output</direction>
-    <width>8</width>
+    <width>7</width>
     <role>ss_n</role>
    </port>
   </interface>
@@ -48462,7 +48462,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1490874183</value>
+   <value>1490996344</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -48482,7 +48482,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1490874183</value>
+   <value>1490996344</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -48498,7 +48498,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1490874183</value>
+   <value>1490996344</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -58583,5 +58583,5 @@ parameters are a RESULT of the module parameters. -->
   <version>16.1</version>
  </plugin>
  <reportVersion>16.1 203</reportVersion>
- <uniqueIdentifier>4CCC6A6BE10F0000015B1F06FADB</uniqueIdentifier>
+ <uniqueIdentifier>4CCC6A6BE10F0000015B264F0647</uniqueIdentifier>
 </EnsembleReport>

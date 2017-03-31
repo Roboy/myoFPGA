@@ -77,11 +77,11 @@
 			myocontrol_0_miso                     : in    std_logic                     := 'X';             -- miso
 			myocontrol_0_mosi                     : out   std_logic;                                        -- mosi
 			myocontrol_0_sck                      : out   std_logic;                                        -- sck
-			myocontrol_0_ss_n                     : out   std_logic_vector(7 downto 0);                     -- ss_n
+			myocontrol_0_ss_n                     : out   std_logic_vector(6 downto 0);                     -- ss_n
 			myocontrol_1_miso                     : in    std_logic                     := 'X';             -- miso
 			myocontrol_1_mosi                     : out   std_logic;                                        -- mosi
 			myocontrol_1_sck                      : out   std_logic;                                        -- sck
-			myocontrol_1_ss_n                     : out   std_logic_vector(7 downto 0);                     -- ss_n
+			myocontrol_1_ss_n                     : out   std_logic_vector(6 downto 0);                     -- ss_n
 			pio_led_external_connection_export    : out   std_logic_vector(7 downto 0);                     -- export
 			reset_reset_n                         : in    std_logic                     := 'X'              -- reset_n
 		);

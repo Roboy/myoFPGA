@@ -1,0 +1,8 @@
+prefix=/home/roboy/workspace/myoFPGA/myoFPGA/devel
+
+Name: roboy_managing_node
+Description: Description of roboy_managing_node
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/roboy/workspace/myoFPGA/myoFPGA/devel/lib 
+Requires: message_runtime

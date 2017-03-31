@@ -20,7 +20,7 @@ typedef struct
 	uint16_t Kp;/*!<Gain of the proportional component*/
 	uint16_t Ki;/*!<Gain of the integral component*/
 	uint16_t Kd;/*!<Gain of the differential component*/
-	uint16_t forwardGain; /*!<Gain of  the feed-forward term*/
+	int16_t forwardGain; /*!<Gain of  the feed-forward term*/
 	uint16_t deadBand;/*!<Optional deadband threshold for the control response*/
 	int16_t IntegralPosMax; /*!<Integral positive component maximum*/
 	int16_t IntegralNegMax; /*!<Integral negative component maximum*/
@@ -30,9 +30,9 @@ typedef struct
 }control_Parameters_t;
 
 enum CONTROLMODE{
-	POSITION,
-	VELOCITY,
-	DISPLACEMENT,
+	POSITION = 0,
+	VELOCITY = 1,
+	DISPLACEMENT = 2,
 	FORCE
 };
 
@@ -78,13 +78,20 @@ public:
 	 * @param motor for this motor
 	 * @param velocity the new setpoint
 	 */
-	void setVelocity(int motor, int32_t velocity);
+	void setVelocity(int motor, int16_t velocity);
 	/**
 	 * Changes setpoint for displacement controller
 	 * @param motor for this motor
 	 * @param displacement the new setpoint
 	 */
-	void setDisplacement(int motor, int32_t displacement);
+	void setDisplacement(int motor, int16_t displacement);
+	/**
+	 * Sets the spi state for the interface of a motor
+	 * @param motor
+	 * @param active
+	 * @param active/not active
+	 */
+	bool setSPIactive(int motor, bool active);
 	/**
 	 * Get the parameters for the PID controller of a motor
 	 * @param motor for this motor
@@ -121,7 +128,11 @@ public:
 	 * @param motor for this motor
 	 */
 	int16_t getCurrent(int motor);
-
+	/**
+	 * Gets the current spi state
+	 * @param active/not active
+	 */
+	bool getSPIactive(int motor);
 	/**
 	 * Fills the given params with default values for the corresponding control mode
 	 * @param params pointer to control struct
@@ -138,12 +149,12 @@ public:
 	 * Changes the control mode for all motors to Velocity
 	 * @param pos new setPoint
 	 */
-	void allToVelocity(int32_t vel);
+	void allToVelocity(int16_t vel);
 	/**
 	 * Changes the control mode for all motors to Displacement
 	 * @param force new setPoint
 	 */
-	void allToDisplacement(int32_t displacement);
+	void allToDisplacement(int16_t displacement);
 	/**
 	 * Zeros the current weight
 	 */
@@ -175,7 +186,6 @@ public:
 	uint32_t *adc_base = nullptr;
 	float weight_offset = 0;
 	float adc_weight_parameters[2] = {830.7, -0.455};
-	bool spi_active = false;
 	uint numberOfMotors;
 private:
 	vector<int32_t*> myo_base;

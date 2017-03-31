@@ -81,11 +81,11 @@ module soc_system (
 		input  wire        myocontrol_0_miso,                     //                myocontrol_0.miso
 		output wire        myocontrol_0_mosi,                     //                            .mosi
 		output wire        myocontrol_0_sck,                      //                            .sck
-		output wire [7:0]  myocontrol_0_ss_n,                     //                            .ss_n
+		output wire [6:0]  myocontrol_0_ss_n,                     //                            .ss_n
 		input  wire        myocontrol_1_miso,                     //                myocontrol_1.miso
 		output wire        myocontrol_1_mosi,                     //                            .mosi
 		output wire        myocontrol_1_sck,                      //                            .sck
-		output wire [7:0]  myocontrol_1_ss_n,                     //                            .ss_n
+		output wire [6:0]  myocontrol_1_ss_n,                     //                            .ss_n
 		output wire [7:0]  pio_led_external_connection_export,    // pio_led_external_connection.export
 		input  wire        reset_reset_n                          //                       reset.reset_n
 	);

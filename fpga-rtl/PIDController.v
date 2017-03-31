@@ -8,7 +8,7 @@ module PIDController (
 	input unsigned [15:0] Kd,
 	input unsigned [15:0] Ki,
 	input signed [31:0] sp,
-	input unsigned [15:0] forwardGain,
+	input signed [15:0] forwardGain,
 	input signed [15:0] outputPosMax,
 	input signed [15:0] outputNegMax,
 	input signed [15:0] IntegralNegMax,
@@ -19,7 +19,7 @@ module PIDController (
 	input signed [15:0] velocity,
 	input signed [15:0] displacement,
 	input update_controller,
-	output reg signed [15:0] result
+	output reg signed [31:0] result
 	);
 
 always @(posedge clock, posedge reset) begin: PID_CONTROLLER_PID_CONTROLLERLOGIC
@@ -44,7 +44,7 @@ always @(posedge clock, posedge reset) begin: PID_CONTROLLER_PID_CONTROLLERLOGIC
 		update_controller_prev <= update_controller;
 		if(update_controller_prev==0 && update_controller==1) begin
 			case(controller)
-				0: err = (sp - position);
+				0: err = (sp - position); 
 				1: err = (sp - velocity);
 				2: err = (sp - displacement);
 				default: err = 0;

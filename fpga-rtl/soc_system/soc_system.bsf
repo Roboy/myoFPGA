@@ -391,8 +391,8 @@ agreement for further details.
 	(port
 		(pt 0 1200)
 		(output)
-		(text "myocontrol_0_ss_n[7..0]" (rect 0 0 101 12)(font "Arial" (font_size 8)))
-		(text "myocontrol_0_ss_n[7..0]" (rect 4 1189 142 1200)(font "Arial" (font_size 8)))
+		(text "myocontrol_0_ss_n[6..0]" (rect 0 0 101 12)(font "Arial" (font_size 8)))
+		(text "myocontrol_0_ss_n[6..0]" (rect 4 1189 142 1200)(font "Arial" (font_size 8)))
 		(line (pt 0 1200)(pt 272 1200)(line_width 3))
 	)
 	(port
@@ -412,8 +412,8 @@ agreement for further details.
 	(port
 		(pt 0 1288)
 		(output)
-		(text "myocontrol_1_ss_n[7..0]" (rect 0 0 100 12)(font "Arial" (font_size 8)))
-		(text "myocontrol_1_ss_n[7..0]" (rect 4 1277 142 1288)(font "Arial" (font_size 8)))
+		(text "myocontrol_1_ss_n[6..0]" (rect 0 0 100 12)(font "Arial" (font_size 8)))
+		(text "myocontrol_1_ss_n[6..0]" (rect 4 1277 142 1288)(font "Arial" (font_size 8)))
 		(line (pt 0 1288)(pt 272 1288)(line_width 3))
 	)
 	(port

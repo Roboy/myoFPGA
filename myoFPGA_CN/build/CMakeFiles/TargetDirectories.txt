@@ -1,7 +1,0 @@
-/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles/install.dir
-/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles/list_install_components.dir
-/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles/rebuild_cache.dir
-/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles/myoFPGA_CN.dir
-/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles/install/local.dir
-/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles/install/strip.dir
-/home/roboy/workspace/myoFPGA/myoFPGA_CN/build/CMakeFiles/edit_cache.dir
