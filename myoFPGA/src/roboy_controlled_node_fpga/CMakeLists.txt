@@ -11,7 +11,7 @@ ENDIF()
 set(CMAKE_SYSTEM_NAME Linux)
 set(CMAKE_SYSTEM_PROCESSOR armv7l)
 
-set(compiler_path /home/roboy/Downloads/gcc-linaro-5.4.1-2017.01-x86_64_arm-linux-gnueabihf/bin)
+set(compiler_path /home/roboy/Downloads/gcc-linaro-arm-linux-gnueabihf-4.7-2012.11-20121123_linux/bin)
 set(CMAKE_C_COMPILER ${compiler_path}/arm-linux-gnueabihf-gcc)
 set(CMAKE_CXX_COMPILER ${compiler_path}/arm-linux-gnueabihf-g++)
 
@@ -126,7 +126,7 @@ SET_PROPERTY(TARGET roboy_controlled_node_fpga
 # Libraries to link
 
 OPLK_LINK_LIBRARIES(roboy_controlled_node_fpga)
-TARGET_LINK_LIBRARIES(roboy_controlled_node_fpga ${pcap_LIBRARY} ${pcap_udp_LIBRARY} -lpthread -lrt ${ros_LIBRARIES})
+TARGET_LINK_LIBRARIES(roboy_controlled_node_fpga ${pcap_LIBRARY} ${pcap_udp_LIBRARY} -lpthread -lrt ${ros_LIBRARIES})#
 
 ################################################################################
 # Installation rules

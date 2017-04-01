@@ -44,11 +44,11 @@ MyoMaster::MyoMaster(int argc, char *argv[]) {
     msg.pwmRef.push_back(1);
     msg.pwmRef.push_back(2);
     ros::Rate rate(1);
-    while(true){
-        motorStatus.publish(msg);
-        ros::spinOnce();
-        rate.sleep();
-    }
+//    while(true){
+//        motorStatus.publish(msg);
+//        ros::spinOnce();
+//        rate.sleep();
+//    }
 
     tOplkError ret = kErrorOk;
     tOptions opts;

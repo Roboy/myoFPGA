@@ -63,7 +63,7 @@ if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/Project/roboy_controlled_node_fpga")
     file(RPATH_CHANGE
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/Project/roboy_controlled_node_fpga"
-         OLD_RPATH "/home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/opt/ros/kinetic/lib:/home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/usr/lib/arm-linux-gnueabihf:/home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/lib/arm-linux-gnueabihf:"
+         OLD_RPATH "/home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/ros_catkin_ws/install_isolated/lib:/home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/usr/local/lib:/home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/usr/lib:/home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/usr/lib/arm-linux-gnueabihf:/home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/lib/arm-linux-gnueabihf:"
          NEW_RPATH "")
     if(CMAKE_INSTALL_DO_STRIP)
       execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/Project/roboy_controlled_node_fpga")
