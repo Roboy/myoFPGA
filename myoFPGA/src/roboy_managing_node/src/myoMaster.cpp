@@ -23,8 +23,32 @@ MyoMaster::MyoMaster(int argc, char *argv[]) {
     }
     nh = ros::NodeHandlePtr(new ros::NodeHandle);
 //
-    motorStatus = nh->subscribe("/roboy/motorStatus", 1, &MyoMaster::MotorStatus, this);
-    motorConfig = nh->advertise<communication::MotorConfig>("/roboy/motorConfig", 100);
+//    motorStatus = nh->subscribe("/roboy/motorStatus", 1, &MyoMaster::MotorStatus, this);
+    motorConfig = nh->advertise<communication::MotorConfig>("/roboy/MotorConfig", 100);
+    motorStatus = nh->advertise<communication::MotorStatus>("/roboy/MotorStatus", 100);
+
+    communication::MotorStatus msg;
+    msg.current.push_back(0);
+    msg.current.push_back(1);
+    msg.current.push_back(2);
+    msg.displacement.push_back(0);
+    msg.displacement.push_back(1);
+    msg.displacement.push_back(2);
+    msg.velocity.push_back(0);
+    msg.velocity.push_back(1);
+    msg.velocity.push_back(2);
+    msg.position.push_back(0);
+    msg.position.push_back(1);
+    msg.position.push_back(2);
+    msg.pwmRef.push_back(0);
+    msg.pwmRef.push_back(1);
+    msg.pwmRef.push_back(2);
+    ros::Rate rate(1);
+    while(true){
+        motorStatus.publish(msg);
+        ros::spinOnce();
+        rate.sleep();
+    }
 
     tOplkError ret = kErrorOk;
     tOptions opts;
@@ -184,11 +208,11 @@ void MyoMaster::mainLoop() {
 }
 
 void MyoMaster::changeControl(int motor, int mode){
-    MotorConfig.control_mode[motor] = mode;
+    MotorConfig.control_mode = mode;
 }
 
 void MyoMaster::changeControl(int mode){
-    fill_n(MotorConfig.control_mode,16,mode);
+//    MotorConfig.control_mode,16,mode);
 }
 
 void MyoMaster::changeSetPoint(int motor, int setPoint){
@@ -453,8 +477,7 @@ tOplkError MyoMaster::processSync() {
 //        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_14);
 //        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_15);
 //        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_16);
-        MyoFPGAProtobuf::motorConfig msg;
-        motorConfigSocket->sendMessage<MyoFPGAProtobuf::motorConfig>(msg);
+
     }
     // setpoints for 16 motors
     pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_1 = setPoints[0];

@@ -7,7 +7,12 @@
 ;//! \htmlinclude MotorConfig.msg.html
 
 (cl:defclass <MotorConfig> (roslisp-msg-protocol:ros-message)
-  ((control_mode
+  ((motors
+    :reader motors
+    :initarg :motors
+    :type (cl:vector cl:fixnum)
+   :initform (cl:make-array 0 :element-type 'cl:fixnum :initial-element 0))
+   (control_mode
     :reader control_mode
     :initarg :control_mode
     :type (cl:vector cl:fixnum)
@@ -77,6 +82,11 @@
   (cl:unless (cl:typep m 'MotorConfig)
     (roslisp-msg-protocol:msg-deprecation-warning "using old message class name communication-msg:<MotorConfig> is deprecated: use communication-msg:MotorConfig instead.")))
 
+(cl:ensure-generic-function 'motors-val :lambda-list '(m))
+(cl:defmethod motors-val ((m <MotorConfig>))
+  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader communication-msg:motors-val is deprecated.  Use communication-msg:motors instead.")
+  (motors m))
+
 (cl:ensure-generic-function 'control_mode-val :lambda-list '(m))
 (cl:defmethod control_mode-val ((m <MotorConfig>))
   (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader communication-msg:control_mode-val is deprecated.  Use communication-msg:control_mode instead.")
@@ -138,6 +148,13 @@
   (IntegralNegMax m))
 (cl:defmethod roslisp-msg-protocol:serialize ((msg <MotorConfig>) ostream)
   "Serializes a message object of type '<MotorConfig>"
+  (cl:let ((__ros_arr_len (cl:length (cl:slot-value msg 'motors))))
+    (cl:write-byte (cl:ldb (cl:byte 8 0) __ros_arr_len) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 8) __ros_arr_len) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 16) __ros_arr_len) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 24) __ros_arr_len) ostream))
+  (cl:map cl:nil #'(cl:lambda (ele) (cl:write-byte (cl:ldb (cl:byte 8 0) ele) ostream))
+   (cl:slot-value msg 'motors))
   (cl:let ((__ros_arr_len (cl:length (cl:slot-value msg 'control_mode))))
     (cl:write-byte (cl:ldb (cl:byte 8 0) __ros_arr_len) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 8) __ros_arr_len) ostream)
@@ -260,6 +277,15 @@
 )
 (cl:defmethod roslisp-msg-protocol:deserialize ((msg <MotorConfig>) istream)
   "Deserializes a message object of type '<MotorConfig>"
+  (cl:let ((__ros_arr_len 0))
+    (cl:setf (cl:ldb (cl:byte 8 0) __ros_arr_len) (cl:read-byte istream))
+    (cl:setf (cl:ldb (cl:byte 8 8) __ros_arr_len) (cl:read-byte istream))
+    (cl:setf (cl:ldb (cl:byte 8 16) __ros_arr_len) (cl:read-byte istream))
+    (cl:setf (cl:ldb (cl:byte 8 24) __ros_arr_len) (cl:read-byte istream))
+  (cl:setf (cl:slot-value msg 'motors) (cl:make-array __ros_arr_len))
+  (cl:let ((vals (cl:slot-value msg 'motors)))
+    (cl:dotimes (i __ros_arr_len)
+    (cl:setf (cl:ldb (cl:byte 8 0) (cl:aref vals i)) (cl:read-byte istream)))))
   (cl:let ((__ros_arr_len 0))
     (cl:setf (cl:ldb (cl:byte 8 0) __ros_arr_len) (cl:read-byte istream))
     (cl:setf (cl:ldb (cl:byte 8 8) __ros_arr_len) (cl:read-byte istream))
@@ -413,18 +439,19 @@
   "communication/MotorConfig")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<MotorConfig>)))
   "Returns md5sum for a message object of type '<MotorConfig>"
-  "051c9c5b4a5a7dd6e3d99abc0b0331c6")
+  "f1f8fd307485b210c1654b457c7dcba9")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'MotorConfig)))
   "Returns md5sum for a message object of type 'MotorConfig"
-  "051c9c5b4a5a7dd6e3d99abc0b0331c6")
+  "f1f8fd307485b210c1654b457c7dcba9")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<MotorConfig>)))
   "Returns full string definition for message of type '<MotorConfig>"
-  (cl:format cl:nil "uint8[] control_mode~%int32[] outputPosMax~%int32[] outputNegMax~%int32[] spPosMax~%int32[] spNegMax~%uint16[] Kp~%uint16[] Ki~%uint16[] Kd~%uint16[] forwardGain~%uint16[] deadBand~%int32[] IntegralPosMax~%int32[] IntegralNegMax~%~%"))
+  (cl:format cl:nil "uint8[] motors~%uint8[] control_mode~%int32[] outputPosMax~%int32[] outputNegMax~%int32[] spPosMax~%int32[] spNegMax~%uint16[] Kp~%uint16[] Ki~%uint16[] Kd~%uint16[] forwardGain~%uint16[] deadBand~%int32[] IntegralPosMax~%int32[] IntegralNegMax~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'MotorConfig)))
   "Returns full string definition for message of type 'MotorConfig"
-  (cl:format cl:nil "uint8[] control_mode~%int32[] outputPosMax~%int32[] outputNegMax~%int32[] spPosMax~%int32[] spNegMax~%uint16[] Kp~%uint16[] Ki~%uint16[] Kd~%uint16[] forwardGain~%uint16[] deadBand~%int32[] IntegralPosMax~%int32[] IntegralNegMax~%~%"))
+  (cl:format cl:nil "uint8[] motors~%uint8[] control_mode~%int32[] outputPosMax~%int32[] outputNegMax~%int32[] spPosMax~%int32[] spNegMax~%uint16[] Kp~%uint16[] Ki~%uint16[] Kd~%uint16[] forwardGain~%uint16[] deadBand~%int32[] IntegralPosMax~%int32[] IntegralNegMax~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <MotorConfig>))
   (cl:+ 0
+     4 (cl:reduce #'cl:+ (cl:slot-value msg 'motors) :key #'(cl:lambda (ele) (cl:declare (cl:ignorable ele)) (cl:+ 1)))
      4 (cl:reduce #'cl:+ (cl:slot-value msg 'control_mode) :key #'(cl:lambda (ele) (cl:declare (cl:ignorable ele)) (cl:+ 1)))
      4 (cl:reduce #'cl:+ (cl:slot-value msg 'outputPosMax) :key #'(cl:lambda (ele) (cl:declare (cl:ignorable ele)) (cl:+ 4)))
      4 (cl:reduce #'cl:+ (cl:slot-value msg 'outputNegMax) :key #'(cl:lambda (ele) (cl:declare (cl:ignorable ele)) (cl:+ 4)))
@@ -441,6 +468,7 @@
 (cl:defmethod roslisp-msg-protocol:ros-message-to-list ((msg <MotorConfig>))
   "Converts a ROS message object to a list"
   (cl:list 'MotorConfig
+    (cl:cons ':motors (motors msg))
     (cl:cons ':control_mode (control_mode msg))
     (cl:cons ':outputPosMax (outputPosMax msg))
     (cl:cons ':outputNegMax (outputNegMax msg))

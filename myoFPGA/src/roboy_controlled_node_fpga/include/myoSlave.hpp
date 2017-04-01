@@ -40,9 +40,14 @@
 
 #include "UDPSocket.hpp"
 
+#undef min
+#undef max
+
 #include <ros/ros.h>
 #include <communication/MotorConfig.h>
 #include <communication/MotorStatus.h>
+
+
 
 using namespace std;
 using namespace std::chrono;
@@ -70,13 +75,13 @@ public:
 	 * @param mode choose from Position, Velocity or Displacement
 	 * @param params with these controller parameters
 	 */
-	static void changeControl(int motor, int mode, control_Parameters_t &params);
-	/**
-	 * Changes the controller of a motor with the saved controller parameters
-	 * @param motor for this motor
-	 * @param mode choose from Position, Velocity or Displacement
-	 */
-	static void changeControl(int motor, int mode);
+	static void changeControl(int motor, control_Parameters_t &params);
+    /**
+    * Changes the controller of a motor with the saved controller parameters
+    * @param motor for thsi motor
+    * @param mode choose from Position, Velocity or Displacement
+    */
+    static void changeControl(int motor, int mode);
 	/**
 	 * Changes the controller of ALL motors with the saved controller parameters
 	 * @param mode choose from Position, Velocity or Displacement
@@ -195,7 +200,7 @@ public:
 	static void polynomialRegression(int degree, vector<float> &x, vector<float> &y,
 			vector<float> &coeffs);
 
-	map<int,map<int,control_Parameters_t>> control_params;
+	static map<int,map<int,control_Parameters_t>> control_params;
 	uint32_t *adc_base = nullptr;
 	float weight_offset = 0;
 	float adc_weight_parameters[2] = {830.7, -0.455};

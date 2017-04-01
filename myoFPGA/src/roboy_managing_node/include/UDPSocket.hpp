@@ -21,8 +21,6 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <vector>
-// protobuf
-#include "myoFPGA.pb.h"
 
 #define MAXBUFLENGTH 1024
 

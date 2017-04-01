@@ -197,5 +197,6 @@ private:
     static bool fExit;
     ros::NodeHandlePtr nh;
     static ros::Publisher motorConfig;
-    ros::Subscriber motorStatus;
+    ros::Publisher motorStatus;
+//    ros::Subscriber motorStatus;
 };

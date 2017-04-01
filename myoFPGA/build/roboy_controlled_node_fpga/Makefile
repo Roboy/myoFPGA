@@ -181,19 +181,19 @@ _catkin_empty_exported_target/fast:
 .PHONY : _catkin_empty_exported_target/fast
 
 # Convenience name for target.
-roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/rule:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f CMakeFiles/Makefile2 roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/rule
-.PHONY : roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/rule
+roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/rule:
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f CMakeFiles/Makefile2 roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/rule
+.PHONY : roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/rule
 
 # Convenience name for target.
-myoFPGA_CN: roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/rule
+roboy_controlled_node_fpga: roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/rule
 
-.PHONY : myoFPGA_CN
+.PHONY : roboy_controlled_node_fpga
 
 # fast build rule for target.
-myoFPGA_CN/fast:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/build.make roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/build
-.PHONY : myoFPGA_CN/fast
+roboy_controlled_node_fpga/fast:
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/build.make roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/build
+.PHONY : roboy_controlled_node_fpga/fast
 
 __/roboy_managing_node/src/UDPSocket.o: __/roboy_managing_node/src/UDPSocket.cpp.o
 
@@ -201,7 +201,7 @@ __/roboy_managing_node/src/UDPSocket.o: __/roboy_managing_node/src/UDPSocket.cpp
 
 # target to build an object file
 __/roboy_managing_node/src/UDPSocket.cpp.o:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/build.make roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/__/roboy_managing_node/src/UDPSocket.cpp.o
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/build.make roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/__/roboy_managing_node/src/UDPSocket.cpp.o
 .PHONY : __/roboy_managing_node/src/UDPSocket.cpp.o
 
 __/roboy_managing_node/src/UDPSocket.i: __/roboy_managing_node/src/UDPSocket.cpp.i
@@ -210,7 +210,7 @@ __/roboy_managing_node/src/UDPSocket.i: __/roboy_managing_node/src/UDPSocket.cpp
 
 # target to preprocess a source file
 __/roboy_managing_node/src/UDPSocket.cpp.i:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/build.make roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/__/roboy_managing_node/src/UDPSocket.cpp.i
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/build.make roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/__/roboy_managing_node/src/UDPSocket.cpp.i
 .PHONY : __/roboy_managing_node/src/UDPSocket.cpp.i
 
 __/roboy_managing_node/src/UDPSocket.s: __/roboy_managing_node/src/UDPSocket.cpp.s
@@ -219,7 +219,7 @@ __/roboy_managing_node/src/UDPSocket.s: __/roboy_managing_node/src/UDPSocket.cpp
 
 # target to generate assembly for a file
 __/roboy_managing_node/src/UDPSocket.cpp.s:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/build.make roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/__/roboy_managing_node/src/UDPSocket.cpp.s
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/build.make roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/__/roboy_managing_node/src/UDPSocket.cpp.s
 .PHONY : __/roboy_managing_node/src/UDPSocket.cpp.s
 
 home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.o: home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.o
@@ -228,7 +228,7 @@ home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.o: home/rob
 
 # target to build an object file
 home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.o:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/build.make roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.o
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/build.make roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.o
 .PHONY : home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.o
 
 home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.i: home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.i
@@ -237,7 +237,7 @@ home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.i: home/rob
 
 # target to preprocess a source file
 home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.i:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/build.make roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.i
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/build.make roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.i
 .PHONY : home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.i
 
 home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.s: home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.s
@@ -246,7 +246,7 @@ home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.s: home/rob
 
 # target to generate assembly for a file
 home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.s:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/build.make roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.s
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/build.make roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.s
 .PHONY : home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.c.s
 
 home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.o: home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.o
@@ -255,7 +255,7 @@ home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.o: ho
 
 # target to build an object file
 home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.o:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/build.make roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.o
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/build.make roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.o
 .PHONY : home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.o
 
 home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.i: home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.i
@@ -264,7 +264,7 @@ home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.i: ho
 
 # target to preprocess a source file
 home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.i:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/build.make roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.i
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/build.make roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.i
 .PHONY : home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.i
 
 home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.s: home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.s
@@ -273,7 +273,7 @@ home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.s: ho
 
 # target to generate assembly for a file
 home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.s:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/build.make roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.s
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/build.make roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.s
 .PHONY : home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlogstring.c.s
 
 home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.o: home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.o
@@ -282,7 +282,7 @@ home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.o: home/r
 
 # target to build an object file
 home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.o:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/build.make roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.o
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/build.make roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.o
 .PHONY : home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.o
 
 home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.i: home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.i
@@ -291,7 +291,7 @@ home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.i: home/r
 
 # target to preprocess a source file
 home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.i:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/build.make roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.i
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/build.make roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.i
 .PHONY : home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.i
 
 home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.s: home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.s
@@ -300,7 +300,7 @@ home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.s: home/r
 
 # target to generate assembly for a file
 home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.s:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/build.make roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.s
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/build.make roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.s
 .PHONY : home/roboy/Downloads/openPowerLink/apps/common/src/obdcreate/obdcreate.c.s
 
 home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.o: home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c.o
@@ -309,7 +309,7 @@ home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.o: home/rob
 
 # target to build an object file
 home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c.o:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/build.make roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c.o
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/build.make roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c.o
 .PHONY : home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c.o
 
 home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.i: home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c.i
@@ -318,7 +318,7 @@ home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.i: home/rob
 
 # target to preprocess a source file
 home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c.i:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/build.make roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c.i
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/build.make roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c.i
 .PHONY : home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c.i
 
 home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.s: home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c.s
@@ -327,7 +327,7 @@ home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.s: home/rob
 
 # target to generate assembly for a file
 home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c.s:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/build.make roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c.s
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/build.make roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c.s
 .PHONY : home/roboy/Downloads/openPowerLink/apps/common/src/pcap/pcap-console.c.s
 
 home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.o: home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c.o
@@ -336,7 +336,7 @@ home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.o: home/r
 
 # target to build an object file
 home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c.o:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/build.make roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c.o
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/build.make roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c.o
 .PHONY : home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c.o
 
 home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.i: home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c.i
@@ -345,7 +345,7 @@ home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.i: home/r
 
 # target to preprocess a source file
 home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c.i:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/build.make roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c.i
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/build.make roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c.i
 .PHONY : home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c.i
 
 home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.s: home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c.s
@@ -354,7 +354,7 @@ home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.s: home/r
 
 # target to generate assembly for a file
 home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c.s:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/build.make roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c.s
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/build.make roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c.s
 .PHONY : home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c.s
 
 home/roboy/Downloads/openPowerLink/contrib/console/console-linux.o: home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.o
@@ -363,7 +363,7 @@ home/roboy/Downloads/openPowerLink/contrib/console/console-linux.o: home/roboy/D
 
 # target to build an object file
 home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.o:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/build.make roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.o
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/build.make roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.o
 .PHONY : home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.o
 
 home/roboy/Downloads/openPowerLink/contrib/console/console-linux.i: home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.i
@@ -372,7 +372,7 @@ home/roboy/Downloads/openPowerLink/contrib/console/console-linux.i: home/roboy/D
 
 # target to preprocess a source file
 home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.i:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/build.make roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.i
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/build.make roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.i
 .PHONY : home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.i
 
 home/roboy/Downloads/openPowerLink/contrib/console/console-linux.s: home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.s
@@ -381,7 +381,7 @@ home/roboy/Downloads/openPowerLink/contrib/console/console-linux.s: home/roboy/D
 
 # target to generate assembly for a file
 home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.s:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/build.make roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.s
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/build.make roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.s
 .PHONY : home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.s
 
 home/roboy/Downloads/openPowerLink/contrib/console/printlog.o: home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.o
@@ -390,7 +390,7 @@ home/roboy/Downloads/openPowerLink/contrib/console/printlog.o: home/roboy/Downlo
 
 # target to build an object file
 home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.o:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/build.make roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.o
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/build.make roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.o
 .PHONY : home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.o
 
 home/roboy/Downloads/openPowerLink/contrib/console/printlog.i: home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.i
@@ -399,7 +399,7 @@ home/roboy/Downloads/openPowerLink/contrib/console/printlog.i: home/roboy/Downlo
 
 # target to preprocess a source file
 home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.i:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/build.make roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.i
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/build.make roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.i
 .PHONY : home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.i
 
 home/roboy/Downloads/openPowerLink/contrib/console/printlog.s: home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.s
@@ -408,7 +408,7 @@ home/roboy/Downloads/openPowerLink/contrib/console/printlog.s: home/roboy/Downlo
 
 # target to generate assembly for a file
 home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.s:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/build.make roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.s
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/build.make roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.s
 .PHONY : home/roboy/Downloads/openPowerLink/contrib/console/printlog.c.s
 
 home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.o: home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.o
@@ -417,7 +417,7 @@ home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.o: home/roboy/Downloads
 
 # target to build an object file
 home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.o:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/build.make roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.o
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/build.make roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.o
 .PHONY : home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.o
 
 home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.i: home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.i
@@ -426,7 +426,7 @@ home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.i: home/roboy/Downloads
 
 # target to preprocess a source file
 home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.i:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/build.make roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.i
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/build.make roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.i
 .PHONY : home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.i
 
 home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.s: home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.s
@@ -435,7 +435,7 @@ home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.s: home/roboy/Downloads
 
 # target to generate assembly for a file
 home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.s:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/build.make roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.s
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/build.make roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.s
 .PHONY : home/roboy/Downloads/openPowerLink/contrib/getopt/getopt.c.s
 
 home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.o: home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.o
@@ -444,7 +444,7 @@ home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.o: home/roboy/Down
 
 # target to build an object file
 home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.o:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/build.make roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.o
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/build.make roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.o
 .PHONY : home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.o
 
 home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.i: home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.i
@@ -453,7 +453,7 @@ home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.i: home/roboy/Down
 
 # target to preprocess a source file
 home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.i:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/build.make roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.i
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/build.make roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.i
 .PHONY : home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.i
 
 home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.s: home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.s
@@ -462,35 +462,8 @@ home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.s: home/roboy/Down
 
 # target to generate assembly for a file
 home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.s:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/build.make roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.s
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/build.make roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.s
 .PHONY : home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.s
-
-myoFPGA.pb.o: myoFPGA.pb.cc.o
-
-.PHONY : myoFPGA.pb.o
-
-# target to build an object file
-myoFPGA.pb.cc.o:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/build.make roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/myoFPGA.pb.cc.o
-.PHONY : myoFPGA.pb.cc.o
-
-myoFPGA.pb.i: myoFPGA.pb.cc.i
-
-.PHONY : myoFPGA.pb.i
-
-# target to preprocess a source file
-myoFPGA.pb.cc.i:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/build.make roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/myoFPGA.pb.cc.i
-.PHONY : myoFPGA.pb.cc.i
-
-myoFPGA.pb.s: myoFPGA.pb.cc.s
-
-.PHONY : myoFPGA.pb.s
-
-# target to generate assembly for a file
-myoFPGA.pb.cc.s:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/build.make roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/myoFPGA.pb.cc.s
-.PHONY : myoFPGA.pb.cc.s
 
 src/main.o: src/main.cpp.o
 
@@ -498,7 +471,7 @@ src/main.o: src/main.cpp.o
 
 # target to build an object file
 src/main.cpp.o:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/build.make roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/src/main.cpp.o
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/build.make roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/main.cpp.o
 .PHONY : src/main.cpp.o
 
 src/main.i: src/main.cpp.i
@@ -507,7 +480,7 @@ src/main.i: src/main.cpp.i
 
 # target to preprocess a source file
 src/main.cpp.i:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/build.make roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/src/main.cpp.i
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/build.make roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/main.cpp.i
 .PHONY : src/main.cpp.i
 
 src/main.s: src/main.cpp.s
@@ -516,7 +489,7 @@ src/main.s: src/main.cpp.s
 
 # target to generate assembly for a file
 src/main.cpp.s:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/build.make roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/src/main.cpp.s
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/build.make roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
 src/myoSlave.o: src/myoSlave.cpp.o
@@ -525,7 +498,7 @@ src/myoSlave.o: src/myoSlave.cpp.o
 
 # target to build an object file
 src/myoSlave.cpp.o:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/build.make roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/src/myoSlave.cpp.o
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/build.make roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/myoSlave.cpp.o
 .PHONY : src/myoSlave.cpp.o
 
 src/myoSlave.i: src/myoSlave.cpp.i
@@ -534,7 +507,7 @@ src/myoSlave.i: src/myoSlave.cpp.i
 
 # target to preprocess a source file
 src/myoSlave.cpp.i:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/build.make roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/src/myoSlave.cpp.i
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/build.make roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/myoSlave.cpp.i
 .PHONY : src/myoSlave.cpp.i
 
 src/myoSlave.s: src/myoSlave.cpp.s
@@ -543,7 +516,7 @@ src/myoSlave.s: src/myoSlave.cpp.s
 
 # target to generate assembly for a file
 src/myoSlave.cpp.s:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/build.make roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/src/myoSlave.cpp.s
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/build.make roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/myoSlave.cpp.s
 .PHONY : src/myoSlave.cpp.s
 
 # Help Target
@@ -558,7 +531,7 @@ help:
 	@echo "... list_install_components"
 	@echo "... install"
 	@echo "... _catkin_empty_exported_target"
-	@echo "... myoFPGA_CN"
+	@echo "... roboy_controlled_node_fpga"
 	@echo "... install/local"
 	@echo "... install/strip"
 	@echo "... __/roboy_managing_node/src/UDPSocket.o"
@@ -591,9 +564,6 @@ help:
 	@echo "... home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.o"
 	@echo "... home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.i"
 	@echo "... home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.s"
-	@echo "... myoFPGA.pb.o"
-	@echo "... myoFPGA.pb.i"
-	@echo "... myoFPGA.pb.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

@@ -18,6 +18,7 @@ class MotorConfig {
   constructor(initObj={}) {
     if (initObj === null) {
       // initObj === null is a special case for deserialization where we don't initialize fields
+      this.motors = null;
       this.control_mode = null;
       this.outputPosMax = null;
       this.outputNegMax = null;
@@ -32,6 +33,12 @@ class MotorConfig {
       this.IntegralNegMax = null;
     }
     else {
+      if (initObj.hasOwnProperty('motors')) {
+        this.motors = initObj.motors
+      }
+      else {
+        this.motors = [];
+      }
       if (initObj.hasOwnProperty('control_mode')) {
         this.control_mode = initObj.control_mode
       }
@@ -109,6 +116,8 @@ class MotorConfig {
 
   static serialize(obj, buffer, bufferOffset) {
     // Serializes a message object of type MotorConfig
+    // Serialize message field [motors]
+    bufferOffset = _arraySerializer.uint8(obj.motors, buffer, bufferOffset, null);
     // Serialize message field [control_mode]
     bufferOffset = _arraySerializer.uint8(obj.control_mode, buffer, bufferOffset, null);
     // Serialize message field [outputPosMax]
@@ -140,6 +149,8 @@ class MotorConfig {
     //deserializes a message object of type MotorConfig
     let len;
     let data = new MotorConfig(null);
+    // Deserialize message field [motors]
+    data.motors = _arrayDeserializer.uint8(buffer, bufferOffset, null)
     // Deserialize message field [control_mode]
     data.control_mode = _arrayDeserializer.uint8(buffer, bufferOffset, null)
     // Deserialize message field [outputPosMax]
@@ -169,6 +180,7 @@ class MotorConfig {
 
   static getMessageSize(object) {
     let length = 0;
+    length += object.motors.length;
     length += object.control_mode.length;
     length += 4 * object.outputPosMax.length;
     length += 4 * object.outputNegMax.length;
@@ -181,7 +193,7 @@ class MotorConfig {
     length += 2 * object.deadBand.length;
     length += 4 * object.IntegralPosMax.length;
     length += 4 * object.IntegralNegMax.length;
-    return length + 48;
+    return length + 52;
   }
 
   static datatype() {
@@ -191,12 +203,13 @@ class MotorConfig {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return '051c9c5b4a5a7dd6e3d99abc0b0331c6';
+    return 'f1f8fd307485b210c1654b457c7dcba9';
   }
 
   static messageDefinition() {
     // Returns full string definition for message
     return `
+    uint8[] motors
     uint8[] control_mode
     int32[] outputPosMax
     int32[] outputNegMax
@@ -218,6 +231,13 @@ class MotorConfig {
       msg = {};
     }
     const resolved = new MotorConfig(null);
+    if (msg.motors !== undefined) {
+      resolved.motors = msg.motors;
+    }
+    else {
+      resolved.motors = []
+    }
+
     if (msg.control_mode !== undefined) {
       resolved.control_mode = msg.control_mode;
     }

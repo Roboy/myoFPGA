@@ -52,21 +52,21 @@ if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/Project/myoFPGA_CN" AND
-     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/Project/myoFPGA_CN")
+  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/Project/roboy_controlled_node_fpga" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/Project/roboy_controlled_node_fpga")
     file(RPATH_CHECK
-         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/Project/myoFPGA_CN"
+         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/Project/roboy_controlled_node_fpga"
          RPATH "")
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/Project" TYPE EXECUTABLE FILES "/home/roboy/workspace/myoFPGA/myoFPGA/devel/lib/roboy_controlled_node_fpga/myoFPGA_CN")
-  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/Project/myoFPGA_CN" AND
-     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/Project/myoFPGA_CN")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/Project" TYPE EXECUTABLE FILES "/home/roboy/workspace/myoFPGA/myoFPGA/devel/lib/roboy_controlled_node_fpga/roboy_controlled_node_fpga")
+  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/Project/roboy_controlled_node_fpga" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/Project/roboy_controlled_node_fpga")
     file(RPATH_CHANGE
-         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/Project/myoFPGA_CN"
-         OLD_RPATH "/home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/usr/lib/arm-linux-gnueabihf:"
+         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/Project/roboy_controlled_node_fpga"
+         OLD_RPATH "/home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/opt/ros/kinetic/lib:/home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/usr/lib/arm-linux-gnueabihf:/home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/lib/arm-linux-gnueabihf:"
          NEW_RPATH "")
     if(CMAKE_INSTALL_DO_STRIP)
-      execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/Project/myoFPGA_CN")
+      execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/Project/roboy_controlled_node_fpga")
     endif()
   endif()
 endif()

@@ -429,8 +429,6 @@ arpa/inet.h
 -
 vector
 -
-myoFPGA.pb.h
-/home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_managing_node/include/myoFPGA.pb.h
 
 /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_managing_node/include/interface.hpp
 myoMaster.hpp
@@ -1148,21 +1146,5 @@ string
 vector
 -
 time.h
--
-
-roboy_managing_node/myoFPGA.pb.h
-string
--
-google/protobuf/stubs/common.h
--
-google/protobuf/generated_message_util.h
--
-google/protobuf/message.h
--
-google/protobuf/repeated_field.h
--
-google/protobuf/extension_set.h
--
-google/protobuf/unknown_field_set.h
 -
 

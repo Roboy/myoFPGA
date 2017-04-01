@@ -1,6 +1,4 @@
 file(REMOVE_RECURSE
-  "myoFPGA.pb.cc"
-  "myoFPGA.pb.h"
   "CMakeFiles/myoFPGA_CN.dir/src/main.cpp.o"
   "CMakeFiles/myoFPGA_CN.dir/src/myoSlave.cpp.o"
   "CMakeFiles/myoFPGA_CN.dir/__/roboy_managing_node/src/UDPSocket.cpp.o"
@@ -13,7 +11,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/apps/common/src/system/system-linux.c.o"
   "CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/console/console-linux.c.o"
   "CMakeFiles/myoFPGA_CN.dir/home/roboy/Downloads/openPowerLink/contrib/trace/trace-printf.c.o"
-  "CMakeFiles/myoFPGA_CN.dir/myoFPGA.pb.cc.o"
   "/home/roboy/workspace/myoFPGA/myoFPGA/devel/lib/roboy_controlled_node_fpga/myoFPGA_CN.pdb"
   "/home/roboy/workspace/myoFPGA/myoFPGA/devel/lib/roboy_controlled_node_fpga/myoFPGA_CN"
 )

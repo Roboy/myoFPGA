@@ -7,10 +7,11 @@ import struct
 
 
 class MotorConfig(genpy.Message):
-  _md5sum = "051c9c5b4a5a7dd6e3d99abc0b0331c6"
+  _md5sum = "f1f8fd307485b210c1654b457c7dcba9"
   _type = "communication/MotorConfig"
   _has_header = False #flag to mark the presence of a Header object
-  _full_text = """uint8[] control_mode
+  _full_text = """uint8[] motors
+uint8[] control_mode
 int32[] outputPosMax
 int32[] outputNegMax
 int32[] spPosMax
@@ -22,8 +23,8 @@ uint16[] forwardGain
 uint16[] deadBand
 int32[] IntegralPosMax
 int32[] IntegralNegMax"""
-  __slots__ = ['control_mode','outputPosMax','outputNegMax','spPosMax','spNegMax','Kp','Ki','Kd','forwardGain','deadBand','IntegralPosMax','IntegralNegMax']
-  _slot_types = ['uint8[]','int32[]','int32[]','int32[]','int32[]','uint16[]','uint16[]','uint16[]','uint16[]','uint16[]','int32[]','int32[]']
+  __slots__ = ['motors','control_mode','outputPosMax','outputNegMax','spPosMax','spNegMax','Kp','Ki','Kd','forwardGain','deadBand','IntegralPosMax','IntegralNegMax']
+  _slot_types = ['uint8[]','uint8[]','int32[]','int32[]','int32[]','int32[]','uint16[]','uint16[]','uint16[]','uint16[]','uint16[]','int32[]','int32[]']
 
   def __init__(self, *args, **kwds):
     """
@@ -33,7 +34,7 @@ int32[] IntegralNegMax"""
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       control_mode,outputPosMax,outputNegMax,spPosMax,spNegMax,Kp,Ki,Kd,forwardGain,deadBand,IntegralPosMax,IntegralNegMax
+       motors,control_mode,outputPosMax,outputNegMax,spPosMax,spNegMax,Kp,Ki,Kd,forwardGain,deadBand,IntegralPosMax,IntegralNegMax
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -42,6 +43,8 @@ int32[] IntegralNegMax"""
     if args or kwds:
       super(MotorConfig, self).__init__(*args, **kwds)
       #message fields cannot be None, assign default values for those that are
+      if self.motors is None:
+        self.motors = b''
       if self.control_mode is None:
         self.control_mode = b''
       if self.outputPosMax is None:
@@ -67,6 +70,7 @@ int32[] IntegralNegMax"""
       if self.IntegralNegMax is None:
         self.IntegralNegMax = []
     else:
+      self.motors = b''
       self.control_mode = b''
       self.outputPosMax = []
       self.outputNegMax = []
@@ -92,6 +96,13 @@ int32[] IntegralNegMax"""
     :param buff: buffer, ``StringIO``
     """
     try:
+      _x = self.motors
+      length = len(_x)
+      # - if encoded as a list instead, serialize as bytes instead of string
+      if type(_x) in [list, tuple]:
+        buff.write(struct.pack('<I%sB'%length, length, *_x))
+      else:
+        buff.write(struct.pack('<I%ss'%length, length, _x))
       _x = self.control_mode
       length = len(_x)
       # - if encoded as a list instead, serialize as bytes instead of string
@@ -153,6 +164,12 @@ int32[] IntegralNegMax"""
     """
     try:
       end = 0
+      start = end
+      end += 4
+      (length,) = _struct_I.unpack(str[start:end])
+      start = end
+      end += length
+      self.motors = str[start:end]
       start = end
       end += 4
       (length,) = _struct_I.unpack(str[start:end])
@@ -248,6 +265,13 @@ int32[] IntegralNegMax"""
     :param numpy: numpy python module
     """
     try:
+      _x = self.motors
+      length = len(_x)
+      # - if encoded as a list instead, serialize as bytes instead of string
+      if type(_x) in [list, tuple]:
+        buff.write(struct.pack('<I%sB'%length, length, *_x))
+      else:
+        buff.write(struct.pack('<I%ss'%length, length, _x))
       _x = self.control_mode
       length = len(_x)
       # - if encoded as a list instead, serialize as bytes instead of string
@@ -310,6 +334,12 @@ int32[] IntegralNegMax"""
     """
     try:
       end = 0
+      start = end
+      end += 4
+      (length,) = _struct_I.unpack(str[start:end])
+      start = end
+      end += length
+      self.motors = str[start:end]
       start = end
       end += 4
       (length,) = _struct_I.unpack(str[start:end])

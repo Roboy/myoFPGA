@@ -11,7 +11,7 @@ ENDIF()
 set(CMAKE_SYSTEM_NAME Linux)
 set(CMAKE_SYSTEM_PROCESSOR armv7l)
 
-set(compiler_path /home/roboy/Downloads/gcc-linaro-arm-linux-gnueabihf-4.7-2012.12-20121214_linux/bin)
+set(compiler_path /home/roboy/Downloads/gcc-linaro-5.4.1-2017.01-x86_64_arm-linux-gnueabihf/bin)
 set(CMAKE_C_COMPILER ${compiler_path}/arm-linux-gnueabihf-gcc)
 set(CMAKE_CXX_COMPILER ${compiler_path}/arm-linux-gnueabihf-g++)
 
@@ -32,6 +32,7 @@ FIND_OPLK_LIBRARY("cn")             # Find suitable openPOWERLINK library
 
 # ros
 find_package(catkin REQUIRED COMPONENTS communication std_msgs)
+include(findros)
 include_directories(${catkin_INCLUDE_DIRS} )
 catkin_package( CATKIN_DEPENDS message_runtime)
 
@@ -47,16 +48,9 @@ SET(SOURCE
         ${COMMON_SOURCE_DIR}/obdcreate/obdcreate.c
     )
 
-# protobuf
-find_package(Protobuf REQUIRED)
-include_directories(usr/local/include)
-set(protobuf_LIBRARY ${CMAKE_CURRENT_SOURCE_DIR}/usr/local/lib/libprotobuf.a)
-message(STATUS ${PROTOBUF_INCLUDE_DIR})
-protobuf_generate_cpp(PROTO_SRCS PROTO_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/../protobuf/myoFPGA.proto)
-include_directories(${CMAKE_CURRENT_BINARY_DIR})
-
 include(findncurses_arm)
 include(findpcap)
+
 SET(ALT_DEVICE_FAMILY soc_cv_av)
 add_definitions(-D${ALT_DEVICE_FAMILY})
 MESSAGE(STATUS "fpga include dir: $ENV{SOCEDS_DEST_ROOT}/ip/altera/hps/altera_hps/hwlib/${ALT_DEVICE_FAMILY}")
@@ -124,19 +118,19 @@ ENDIF()
 ################################################################################
 # Set the executable
 
-ADD_EXECUTABLE(myoFPGA_CN ${SOURCE} ${DEMO_ARCH_SOURCES} ${PROTO_SRCS} ${PROTO_HDRS})
-SET_PROPERTY(TARGET myoFPGA_CN
+ADD_EXECUTABLE(roboy_controlled_node_fpga ${SOURCE} ${DEMO_ARCH_SOURCES} )
+SET_PROPERTY(TARGET roboy_controlled_node_fpga
              PROPERTY COMPILE_DEFINITIONS_DEBUG DEBUG;DEF_DEBUG_LVL=${CFG_DEBUG_LVL})
 
 ################################################################################
 # Libraries to link
 
-OPLK_LINK_LIBRARIES(myoFPGA_CN)
-TARGET_LINK_LIBRARIES(myoFPGA_CN ${pcap_LIBRARY} ${pcap_udp_LIBRARY} -lpthread -lrt ${protobuf_LIBRARY} )#${catkin_LIBRARIES}
+OPLK_LINK_LIBRARIES(roboy_controlled_node_fpga)
+TARGET_LINK_LIBRARIES(roboy_controlled_node_fpga ${pcap_LIBRARY} ${pcap_udp_LIBRARY} -lpthread -lrt ${ros_LIBRARIES})
 
 ################################################################################
 # Installation rules
 
-INSTALL(TARGETS myoFPGA_CN RUNTIME DESTINATION ${CMAKE_PROJECT_NAME})
+INSTALL(TARGETS roboy_controlled_node_fpga RUNTIME DESTINATION ${CMAKE_PROJECT_NAME})
 
 

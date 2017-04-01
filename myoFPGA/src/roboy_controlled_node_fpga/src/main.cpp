@@ -22,14 +22,11 @@ int main(int argc, char *argv[]) {
 
     void *virtual_base;
     int fd;
-    int loop_count;
-    int led_direction = 0;
-    int led_mask = 0x01;
-    void *h2p_lw_led_addr, *h2p_lw_spi_addr, *h2p_lw_adc_addr;
+    void *h2p_lw_led_addr, *h2p_lw_adc_addr;
     vector<int32_t*> h2p_lw_myo_addr;
 
-    // map the address space for the LED registers into user space so we can interact with them.
-    // we'll actually map in the entire CSR span of the HPS since we want to access various registers within that span
+//     map the address space for the LED registers into user space so we can interact with them.
+//     we'll actually map in the entire CSR span of the HPS since we want to access various registers within that span
 
     if( ( fd = open( "/dev/mem", ( O_RDWR | O_SYNC ) ) ) == -1 ) {
         printf( "ERROR: could not open \"/dev/mem\"...\n" );
@@ -48,7 +45,6 @@ int main(int argc, char *argv[]) {
     h2p_lw_adc_addr=virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + ADC_0_BASE ) & ( unsigned long)( HW_REGS_MASK ) );
     h2p_lw_myo_addr.push_back((int32_t*)(virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + MYOCONTROL_0_BASE ) & ( unsigned long)( HW_REGS_MASK )) ));
     h2p_lw_myo_addr.push_back((int32_t*)(virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + MYOCONTROL_1_BASE ) & ( unsigned long)( HW_REGS_MASK )) ));
-    h2p_lw_myo_addr.push_back((int32_t*)(virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + MYOCONTROL_2_BASE ) & ( unsigned long)( HW_REGS_MASK )) ));
 
     MyoSlave myoControl(h2p_lw_myo_addr, argc, argv);
     myoControl.adc_base = (uint32_t*)h2p_lw_adc_addr;

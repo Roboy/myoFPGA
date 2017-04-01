@@ -34,6 +34,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/cmake/findncurses_arm.cmake"
   "/home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/cmake/findoplklib.cmake"
   "/home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/cmake/findpcap.cmake"
+  "/home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/cmake/findros.cmake"
   "/home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/cmake/linkoplklib.cmake"
   "/home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/cmake/options.cmake"
   "/home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/linux.cmake"
@@ -257,6 +258,6 @@ set(CMAKE_DEPEND_INFO_FILES
   "communication/CMakeFiles/std_srvs_generate_messages_lisp.dir/DependInfo.cmake"
   "communication/CMakeFiles/communication_generate_messages.dir/DependInfo.cmake"
   "roboy_controlled_node_fpga/CMakeFiles/_catkin_empty_exported_target.dir/DependInfo.cmake"
-  "roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/DependInfo.cmake"
+  "roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/DependInfo.cmake"
   "roboy_managing_node/CMakeFiles/roboy_managing_node.dir/DependInfo.cmake"
   )

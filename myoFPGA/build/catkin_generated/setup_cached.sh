@@ -7,6 +7,4 @@
 # new environment variables
 
 # modified environment variables
-export PKG_CONFIG_PATH="/home/roboy/workspace/myoFPGA/myoFPGA/devel/lib/pkgconfig:$PKG_CONFIG_PATH"
 export PWD="/home/roboy/workspace/myoFPGA/myoFPGA/build"
-export PYTHONPATH="/home/roboy/workspace/myoFPGA/myoFPGA/devel/lib/python2.7/dist-packages:$PYTHONPATH"

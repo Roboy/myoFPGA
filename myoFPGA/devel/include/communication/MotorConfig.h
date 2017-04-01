@@ -24,7 +24,8 @@ struct MotorConfig_
   typedef MotorConfig_<ContainerAllocator> Type;
 
   MotorConfig_()
-    : control_mode()
+    : motors()
+    , control_mode()
     , outputPosMax()
     , outputNegMax()
     , spPosMax()
@@ -38,7 +39,8 @@ struct MotorConfig_
     , IntegralNegMax()  {
     }
   MotorConfig_(const ContainerAllocator& _alloc)
-    : control_mode(_alloc)
+    : motors(_alloc)
+    , control_mode(_alloc)
     , outputPosMax(_alloc)
     , outputNegMax(_alloc)
     , spPosMax(_alloc)
@@ -54,6 +56,9 @@ struct MotorConfig_
     }
 
 
+
+   typedef std::vector<uint8_t, typename ContainerAllocator::template rebind<uint8_t>::other >  _motors_type;
+  _motors_type motors;
 
    typedef std::vector<uint8_t, typename ContainerAllocator::template rebind<uint8_t>::other >  _control_mode_type;
   _control_mode_type control_mode;
@@ -168,12 +173,12 @@ struct MD5Sum< ::communication::MotorConfig_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "051c9c5b4a5a7dd6e3d99abc0b0331c6";
+    return "f1f8fd307485b210c1654b457c7dcba9";
   }
 
   static const char* value(const ::communication::MotorConfig_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x051c9c5b4a5a7dd6ULL;
-  static const uint64_t static_value2 = 0xe3d99abc0b0331c6ULL;
+  static const uint64_t static_value1 = 0xf1f8fd307485b210ULL;
+  static const uint64_t static_value2 = 0xc1654b457c7dcba9ULL;
 };
 
 template<class ContainerAllocator>
@@ -192,7 +197,8 @@ struct Definition< ::communication::MotorConfig_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "uint8[] control_mode\n\
+    return "uint8[] motors\n\
+uint8[] control_mode\n\
 int32[] outputPosMax\n\
 int32[] outputNegMax\n\
 int32[] spPosMax\n\
@@ -222,6 +228,7 @@ namespace serialization
   {
     template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
     {
+      stream.next(m.motors);
       stream.next(m.control_mode);
       stream.next(m.outputPosMax);
       stream.next(m.outputNegMax);
@@ -252,6 +259,12 @@ struct Printer< ::communication::MotorConfig_<ContainerAllocator> >
 {
   template<typename Stream> static void stream(Stream& s, const std::string& indent, const ::communication::MotorConfig_<ContainerAllocator>& v)
   {
+    s << indent << "motors[]" << std::endl;
+    for (size_t i = 0; i < v.motors.size(); ++i)
+    {
+      s << indent << "  motors[" << i << "]: ";
+      Printer<uint8_t>::stream(s, indent + "  ", v.motors[i]);
+    }
     s << indent << "control_mode[]" << std::endl;
     for (size_t i = 0; i < v.control_mode.size(); ++i)
     {

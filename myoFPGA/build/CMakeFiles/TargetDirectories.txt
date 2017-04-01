@@ -65,7 +65,7 @@
 /home/roboy/workspace/myoFPGA/myoFPGA/build/roboy_controlled_node_fpga/CMakeFiles/list_install_components.dir
 /home/roboy/workspace/myoFPGA/myoFPGA/build/roboy_controlled_node_fpga/CMakeFiles/install.dir
 /home/roboy/workspace/myoFPGA/myoFPGA/build/roboy_controlled_node_fpga/CMakeFiles/_catkin_empty_exported_target.dir
-/home/roboy/workspace/myoFPGA/myoFPGA/build/roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir
+/home/roboy/workspace/myoFPGA/myoFPGA/build/roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir
 /home/roboy/workspace/myoFPGA/myoFPGA/build/roboy_controlled_node_fpga/CMakeFiles/install/local.dir
 /home/roboy/workspace/myoFPGA/myoFPGA/build/roboy_controlled_node_fpga/CMakeFiles/install/strip.dir
 /home/roboy/workspace/myoFPGA/myoFPGA/build/roboy_managing_node/CMakeFiles/list_install_components.dir

@@ -699,17 +699,17 @@ _catkin_empty_exported_target/fast:
 .PHONY : _catkin_empty_exported_target/fast
 
 #=============================================================================
-# Target rules for targets named myoFPGA_CN
+# Target rules for targets named roboy_controlled_node_fpga
 
 # Build rule for target.
-myoFPGA_CN: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 myoFPGA_CN
-.PHONY : myoFPGA_CN
+roboy_controlled_node_fpga: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 roboy_controlled_node_fpga
+.PHONY : roboy_controlled_node_fpga
 
 # fast build rule for target.
-myoFPGA_CN/fast:
-	$(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/build.make roboy_controlled_node_fpga/CMakeFiles/myoFPGA_CN.dir/build
-.PHONY : myoFPGA_CN/fast
+roboy_controlled_node_fpga/fast:
+	$(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/build.make roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/build
+.PHONY : roboy_controlled_node_fpga/fast
 
 #=============================================================================
 # Target rules for targets named roboy_managing_node
@@ -778,7 +778,7 @@ help:
 	@echo "... std_srvs_generate_messages_lisp"
 	@echo "... communication_generate_messages"
 	@echo "... _catkin_empty_exported_target"
-	@echo "... myoFPGA_CN"
+	@echo "... roboy_controlled_node_fpga"
 	@echo "... roboy_managing_node"
 .PHONY : help
 

@@ -1,5 +1,7 @@
 (cl:in-package communication-msg)
-(cl:export '(CONTROL_MODE-VAL
+(cl:export '(MOTORS-VAL
+          MOTORS
+          CONTROL_MODE-VAL
           CONTROL_MODE
           OUTPUTPOSMAX-VAL
           OUTPUTPOSMAX

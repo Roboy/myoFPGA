@@ -14,11 +14,12 @@
 
 (defclass communication::MotorConfig
   :super ros::object
-  :slots (_control_mode _outputPosMax _outputNegMax _spPosMax _spNegMax _Kp _Ki _Kd _forwardGain _deadBand _IntegralPosMax _IntegralNegMax ))
+  :slots (_motors _control_mode _outputPosMax _outputNegMax _spPosMax _spNegMax _Kp _Ki _Kd _forwardGain _deadBand _IntegralPosMax _IntegralNegMax ))
 
 (defmethod communication::MotorConfig
   (:init
    (&key
+    ((:motors __motors) (make-array 0 :initial-element 0 :element-type :char))
     ((:control_mode __control_mode) (make-array 0 :initial-element 0 :element-type :char))
     ((:outputPosMax __outputPosMax) (make-array 0 :initial-element 0 :element-type :integer))
     ((:outputNegMax __outputNegMax) (make-array 0 :initial-element 0 :element-type :integer))
@@ -33,6 +34,7 @@
     ((:IntegralNegMax __IntegralNegMax) (make-array 0 :initial-element 0 :element-type :integer))
     )
    (send-super :init)
+   (setq _motors __motors)
    (setq _control_mode __control_mode)
    (setq _outputPosMax __outputPosMax)
    (setq _outputNegMax __outputNegMax)
@@ -46,6 +48,9 @@
    (setq _IntegralPosMax __IntegralPosMax)
    (setq _IntegralNegMax __IntegralNegMax)
    self)
+  (:motors
+   (&optional __motors)
+   (if __motors (setq _motors __motors)) _motors)
   (:control_mode
    (&optional __control_mode)
    (if __control_mode (setq _control_mode __control_mode)) _control_mode)
@@ -85,6 +90,8 @@
   (:serialization-length
    ()
    (+
+    ;; uint8[] _motors
+    (* 1    (length _motors)) 4
     ;; uint8[] _control_mode
     (* 1    (length _control_mode)) 4
     ;; int32[] _outputPosMax
@@ -114,6 +121,9 @@
    (&optional strm)
    (let ((s (if strm strm
               (make-string-output-stream (send self :serialization-length)))))
+     ;; uint8[] _motors
+     (write-long (length _motors) s)
+     (princ _motors s)
      ;; uint8[] _control_mode
      (write-long (length _control_mode) s)
      (princ _control_mode s)
@@ -176,6 +186,10 @@
      (if (null strm) (get-output-stream-string s))))
   (:deserialize
    (buf &optional (ptr- 0))
+   ;; uint8[] _motors
+   (let ((n (sys::peek buf ptr- :integer))) (incf ptr- 4)
+     (setq _motors (make-array n :element-type :char))
+     (replace _motors buf :start2 ptr-) (incf ptr- n))
    ;; uint8[] _control_mode
    (let ((n (sys::peek buf ptr- :integer))) (incf ptr- 4)
      (setq _control_mode (make-array n :element-type :char))
@@ -261,10 +275,11 @@
    self)
   )
 
-(setf (get communication::MotorConfig :md5sum-) "051c9c5b4a5a7dd6e3d99abc0b0331c6")
+(setf (get communication::MotorConfig :md5sum-) "f1f8fd307485b210c1654b457c7dcba9")
 (setf (get communication::MotorConfig :datatype-) "communication/MotorConfig")
 (setf (get communication::MotorConfig :definition-)
-      "uint8[] control_mode
+      "uint8[] motors
+uint8[] control_mode
 int32[] outputPosMax
 int32[] outputNegMax
 int32[] spPosMax
@@ -280,6 +295,6 @@ int32[] IntegralNegMax
 
 
 
-(provide :communication/MotorConfig "051c9c5b4a5a7dd6e3d99abc0b0331c6")
+(provide :communication/MotorConfig "f1f8fd307485b210c1654b457c7dcba9")
 
 
