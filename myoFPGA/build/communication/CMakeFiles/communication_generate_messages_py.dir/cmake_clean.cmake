@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/communication_generate_messages_py"
+  "/home/roboy/workspace/myoFPGA/myoFPGA/devel/lib/python2.7/dist-packages/communication/msg/_MotorCommand.py"
   "/home/roboy/workspace/myoFPGA/myoFPGA/devel/lib/python2.7/dist-packages/communication/msg/_MotorConfig.py"
   "/home/roboy/workspace/myoFPGA/myoFPGA/devel/lib/python2.7/dist-packages/communication/msg/_MotorStatus.py"
   "/home/roboy/workspace/myoFPGA/myoFPGA/devel/lib/python2.7/dist-packages/communication/msg/__init__.py"

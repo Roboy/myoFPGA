@@ -53,21 +53,28 @@ CMAKE_BINARY_DIR = /home/roboy/workspace/myoFPGA/myoFPGA/build
 # Include the progress variables for this target.
 include communication/CMakeFiles/communication_generate_messages_nodejs.dir/progress.make
 
+communication/CMakeFiles/communication_generate_messages_nodejs: /home/roboy/workspace/myoFPGA/myoFPGA/devel/share/gennodejs/ros/communication/msg/MotorCommand.js
 communication/CMakeFiles/communication_generate_messages_nodejs: /home/roboy/workspace/myoFPGA/myoFPGA/devel/share/gennodejs/ros/communication/msg/MotorConfig.js
 communication/CMakeFiles/communication_generate_messages_nodejs: /home/roboy/workspace/myoFPGA/myoFPGA/devel/share/gennodejs/ros/communication/msg/MotorStatus.js
 
 
+/home/roboy/workspace/myoFPGA/myoFPGA/devel/share/gennodejs/ros/communication/msg/MotorCommand.js: /opt/ros/kinetic/lib/gennodejs/gen_nodejs.py
+/home/roboy/workspace/myoFPGA/myoFPGA/devel/share/gennodejs/ros/communication/msg/MotorCommand.js: /home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorCommand.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Javascript code from communication/MotorCommand.msg"
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build/communication && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorCommand.msg -Icommunication:/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p communication -o /home/roboy/workspace/myoFPGA/myoFPGA/devel/share/gennodejs/ros/communication/msg
+
 /home/roboy/workspace/myoFPGA/myoFPGA/devel/share/gennodejs/ros/communication/msg/MotorConfig.js: /opt/ros/kinetic/lib/gennodejs/gen_nodejs.py
 /home/roboy/workspace/myoFPGA/myoFPGA/devel/share/gennodejs/ros/communication/msg/MotorConfig.js: /home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorConfig.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Javascript code from communication/MotorConfig.msg"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Javascript code from communication/MotorConfig.msg"
 	cd /home/roboy/workspace/myoFPGA/myoFPGA/build/communication && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorConfig.msg -Icommunication:/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p communication -o /home/roboy/workspace/myoFPGA/myoFPGA/devel/share/gennodejs/ros/communication/msg
 
 /home/roboy/workspace/myoFPGA/myoFPGA/devel/share/gennodejs/ros/communication/msg/MotorStatus.js: /opt/ros/kinetic/lib/gennodejs/gen_nodejs.py
 /home/roboy/workspace/myoFPGA/myoFPGA/devel/share/gennodejs/ros/communication/msg/MotorStatus.js: /home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorStatus.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Javascript code from communication/MotorStatus.msg"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Javascript code from communication/MotorStatus.msg"
 	cd /home/roboy/workspace/myoFPGA/myoFPGA/build/communication && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorStatus.msg -Icommunication:/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p communication -o /home/roboy/workspace/myoFPGA/myoFPGA/devel/share/gennodejs/ros/communication/msg
 
 communication_generate_messages_nodejs: communication/CMakeFiles/communication_generate_messages_nodejs
+communication_generate_messages_nodejs: /home/roboy/workspace/myoFPGA/myoFPGA/devel/share/gennodejs/ros/communication/msg/MotorCommand.js
 communication_generate_messages_nodejs: /home/roboy/workspace/myoFPGA/myoFPGA/devel/share/gennodejs/ros/communication/msg/MotorConfig.js
 communication_generate_messages_nodejs: /home/roboy/workspace/myoFPGA/myoFPGA/devel/share/gennodejs/ros/communication/msg/MotorStatus.js
 communication_generate_messages_nodejs: communication/CMakeFiles/communication_generate_messages_nodejs.dir/build.make

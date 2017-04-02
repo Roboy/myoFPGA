@@ -36,6 +36,7 @@ if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/communication/msgs" TYPE FILE FILES
     "/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorStatus.msg"
     "/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorConfig.msg"
+    "/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorCommand.msg"
     )
 endif()
 

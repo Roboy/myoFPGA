@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/communication_generate_messages_cpp"
+  "/home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorCommand.h"
   "/home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorConfig.h"
   "/home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorStatus.h"
 )

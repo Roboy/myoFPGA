@@ -53,28 +53,36 @@ CMAKE_BINARY_DIR = /home/roboy/workspace/myoFPGA/myoFPGA/build
 # Include the progress variables for this target.
 include communication/CMakeFiles/communication_generate_messages_py.dir/progress.make
 
+communication/CMakeFiles/communication_generate_messages_py: /home/roboy/workspace/myoFPGA/myoFPGA/devel/lib/python2.7/dist-packages/communication/msg/_MotorCommand.py
 communication/CMakeFiles/communication_generate_messages_py: /home/roboy/workspace/myoFPGA/myoFPGA/devel/lib/python2.7/dist-packages/communication/msg/_MotorConfig.py
 communication/CMakeFiles/communication_generate_messages_py: /home/roboy/workspace/myoFPGA/myoFPGA/devel/lib/python2.7/dist-packages/communication/msg/_MotorStatus.py
 communication/CMakeFiles/communication_generate_messages_py: /home/roboy/workspace/myoFPGA/myoFPGA/devel/lib/python2.7/dist-packages/communication/msg/__init__.py
 
 
+/home/roboy/workspace/myoFPGA/myoFPGA/devel/lib/python2.7/dist-packages/communication/msg/_MotorCommand.py: /opt/ros/kinetic/lib/genpy/genmsg_py.py
+/home/roboy/workspace/myoFPGA/myoFPGA/devel/lib/python2.7/dist-packages/communication/msg/_MotorCommand.py: /home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorCommand.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Python from MSG communication/MotorCommand"
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build/communication && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorCommand.msg -Icommunication:/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p communication -o /home/roboy/workspace/myoFPGA/myoFPGA/devel/lib/python2.7/dist-packages/communication/msg
+
 /home/roboy/workspace/myoFPGA/myoFPGA/devel/lib/python2.7/dist-packages/communication/msg/_MotorConfig.py: /opt/ros/kinetic/lib/genpy/genmsg_py.py
 /home/roboy/workspace/myoFPGA/myoFPGA/devel/lib/python2.7/dist-packages/communication/msg/_MotorConfig.py: /home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorConfig.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Python from MSG communication/MotorConfig"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Python from MSG communication/MotorConfig"
 	cd /home/roboy/workspace/myoFPGA/myoFPGA/build/communication && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorConfig.msg -Icommunication:/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p communication -o /home/roboy/workspace/myoFPGA/myoFPGA/devel/lib/python2.7/dist-packages/communication/msg
 
 /home/roboy/workspace/myoFPGA/myoFPGA/devel/lib/python2.7/dist-packages/communication/msg/_MotorStatus.py: /opt/ros/kinetic/lib/genpy/genmsg_py.py
 /home/roboy/workspace/myoFPGA/myoFPGA/devel/lib/python2.7/dist-packages/communication/msg/_MotorStatus.py: /home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorStatus.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Python from MSG communication/MotorStatus"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Python from MSG communication/MotorStatus"
 	cd /home/roboy/workspace/myoFPGA/myoFPGA/build/communication && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorStatus.msg -Icommunication:/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p communication -o /home/roboy/workspace/myoFPGA/myoFPGA/devel/lib/python2.7/dist-packages/communication/msg
 
 /home/roboy/workspace/myoFPGA/myoFPGA/devel/lib/python2.7/dist-packages/communication/msg/__init__.py: /opt/ros/kinetic/lib/genpy/genmsg_py.py
+/home/roboy/workspace/myoFPGA/myoFPGA/devel/lib/python2.7/dist-packages/communication/msg/__init__.py: /home/roboy/workspace/myoFPGA/myoFPGA/devel/lib/python2.7/dist-packages/communication/msg/_MotorCommand.py
 /home/roboy/workspace/myoFPGA/myoFPGA/devel/lib/python2.7/dist-packages/communication/msg/__init__.py: /home/roboy/workspace/myoFPGA/myoFPGA/devel/lib/python2.7/dist-packages/communication/msg/_MotorConfig.py
 /home/roboy/workspace/myoFPGA/myoFPGA/devel/lib/python2.7/dist-packages/communication/msg/__init__.py: /home/roboy/workspace/myoFPGA/myoFPGA/devel/lib/python2.7/dist-packages/communication/msg/_MotorStatus.py
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Python msg __init__.py for communication"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating Python msg __init__.py for communication"
 	cd /home/roboy/workspace/myoFPGA/myoFPGA/build/communication && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py -o /home/roboy/workspace/myoFPGA/myoFPGA/devel/lib/python2.7/dist-packages/communication/msg --initpy
 
 communication_generate_messages_py: communication/CMakeFiles/communication_generate_messages_py
+communication_generate_messages_py: /home/roboy/workspace/myoFPGA/myoFPGA/devel/lib/python2.7/dist-packages/communication/msg/_MotorCommand.py
 communication_generate_messages_py: /home/roboy/workspace/myoFPGA/myoFPGA/devel/lib/python2.7/dist-packages/communication/msg/_MotorConfig.py
 communication_generate_messages_py: /home/roboy/workspace/myoFPGA/myoFPGA/devel/lib/python2.7/dist-packages/communication/msg/_MotorStatus.py
 communication_generate_messages_py: /home/roboy/workspace/myoFPGA/myoFPGA/devel/lib/python2.7/dist-packages/communication/msg/__init__.py

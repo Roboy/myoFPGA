@@ -197,6 +197,7 @@ roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/interface.cpp.o: /hom
 roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/interface.cpp.o: /home/roboy/Downloads/openPowerLink/stack/include/user/sdoal.h
 roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/interface.cpp.o: /home/roboy/Downloads/openPowerLink/stack/include/user/sdoudp.h
 roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/interface.cpp.o: /home/roboy/Downloads/openPowerLink/stack/proj/linux/liboplkmndrv-pcap/oplkcfg.h
+roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/interface.cpp.o: /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorCommand.h
 roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/interface.cpp.o: /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorConfig.h
 roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/interface.cpp.o: /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorStatus.h
 roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/interface.cpp.o: /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_managing_node/../powerlink/output/xap.h
@@ -260,6 +261,7 @@ roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/interface.cpp.o: /opt
 roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/interface.cpp.o: /opt/ros/kinetic/include/rosconsole/macros_generated.h
 roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/interface.cpp.o: /opt/ros/kinetic/include/xmlrpcpp/XmlRpcDecl.h
 roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/interface.cpp.o: /opt/ros/kinetic/include/xmlrpcpp/XmlRpcValue.h
+roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/interface.cpp.o: roboy_managing_node/myoFPGA.pb.h
 
 roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/main.cpp.o: /home/roboy/Downloads/openPowerLink/apps/common/objdicts/CiA302-4_MN/obdpi.h
 roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/main.cpp.o: /home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.h
@@ -301,6 +303,7 @@ roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/main.cpp.o: /home/rob
 roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/main.cpp.o: /home/roboy/Downloads/openPowerLink/stack/include/user/sdoal.h
 roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/main.cpp.o: /home/roboy/Downloads/openPowerLink/stack/include/user/sdoudp.h
 roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/main.cpp.o: /home/roboy/Downloads/openPowerLink/stack/proj/linux/liboplkmndrv-pcap/oplkcfg.h
+roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/main.cpp.o: /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorCommand.h
 roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/main.cpp.o: /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorConfig.h
 roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/main.cpp.o: /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorStatus.h
 roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/main.cpp.o: /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_managing_node/../powerlink/output/xap.h
@@ -364,6 +367,7 @@ roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/main.cpp.o: /opt/ros/
 roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/main.cpp.o: /opt/ros/kinetic/include/rosconsole/macros_generated.h
 roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/main.cpp.o: /opt/ros/kinetic/include/xmlrpcpp/XmlRpcDecl.h
 roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/main.cpp.o: /opt/ros/kinetic/include/xmlrpcpp/XmlRpcValue.h
+roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/main.cpp.o: roboy_managing_node/myoFPGA.pb.h
 
 roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/myoMaster.cpp.o: /home/roboy/Downloads/openPowerLink/apps/common/objdicts/CiA302-4_MN/obdpi.h
 roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/myoMaster.cpp.o: /home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.h
@@ -405,6 +409,7 @@ roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/myoMaster.cpp.o: /hom
 roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/myoMaster.cpp.o: /home/roboy/Downloads/openPowerLink/stack/include/user/sdoal.h
 roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/myoMaster.cpp.o: /home/roboy/Downloads/openPowerLink/stack/include/user/sdoudp.h
 roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/myoMaster.cpp.o: /home/roboy/Downloads/openPowerLink/stack/proj/linux/liboplkmndrv-pcap/oplkcfg.h
+roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/myoMaster.cpp.o: /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorCommand.h
 roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/myoMaster.cpp.o: /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorConfig.h
 roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/myoMaster.cpp.o: /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorStatus.h
 roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/myoMaster.cpp.o: /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_managing_node/../powerlink/output/xap.h
@@ -467,4 +472,5 @@ roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/myoMaster.cpp.o: /opt
 roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/myoMaster.cpp.o: /opt/ros/kinetic/include/rosconsole/macros_generated.h
 roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/myoMaster.cpp.o: /opt/ros/kinetic/include/xmlrpcpp/XmlRpcDecl.h
 roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/myoMaster.cpp.o: /opt/ros/kinetic/include/xmlrpcpp/XmlRpcValue.h
+roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/myoMaster.cpp.o: roboy_managing_node/myoFPGA.pb.h
 

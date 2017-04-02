@@ -189,6 +189,9 @@ roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/main.cp
  /home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/include/soc_cv_av/socal/alt_gpio.h
  /home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/include/soc_cv_av/socal/hps.h
  /home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/include/soc_cv_av/socal/socal.h
+ /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorCommand.h
+ /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorConfig.h
+ /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorStatus.h
  /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/../powerlink/output/xap.h
  /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/../roboy_managing_node/include/UDPSocket.hpp
  /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/include/hps_0.h
@@ -212,6 +215,7 @@ roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/main.cp
  /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/ros_catkin_ws/install_isolated/include/ros/message.h
  /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/ros_catkin_ws/install_isolated/include/ros/message_event.h
  /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/ros_catkin_ws/install_isolated/include/ros/message_forward.h
+ /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/ros_catkin_ws/install_isolated/include/ros/message_operations.h
  /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/ros_catkin_ws/install_isolated/include/ros/message_traits.h
  /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/ros_catkin_ws/install_isolated/include/ros/names.h
  /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/ros_catkin_ws/install_isolated/include/ros/node_handle.h
@@ -951,7 +955,9 @@ roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/myoSlav
  /home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/include/alt_cache.h
  /home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/include/hwlib.h
  /home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/include/soc_cv_av/socal/socal.h
+ /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorCommand.h
  /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorConfig.h
+ /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorStatus.h
  /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/../powerlink/output/xap.h
  /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/../roboy_managing_node/include/UDPSocket.hpp
  /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/include/myoControlRegister.hpp
@@ -974,6 +980,7 @@ roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/myoSlav
  /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/ros_catkin_ws/install_isolated/include/ros/message.h
  /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/ros_catkin_ws/install_isolated/include/ros/message_event.h
  /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/ros_catkin_ws/install_isolated/include/ros/message_forward.h
+ /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/ros_catkin_ws/install_isolated/include/ros/message_operations.h
  /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/ros_catkin_ws/install_isolated/include/ros/message_traits.h
  /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/ros_catkin_ws/install_isolated/include/ros/names.h
  /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/ros_catkin_ws/install_isolated/include/ros/node_handle.h

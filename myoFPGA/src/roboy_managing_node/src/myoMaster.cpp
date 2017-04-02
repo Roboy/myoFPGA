@@ -4,10 +4,9 @@ static BOOL* pfGsOff_l;
 
 PI_IN* MyoMaster::pProcessImageIn_l;
 const PI_OUT* MyoMaster::pProcessImageOut_l;
-UDPSocket *MyoMaster::motorConfigSocket;
-UDPSocket *MyoMaster::motorStatusSocket;
+UDPSocket *MyoMaster::motorCommandSocket;
 bool MyoMaster::updateControllerConfig = false;
-int32_t MyoMaster::setPoints[16];
+int32_t MyoMaster::setPoints[14];
 control_Parameters_t MyoMaster::MotorConfig;
 bool MyoMaster::fExit = false;
 ros::Publisher MyoMaster::motorConfig;
@@ -23,32 +22,9 @@ MyoMaster::MyoMaster(int argc, char *argv[]) {
     }
     nh = ros::NodeHandlePtr(new ros::NodeHandle);
 //
-//    motorStatus = nh->subscribe("/roboy/motorStatus", 1, &MyoMaster::MotorStatus, this);
-    motorConfig = nh->advertise<communication::MotorConfig>("/roboy/MotorConfig", 100);
-    motorStatus = nh->advertise<communication::MotorStatus>("/roboy/MotorStatus", 100);
-
-    communication::MotorStatus msg;
-    msg.current.push_back(0);
-    msg.current.push_back(1);
-    msg.current.push_back(2);
-    msg.displacement.push_back(0);
-    msg.displacement.push_back(1);
-    msg.displacement.push_back(2);
-    msg.velocity.push_back(0);
-    msg.velocity.push_back(1);
-    msg.velocity.push_back(2);
-    msg.position.push_back(0);
-    msg.position.push_back(1);
-    msg.position.push_back(2);
-    msg.pwmRef.push_back(0);
-    msg.pwmRef.push_back(1);
-    msg.pwmRef.push_back(2);
-    ros::Rate rate(1);
-//    while(true){
-//        motorStatus.publish(msg);
-//        ros::spinOnce();
-//        rate.sleep();
-//    }
+    motorStatus = nh->subscribe("/roboy/MotorStatus", 1, &MyoMaster::MotorStatus, this);
+    motorCommand = nh->subscribe("/roboy/MotorCommand", 1, &MyoMaster::MotorCommand, this);
+    motorConfig = nh->advertise<communication::MotorConfig>("/roboy/MotorConfig", 1);
 
     tOplkError ret = kErrorOk;
     tOptions opts;
@@ -97,8 +73,11 @@ MyoMaster::MyoMaster(int argc, char *argv[]) {
     if (ret != kErrorOk)
         powerlink_initialized = false;
 
-    motorConfigSocket = new UDPSocket("192.168.0.104", 8000);
-    motorStatusSocket = new UDPSocket("192.168.0.104", 8001);
+    motorCommandSocket = new UDPSocket("192.168.0.100", 8001);
+//    while(true){
+//        motorCommandSocket->numbytes = 1;
+//        motorCommandSocket->sendUDPToClient();
+//    }
 
     if(powerlink_initialized) {
 #ifdef RUN_IN_THREAD
@@ -220,7 +199,7 @@ void MyoMaster::changeSetPoint(int motor, int setPoint){
 }
 
 void MyoMaster::changeSetPoint(int setPoint){
-    fill_n(setPoints,16,setPoint);
+    fill_n(setPoints,14,setPoint);
 }
 
 void MyoMaster::sendControllerConfig(){
@@ -228,7 +207,14 @@ void MyoMaster::sendControllerConfig(){
 }
 
 void MyoMaster::MotorStatus(const communication::MotorStatus::ConstPtr &msg){
+    ROS_INFO_THROTTLE(5, "receiving motor status");
+}
 
+void MyoMaster::MotorCommand(const communication::MotorCommand::ConstPtr &msg){
+    uint i = 0;
+    for(auto motor:msg->motors){
+        setPoints[motor] = msg->setPoints[i++];
+    }
 }
 
 tOplkError MyoMaster::initProcessImage() {
@@ -475,9 +461,6 @@ tOplkError MyoMaster::processSync() {
 //        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_12);
 //        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_13);
 //        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_14);
-//        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_15);
-//        printf("springDisplacement: %d\n", pProcessImageOut_l->CN1_MotorStatus_springDisplacement_I16_16);
-
     }
     // setpoints for 16 motors
     pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_1 = setPoints[0];
@@ -494,8 +477,6 @@ tOplkError MyoMaster::processSync() {
     pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_12 = setPoints[11];
     pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_13 = setPoints[12];
     pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_14 = setPoints[13];
-    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_15 = setPoints[14];
-    pProcessImageIn_l->CN1_MotorCommand_setPoint_I32_16 = setPoints[15];
 
     ret = oplk_exchangeProcessImageIn();
 
@@ -504,10 +485,13 @@ tOplkError MyoMaster::processSync() {
 //
 //    ros::spinOnce();
 
-//    if(updateControllerConfig){
-//        socket->sendMotorConfig(&MotorConfig);
-//        updateControllerConfig = false;
-//    }
+    MyoFPGAProtobuf::MotorCommand msg;
+    if(motorCommandSocket->receiveMessage<MyoFPGAProtobuf::MotorCommand>(msg)){
+        ROS_INFO("received motor command");
+        for(uint motor = 0; motor<msg.motor_size(); motor++){
+            setPoints[msg.motor(motor)] = msg.setpoint(motor);
+        }
+    }
 
     return ret;
 }

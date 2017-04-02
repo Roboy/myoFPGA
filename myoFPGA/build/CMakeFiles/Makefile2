@@ -245,7 +245,7 @@ gtest/preinstall:
 gtest/CMakeFiles/gtest.dir/all:
 	$(MAKE) -f gtest/CMakeFiles/gtest.dir/build.make gtest/CMakeFiles/gtest.dir/depend
 	$(MAKE) -f gtest/CMakeFiles/gtest.dir/build.make gtest/CMakeFiles/gtest.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=13,14 "Built target gtest"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=18,19 "Built target gtest"
 .PHONY : gtest/CMakeFiles/gtest.dir/all
 
 # Build rule for subdir invocation for target.
@@ -277,7 +277,7 @@ clean: gtest/CMakeFiles/gtest.dir/clean
 gtest/CMakeFiles/gtest_main.dir/all: gtest/CMakeFiles/gtest.dir/all
 	$(MAKE) -f gtest/CMakeFiles/gtest_main.dir/build.make gtest/CMakeFiles/gtest_main.dir/depend
 	$(MAKE) -f gtest/CMakeFiles/gtest_main.dir/build.make gtest/CMakeFiles/gtest_main.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=15,16 "Built target gtest_main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=20,21 "Built target gtest_main"
 .PHONY : gtest/CMakeFiles/gtest_main.dir/all
 
 # Build rule for subdir invocation for target.
@@ -320,6 +320,8 @@ communication/clean: communication/CMakeFiles/communication_gencpp.dir/clean
 communication/clean: communication/CMakeFiles/_communication_generate_messages_check_deps_MotorStatus.dir/clean
 communication/clean: communication/CMakeFiles/std_msgs_generate_messages_py.dir/clean
 communication/clean: communication/CMakeFiles/roscpp_generate_messages_py.dir/clean
+communication/clean: communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/clean
+communication/clean: communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/clean
 communication/clean: communication/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/clean
 communication/clean: communication/CMakeFiles/roscpp_generate_messages_cpp.dir/clean
 communication/clean: communication/CMakeFiles/communication_generate_messages_nodejs.dir/clean
@@ -336,14 +338,13 @@ communication/clean: communication/CMakeFiles/rosgraph_msgs_generate_messages_py
 communication/clean: communication/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/clean
 communication/clean: communication/CMakeFiles/roscpp_generate_messages_nodejs.dir/clean
 communication/clean: communication/CMakeFiles/std_srvs_generate_messages_cpp.dir/clean
-communication/clean: communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/clean
-communication/clean: communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/clean
 communication/clean: communication/CMakeFiles/communication_geneus.dir/clean
 communication/clean: communication/CMakeFiles/std_srvs_generate_messages_eus.dir/clean
 communication/clean: communication/CMakeFiles/roscpp_generate_messages_lisp.dir/clean
 communication/clean: communication/CMakeFiles/std_msgs_generate_messages_eus.dir/clean
 communication/clean: communication/CMakeFiles/std_srvs_generate_messages_lisp.dir/clean
 communication/clean: communication/CMakeFiles/communication_generate_messages.dir/clean
+communication/clean: communication/CMakeFiles/_communication_generate_messages_check_deps_MotorCommand.dir/clean
 
 .PHONY : communication/clean
 
@@ -364,7 +365,7 @@ communication/CMakeFiles/communication_genpy.dir/all: communication/CMakeFiles/c
 
 # Build rule for subdir invocation for target.
 communication/CMakeFiles/communication_genpy.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 communication/CMakeFiles/communication_genpy.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles 0
 .PHONY : communication/CMakeFiles/communication_genpy.dir/rule
@@ -390,16 +391,17 @@ clean: communication/CMakeFiles/communication_genpy.dir/clean
 # All Build rule for target.
 communication/CMakeFiles/communication_generate_messages_py.dir/all: communication/CMakeFiles/_communication_generate_messages_check_deps_MotorStatus.dir/all
 communication/CMakeFiles/communication_generate_messages_py.dir/all: communication/CMakeFiles/std_msgs_generate_messages_py.dir/all
-communication/CMakeFiles/communication_generate_messages_py.dir/all: communication/CMakeFiles/std_srvs_generate_messages_py.dir/all
 communication/CMakeFiles/communication_generate_messages_py.dir/all: communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/all
+communication/CMakeFiles/communication_generate_messages_py.dir/all: communication/CMakeFiles/std_srvs_generate_messages_py.dir/all
+communication/CMakeFiles/communication_generate_messages_py.dir/all: communication/CMakeFiles/_communication_generate_messages_check_deps_MotorCommand.dir/all
 	$(MAKE) -f communication/CMakeFiles/communication_generate_messages_py.dir/build.make communication/CMakeFiles/communication_generate_messages_py.dir/depend
 	$(MAKE) -f communication/CMakeFiles/communication_generate_messages_py.dir/build.make communication/CMakeFiles/communication_generate_messages_py.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=10,11,12 "Built target communication_generate_messages_py"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=14,15,16,17 "Built target communication_generate_messages_py"
 .PHONY : communication/CMakeFiles/communication_generate_messages_py.dir/all
 
 # Build rule for subdir invocation for target.
 communication/CMakeFiles/communication_generate_messages_py.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 communication/CMakeFiles/communication_generate_messages_py.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles 0
 .PHONY : communication/CMakeFiles/communication_generate_messages_py.dir/rule
@@ -431,7 +433,7 @@ communication/CMakeFiles/communication_genlisp.dir/all: communication/CMakeFiles
 
 # Build rule for subdir invocation for target.
 communication/CMakeFiles/communication_genlisp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles 3
 	$(MAKE) -f CMakeFiles/Makefile2 communication/CMakeFiles/communication_genlisp.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles 0
 .PHONY : communication/CMakeFiles/communication_genlisp.dir/rule
@@ -456,17 +458,18 @@ clean: communication/CMakeFiles/communication_genlisp.dir/clean
 
 # All Build rule for target.
 communication/CMakeFiles/communication_generate_messages_lisp.dir/all: communication/CMakeFiles/_communication_generate_messages_check_deps_MotorStatus.dir/all
-communication/CMakeFiles/communication_generate_messages_lisp.dir/all: communication/CMakeFiles/std_msgs_generate_messages_lisp.dir/all
 communication/CMakeFiles/communication_generate_messages_lisp.dir/all: communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/all
+communication/CMakeFiles/communication_generate_messages_lisp.dir/all: communication/CMakeFiles/std_msgs_generate_messages_lisp.dir/all
 communication/CMakeFiles/communication_generate_messages_lisp.dir/all: communication/CMakeFiles/std_srvs_generate_messages_lisp.dir/all
+communication/CMakeFiles/communication_generate_messages_lisp.dir/all: communication/CMakeFiles/_communication_generate_messages_check_deps_MotorCommand.dir/all
 	$(MAKE) -f communication/CMakeFiles/communication_generate_messages_lisp.dir/build.make communication/CMakeFiles/communication_generate_messages_lisp.dir/depend
 	$(MAKE) -f communication/CMakeFiles/communication_generate_messages_lisp.dir/build.make communication/CMakeFiles/communication_generate_messages_lisp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=6,7 "Built target communication_generate_messages_lisp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=8,9,10 "Built target communication_generate_messages_lisp"
 .PHONY : communication/CMakeFiles/communication_generate_messages_lisp.dir/all
 
 # Build rule for subdir invocation for target.
 communication/CMakeFiles/communication_generate_messages_lisp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles 3
 	$(MAKE) -f CMakeFiles/Makefile2 communication/CMakeFiles/communication_generate_messages_lisp.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles 0
 .PHONY : communication/CMakeFiles/communication_generate_messages_lisp.dir/rule
@@ -494,14 +497,15 @@ communication/CMakeFiles/communication_generate_messages_eus.dir/all: communicat
 communication/CMakeFiles/communication_generate_messages_eus.dir/all: communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/all
 communication/CMakeFiles/communication_generate_messages_eus.dir/all: communication/CMakeFiles/std_srvs_generate_messages_eus.dir/all
 communication/CMakeFiles/communication_generate_messages_eus.dir/all: communication/CMakeFiles/std_msgs_generate_messages_eus.dir/all
+communication/CMakeFiles/communication_generate_messages_eus.dir/all: communication/CMakeFiles/_communication_generate_messages_check_deps_MotorCommand.dir/all
 	$(MAKE) -f communication/CMakeFiles/communication_generate_messages_eus.dir/build.make communication/CMakeFiles/communication_generate_messages_eus.dir/depend
 	$(MAKE) -f communication/CMakeFiles/communication_generate_messages_eus.dir/build.make communication/CMakeFiles/communication_generate_messages_eus.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=3,4,5 "Built target communication_generate_messages_eus"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=4,5,6,7 "Built target communication_generate_messages_eus"
 .PHONY : communication/CMakeFiles/communication_generate_messages_eus.dir/all
 
 # Build rule for subdir invocation for target.
 communication/CMakeFiles/communication_generate_messages_eus.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 communication/CMakeFiles/communication_generate_messages_eus.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles 0
 .PHONY : communication/CMakeFiles/communication_generate_messages_eus.dir/rule
@@ -533,7 +537,7 @@ communication/CMakeFiles/communication_gencpp.dir/all: communication/CMakeFiles/
 
 # Build rule for subdir invocation for target.
 communication/CMakeFiles/communication_gencpp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles 3
 	$(MAKE) -f CMakeFiles/Makefile2 communication/CMakeFiles/communication_gencpp.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles 0
 .PHONY : communication/CMakeFiles/communication_gencpp.dir/rule
@@ -650,6 +654,70 @@ clean: communication/CMakeFiles/roscpp_generate_messages_py.dir/clean
 .PHONY : clean
 
 #=============================================================================
+# Target rules for target communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir
+
+# All Build rule for target.
+communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/all:
+	$(MAKE) -f communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/build.make communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/depend
+	$(MAKE) -f communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/build.make communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num= "Built target _communication_generate_messages_check_deps_MotorConfig"
+.PHONY : communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/all
+
+# Build rule for subdir invocation for target.
+communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles 0
+	$(MAKE) -f CMakeFiles/Makefile2 communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles 0
+.PHONY : communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/rule
+
+# Convenience name for target.
+_communication_generate_messages_check_deps_MotorConfig: communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/rule
+
+.PHONY : _communication_generate_messages_check_deps_MotorConfig
+
+# clean rule for target.
+communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/clean:
+	$(MAKE) -f communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/build.make communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/clean
+.PHONY : communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/clean
+
+# clean rule for target.
+clean: communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir
+
+# All Build rule for target.
+communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/all:
+	$(MAKE) -f communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build.make communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/depend
+	$(MAKE) -f communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build.make communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num= "Built target rosgraph_msgs_generate_messages_eus"
+.PHONY : communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/all
+
+# Build rule for subdir invocation for target.
+communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles 0
+	$(MAKE) -f CMakeFiles/Makefile2 communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles 0
+.PHONY : communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+rosgraph_msgs_generate_messages_eus: communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule
+
+.PHONY : rosgraph_msgs_generate_messages_eus
+
+# clean rule for target.
+communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/clean:
+	$(MAKE) -f communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build.make communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/clean
+.PHONY : communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/clean
+
+# clean rule for target.
+clean: communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
 # Target rules for target communication/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir
 
 # All Build rule for target.
@@ -718,17 +786,18 @@ clean: communication/CMakeFiles/roscpp_generate_messages_cpp.dir/clean
 
 # All Build rule for target.
 communication/CMakeFiles/communication_generate_messages_nodejs.dir/all: communication/CMakeFiles/_communication_generate_messages_check_deps_MotorStatus.dir/all
+communication/CMakeFiles/communication_generate_messages_nodejs.dir/all: communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/all
 communication/CMakeFiles/communication_generate_messages_nodejs.dir/all: communication/CMakeFiles/std_msgs_generate_messages_nodejs.dir/all
 communication/CMakeFiles/communication_generate_messages_nodejs.dir/all: communication/CMakeFiles/std_srvs_generate_messages_nodejs.dir/all
-communication/CMakeFiles/communication_generate_messages_nodejs.dir/all: communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/all
+communication/CMakeFiles/communication_generate_messages_nodejs.dir/all: communication/CMakeFiles/_communication_generate_messages_check_deps_MotorCommand.dir/all
 	$(MAKE) -f communication/CMakeFiles/communication_generate_messages_nodejs.dir/build.make communication/CMakeFiles/communication_generate_messages_nodejs.dir/depend
 	$(MAKE) -f communication/CMakeFiles/communication_generate_messages_nodejs.dir/build.make communication/CMakeFiles/communication_generate_messages_nodejs.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=8,9 "Built target communication_generate_messages_nodejs"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=11,12,13 "Built target communication_generate_messages_nodejs"
 .PHONY : communication/CMakeFiles/communication_generate_messages_nodejs.dir/all
 
 # Build rule for subdir invocation for target.
 communication/CMakeFiles/communication_generate_messages_nodejs.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles 3
 	$(MAKE) -f CMakeFiles/Makefile2 communication/CMakeFiles/communication_generate_messages_nodejs.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles 0
 .PHONY : communication/CMakeFiles/communication_generate_messages_nodejs.dir/rule
@@ -817,17 +886,18 @@ clean: communication/CMakeFiles/std_msgs_generate_messages_cpp.dir/clean
 
 # All Build rule for target.
 communication/CMakeFiles/communication_generate_messages_cpp.dir/all: communication/CMakeFiles/_communication_generate_messages_check_deps_MotorStatus.dir/all
+communication/CMakeFiles/communication_generate_messages_cpp.dir/all: communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/all
 communication/CMakeFiles/communication_generate_messages_cpp.dir/all: communication/CMakeFiles/std_msgs_generate_messages_cpp.dir/all
 communication/CMakeFiles/communication_generate_messages_cpp.dir/all: communication/CMakeFiles/std_srvs_generate_messages_cpp.dir/all
-communication/CMakeFiles/communication_generate_messages_cpp.dir/all: communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/all
+communication/CMakeFiles/communication_generate_messages_cpp.dir/all: communication/CMakeFiles/_communication_generate_messages_check_deps_MotorCommand.dir/all
 	$(MAKE) -f communication/CMakeFiles/communication_generate_messages_cpp.dir/build.make communication/CMakeFiles/communication_generate_messages_cpp.dir/depend
 	$(MAKE) -f communication/CMakeFiles/communication_generate_messages_cpp.dir/build.make communication/CMakeFiles/communication_generate_messages_cpp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=1,2 "Built target communication_generate_messages_cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=1,2,3 "Built target communication_generate_messages_cpp"
 .PHONY : communication/CMakeFiles/communication_generate_messages_cpp.dir/all
 
 # Build rule for subdir invocation for target.
 communication/CMakeFiles/communication_generate_messages_cpp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles 3
 	$(MAKE) -f CMakeFiles/Makefile2 communication/CMakeFiles/communication_generate_messages_cpp.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles 0
 .PHONY : communication/CMakeFiles/communication_generate_messages_cpp.dir/rule
@@ -955,7 +1025,7 @@ communication/CMakeFiles/communication_gennodejs.dir/all: communication/CMakeFil
 
 # Build rule for subdir invocation for target.
 communication/CMakeFiles/communication_gennodejs.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles 3
 	$(MAKE) -f CMakeFiles/Makefile2 communication/CMakeFiles/communication_gennodejs.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles 0
 .PHONY : communication/CMakeFiles/communication_gennodejs.dir/rule
@@ -1168,70 +1238,6 @@ clean: communication/CMakeFiles/std_srvs_generate_messages_cpp.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir
-
-# All Build rule for target.
-communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/all:
-	$(MAKE) -f communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build.make communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/depend
-	$(MAKE) -f communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build.make communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num= "Built target rosgraph_msgs_generate_messages_eus"
-.PHONY : communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/all
-
-# Build rule for subdir invocation for target.
-communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles 0
-	$(MAKE) -f CMakeFiles/Makefile2 communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles 0
-.PHONY : communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-rosgraph_msgs_generate_messages_eus: communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule
-
-.PHONY : rosgraph_msgs_generate_messages_eus
-
-# clean rule for target.
-communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/clean:
-	$(MAKE) -f communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build.make communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/clean
-.PHONY : communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/clean
-
-# clean rule for target.
-clean: communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/clean
-
-.PHONY : clean
-
-#=============================================================================
-# Target rules for target communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir
-
-# All Build rule for target.
-communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/all:
-	$(MAKE) -f communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/build.make communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/depend
-	$(MAKE) -f communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/build.make communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num= "Built target _communication_generate_messages_check_deps_MotorConfig"
-.PHONY : communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/all
-
-# Build rule for subdir invocation for target.
-communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles 0
-	$(MAKE) -f CMakeFiles/Makefile2 communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles 0
-.PHONY : communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/rule
-
-# Convenience name for target.
-_communication_generate_messages_check_deps_MotorConfig: communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/rule
-
-.PHONY : _communication_generate_messages_check_deps_MotorConfig
-
-# clean rule for target.
-communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/clean:
-	$(MAKE) -f communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/build.make communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/clean
-.PHONY : communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/clean
-
-# clean rule for target.
-clean: communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/clean
-
-.PHONY : clean
-
-#=============================================================================
 # Target rules for target communication/CMakeFiles/communication_geneus.dir
 
 # All Build rule for target.
@@ -1243,7 +1249,7 @@ communication/CMakeFiles/communication_geneus.dir/all: communication/CMakeFiles/
 
 # Build rule for subdir invocation for target.
 communication/CMakeFiles/communication_geneus.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 communication/CMakeFiles/communication_geneus.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles 0
 .PHONY : communication/CMakeFiles/communication_geneus.dir/rule
@@ -1412,7 +1418,7 @@ all: communication/CMakeFiles/communication_generate_messages.dir/all
 
 # Build rule for subdir invocation for target.
 communication/CMakeFiles/communication_generate_messages.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles 12
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles 17
 	$(MAKE) -f CMakeFiles/Makefile2 communication/CMakeFiles/communication_generate_messages.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles 0
 .PHONY : communication/CMakeFiles/communication_generate_messages.dir/rule
@@ -1429,6 +1435,38 @@ communication/CMakeFiles/communication_generate_messages.dir/clean:
 
 # clean rule for target.
 clean: communication/CMakeFiles/communication_generate_messages.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target communication/CMakeFiles/_communication_generate_messages_check_deps_MotorCommand.dir
+
+# All Build rule for target.
+communication/CMakeFiles/_communication_generate_messages_check_deps_MotorCommand.dir/all:
+	$(MAKE) -f communication/CMakeFiles/_communication_generate_messages_check_deps_MotorCommand.dir/build.make communication/CMakeFiles/_communication_generate_messages_check_deps_MotorCommand.dir/depend
+	$(MAKE) -f communication/CMakeFiles/_communication_generate_messages_check_deps_MotorCommand.dir/build.make communication/CMakeFiles/_communication_generate_messages_check_deps_MotorCommand.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num= "Built target _communication_generate_messages_check_deps_MotorCommand"
+.PHONY : communication/CMakeFiles/_communication_generate_messages_check_deps_MotorCommand.dir/all
+
+# Build rule for subdir invocation for target.
+communication/CMakeFiles/_communication_generate_messages_check_deps_MotorCommand.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles 0
+	$(MAKE) -f CMakeFiles/Makefile2 communication/CMakeFiles/_communication_generate_messages_check_deps_MotorCommand.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles 0
+.PHONY : communication/CMakeFiles/_communication_generate_messages_check_deps_MotorCommand.dir/rule
+
+# Convenience name for target.
+_communication_generate_messages_check_deps_MotorCommand: communication/CMakeFiles/_communication_generate_messages_check_deps_MotorCommand.dir/rule
+
+.PHONY : _communication_generate_messages_check_deps_MotorCommand
+
+# clean rule for target.
+communication/CMakeFiles/_communication_generate_messages_check_deps_MotorCommand.dir/clean:
+	$(MAKE) -f communication/CMakeFiles/_communication_generate_messages_check_deps_MotorCommand.dir/build.make communication/CMakeFiles/_communication_generate_messages_check_deps_MotorCommand.dir/clean
+.PHONY : communication/CMakeFiles/_communication_generate_messages_check_deps_MotorCommand.dir/clean
+
+# clean rule for target.
+clean: communication/CMakeFiles/_communication_generate_messages_check_deps_MotorCommand.dir/clean
 
 .PHONY : clean
 
@@ -1490,7 +1528,7 @@ clean: roboy_controlled_node_fpga/CMakeFiles/_catkin_empty_exported_target.dir/c
 roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/all:
 	$(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/build.make roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/depend
 	$(MAKE) -f roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/build.make roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=17,18,19,20,21,22,23,24,25,26,27,28,29 "Built target roboy_controlled_node_fpga"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=22,23,24,25,26,27,28,29,30,31,32,33,34 "Built target roboy_controlled_node_fpga"
 .PHONY : roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/all
 
 # Include target in all.
@@ -1545,7 +1583,7 @@ roboy_managing_node/preinstall:
 roboy_managing_node/CMakeFiles/roboy_managing_node.dir/all:
 	$(MAKE) -f roboy_managing_node/CMakeFiles/roboy_managing_node.dir/build.make roboy_managing_node/CMakeFiles/roboy_managing_node.dir/depend
 	$(MAKE) -f roboy_managing_node/CMakeFiles/roboy_managing_node.dir/build.make roboy_managing_node/CMakeFiles/roboy_managing_node.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45 "Built target roboy_managing_node"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50 "Built target roboy_managing_node"
 .PHONY : roboy_managing_node/CMakeFiles/roboy_managing_node.dir/all
 
 # Include target in all.

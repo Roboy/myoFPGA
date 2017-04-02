@@ -66,18 +66,6 @@ list_install_components/fast: list_install_components
 
 .PHONY : list_install_components/fast
 
-# Special rule for the target install
-install: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install
-
-# Special rule for the target install
-install/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install/fast
-
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
@@ -132,6 +120,18 @@ install/strip: preinstall
 install/strip/fast: install/strip
 
 .PHONY : install/strip/fast
+
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -299,6 +299,36 @@ roscpp_generate_messages_py: communication/CMakeFiles/roscpp_generate_messages_p
 roscpp_generate_messages_py/fast:
 	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f communication/CMakeFiles/roscpp_generate_messages_py.dir/build.make communication/CMakeFiles/roscpp_generate_messages_py.dir/build
 .PHONY : roscpp_generate_messages_py/fast
+
+# Convenience name for target.
+communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/rule:
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f CMakeFiles/Makefile2 communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/rule
+.PHONY : communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/rule
+
+# Convenience name for target.
+_communication_generate_messages_check_deps_MotorConfig: communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/rule
+
+.PHONY : _communication_generate_messages_check_deps_MotorConfig
+
+# fast build rule for target.
+_communication_generate_messages_check_deps_MotorConfig/fast:
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/build.make communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/build
+.PHONY : _communication_generate_messages_check_deps_MotorConfig/fast
+
+# Convenience name for target.
+communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule:
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f CMakeFiles/Makefile2 communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule
+.PHONY : communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+rosgraph_msgs_generate_messages_eus: communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule
+
+.PHONY : rosgraph_msgs_generate_messages_eus
+
+# fast build rule for target.
+rosgraph_msgs_generate_messages_eus/fast:
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build.make communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build
+.PHONY : rosgraph_msgs_generate_messages_eus/fast
 
 # Convenience name for target.
 communication/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule:
@@ -541,36 +571,6 @@ std_srvs_generate_messages_cpp/fast:
 .PHONY : std_srvs_generate_messages_cpp/fast
 
 # Convenience name for target.
-communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f CMakeFiles/Makefile2 communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule
-.PHONY : communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-rosgraph_msgs_generate_messages_eus: communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule
-
-.PHONY : rosgraph_msgs_generate_messages_eus
-
-# fast build rule for target.
-rosgraph_msgs_generate_messages_eus/fast:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build.make communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build
-.PHONY : rosgraph_msgs_generate_messages_eus/fast
-
-# Convenience name for target.
-communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/rule:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f CMakeFiles/Makefile2 communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/rule
-.PHONY : communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/rule
-
-# Convenience name for target.
-_communication_generate_messages_check_deps_MotorConfig: communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/rule
-
-.PHONY : _communication_generate_messages_check_deps_MotorConfig
-
-# fast build rule for target.
-_communication_generate_messages_check_deps_MotorConfig/fast:
-	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/build.make communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/build
-.PHONY : _communication_generate_messages_check_deps_MotorConfig/fast
-
-# Convenience name for target.
 communication/CMakeFiles/communication_geneus.dir/rule:
 	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f CMakeFiles/Makefile2 communication/CMakeFiles/communication_geneus.dir/rule
 .PHONY : communication/CMakeFiles/communication_geneus.dir/rule
@@ -660,6 +660,21 @@ communication_generate_messages/fast:
 	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f communication/CMakeFiles/communication_generate_messages.dir/build.make communication/CMakeFiles/communication_generate_messages.dir/build
 .PHONY : communication_generate_messages/fast
 
+# Convenience name for target.
+communication/CMakeFiles/_communication_generate_messages_check_deps_MotorCommand.dir/rule:
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f CMakeFiles/Makefile2 communication/CMakeFiles/_communication_generate_messages_check_deps_MotorCommand.dir/rule
+.PHONY : communication/CMakeFiles/_communication_generate_messages_check_deps_MotorCommand.dir/rule
+
+# Convenience name for target.
+_communication_generate_messages_check_deps_MotorCommand: communication/CMakeFiles/_communication_generate_messages_check_deps_MotorCommand.dir/rule
+
+.PHONY : _communication_generate_messages_check_deps_MotorCommand
+
+# fast build rule for target.
+_communication_generate_messages_check_deps_MotorCommand/fast:
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build && $(MAKE) -f communication/CMakeFiles/_communication_generate_messages_check_deps_MotorCommand.dir/build.make communication/CMakeFiles/_communication_generate_messages_check_deps_MotorCommand.dir/build
+.PHONY : _communication_generate_messages_check_deps_MotorCommand/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -667,7 +682,6 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... list_install_components"
-	@echo "... install"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... test"
@@ -682,6 +696,8 @@ help:
 	@echo "... _communication_generate_messages_check_deps_MotorStatus"
 	@echo "... std_msgs_generate_messages_py"
 	@echo "... roscpp_generate_messages_py"
+	@echo "... _communication_generate_messages_check_deps_MotorConfig"
+	@echo "... rosgraph_msgs_generate_messages_eus"
 	@echo "... rosgraph_msgs_generate_messages_nodejs"
 	@echo "... roscpp_generate_messages_cpp"
 	@echo "... communication_generate_messages_nodejs"
@@ -698,14 +714,14 @@ help:
 	@echo "... rosgraph_msgs_generate_messages_lisp"
 	@echo "... roscpp_generate_messages_nodejs"
 	@echo "... std_srvs_generate_messages_cpp"
-	@echo "... rosgraph_msgs_generate_messages_eus"
-	@echo "... _communication_generate_messages_check_deps_MotorConfig"
 	@echo "... communication_geneus"
 	@echo "... std_srvs_generate_messages_eus"
 	@echo "... roscpp_generate_messages_lisp"
 	@echo "... std_msgs_generate_messages_eus"
 	@echo "... std_srvs_generate_messages_lisp"
 	@echo "... communication_generate_messages"
+	@echo "... install"
+	@echo "... _communication_generate_messages_check_deps_MotorCommand"
 .PHONY : help
 
 

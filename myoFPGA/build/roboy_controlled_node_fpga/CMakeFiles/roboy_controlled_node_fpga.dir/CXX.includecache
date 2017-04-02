@@ -346,7 +346,53 @@ stdbool.h
 stdint.h
 -
 
+/home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorCommand.h
+string
+-
+vector
+-
+map
+-
+ros/types.h
+-
+ros/serialization.h
+-
+ros/builtin_message_traits.h
+-
+ros/message_operations.h
+-
+
 /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorConfig.h
+string
+-
+vector
+-
+map
+-
+ros/types.h
+-
+ros/serialization.h
+-
+ros/builtin_message_traits.h
+-
+ros/message_operations.h
+-
+
+/home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorStatus.h
+string
+-
+vector
+-
+map
+-
+ros/types.h
+-
+ros/serialization.h
+-
+ros/builtin_message_traits.h
+-
+ros/message_operations.h
+-
 
 /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/../powerlink/output/xap.h
 
@@ -450,6 +496,8 @@ ros/ros.h
 communication/MotorConfig.h
 -
 communication/MotorStatus.h
+-
+communication/MotorCommand.h
 -
 
 /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/ros_catkin_ws/install_isolated/include/ros/advertise_options.h
@@ -658,6 +706,10 @@ boost/make_shared.hpp
 cstddef
 -
 memory
+-
+
+/home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/ros_catkin_ws/install_isolated/include/ros/message_operations.h
+ostream
 -
 
 /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/ros_catkin_ws/install_isolated/include/ros/message_traits.h

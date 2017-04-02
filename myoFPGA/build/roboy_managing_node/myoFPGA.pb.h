@@ -33,19 +33,20 @@ void  protobuf_AddDesc_myoFPGA_2eproto();
 void protobuf_AssignDesc_myoFPGA_2eproto();
 void protobuf_ShutdownFile_myoFPGA_2eproto();
 
-class motorConfig;
-class motorStatus;
+class MotorConfig;
+class MotorStatus;
+class MotorCommand;
 
 // ===================================================================
 
-class motorConfig : public ::google::protobuf::Message {
+class MotorConfig : public ::google::protobuf::Message {
  public:
-  motorConfig();
-  virtual ~motorConfig();
+  MotorConfig();
+  virtual ~MotorConfig();
 
-  motorConfig(const motorConfig& from);
+  MotorConfig(const MotorConfig& from);
 
-  inline motorConfig& operator=(const motorConfig& from) {
+  inline MotorConfig& operator=(const MotorConfig& from) {
     CopyFrom(from);
     return *this;
   }
@@ -59,17 +60,17 @@ class motorConfig : public ::google::protobuf::Message {
   }
 
   static const ::google::protobuf::Descriptor* descriptor();
-  static const motorConfig& default_instance();
+  static const MotorConfig& default_instance();
 
-  void Swap(motorConfig* other);
+  void Swap(MotorConfig* other);
 
   // implements Message ----------------------------------------------
 
-  motorConfig* New() const;
+  MotorConfig* New() const;
   void CopyFrom(const ::google::protobuf::Message& from);
   void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const motorConfig& from);
-  void MergeFrom(const motorConfig& from);
+  void CopyFrom(const MotorConfig& from);
+  void MergeFrom(const MotorConfig& from);
   void Clear();
   bool IsInitialized() const;
 
@@ -239,7 +240,7 @@ class motorConfig : public ::google::protobuf::Message {
   inline ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
       mutable_integralnegmax();
 
-  // @@protoc_insertion_point(class_scope:MyoFPGAProtobuf.motorConfig)
+  // @@protoc_insertion_point(class_scope:MyoFPGAProtobuf.MotorConfig)
  private:
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
@@ -263,18 +264,18 @@ class motorConfig : public ::google::protobuf::Message {
   friend void protobuf_ShutdownFile_myoFPGA_2eproto();
 
   void InitAsDefaultInstance();
-  static motorConfig* default_instance_;
+  static MotorConfig* default_instance_;
 };
 // -------------------------------------------------------------------
 
-class motorStatus : public ::google::protobuf::Message {
+class MotorStatus : public ::google::protobuf::Message {
  public:
-  motorStatus();
-  virtual ~motorStatus();
+  MotorStatus();
+  virtual ~MotorStatus();
 
-  motorStatus(const motorStatus& from);
+  MotorStatus(const MotorStatus& from);
 
-  inline motorStatus& operator=(const motorStatus& from) {
+  inline MotorStatus& operator=(const MotorStatus& from) {
     CopyFrom(from);
     return *this;
   }
@@ -288,17 +289,17 @@ class motorStatus : public ::google::protobuf::Message {
   }
 
   static const ::google::protobuf::Descriptor* descriptor();
-  static const motorStatus& default_instance();
+  static const MotorStatus& default_instance();
 
-  void Swap(motorStatus* other);
+  void Swap(MotorStatus* other);
 
   // implements Message ----------------------------------------------
 
-  motorStatus* New() const;
+  MotorStatus* New() const;
   void CopyFrom(const ::google::protobuf::Message& from);
   void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const motorStatus& from);
-  void MergeFrom(const motorStatus& from);
+  void CopyFrom(const MotorStatus& from);
+  void MergeFrom(const MotorStatus& from);
   void Clear();
   bool IsInitialized() const;
 
@@ -392,7 +393,7 @@ class motorStatus : public ::google::protobuf::Message {
   inline ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
       mutable_sensor();
 
-  // @@protoc_insertion_point(class_scope:MyoFPGAProtobuf.motorStatus)
+  // @@protoc_insertion_point(class_scope:MyoFPGAProtobuf.MotorStatus)
  private:
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
@@ -410,581 +411,740 @@ class motorStatus : public ::google::protobuf::Message {
   friend void protobuf_ShutdownFile_myoFPGA_2eproto();
 
   void InitAsDefaultInstance();
-  static motorStatus* default_instance_;
+  static MotorStatus* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class MotorCommand : public ::google::protobuf::Message {
+ public:
+  MotorCommand();
+  virtual ~MotorCommand();
+
+  MotorCommand(const MotorCommand& from);
+
+  inline MotorCommand& operator=(const MotorCommand& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const MotorCommand& default_instance();
+
+  void Swap(MotorCommand* other);
+
+  // implements Message ----------------------------------------------
+
+  MotorCommand* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const MotorCommand& from);
+  void MergeFrom(const MotorCommand& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated uint32 motor = 1;
+  inline int motor_size() const;
+  inline void clear_motor();
+  static const int kMotorFieldNumber = 1;
+  inline ::google::protobuf::uint32 motor(int index) const;
+  inline void set_motor(int index, ::google::protobuf::uint32 value);
+  inline void add_motor(::google::protobuf::uint32 value);
+  inline const ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >&
+      motor() const;
+  inline ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >*
+      mutable_motor();
+
+  // repeated int32 setPoint = 2;
+  inline int setpoint_size() const;
+  inline void clear_setpoint();
+  static const int kSetPointFieldNumber = 2;
+  inline ::google::protobuf::int32 setpoint(int index) const;
+  inline void set_setpoint(int index, ::google::protobuf::int32 value);
+  inline void add_setpoint(::google::protobuf::int32 value);
+  inline const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
+      setpoint() const;
+  inline ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
+      mutable_setpoint();
+
+  // @@protoc_insertion_point(class_scope:MyoFPGAProtobuf.MotorCommand)
+ private:
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  ::google::protobuf::RepeatedField< ::google::protobuf::uint32 > motor_;
+  ::google::protobuf::RepeatedField< ::google::protobuf::int32 > setpoint_;
+  friend void  protobuf_AddDesc_myoFPGA_2eproto();
+  friend void protobuf_AssignDesc_myoFPGA_2eproto();
+  friend void protobuf_ShutdownFile_myoFPGA_2eproto();
+
+  void InitAsDefaultInstance();
+  static MotorCommand* default_instance_;
 };
 // ===================================================================
 
 
 // ===================================================================
 
-// motorConfig
+// MotorConfig
 
 // repeated bytes control_mode = 1;
-inline int motorConfig::control_mode_size() const {
+inline int MotorConfig::control_mode_size() const {
   return control_mode_.size();
 }
-inline void motorConfig::clear_control_mode() {
+inline void MotorConfig::clear_control_mode() {
   control_mode_.Clear();
 }
-inline const ::std::string& motorConfig::control_mode(int index) const {
-  // @@protoc_insertion_point(field_get:MyoFPGAProtobuf.motorConfig.control_mode)
+inline const ::std::string& MotorConfig::control_mode(int index) const {
+  // @@protoc_insertion_point(field_get:MyoFPGAProtobuf.MotorConfig.control_mode)
   return control_mode_.Get(index);
 }
-inline ::std::string* motorConfig::mutable_control_mode(int index) {
-  // @@protoc_insertion_point(field_mutable:MyoFPGAProtobuf.motorConfig.control_mode)
+inline ::std::string* MotorConfig::mutable_control_mode(int index) {
+  // @@protoc_insertion_point(field_mutable:MyoFPGAProtobuf.MotorConfig.control_mode)
   return control_mode_.Mutable(index);
 }
-inline void motorConfig::set_control_mode(int index, const ::std::string& value) {
-  // @@protoc_insertion_point(field_set:MyoFPGAProtobuf.motorConfig.control_mode)
+inline void MotorConfig::set_control_mode(int index, const ::std::string& value) {
+  // @@protoc_insertion_point(field_set:MyoFPGAProtobuf.MotorConfig.control_mode)
   control_mode_.Mutable(index)->assign(value);
 }
-inline void motorConfig::set_control_mode(int index, const char* value) {
+inline void MotorConfig::set_control_mode(int index, const char* value) {
   control_mode_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set_char:MyoFPGAProtobuf.motorConfig.control_mode)
+  // @@protoc_insertion_point(field_set_char:MyoFPGAProtobuf.MotorConfig.control_mode)
 }
-inline void motorConfig::set_control_mode(int index, const void* value, size_t size) {
+inline void MotorConfig::set_control_mode(int index, const void* value, size_t size) {
   control_mode_.Mutable(index)->assign(
     reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:MyoFPGAProtobuf.motorConfig.control_mode)
+  // @@protoc_insertion_point(field_set_pointer:MyoFPGAProtobuf.MotorConfig.control_mode)
 }
-inline ::std::string* motorConfig::add_control_mode() {
+inline ::std::string* MotorConfig::add_control_mode() {
   return control_mode_.Add();
 }
-inline void motorConfig::add_control_mode(const ::std::string& value) {
+inline void MotorConfig::add_control_mode(const ::std::string& value) {
   control_mode_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add:MyoFPGAProtobuf.motorConfig.control_mode)
+  // @@protoc_insertion_point(field_add:MyoFPGAProtobuf.MotorConfig.control_mode)
 }
-inline void motorConfig::add_control_mode(const char* value) {
+inline void MotorConfig::add_control_mode(const char* value) {
   control_mode_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add_char:MyoFPGAProtobuf.motorConfig.control_mode)
+  // @@protoc_insertion_point(field_add_char:MyoFPGAProtobuf.MotorConfig.control_mode)
 }
-inline void motorConfig::add_control_mode(const void* value, size_t size) {
+inline void MotorConfig::add_control_mode(const void* value, size_t size) {
   control_mode_.Add()->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_add_pointer:MyoFPGAProtobuf.motorConfig.control_mode)
+  // @@protoc_insertion_point(field_add_pointer:MyoFPGAProtobuf.MotorConfig.control_mode)
 }
 inline const ::google::protobuf::RepeatedPtrField< ::std::string>&
-motorConfig::control_mode() const {
-  // @@protoc_insertion_point(field_list:MyoFPGAProtobuf.motorConfig.control_mode)
+MotorConfig::control_mode() const {
+  // @@protoc_insertion_point(field_list:MyoFPGAProtobuf.MotorConfig.control_mode)
   return control_mode_;
 }
 inline ::google::protobuf::RepeatedPtrField< ::std::string>*
-motorConfig::mutable_control_mode() {
-  // @@protoc_insertion_point(field_mutable_list:MyoFPGAProtobuf.motorConfig.control_mode)
+MotorConfig::mutable_control_mode() {
+  // @@protoc_insertion_point(field_mutable_list:MyoFPGAProtobuf.MotorConfig.control_mode)
   return &control_mode_;
 }
 
 // repeated int32 outputPosMax = 2;
-inline int motorConfig::outputposmax_size() const {
+inline int MotorConfig::outputposmax_size() const {
   return outputposmax_.size();
 }
-inline void motorConfig::clear_outputposmax() {
+inline void MotorConfig::clear_outputposmax() {
   outputposmax_.Clear();
 }
-inline ::google::protobuf::int32 motorConfig::outputposmax(int index) const {
-  // @@protoc_insertion_point(field_get:MyoFPGAProtobuf.motorConfig.outputPosMax)
+inline ::google::protobuf::int32 MotorConfig::outputposmax(int index) const {
+  // @@protoc_insertion_point(field_get:MyoFPGAProtobuf.MotorConfig.outputPosMax)
   return outputposmax_.Get(index);
 }
-inline void motorConfig::set_outputposmax(int index, ::google::protobuf::int32 value) {
+inline void MotorConfig::set_outputposmax(int index, ::google::protobuf::int32 value) {
   outputposmax_.Set(index, value);
-  // @@protoc_insertion_point(field_set:MyoFPGAProtobuf.motorConfig.outputPosMax)
+  // @@protoc_insertion_point(field_set:MyoFPGAProtobuf.MotorConfig.outputPosMax)
 }
-inline void motorConfig::add_outputposmax(::google::protobuf::int32 value) {
+inline void MotorConfig::add_outputposmax(::google::protobuf::int32 value) {
   outputposmax_.Add(value);
-  // @@protoc_insertion_point(field_add:MyoFPGAProtobuf.motorConfig.outputPosMax)
+  // @@protoc_insertion_point(field_add:MyoFPGAProtobuf.MotorConfig.outputPosMax)
 }
 inline const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
-motorConfig::outputposmax() const {
-  // @@protoc_insertion_point(field_list:MyoFPGAProtobuf.motorConfig.outputPosMax)
+MotorConfig::outputposmax() const {
+  // @@protoc_insertion_point(field_list:MyoFPGAProtobuf.MotorConfig.outputPosMax)
   return outputposmax_;
 }
 inline ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
-motorConfig::mutable_outputposmax() {
-  // @@protoc_insertion_point(field_mutable_list:MyoFPGAProtobuf.motorConfig.outputPosMax)
+MotorConfig::mutable_outputposmax() {
+  // @@protoc_insertion_point(field_mutable_list:MyoFPGAProtobuf.MotorConfig.outputPosMax)
   return &outputposmax_;
 }
 
 // repeated int32 outputNegMax = 3;
-inline int motorConfig::outputnegmax_size() const {
+inline int MotorConfig::outputnegmax_size() const {
   return outputnegmax_.size();
 }
-inline void motorConfig::clear_outputnegmax() {
+inline void MotorConfig::clear_outputnegmax() {
   outputnegmax_.Clear();
 }
-inline ::google::protobuf::int32 motorConfig::outputnegmax(int index) const {
-  // @@protoc_insertion_point(field_get:MyoFPGAProtobuf.motorConfig.outputNegMax)
+inline ::google::protobuf::int32 MotorConfig::outputnegmax(int index) const {
+  // @@protoc_insertion_point(field_get:MyoFPGAProtobuf.MotorConfig.outputNegMax)
   return outputnegmax_.Get(index);
 }
-inline void motorConfig::set_outputnegmax(int index, ::google::protobuf::int32 value) {
+inline void MotorConfig::set_outputnegmax(int index, ::google::protobuf::int32 value) {
   outputnegmax_.Set(index, value);
-  // @@protoc_insertion_point(field_set:MyoFPGAProtobuf.motorConfig.outputNegMax)
+  // @@protoc_insertion_point(field_set:MyoFPGAProtobuf.MotorConfig.outputNegMax)
 }
-inline void motorConfig::add_outputnegmax(::google::protobuf::int32 value) {
+inline void MotorConfig::add_outputnegmax(::google::protobuf::int32 value) {
   outputnegmax_.Add(value);
-  // @@protoc_insertion_point(field_add:MyoFPGAProtobuf.motorConfig.outputNegMax)
+  // @@protoc_insertion_point(field_add:MyoFPGAProtobuf.MotorConfig.outputNegMax)
 }
 inline const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
-motorConfig::outputnegmax() const {
-  // @@protoc_insertion_point(field_list:MyoFPGAProtobuf.motorConfig.outputNegMax)
+MotorConfig::outputnegmax() const {
+  // @@protoc_insertion_point(field_list:MyoFPGAProtobuf.MotorConfig.outputNegMax)
   return outputnegmax_;
 }
 inline ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
-motorConfig::mutable_outputnegmax() {
-  // @@protoc_insertion_point(field_mutable_list:MyoFPGAProtobuf.motorConfig.outputNegMax)
+MotorConfig::mutable_outputnegmax() {
+  // @@protoc_insertion_point(field_mutable_list:MyoFPGAProtobuf.MotorConfig.outputNegMax)
   return &outputnegmax_;
 }
 
 // repeated int32 spPosMax = 4;
-inline int motorConfig::spposmax_size() const {
+inline int MotorConfig::spposmax_size() const {
   return spposmax_.size();
 }
-inline void motorConfig::clear_spposmax() {
+inline void MotorConfig::clear_spposmax() {
   spposmax_.Clear();
 }
-inline ::google::protobuf::int32 motorConfig::spposmax(int index) const {
-  // @@protoc_insertion_point(field_get:MyoFPGAProtobuf.motorConfig.spPosMax)
+inline ::google::protobuf::int32 MotorConfig::spposmax(int index) const {
+  // @@protoc_insertion_point(field_get:MyoFPGAProtobuf.MotorConfig.spPosMax)
   return spposmax_.Get(index);
 }
-inline void motorConfig::set_spposmax(int index, ::google::protobuf::int32 value) {
+inline void MotorConfig::set_spposmax(int index, ::google::protobuf::int32 value) {
   spposmax_.Set(index, value);
-  // @@protoc_insertion_point(field_set:MyoFPGAProtobuf.motorConfig.spPosMax)
+  // @@protoc_insertion_point(field_set:MyoFPGAProtobuf.MotorConfig.spPosMax)
 }
-inline void motorConfig::add_spposmax(::google::protobuf::int32 value) {
+inline void MotorConfig::add_spposmax(::google::protobuf::int32 value) {
   spposmax_.Add(value);
-  // @@protoc_insertion_point(field_add:MyoFPGAProtobuf.motorConfig.spPosMax)
+  // @@protoc_insertion_point(field_add:MyoFPGAProtobuf.MotorConfig.spPosMax)
 }
 inline const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
-motorConfig::spposmax() const {
-  // @@protoc_insertion_point(field_list:MyoFPGAProtobuf.motorConfig.spPosMax)
+MotorConfig::spposmax() const {
+  // @@protoc_insertion_point(field_list:MyoFPGAProtobuf.MotorConfig.spPosMax)
   return spposmax_;
 }
 inline ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
-motorConfig::mutable_spposmax() {
-  // @@protoc_insertion_point(field_mutable_list:MyoFPGAProtobuf.motorConfig.spPosMax)
+MotorConfig::mutable_spposmax() {
+  // @@protoc_insertion_point(field_mutable_list:MyoFPGAProtobuf.MotorConfig.spPosMax)
   return &spposmax_;
 }
 
 // repeated int32 spNegMax = 5;
-inline int motorConfig::spnegmax_size() const {
+inline int MotorConfig::spnegmax_size() const {
   return spnegmax_.size();
 }
-inline void motorConfig::clear_spnegmax() {
+inline void MotorConfig::clear_spnegmax() {
   spnegmax_.Clear();
 }
-inline ::google::protobuf::int32 motorConfig::spnegmax(int index) const {
-  // @@protoc_insertion_point(field_get:MyoFPGAProtobuf.motorConfig.spNegMax)
+inline ::google::protobuf::int32 MotorConfig::spnegmax(int index) const {
+  // @@protoc_insertion_point(field_get:MyoFPGAProtobuf.MotorConfig.spNegMax)
   return spnegmax_.Get(index);
 }
-inline void motorConfig::set_spnegmax(int index, ::google::protobuf::int32 value) {
+inline void MotorConfig::set_spnegmax(int index, ::google::protobuf::int32 value) {
   spnegmax_.Set(index, value);
-  // @@protoc_insertion_point(field_set:MyoFPGAProtobuf.motorConfig.spNegMax)
+  // @@protoc_insertion_point(field_set:MyoFPGAProtobuf.MotorConfig.spNegMax)
 }
-inline void motorConfig::add_spnegmax(::google::protobuf::int32 value) {
+inline void MotorConfig::add_spnegmax(::google::protobuf::int32 value) {
   spnegmax_.Add(value);
-  // @@protoc_insertion_point(field_add:MyoFPGAProtobuf.motorConfig.spNegMax)
+  // @@protoc_insertion_point(field_add:MyoFPGAProtobuf.MotorConfig.spNegMax)
 }
 inline const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
-motorConfig::spnegmax() const {
-  // @@protoc_insertion_point(field_list:MyoFPGAProtobuf.motorConfig.spNegMax)
+MotorConfig::spnegmax() const {
+  // @@protoc_insertion_point(field_list:MyoFPGAProtobuf.MotorConfig.spNegMax)
   return spnegmax_;
 }
 inline ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
-motorConfig::mutable_spnegmax() {
-  // @@protoc_insertion_point(field_mutable_list:MyoFPGAProtobuf.motorConfig.spNegMax)
+MotorConfig::mutable_spnegmax() {
+  // @@protoc_insertion_point(field_mutable_list:MyoFPGAProtobuf.MotorConfig.spNegMax)
   return &spnegmax_;
 }
 
 // repeated uint32 Kp = 6;
-inline int motorConfig::kp_size() const {
+inline int MotorConfig::kp_size() const {
   return kp_.size();
 }
-inline void motorConfig::clear_kp() {
+inline void MotorConfig::clear_kp() {
   kp_.Clear();
 }
-inline ::google::protobuf::uint32 motorConfig::kp(int index) const {
-  // @@protoc_insertion_point(field_get:MyoFPGAProtobuf.motorConfig.Kp)
+inline ::google::protobuf::uint32 MotorConfig::kp(int index) const {
+  // @@protoc_insertion_point(field_get:MyoFPGAProtobuf.MotorConfig.Kp)
   return kp_.Get(index);
 }
-inline void motorConfig::set_kp(int index, ::google::protobuf::uint32 value) {
+inline void MotorConfig::set_kp(int index, ::google::protobuf::uint32 value) {
   kp_.Set(index, value);
-  // @@protoc_insertion_point(field_set:MyoFPGAProtobuf.motorConfig.Kp)
+  // @@protoc_insertion_point(field_set:MyoFPGAProtobuf.MotorConfig.Kp)
 }
-inline void motorConfig::add_kp(::google::protobuf::uint32 value) {
+inline void MotorConfig::add_kp(::google::protobuf::uint32 value) {
   kp_.Add(value);
-  // @@protoc_insertion_point(field_add:MyoFPGAProtobuf.motorConfig.Kp)
+  // @@protoc_insertion_point(field_add:MyoFPGAProtobuf.MotorConfig.Kp)
 }
 inline const ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >&
-motorConfig::kp() const {
-  // @@protoc_insertion_point(field_list:MyoFPGAProtobuf.motorConfig.Kp)
+MotorConfig::kp() const {
+  // @@protoc_insertion_point(field_list:MyoFPGAProtobuf.MotorConfig.Kp)
   return kp_;
 }
 inline ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >*
-motorConfig::mutable_kp() {
-  // @@protoc_insertion_point(field_mutable_list:MyoFPGAProtobuf.motorConfig.Kp)
+MotorConfig::mutable_kp() {
+  // @@protoc_insertion_point(field_mutable_list:MyoFPGAProtobuf.MotorConfig.Kp)
   return &kp_;
 }
 
 // repeated uint32 Ki = 7;
-inline int motorConfig::ki_size() const {
+inline int MotorConfig::ki_size() const {
   return ki_.size();
 }
-inline void motorConfig::clear_ki() {
+inline void MotorConfig::clear_ki() {
   ki_.Clear();
 }
-inline ::google::protobuf::uint32 motorConfig::ki(int index) const {
-  // @@protoc_insertion_point(field_get:MyoFPGAProtobuf.motorConfig.Ki)
+inline ::google::protobuf::uint32 MotorConfig::ki(int index) const {
+  // @@protoc_insertion_point(field_get:MyoFPGAProtobuf.MotorConfig.Ki)
   return ki_.Get(index);
 }
-inline void motorConfig::set_ki(int index, ::google::protobuf::uint32 value) {
+inline void MotorConfig::set_ki(int index, ::google::protobuf::uint32 value) {
   ki_.Set(index, value);
-  // @@protoc_insertion_point(field_set:MyoFPGAProtobuf.motorConfig.Ki)
+  // @@protoc_insertion_point(field_set:MyoFPGAProtobuf.MotorConfig.Ki)
 }
-inline void motorConfig::add_ki(::google::protobuf::uint32 value) {
+inline void MotorConfig::add_ki(::google::protobuf::uint32 value) {
   ki_.Add(value);
-  // @@protoc_insertion_point(field_add:MyoFPGAProtobuf.motorConfig.Ki)
+  // @@protoc_insertion_point(field_add:MyoFPGAProtobuf.MotorConfig.Ki)
 }
 inline const ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >&
-motorConfig::ki() const {
-  // @@protoc_insertion_point(field_list:MyoFPGAProtobuf.motorConfig.Ki)
+MotorConfig::ki() const {
+  // @@protoc_insertion_point(field_list:MyoFPGAProtobuf.MotorConfig.Ki)
   return ki_;
 }
 inline ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >*
-motorConfig::mutable_ki() {
-  // @@protoc_insertion_point(field_mutable_list:MyoFPGAProtobuf.motorConfig.Ki)
+MotorConfig::mutable_ki() {
+  // @@protoc_insertion_point(field_mutable_list:MyoFPGAProtobuf.MotorConfig.Ki)
   return &ki_;
 }
 
 // repeated uint32 Kd = 8;
-inline int motorConfig::kd_size() const {
+inline int MotorConfig::kd_size() const {
   return kd_.size();
 }
-inline void motorConfig::clear_kd() {
+inline void MotorConfig::clear_kd() {
   kd_.Clear();
 }
-inline ::google::protobuf::uint32 motorConfig::kd(int index) const {
-  // @@protoc_insertion_point(field_get:MyoFPGAProtobuf.motorConfig.Kd)
+inline ::google::protobuf::uint32 MotorConfig::kd(int index) const {
+  // @@protoc_insertion_point(field_get:MyoFPGAProtobuf.MotorConfig.Kd)
   return kd_.Get(index);
 }
-inline void motorConfig::set_kd(int index, ::google::protobuf::uint32 value) {
+inline void MotorConfig::set_kd(int index, ::google::protobuf::uint32 value) {
   kd_.Set(index, value);
-  // @@protoc_insertion_point(field_set:MyoFPGAProtobuf.motorConfig.Kd)
+  // @@protoc_insertion_point(field_set:MyoFPGAProtobuf.MotorConfig.Kd)
 }
-inline void motorConfig::add_kd(::google::protobuf::uint32 value) {
+inline void MotorConfig::add_kd(::google::protobuf::uint32 value) {
   kd_.Add(value);
-  // @@protoc_insertion_point(field_add:MyoFPGAProtobuf.motorConfig.Kd)
+  // @@protoc_insertion_point(field_add:MyoFPGAProtobuf.MotorConfig.Kd)
 }
 inline const ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >&
-motorConfig::kd() const {
-  // @@protoc_insertion_point(field_list:MyoFPGAProtobuf.motorConfig.Kd)
+MotorConfig::kd() const {
+  // @@protoc_insertion_point(field_list:MyoFPGAProtobuf.MotorConfig.Kd)
   return kd_;
 }
 inline ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >*
-motorConfig::mutable_kd() {
-  // @@protoc_insertion_point(field_mutable_list:MyoFPGAProtobuf.motorConfig.Kd)
+MotorConfig::mutable_kd() {
+  // @@protoc_insertion_point(field_mutable_list:MyoFPGAProtobuf.MotorConfig.Kd)
   return &kd_;
 }
 
 // repeated uint32 forwardGain = 9;
-inline int motorConfig::forwardgain_size() const {
+inline int MotorConfig::forwardgain_size() const {
   return forwardgain_.size();
 }
-inline void motorConfig::clear_forwardgain() {
+inline void MotorConfig::clear_forwardgain() {
   forwardgain_.Clear();
 }
-inline ::google::protobuf::uint32 motorConfig::forwardgain(int index) const {
-  // @@protoc_insertion_point(field_get:MyoFPGAProtobuf.motorConfig.forwardGain)
+inline ::google::protobuf::uint32 MotorConfig::forwardgain(int index) const {
+  // @@protoc_insertion_point(field_get:MyoFPGAProtobuf.MotorConfig.forwardGain)
   return forwardgain_.Get(index);
 }
-inline void motorConfig::set_forwardgain(int index, ::google::protobuf::uint32 value) {
+inline void MotorConfig::set_forwardgain(int index, ::google::protobuf::uint32 value) {
   forwardgain_.Set(index, value);
-  // @@protoc_insertion_point(field_set:MyoFPGAProtobuf.motorConfig.forwardGain)
+  // @@protoc_insertion_point(field_set:MyoFPGAProtobuf.MotorConfig.forwardGain)
 }
-inline void motorConfig::add_forwardgain(::google::protobuf::uint32 value) {
+inline void MotorConfig::add_forwardgain(::google::protobuf::uint32 value) {
   forwardgain_.Add(value);
-  // @@protoc_insertion_point(field_add:MyoFPGAProtobuf.motorConfig.forwardGain)
+  // @@protoc_insertion_point(field_add:MyoFPGAProtobuf.MotorConfig.forwardGain)
 }
 inline const ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >&
-motorConfig::forwardgain() const {
-  // @@protoc_insertion_point(field_list:MyoFPGAProtobuf.motorConfig.forwardGain)
+MotorConfig::forwardgain() const {
+  // @@protoc_insertion_point(field_list:MyoFPGAProtobuf.MotorConfig.forwardGain)
   return forwardgain_;
 }
 inline ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >*
-motorConfig::mutable_forwardgain() {
-  // @@protoc_insertion_point(field_mutable_list:MyoFPGAProtobuf.motorConfig.forwardGain)
+MotorConfig::mutable_forwardgain() {
+  // @@protoc_insertion_point(field_mutable_list:MyoFPGAProtobuf.MotorConfig.forwardGain)
   return &forwardgain_;
 }
 
 // repeated uint32 deadBand = 10;
-inline int motorConfig::deadband_size() const {
+inline int MotorConfig::deadband_size() const {
   return deadband_.size();
 }
-inline void motorConfig::clear_deadband() {
+inline void MotorConfig::clear_deadband() {
   deadband_.Clear();
 }
-inline ::google::protobuf::uint32 motorConfig::deadband(int index) const {
-  // @@protoc_insertion_point(field_get:MyoFPGAProtobuf.motorConfig.deadBand)
+inline ::google::protobuf::uint32 MotorConfig::deadband(int index) const {
+  // @@protoc_insertion_point(field_get:MyoFPGAProtobuf.MotorConfig.deadBand)
   return deadband_.Get(index);
 }
-inline void motorConfig::set_deadband(int index, ::google::protobuf::uint32 value) {
+inline void MotorConfig::set_deadband(int index, ::google::protobuf::uint32 value) {
   deadband_.Set(index, value);
-  // @@protoc_insertion_point(field_set:MyoFPGAProtobuf.motorConfig.deadBand)
+  // @@protoc_insertion_point(field_set:MyoFPGAProtobuf.MotorConfig.deadBand)
 }
-inline void motorConfig::add_deadband(::google::protobuf::uint32 value) {
+inline void MotorConfig::add_deadband(::google::protobuf::uint32 value) {
   deadband_.Add(value);
-  // @@protoc_insertion_point(field_add:MyoFPGAProtobuf.motorConfig.deadBand)
+  // @@protoc_insertion_point(field_add:MyoFPGAProtobuf.MotorConfig.deadBand)
 }
 inline const ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >&
-motorConfig::deadband() const {
-  // @@protoc_insertion_point(field_list:MyoFPGAProtobuf.motorConfig.deadBand)
+MotorConfig::deadband() const {
+  // @@protoc_insertion_point(field_list:MyoFPGAProtobuf.MotorConfig.deadBand)
   return deadband_;
 }
 inline ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >*
-motorConfig::mutable_deadband() {
-  // @@protoc_insertion_point(field_mutable_list:MyoFPGAProtobuf.motorConfig.deadBand)
+MotorConfig::mutable_deadband() {
+  // @@protoc_insertion_point(field_mutable_list:MyoFPGAProtobuf.MotorConfig.deadBand)
   return &deadband_;
 }
 
 // repeated int32 IntegralPosMax = 11;
-inline int motorConfig::integralposmax_size() const {
+inline int MotorConfig::integralposmax_size() const {
   return integralposmax_.size();
 }
-inline void motorConfig::clear_integralposmax() {
+inline void MotorConfig::clear_integralposmax() {
   integralposmax_.Clear();
 }
-inline ::google::protobuf::int32 motorConfig::integralposmax(int index) const {
-  // @@protoc_insertion_point(field_get:MyoFPGAProtobuf.motorConfig.IntegralPosMax)
+inline ::google::protobuf::int32 MotorConfig::integralposmax(int index) const {
+  // @@protoc_insertion_point(field_get:MyoFPGAProtobuf.MotorConfig.IntegralPosMax)
   return integralposmax_.Get(index);
 }
-inline void motorConfig::set_integralposmax(int index, ::google::protobuf::int32 value) {
+inline void MotorConfig::set_integralposmax(int index, ::google::protobuf::int32 value) {
   integralposmax_.Set(index, value);
-  // @@protoc_insertion_point(field_set:MyoFPGAProtobuf.motorConfig.IntegralPosMax)
+  // @@protoc_insertion_point(field_set:MyoFPGAProtobuf.MotorConfig.IntegralPosMax)
 }
-inline void motorConfig::add_integralposmax(::google::protobuf::int32 value) {
+inline void MotorConfig::add_integralposmax(::google::protobuf::int32 value) {
   integralposmax_.Add(value);
-  // @@protoc_insertion_point(field_add:MyoFPGAProtobuf.motorConfig.IntegralPosMax)
+  // @@protoc_insertion_point(field_add:MyoFPGAProtobuf.MotorConfig.IntegralPosMax)
 }
 inline const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
-motorConfig::integralposmax() const {
-  // @@protoc_insertion_point(field_list:MyoFPGAProtobuf.motorConfig.IntegralPosMax)
+MotorConfig::integralposmax() const {
+  // @@protoc_insertion_point(field_list:MyoFPGAProtobuf.MotorConfig.IntegralPosMax)
   return integralposmax_;
 }
 inline ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
-motorConfig::mutable_integralposmax() {
-  // @@protoc_insertion_point(field_mutable_list:MyoFPGAProtobuf.motorConfig.IntegralPosMax)
+MotorConfig::mutable_integralposmax() {
+  // @@protoc_insertion_point(field_mutable_list:MyoFPGAProtobuf.MotorConfig.IntegralPosMax)
   return &integralposmax_;
 }
 
 // repeated int32 IntegralNegMax = 12;
-inline int motorConfig::integralnegmax_size() const {
+inline int MotorConfig::integralnegmax_size() const {
   return integralnegmax_.size();
 }
-inline void motorConfig::clear_integralnegmax() {
+inline void MotorConfig::clear_integralnegmax() {
   integralnegmax_.Clear();
 }
-inline ::google::protobuf::int32 motorConfig::integralnegmax(int index) const {
-  // @@protoc_insertion_point(field_get:MyoFPGAProtobuf.motorConfig.IntegralNegMax)
+inline ::google::protobuf::int32 MotorConfig::integralnegmax(int index) const {
+  // @@protoc_insertion_point(field_get:MyoFPGAProtobuf.MotorConfig.IntegralNegMax)
   return integralnegmax_.Get(index);
 }
-inline void motorConfig::set_integralnegmax(int index, ::google::protobuf::int32 value) {
+inline void MotorConfig::set_integralnegmax(int index, ::google::protobuf::int32 value) {
   integralnegmax_.Set(index, value);
-  // @@protoc_insertion_point(field_set:MyoFPGAProtobuf.motorConfig.IntegralNegMax)
+  // @@protoc_insertion_point(field_set:MyoFPGAProtobuf.MotorConfig.IntegralNegMax)
 }
-inline void motorConfig::add_integralnegmax(::google::protobuf::int32 value) {
+inline void MotorConfig::add_integralnegmax(::google::protobuf::int32 value) {
   integralnegmax_.Add(value);
-  // @@protoc_insertion_point(field_add:MyoFPGAProtobuf.motorConfig.IntegralNegMax)
+  // @@protoc_insertion_point(field_add:MyoFPGAProtobuf.MotorConfig.IntegralNegMax)
 }
 inline const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
-motorConfig::integralnegmax() const {
-  // @@protoc_insertion_point(field_list:MyoFPGAProtobuf.motorConfig.IntegralNegMax)
+MotorConfig::integralnegmax() const {
+  // @@protoc_insertion_point(field_list:MyoFPGAProtobuf.MotorConfig.IntegralNegMax)
   return integralnegmax_;
 }
 inline ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
-motorConfig::mutable_integralnegmax() {
-  // @@protoc_insertion_point(field_mutable_list:MyoFPGAProtobuf.motorConfig.IntegralNegMax)
+MotorConfig::mutable_integralnegmax() {
+  // @@protoc_insertion_point(field_mutable_list:MyoFPGAProtobuf.MotorConfig.IntegralNegMax)
   return &integralnegmax_;
 }
 
 // -------------------------------------------------------------------
 
-// motorStatus
+// MotorStatus
 
 // repeated int32 pwmRef = 1;
-inline int motorStatus::pwmref_size() const {
+inline int MotorStatus::pwmref_size() const {
   return pwmref_.size();
 }
-inline void motorStatus::clear_pwmref() {
+inline void MotorStatus::clear_pwmref() {
   pwmref_.Clear();
 }
-inline ::google::protobuf::int32 motorStatus::pwmref(int index) const {
-  // @@protoc_insertion_point(field_get:MyoFPGAProtobuf.motorStatus.pwmRef)
+inline ::google::protobuf::int32 MotorStatus::pwmref(int index) const {
+  // @@protoc_insertion_point(field_get:MyoFPGAProtobuf.MotorStatus.pwmRef)
   return pwmref_.Get(index);
 }
-inline void motorStatus::set_pwmref(int index, ::google::protobuf::int32 value) {
+inline void MotorStatus::set_pwmref(int index, ::google::protobuf::int32 value) {
   pwmref_.Set(index, value);
-  // @@protoc_insertion_point(field_set:MyoFPGAProtobuf.motorStatus.pwmRef)
+  // @@protoc_insertion_point(field_set:MyoFPGAProtobuf.MotorStatus.pwmRef)
 }
-inline void motorStatus::add_pwmref(::google::protobuf::int32 value) {
+inline void MotorStatus::add_pwmref(::google::protobuf::int32 value) {
   pwmref_.Add(value);
-  // @@protoc_insertion_point(field_add:MyoFPGAProtobuf.motorStatus.pwmRef)
+  // @@protoc_insertion_point(field_add:MyoFPGAProtobuf.MotorStatus.pwmRef)
 }
 inline const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
-motorStatus::pwmref() const {
-  // @@protoc_insertion_point(field_list:MyoFPGAProtobuf.motorStatus.pwmRef)
+MotorStatus::pwmref() const {
+  // @@protoc_insertion_point(field_list:MyoFPGAProtobuf.MotorStatus.pwmRef)
   return pwmref_;
 }
 inline ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
-motorStatus::mutable_pwmref() {
-  // @@protoc_insertion_point(field_mutable_list:MyoFPGAProtobuf.motorStatus.pwmRef)
+MotorStatus::mutable_pwmref() {
+  // @@protoc_insertion_point(field_mutable_list:MyoFPGAProtobuf.MotorStatus.pwmRef)
   return &pwmref_;
 }
 
 // repeated int32 position = 2;
-inline int motorStatus::position_size() const {
+inline int MotorStatus::position_size() const {
   return position_.size();
 }
-inline void motorStatus::clear_position() {
+inline void MotorStatus::clear_position() {
   position_.Clear();
 }
-inline ::google::protobuf::int32 motorStatus::position(int index) const {
-  // @@protoc_insertion_point(field_get:MyoFPGAProtobuf.motorStatus.position)
+inline ::google::protobuf::int32 MotorStatus::position(int index) const {
+  // @@protoc_insertion_point(field_get:MyoFPGAProtobuf.MotorStatus.position)
   return position_.Get(index);
 }
-inline void motorStatus::set_position(int index, ::google::protobuf::int32 value) {
+inline void MotorStatus::set_position(int index, ::google::protobuf::int32 value) {
   position_.Set(index, value);
-  // @@protoc_insertion_point(field_set:MyoFPGAProtobuf.motorStatus.position)
+  // @@protoc_insertion_point(field_set:MyoFPGAProtobuf.MotorStatus.position)
 }
-inline void motorStatus::add_position(::google::protobuf::int32 value) {
+inline void MotorStatus::add_position(::google::protobuf::int32 value) {
   position_.Add(value);
-  // @@protoc_insertion_point(field_add:MyoFPGAProtobuf.motorStatus.position)
+  // @@protoc_insertion_point(field_add:MyoFPGAProtobuf.MotorStatus.position)
 }
 inline const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
-motorStatus::position() const {
-  // @@protoc_insertion_point(field_list:MyoFPGAProtobuf.motorStatus.position)
+MotorStatus::position() const {
+  // @@protoc_insertion_point(field_list:MyoFPGAProtobuf.MotorStatus.position)
   return position_;
 }
 inline ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
-motorStatus::mutable_position() {
-  // @@protoc_insertion_point(field_mutable_list:MyoFPGAProtobuf.motorStatus.position)
+MotorStatus::mutable_position() {
+  // @@protoc_insertion_point(field_mutable_list:MyoFPGAProtobuf.MotorStatus.position)
   return &position_;
 }
 
 // repeated int32 velocity = 3;
-inline int motorStatus::velocity_size() const {
+inline int MotorStatus::velocity_size() const {
   return velocity_.size();
 }
-inline void motorStatus::clear_velocity() {
+inline void MotorStatus::clear_velocity() {
   velocity_.Clear();
 }
-inline ::google::protobuf::int32 motorStatus::velocity(int index) const {
-  // @@protoc_insertion_point(field_get:MyoFPGAProtobuf.motorStatus.velocity)
+inline ::google::protobuf::int32 MotorStatus::velocity(int index) const {
+  // @@protoc_insertion_point(field_get:MyoFPGAProtobuf.MotorStatus.velocity)
   return velocity_.Get(index);
 }
-inline void motorStatus::set_velocity(int index, ::google::protobuf::int32 value) {
+inline void MotorStatus::set_velocity(int index, ::google::protobuf::int32 value) {
   velocity_.Set(index, value);
-  // @@protoc_insertion_point(field_set:MyoFPGAProtobuf.motorStatus.velocity)
+  // @@protoc_insertion_point(field_set:MyoFPGAProtobuf.MotorStatus.velocity)
 }
-inline void motorStatus::add_velocity(::google::protobuf::int32 value) {
+inline void MotorStatus::add_velocity(::google::protobuf::int32 value) {
   velocity_.Add(value);
-  // @@protoc_insertion_point(field_add:MyoFPGAProtobuf.motorStatus.velocity)
+  // @@protoc_insertion_point(field_add:MyoFPGAProtobuf.MotorStatus.velocity)
 }
 inline const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
-motorStatus::velocity() const {
-  // @@protoc_insertion_point(field_list:MyoFPGAProtobuf.motorStatus.velocity)
+MotorStatus::velocity() const {
+  // @@protoc_insertion_point(field_list:MyoFPGAProtobuf.MotorStatus.velocity)
   return velocity_;
 }
 inline ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
-motorStatus::mutable_velocity() {
-  // @@protoc_insertion_point(field_mutable_list:MyoFPGAProtobuf.motorStatus.velocity)
+MotorStatus::mutable_velocity() {
+  // @@protoc_insertion_point(field_mutable_list:MyoFPGAProtobuf.MotorStatus.velocity)
   return &velocity_;
 }
 
 // repeated int32 displacement = 4;
-inline int motorStatus::displacement_size() const {
+inline int MotorStatus::displacement_size() const {
   return displacement_.size();
 }
-inline void motorStatus::clear_displacement() {
+inline void MotorStatus::clear_displacement() {
   displacement_.Clear();
 }
-inline ::google::protobuf::int32 motorStatus::displacement(int index) const {
-  // @@protoc_insertion_point(field_get:MyoFPGAProtobuf.motorStatus.displacement)
+inline ::google::protobuf::int32 MotorStatus::displacement(int index) const {
+  // @@protoc_insertion_point(field_get:MyoFPGAProtobuf.MotorStatus.displacement)
   return displacement_.Get(index);
 }
-inline void motorStatus::set_displacement(int index, ::google::protobuf::int32 value) {
+inline void MotorStatus::set_displacement(int index, ::google::protobuf::int32 value) {
   displacement_.Set(index, value);
-  // @@protoc_insertion_point(field_set:MyoFPGAProtobuf.motorStatus.displacement)
+  // @@protoc_insertion_point(field_set:MyoFPGAProtobuf.MotorStatus.displacement)
 }
-inline void motorStatus::add_displacement(::google::protobuf::int32 value) {
+inline void MotorStatus::add_displacement(::google::protobuf::int32 value) {
   displacement_.Add(value);
-  // @@protoc_insertion_point(field_add:MyoFPGAProtobuf.motorStatus.displacement)
+  // @@protoc_insertion_point(field_add:MyoFPGAProtobuf.MotorStatus.displacement)
 }
 inline const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
-motorStatus::displacement() const {
-  // @@protoc_insertion_point(field_list:MyoFPGAProtobuf.motorStatus.displacement)
+MotorStatus::displacement() const {
+  // @@protoc_insertion_point(field_list:MyoFPGAProtobuf.MotorStatus.displacement)
   return displacement_;
 }
 inline ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
-motorStatus::mutable_displacement() {
-  // @@protoc_insertion_point(field_mutable_list:MyoFPGAProtobuf.motorStatus.displacement)
+MotorStatus::mutable_displacement() {
+  // @@protoc_insertion_point(field_mutable_list:MyoFPGAProtobuf.MotorStatus.displacement)
   return &displacement_;
 }
 
 // repeated int32 current = 5;
-inline int motorStatus::current_size() const {
+inline int MotorStatus::current_size() const {
   return current_.size();
 }
-inline void motorStatus::clear_current() {
+inline void MotorStatus::clear_current() {
   current_.Clear();
 }
-inline ::google::protobuf::int32 motorStatus::current(int index) const {
-  // @@protoc_insertion_point(field_get:MyoFPGAProtobuf.motorStatus.current)
+inline ::google::protobuf::int32 MotorStatus::current(int index) const {
+  // @@protoc_insertion_point(field_get:MyoFPGAProtobuf.MotorStatus.current)
   return current_.Get(index);
 }
-inline void motorStatus::set_current(int index, ::google::protobuf::int32 value) {
+inline void MotorStatus::set_current(int index, ::google::protobuf::int32 value) {
   current_.Set(index, value);
-  // @@protoc_insertion_point(field_set:MyoFPGAProtobuf.motorStatus.current)
+  // @@protoc_insertion_point(field_set:MyoFPGAProtobuf.MotorStatus.current)
 }
-inline void motorStatus::add_current(::google::protobuf::int32 value) {
+inline void MotorStatus::add_current(::google::protobuf::int32 value) {
   current_.Add(value);
-  // @@protoc_insertion_point(field_add:MyoFPGAProtobuf.motorStatus.current)
+  // @@protoc_insertion_point(field_add:MyoFPGAProtobuf.MotorStatus.current)
 }
 inline const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
-motorStatus::current() const {
-  // @@protoc_insertion_point(field_list:MyoFPGAProtobuf.motorStatus.current)
+MotorStatus::current() const {
+  // @@protoc_insertion_point(field_list:MyoFPGAProtobuf.MotorStatus.current)
   return current_;
 }
 inline ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
-motorStatus::mutable_current() {
-  // @@protoc_insertion_point(field_mutable_list:MyoFPGAProtobuf.motorStatus.current)
+MotorStatus::mutable_current() {
+  // @@protoc_insertion_point(field_mutable_list:MyoFPGAProtobuf.MotorStatus.current)
   return &current_;
 }
 
 // repeated int32 sensor = 6;
-inline int motorStatus::sensor_size() const {
+inline int MotorStatus::sensor_size() const {
   return sensor_.size();
 }
-inline void motorStatus::clear_sensor() {
+inline void MotorStatus::clear_sensor() {
   sensor_.Clear();
 }
-inline ::google::protobuf::int32 motorStatus::sensor(int index) const {
-  // @@protoc_insertion_point(field_get:MyoFPGAProtobuf.motorStatus.sensor)
+inline ::google::protobuf::int32 MotorStatus::sensor(int index) const {
+  // @@protoc_insertion_point(field_get:MyoFPGAProtobuf.MotorStatus.sensor)
   return sensor_.Get(index);
 }
-inline void motorStatus::set_sensor(int index, ::google::protobuf::int32 value) {
+inline void MotorStatus::set_sensor(int index, ::google::protobuf::int32 value) {
   sensor_.Set(index, value);
-  // @@protoc_insertion_point(field_set:MyoFPGAProtobuf.motorStatus.sensor)
+  // @@protoc_insertion_point(field_set:MyoFPGAProtobuf.MotorStatus.sensor)
 }
-inline void motorStatus::add_sensor(::google::protobuf::int32 value) {
+inline void MotorStatus::add_sensor(::google::protobuf::int32 value) {
   sensor_.Add(value);
-  // @@protoc_insertion_point(field_add:MyoFPGAProtobuf.motorStatus.sensor)
+  // @@protoc_insertion_point(field_add:MyoFPGAProtobuf.MotorStatus.sensor)
 }
 inline const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
-motorStatus::sensor() const {
-  // @@protoc_insertion_point(field_list:MyoFPGAProtobuf.motorStatus.sensor)
+MotorStatus::sensor() const {
+  // @@protoc_insertion_point(field_list:MyoFPGAProtobuf.MotorStatus.sensor)
   return sensor_;
 }
 inline ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
-motorStatus::mutable_sensor() {
-  // @@protoc_insertion_point(field_mutable_list:MyoFPGAProtobuf.motorStatus.sensor)
+MotorStatus::mutable_sensor() {
+  // @@protoc_insertion_point(field_mutable_list:MyoFPGAProtobuf.MotorStatus.sensor)
   return &sensor_;
+}
+
+// -------------------------------------------------------------------
+
+// MotorCommand
+
+// repeated uint32 motor = 1;
+inline int MotorCommand::motor_size() const {
+  return motor_.size();
+}
+inline void MotorCommand::clear_motor() {
+  motor_.Clear();
+}
+inline ::google::protobuf::uint32 MotorCommand::motor(int index) const {
+  // @@protoc_insertion_point(field_get:MyoFPGAProtobuf.MotorCommand.motor)
+  return motor_.Get(index);
+}
+inline void MotorCommand::set_motor(int index, ::google::protobuf::uint32 value) {
+  motor_.Set(index, value);
+  // @@protoc_insertion_point(field_set:MyoFPGAProtobuf.MotorCommand.motor)
+}
+inline void MotorCommand::add_motor(::google::protobuf::uint32 value) {
+  motor_.Add(value);
+  // @@protoc_insertion_point(field_add:MyoFPGAProtobuf.MotorCommand.motor)
+}
+inline const ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >&
+MotorCommand::motor() const {
+  // @@protoc_insertion_point(field_list:MyoFPGAProtobuf.MotorCommand.motor)
+  return motor_;
+}
+inline ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >*
+MotorCommand::mutable_motor() {
+  // @@protoc_insertion_point(field_mutable_list:MyoFPGAProtobuf.MotorCommand.motor)
+  return &motor_;
+}
+
+// repeated int32 setPoint = 2;
+inline int MotorCommand::setpoint_size() const {
+  return setpoint_.size();
+}
+inline void MotorCommand::clear_setpoint() {
+  setpoint_.Clear();
+}
+inline ::google::protobuf::int32 MotorCommand::setpoint(int index) const {
+  // @@protoc_insertion_point(field_get:MyoFPGAProtobuf.MotorCommand.setPoint)
+  return setpoint_.Get(index);
+}
+inline void MotorCommand::set_setpoint(int index, ::google::protobuf::int32 value) {
+  setpoint_.Set(index, value);
+  // @@protoc_insertion_point(field_set:MyoFPGAProtobuf.MotorCommand.setPoint)
+}
+inline void MotorCommand::add_setpoint(::google::protobuf::int32 value) {
+  setpoint_.Add(value);
+  // @@protoc_insertion_point(field_add:MyoFPGAProtobuf.MotorCommand.setPoint)
+}
+inline const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
+MotorCommand::setpoint() const {
+  // @@protoc_insertion_point(field_list:MyoFPGAProtobuf.MotorCommand.setPoint)
+  return setpoint_;
+}
+inline ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
+MotorCommand::mutable_setpoint() {
+  // @@protoc_insertion_point(field_mutable_list:MyoFPGAProtobuf.MotorCommand.setPoint)
+  return &setpoint_;
 }
 
 

@@ -118,6 +118,14 @@ void MyoControl::getPIDcontrollerParams(int &Pgain, int &Igain, int &Dgain, int 
 	setPointMax = 0;
 }
 
+void MyoControl::setPIDcontrollerParams(uint16_t Pgain, uint16_t Igain, uint16_t Dgain, uint16_t forwardGain, uint16_t deadband, int motor, int mode){
+	control_params[motor][mode].Kp = Pgain;
+	control_params[motor][mode].Ki = Igain;
+	control_params[motor][mode].Kd = Dgain;
+	control_params[motor][mode].forwardGain = forwardGain;
+	control_params[motor][mode].deadBand = deadband;
+}
+
 uint16_t MyoControl::getControlMode(int motor){
 	return MYO_READ_control(myo_base[motor/MOTORS_PER_MYOCONTROL],motor-(motor>=MOTORS_PER_MYOCONTROL?MOTORS_PER_MYOCONTROL:0));
 }
@@ -227,6 +235,140 @@ float MyoControl::getWeight(){
 		weight = (adc_weight_parameters[0]+weight_offset+adc_weight_parameters[1]*adc_value);
 	}
 	return weight;
+}
+
+float MyoControl::recordTrajectories(
+        float samplingTime, float recordTime,
+		map<int,vector<float>> &trajectories, vector<int> &idList,
+        vector<int> &controlmode, string name) {
+    // this will be filled with the trajectories
+    allToDisplacement(200);
+
+    // samplingTime milli -> seconds
+    samplingTime /= 1000.0f;
+
+    double elapsedTime = 0.0, dt;
+    long sample = 0;
+
+    // start recording
+    timer.start();
+    do{
+        dt = elapsedTime;
+        for (uint motor = 0; motor < idList.size(); motor++) {
+			if (controlmode[motor] == POSITION)
+				trajectories[idList[motor]].push_back( getPosition(motor) );
+			else if (controlmode[motor] == VELOCITY)
+				trajectories[idList[motor]].push_back( getVelocity(motor) );
+			else if (controlmode[motor] == FORCE)
+				trajectories[idList[motor]].push_back( getDisplacement(motor) );
+        }
+        sample++;
+        elapsedTime = timer.elapsedTime();
+        dt = elapsedTime - dt;
+        // if faster than sampling time sleep for difference
+        if (dt < samplingTime) {
+            usleep((samplingTime - dt) * 1000000.0);
+            elapsedTime = timer.elapsedTime();
+        }
+    }while(elapsedTime < recordTime);
+
+    // set force to zero
+	allToDisplacement(0);
+
+    // done recording
+    std::ofstream outfile;
+    if (name.empty()) {
+        time_t rawtime;
+        struct tm *timeinfo;
+        time(&rawtime);
+        timeinfo = localtime(&rawtime);
+        char str[200];
+        sprintf(str, "recording_%s.log",
+                asctime(timeinfo));
+        name = str;
+    }
+
+    outfile.open(name);
+    if (outfile.is_open()) {
+        outfile << "<?xml version=\"1.0\" ?>"
+                << std::endl;
+        uint m = 0;
+        char motorname[10];
+        for (uint m = 0; m < idList.size(); m++) {
+            sprintf(motorname, "motor%d", idList[m]);
+            outfile << "<trajectory motorid=\"" << idList[m] << "\" controlmode=\""
+                    << controlmode[m] << "\" samplingTime=\"" << samplingTime << "\">"
+                    << std::endl;
+            outfile << "<waypointlist>" << std::endl;
+            for (uint i = 0; i < trajectories[idList[m]].size(); i++)
+                outfile << trajectories[idList[m]][i] << " ";
+            outfile << "</waypointlist>" << std::endl;
+            outfile << "</trajectory>" << std::endl;
+        }
+        outfile << "</roboybehavior>" << std::endl;
+        outfile.close();
+    }
+
+    // return average sampling time in milliseconds
+    return elapsedTime / (double) sample * 1000.0f;
+}
+
+bool MyoControl::playTrajectory(const char* file){
+    // initialize TiXmlDocument doc with a string
+    TiXmlDocument doc(file);
+    if (!doc.LoadFile()) {
+        return false;
+    }
+
+    TiXmlElement *root = doc.RootElement();
+
+    map<int,vector<float>> trajectories;
+    int samplingTime, numberOfSamples;
+
+    // Constructs the myoMuscles by parsing custom xml.
+    TiXmlElement *trajectory_it = NULL;
+    for (trajectory_it = root->FirstChildElement("trajectory"); trajectory_it;
+    		trajectory_it = trajectory_it->NextSiblingElement("trajectory")) {
+        if (trajectory_it->Attribute("motorid") && trajectory_it->QueryIntAttribute("samplingTime",&samplingTime)) {
+        	int motor;
+			if(trajectory_it->QueryIntAttribute("motorid", &motor) != TIXML_SUCCESS){
+				return false;
+			}
+			TiXmlElement *waypointlist_it = trajectory_it->FirstChildElement("waypointlist");
+			stringstream stream(waypointlist_it->GetText());
+			while(1) {
+				int n;
+				stream >> n;
+				trajectories[motor].push_back(n);
+				if(!stream){
+					numberOfSamples = trajectories.size();
+					break;
+				}
+			}
+        }
+    }
+    allToDisplacement(0);
+    timer.start();
+    double elapsedTime = 0.0, dt;
+    int sample = 0;
+    samplingTime /= 1000.0f;
+    do{
+		dt = elapsedTime;
+		for (auto &motor : trajectories) {
+			setDisplacement(motor.first, motor.second[sample]);
+		}
+		sample++;
+
+		elapsedTime = timer.elapsedTime();
+		dt = elapsedTime - dt;
+		// if faster than sampling time sleep for difference
+		if (dt < samplingTime) {
+			usleep((samplingTime - dt) * 1000000.0);
+			elapsedTime = timer.elapsedTime();
+		}
+    }while(timer.elapsedTime()<(numberOfSamples*samplingTime/1000.0f));
+
+    return true;
 }
 
 void MyoControl::estimateSpringParameters(int motor, int timeout,  uint numberOfDataPoints){

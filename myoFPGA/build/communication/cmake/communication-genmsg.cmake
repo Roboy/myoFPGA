@@ -1,6 +1,6 @@
 # generated from genmsg/cmake/pkg-genmsg.cmake.em
 
-message(STATUS "communication: 2 messages, 0 services")
+message(STATUS "communication: 3 messages, 0 services")
 
 set(MSG_I_FLAGS "-Icommunication:/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs;-Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg")
 
@@ -16,6 +16,11 @@ add_custom_target(communication_generate_messages ALL)
 # verify that message/service dependencies have not changed since configure
 
 
+
+get_filename_component(_filename "/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorCommand.msg" NAME_WE)
+add_custom_target(_communication_generate_messages_check_deps_${_filename}
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "communication" "/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorCommand.msg" ""
+)
 
 get_filename_component(_filename "/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorConfig.msg" NAME_WE)
 add_custom_target(_communication_generate_messages_check_deps_${_filename}
@@ -33,6 +38,12 @@ add_custom_target(_communication_generate_messages_check_deps_${_filename}
 
 ### Section generating for lang: gencpp
 ### Generating Messages
+_generate_msg_cpp(communication
+  "/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorCommand.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/communication
+)
 _generate_msg_cpp(communication
   "/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorConfig.msg"
   "${MSG_I_FLAGS}"
@@ -60,6 +71,8 @@ add_custom_target(communication_generate_messages_cpp
 add_dependencies(communication_generate_messages communication_generate_messages_cpp)
 
 # add dependencies to all check dependencies targets
+get_filename_component(_filename "/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorCommand.msg" NAME_WE)
+add_dependencies(communication_generate_messages_cpp _communication_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorConfig.msg" NAME_WE)
 add_dependencies(communication_generate_messages_cpp _communication_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorStatus.msg" NAME_WE)
@@ -74,6 +87,12 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS communication_generate_messages_cpp
 
 ### Section generating for lang: geneus
 ### Generating Messages
+_generate_msg_eus(communication
+  "/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorCommand.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/communication
+)
 _generate_msg_eus(communication
   "/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorConfig.msg"
   "${MSG_I_FLAGS}"
@@ -101,6 +120,8 @@ add_custom_target(communication_generate_messages_eus
 add_dependencies(communication_generate_messages communication_generate_messages_eus)
 
 # add dependencies to all check dependencies targets
+get_filename_component(_filename "/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorCommand.msg" NAME_WE)
+add_dependencies(communication_generate_messages_eus _communication_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorConfig.msg" NAME_WE)
 add_dependencies(communication_generate_messages_eus _communication_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorStatus.msg" NAME_WE)
@@ -115,6 +136,12 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS communication_generate_messages_eus
 
 ### Section generating for lang: genlisp
 ### Generating Messages
+_generate_msg_lisp(communication
+  "/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorCommand.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/communication
+)
 _generate_msg_lisp(communication
   "/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorConfig.msg"
   "${MSG_I_FLAGS}"
@@ -142,6 +169,8 @@ add_custom_target(communication_generate_messages_lisp
 add_dependencies(communication_generate_messages communication_generate_messages_lisp)
 
 # add dependencies to all check dependencies targets
+get_filename_component(_filename "/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorCommand.msg" NAME_WE)
+add_dependencies(communication_generate_messages_lisp _communication_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorConfig.msg" NAME_WE)
 add_dependencies(communication_generate_messages_lisp _communication_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorStatus.msg" NAME_WE)
@@ -156,6 +185,12 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS communication_generate_messages_lis
 
 ### Section generating for lang: gennodejs
 ### Generating Messages
+_generate_msg_nodejs(communication
+  "/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorCommand.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/communication
+)
 _generate_msg_nodejs(communication
   "/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorConfig.msg"
   "${MSG_I_FLAGS}"
@@ -183,6 +218,8 @@ add_custom_target(communication_generate_messages_nodejs
 add_dependencies(communication_generate_messages communication_generate_messages_nodejs)
 
 # add dependencies to all check dependencies targets
+get_filename_component(_filename "/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorCommand.msg" NAME_WE)
+add_dependencies(communication_generate_messages_nodejs _communication_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorConfig.msg" NAME_WE)
 add_dependencies(communication_generate_messages_nodejs _communication_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorStatus.msg" NAME_WE)
@@ -197,6 +234,12 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS communication_generate_messages_nod
 
 ### Section generating for lang: genpy
 ### Generating Messages
+_generate_msg_py(communication
+  "/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorCommand.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/communication
+)
 _generate_msg_py(communication
   "/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorConfig.msg"
   "${MSG_I_FLAGS}"
@@ -224,6 +267,8 @@ add_custom_target(communication_generate_messages_py
 add_dependencies(communication_generate_messages communication_generate_messages_py)
 
 # add dependencies to all check dependencies targets
+get_filename_component(_filename "/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorCommand.msg" NAME_WE)
+add_dependencies(communication_generate_messages_py _communication_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorConfig.msg" NAME_WE)
 add_dependencies(communication_generate_messages_py _communication_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorStatus.msg" NAME_WE)

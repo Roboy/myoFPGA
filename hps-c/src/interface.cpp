@@ -2,12 +2,15 @@
 
 //! standard query messages
 char welcomestring[] = "commandline tool for controlling myode muscle via de0-nano setup";
-char commandstring[] = "[0]position, [1]velocity, [2]displacement, [3]switch motor, [4]zero weight, [5]allTo, [6]estimateSpringParams, [7]toggleSPI, [8]reset, [9]exit";
+char commandstring[] = "[0]position, [1]velocity, [2]displacement, [3]switch motor, [4]zero weight, [5]allTo, [6]estimateSpringParams, [7]toggleSPI, [8]reset, [space]record, [enter]play, [/]pidParams, [9]exit";
 char choosecontrolstring[] = "choose control mode (0: Position, 1:Velocity, 2: Force)?";
 char setpointstring[] = "set point?";
 char setpositionstring[] = "set position (ticks)?";
 char setvelstring[] = "set velocity (ticks/s) ?";
 char setdisplacementstring[] = "set displacement (ticks)?";
+char kpstring[] = "Kp?";
+char kdstring[] = "Kd?";
+char kistring[] = "Ki?";
 char motorstring[] = "which motor?";
 char motorinfo[30];
 char runningstring[] = "running ";
@@ -188,6 +191,40 @@ void Interface::reset(){
 	print(6, 0, cols, " ");
 }
 
+void Interface::setGains(){
+	timeout(-1);
+	echo();
+	print(5, 0, cols, " ");
+	print(6, 0, cols, " ");
+	printMessage(5, 0, choosecontrolstring);
+	mvchgat(5, 0, strlen(choosecontrolstring), A_BOLD, 1, NULL);
+	refresh();
+	mvgetnstr(6, 0, inputstring, 30);
+	int mode = atoi(inputstring);
+	print(5, 0, cols, " ");
+	print(6, 0, cols, " ");
+	printMessage(5, 0, kpstring);
+	mvchgat(5, 0, strlen(kpstring), A_BOLD, 1, NULL);
+	refresh();
+	mvgetnstr(6, 0, inputstring, 30);
+	print(6, 0, cols, " ");
+	uint16_t Kp = atoi(inputstring);
+	printMessage(5, 0, kistring);
+	mvchgat(5, 0, strlen(kistring), A_BOLD, 1, NULL);
+	refresh();
+	mvgetnstr(6, 0, inputstring, 30);
+	print(6, 0, cols, " ");
+	uint16_t Ki = atoi(inputstring);
+	printMessage(5, 0, kdstring);
+	mvchgat(5, 0, strlen(kdstring), A_BOLD, 1, NULL);
+	refresh();
+	mvgetnstr(6, 0, inputstring, 30);
+	print(6, 0, cols, " ");
+	uint16_t Kd = atoi(inputstring);
+	myoControl->setPIDcontrollerParams(Kp,Kd,Ki,0,0,motor_id,mode);
+	noecho();
+}
+
 void Interface::positionControl() {
 	timeout(-1);
 	echo();
@@ -325,4 +362,52 @@ void Interface::estimateSpringParameters(){
 	myoControl->estimateSpringParameters(motor_id, 600000, 1000);
 	print(5, 0, cols, " ");
 	print(6, 0, cols, " ");
+}
+
+void Interface::recordTrajectories() {
+   timeout(-1);
+   echo();
+   print(4, 0, cols, " ");
+   print(5, 0, cols, " ");
+   printMessage(4, 0, filenamestring);
+   mvgetnstr(4, strlen(filenamestring), inputstring, 30);
+   std::string name(inputstring);
+   print(4, 0, cols, " ");
+   printMessage(4, 0, samplingtimestring, CYAN);
+   mvgetnstr(4, strlen(samplingtimestring), inputstring, 30);
+   float samplingTime = atof(inputstring);
+   printMessage(5, 0, recordtimestring, CYAN);
+   mvgetnstr(5, strlen(recordtimestring), inputstring, 30);
+   double recordTime = atof(inputstring);
+   print(4, 0, cols, " ");
+   print(5, 0, cols, " ");
+   printMessage(4, 0, recordingstring, RED);
+   map<int,vector<float>> trajectories;
+   vector<int> idList = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
+   vector<int> controlmode(16, 1);
+   float averageSamplingTime = myoControl->recordTrajectories(samplingTime, recordTime, trajectories, idList,
+														  controlmode, name);
+   print(4, 0, cols, " ");
+   printMessage(4, 0, donestring, GREEN);
+   char averagetimestring[50];
+   sprintf(averagetimestring, "average %s%f", samplingtimestring, averageSamplingTime);
+   printMessage(4, strlen(donestring), averagetimestring, CYAN);
+   usleep(500000);
+   print(4, 0, cols, " ");
+   print(5, 0, cols, " ");
+}
+
+void Interface::playTrajectories(){
+	timeout(-1);
+	echo();
+	print(4, 0, cols, " ");
+	print(5, 0, cols, " ");
+	printMessage(4, 0, filenamestring);
+	mvgetnstr(4, strlen(filenamestring), inputstring, 30);
+	myoControl->playTrajectory(inputstring);
+	print(4, 0, cols, " ");
+	printMessage(4, 0, donestring, GREEN);
+	usleep(500000);
+	print(4, 0, cols, " ");
+	print(5, 0, cols, " ");
 }

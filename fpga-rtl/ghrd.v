@@ -151,11 +151,11 @@ module ghrd(
 		.myocontrol_0_mosi(GPIO_0[35]),
 		.myocontrol_0_miso(GPIO_0[34]), 
 		.myocontrol_0_sck(GPIO_0[33]),
-		.myocontrol_0_ss_n(GPIO_1[6:0]), 
+		.myocontrol_0_ss_n(GPIO_0[6:0]), 
 		// myo_control #1
-		.myocontrol_1_mosi(GPIO_0[31]),
-		.myocontrol_1_miso(GPIO_0[30]), 
-		.myocontrol_1_sck(GPIO_0[29]),
+		.myocontrol_1_mosi(GPIO_1[0]),
+		.myocontrol_1_miso(GPIO_1[1]), 
+		.myocontrol_1_sck(GPIO_1[2]),
 		.myocontrol_1_ss_n(GPIO_1[35:29]), 
 		//Clock&Reset
 	  .clk_clk                               (FPGA_CLK1_50 ),                        //  clk.clk

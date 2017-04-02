@@ -32,6 +32,8 @@ public:
 
     void reset();
 
+    void setGains();
+
     void positionControl();
 
     void velocityControl();
@@ -45,6 +47,10 @@ public:
     void setAllTo();
 
     void estimateSpringParameters();
+
+    void recordTrajectories();
+
+    void playTrajectories();
 
     MyoControl *myoControl;
     uint timeout_ms = 10;

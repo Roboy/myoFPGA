@@ -188,6 +188,9 @@ roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/main.cp
 roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/main.cpp.o: /home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/include/soc_cv_av/socal/alt_gpio.h
 roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/main.cpp.o: /home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/include/soc_cv_av/socal/hps.h
 roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/main.cpp.o: /home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/include/soc_cv_av/socal/socal.h
+roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/main.cpp.o: /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorCommand.h
+roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/main.cpp.o: /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorConfig.h
+roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/main.cpp.o: /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorStatus.h
 roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/main.cpp.o: /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/../powerlink/output/xap.h
 roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/main.cpp.o: /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/../roboy_managing_node/include/UDPSocket.hpp
 roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/main.cpp.o: /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/include/hps_0.h
@@ -211,6 +214,7 @@ roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/main.cp
 roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/main.cpp.o: /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/ros_catkin_ws/install_isolated/include/ros/message.h
 roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/main.cpp.o: /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/ros_catkin_ws/install_isolated/include/ros/message_event.h
 roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/main.cpp.o: /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/ros_catkin_ws/install_isolated/include/ros/message_forward.h
+roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/main.cpp.o: /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/ros_catkin_ws/install_isolated/include/ros/message_operations.h
 roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/main.cpp.o: /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/ros_catkin_ws/install_isolated/include/ros/message_traits.h
 roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/main.cpp.o: /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/ros_catkin_ws/install_isolated/include/ros/names.h
 roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/main.cpp.o: /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/ros_catkin_ws/install_isolated/include/ros/node_handle.h
@@ -950,7 +954,9 @@ roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/myoSlav
 roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/myoSlave.cpp.o: /home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/include/alt_cache.h
 roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/myoSlave.cpp.o: /home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/include/hwlib.h
 roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/myoSlave.cpp.o: /home/roboy/altera/16.1/embedded/ip/altera/hps/altera_hps/hwlib/include/soc_cv_av/socal/socal.h
+roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/myoSlave.cpp.o: /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorCommand.h
 roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/myoSlave.cpp.o: /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorConfig.h
+roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/myoSlave.cpp.o: /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorStatus.h
 roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/myoSlave.cpp.o: /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/../powerlink/output/xap.h
 roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/myoSlave.cpp.o: /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/../roboy_managing_node/include/UDPSocket.hpp
 roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/myoSlave.cpp.o: /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/include/myoControlRegister.hpp
@@ -973,6 +979,7 @@ roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/myoSlav
 roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/myoSlave.cpp.o: /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/ros_catkin_ws/install_isolated/include/ros/message.h
 roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/myoSlave.cpp.o: /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/ros_catkin_ws/install_isolated/include/ros/message_event.h
 roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/myoSlave.cpp.o: /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/ros_catkin_ws/install_isolated/include/ros/message_forward.h
+roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/myoSlave.cpp.o: /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/ros_catkin_ws/install_isolated/include/ros/message_operations.h
 roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/myoSlave.cpp.o: /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/ros_catkin_ws/install_isolated/include/ros/message_traits.h
 roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/myoSlave.cpp.o: /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/ros_catkin_ws/install_isolated/include/ros/names.h
 roboy_controlled_node_fpga/CMakeFiles/roboy_controlled_node_fpga.dir/src/myoSlave.cpp.o: /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_controlled_node_fpga/ros_catkin_ws/install_isolated/include/ros/node_handle.h

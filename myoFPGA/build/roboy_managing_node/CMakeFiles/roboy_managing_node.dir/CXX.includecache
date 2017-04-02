@@ -352,6 +352,22 @@ google/protobuf/extension_set.h
 google/protobuf/unknown_field_set.h
 -
 
+/home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorCommand.h
+string
+-
+vector
+-
+map
+-
+ros/types.h
+-
+ros/serialization.h
+-
+ros/builtin_message_traits.h
+-
+ros/message_operations.h
+-
+
 /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorConfig.h
 string
 -
@@ -475,6 +491,8 @@ obdpi.h
 -
 UDPSocket.hpp
 /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_managing_node/include/UDPSocket.hpp
+myoFPGA.pb.h
+/home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_managing_node/include/myoFPGA.pb.h
 thread
 -
 sys/stat.h
@@ -484,6 +502,8 @@ ros/ros.h
 communication/MotorConfig.h
 -
 communication/MotorStatus.h
+-
+communication/MotorCommand.h
 -
 
 /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_managing_node/src/UDPSocket.cpp
@@ -1146,5 +1166,21 @@ string
 vector
 -
 time.h
+-
+
+roboy_managing_node/myoFPGA.pb.h
+string
+-
+google/protobuf/stubs/common.h
+-
+google/protobuf/generated_message_util.h
+-
+google/protobuf/message.h
+-
+google/protobuf/repeated_field.h
+-
+google/protobuf/extension_set.h
+-
+google/protobuf/unknown_field_set.h
 -
 

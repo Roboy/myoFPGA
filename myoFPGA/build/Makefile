@@ -374,6 +374,32 @@ roscpp_generate_messages_py/fast:
 .PHONY : roscpp_generate_messages_py/fast
 
 #=============================================================================
+# Target rules for targets named _communication_generate_messages_check_deps_MotorConfig
+
+# Build rule for target.
+_communication_generate_messages_check_deps_MotorConfig: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _communication_generate_messages_check_deps_MotorConfig
+.PHONY : _communication_generate_messages_check_deps_MotorConfig
+
+# fast build rule for target.
+_communication_generate_messages_check_deps_MotorConfig/fast:
+	$(MAKE) -f communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/build.make communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/build
+.PHONY : _communication_generate_messages_check_deps_MotorConfig/fast
+
+#=============================================================================
+# Target rules for targets named rosgraph_msgs_generate_messages_eus
+
+# Build rule for target.
+rosgraph_msgs_generate_messages_eus: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 rosgraph_msgs_generate_messages_eus
+.PHONY : rosgraph_msgs_generate_messages_eus
+
+# fast build rule for target.
+rosgraph_msgs_generate_messages_eus/fast:
+	$(MAKE) -f communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build.make communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build
+.PHONY : rosgraph_msgs_generate_messages_eus/fast
+
+#=============================================================================
 # Target rules for targets named rosgraph_msgs_generate_messages_nodejs
 
 # Build rule for target.
@@ -582,32 +608,6 @@ std_srvs_generate_messages_cpp/fast:
 .PHONY : std_srvs_generate_messages_cpp/fast
 
 #=============================================================================
-# Target rules for targets named rosgraph_msgs_generate_messages_eus
-
-# Build rule for target.
-rosgraph_msgs_generate_messages_eus: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 rosgraph_msgs_generate_messages_eus
-.PHONY : rosgraph_msgs_generate_messages_eus
-
-# fast build rule for target.
-rosgraph_msgs_generate_messages_eus/fast:
-	$(MAKE) -f communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build.make communication/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build
-.PHONY : rosgraph_msgs_generate_messages_eus/fast
-
-#=============================================================================
-# Target rules for targets named _communication_generate_messages_check_deps_MotorConfig
-
-# Build rule for target.
-_communication_generate_messages_check_deps_MotorConfig: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 _communication_generate_messages_check_deps_MotorConfig
-.PHONY : _communication_generate_messages_check_deps_MotorConfig
-
-# fast build rule for target.
-_communication_generate_messages_check_deps_MotorConfig/fast:
-	$(MAKE) -f communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/build.make communication/CMakeFiles/_communication_generate_messages_check_deps_MotorConfig.dir/build
-.PHONY : _communication_generate_messages_check_deps_MotorConfig/fast
-
-#=============================================================================
 # Target rules for targets named communication_geneus
 
 # Build rule for target.
@@ -686,6 +686,19 @@ communication_generate_messages/fast:
 .PHONY : communication_generate_messages/fast
 
 #=============================================================================
+# Target rules for targets named _communication_generate_messages_check_deps_MotorCommand
+
+# Build rule for target.
+_communication_generate_messages_check_deps_MotorCommand: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _communication_generate_messages_check_deps_MotorCommand
+.PHONY : _communication_generate_messages_check_deps_MotorCommand
+
+# fast build rule for target.
+_communication_generate_messages_check_deps_MotorCommand/fast:
+	$(MAKE) -f communication/CMakeFiles/_communication_generate_messages_check_deps_MotorCommand.dir/build.make communication/CMakeFiles/_communication_generate_messages_check_deps_MotorCommand.dir/build
+.PHONY : _communication_generate_messages_check_deps_MotorCommand/fast
+
+#=============================================================================
 # Target rules for targets named _catkin_empty_exported_target
 
 # Build rule for target.
@@ -753,6 +766,8 @@ help:
 	@echo "... _communication_generate_messages_check_deps_MotorStatus"
 	@echo "... std_msgs_generate_messages_py"
 	@echo "... roscpp_generate_messages_py"
+	@echo "... _communication_generate_messages_check_deps_MotorConfig"
+	@echo "... rosgraph_msgs_generate_messages_eus"
 	@echo "... rosgraph_msgs_generate_messages_nodejs"
 	@echo "... roscpp_generate_messages_cpp"
 	@echo "... communication_generate_messages_nodejs"
@@ -769,14 +784,13 @@ help:
 	@echo "... rosgraph_msgs_generate_messages_lisp"
 	@echo "... roscpp_generate_messages_nodejs"
 	@echo "... std_srvs_generate_messages_cpp"
-	@echo "... rosgraph_msgs_generate_messages_eus"
-	@echo "... _communication_generate_messages_check_deps_MotorConfig"
 	@echo "... communication_geneus"
 	@echo "... std_srvs_generate_messages_eus"
 	@echo "... roscpp_generate_messages_lisp"
 	@echo "... std_msgs_generate_messages_eus"
 	@echo "... std_srvs_generate_messages_lisp"
 	@echo "... communication_generate_messages"
+	@echo "... _communication_generate_messages_check_deps_MotorCommand"
 	@echo "... _catkin_empty_exported_target"
 	@echo "... roboy_controlled_node_fpga"
 	@echo "... roboy_managing_node"

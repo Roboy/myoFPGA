@@ -53,21 +53,28 @@ CMAKE_BINARY_DIR = /home/roboy/workspace/myoFPGA/myoFPGA/build
 # Include the progress variables for this target.
 include communication/CMakeFiles/communication_generate_messages_lisp.dir/progress.make
 
+communication/CMakeFiles/communication_generate_messages_lisp: /home/roboy/workspace/myoFPGA/myoFPGA/devel/share/common-lisp/ros/communication/msg/MotorCommand.lisp
 communication/CMakeFiles/communication_generate_messages_lisp: /home/roboy/workspace/myoFPGA/myoFPGA/devel/share/common-lisp/ros/communication/msg/MotorConfig.lisp
 communication/CMakeFiles/communication_generate_messages_lisp: /home/roboy/workspace/myoFPGA/myoFPGA/devel/share/common-lisp/ros/communication/msg/MotorStatus.lisp
 
 
+/home/roboy/workspace/myoFPGA/myoFPGA/devel/share/common-lisp/ros/communication/msg/MotorCommand.lisp: /opt/ros/kinetic/lib/genlisp/gen_lisp.py
+/home/roboy/workspace/myoFPGA/myoFPGA/devel/share/common-lisp/ros/communication/msg/MotorCommand.lisp: /home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorCommand.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Lisp code from communication/MotorCommand.msg"
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build/communication && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorCommand.msg -Icommunication:/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p communication -o /home/roboy/workspace/myoFPGA/myoFPGA/devel/share/common-lisp/ros/communication/msg
+
 /home/roboy/workspace/myoFPGA/myoFPGA/devel/share/common-lisp/ros/communication/msg/MotorConfig.lisp: /opt/ros/kinetic/lib/genlisp/gen_lisp.py
 /home/roboy/workspace/myoFPGA/myoFPGA/devel/share/common-lisp/ros/communication/msg/MotorConfig.lisp: /home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorConfig.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Lisp code from communication/MotorConfig.msg"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Lisp code from communication/MotorConfig.msg"
 	cd /home/roboy/workspace/myoFPGA/myoFPGA/build/communication && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorConfig.msg -Icommunication:/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p communication -o /home/roboy/workspace/myoFPGA/myoFPGA/devel/share/common-lisp/ros/communication/msg
 
 /home/roboy/workspace/myoFPGA/myoFPGA/devel/share/common-lisp/ros/communication/msg/MotorStatus.lisp: /opt/ros/kinetic/lib/genlisp/gen_lisp.py
 /home/roboy/workspace/myoFPGA/myoFPGA/devel/share/common-lisp/ros/communication/msg/MotorStatus.lisp: /home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorStatus.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Lisp code from communication/MotorStatus.msg"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Lisp code from communication/MotorStatus.msg"
 	cd /home/roboy/workspace/myoFPGA/myoFPGA/build/communication && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorStatus.msg -Icommunication:/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p communication -o /home/roboy/workspace/myoFPGA/myoFPGA/devel/share/common-lisp/ros/communication/msg
 
 communication_generate_messages_lisp: communication/CMakeFiles/communication_generate_messages_lisp
+communication_generate_messages_lisp: /home/roboy/workspace/myoFPGA/myoFPGA/devel/share/common-lisp/ros/communication/msg/MotorCommand.lisp
 communication_generate_messages_lisp: /home/roboy/workspace/myoFPGA/myoFPGA/devel/share/common-lisp/ros/communication/msg/MotorConfig.lisp
 communication_generate_messages_lisp: /home/roboy/workspace/myoFPGA/myoFPGA/devel/share/common-lisp/ros/communication/msg/MotorStatus.lisp
 communication_generate_messages_lisp: communication/CMakeFiles/communication_generate_messages_lisp.dir/build.make

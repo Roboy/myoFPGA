@@ -1,6 +1,6 @@
 # generated from genmsg/cmake/pkg-genmsg.context.in
 
-messages_str = "/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorStatus.msg;/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorConfig.msg"
+messages_str = "/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorStatus.msg;/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorConfig.msg;/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorCommand.msg"
 services_str = ""
 pkg_name = "communication"
 dependencies_str = "std_msgs;std_srvs"

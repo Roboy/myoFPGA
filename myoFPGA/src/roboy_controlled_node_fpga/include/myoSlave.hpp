@@ -46,8 +46,7 @@
 #include <ros/ros.h>
 #include <communication/MotorConfig.h>
 #include <communication/MotorStatus.h>
-
-
+#include <communication/MotorCommand.h>
 
 using namespace std;
 using namespace std::chrono;

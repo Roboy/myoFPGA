@@ -20,12 +20,15 @@ namespace MyoFPGAProtobuf {
 
 namespace {
 
-const ::google::protobuf::Descriptor* motorConfig_descriptor_ = NULL;
+const ::google::protobuf::Descriptor* MotorConfig_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  motorConfig_reflection_ = NULL;
-const ::google::protobuf::Descriptor* motorStatus_descriptor_ = NULL;
+  MotorConfig_reflection_ = NULL;
+const ::google::protobuf::Descriptor* MotorStatus_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  motorStatus_reflection_ = NULL;
+  MotorStatus_reflection_ = NULL;
+const ::google::protobuf::Descriptor* MotorCommand_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  MotorCommand_reflection_ = NULL;
 
 }  // namespace
 
@@ -36,52 +39,68 @@ void protobuf_AssignDesc_myoFPGA_2eproto() {
     ::google::protobuf::DescriptorPool::generated_pool()->FindFileByName(
       "myoFPGA.proto");
   GOOGLE_CHECK(file != NULL);
-  motorConfig_descriptor_ = file->message_type(0);
-  static const int motorConfig_offsets_[12] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(motorConfig, control_mode_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(motorConfig, outputposmax_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(motorConfig, outputnegmax_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(motorConfig, spposmax_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(motorConfig, spnegmax_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(motorConfig, kp_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(motorConfig, ki_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(motorConfig, kd_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(motorConfig, forwardgain_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(motorConfig, deadband_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(motorConfig, integralposmax_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(motorConfig, integralnegmax_),
+  MotorConfig_descriptor_ = file->message_type(0);
+  static const int MotorConfig_offsets_[12] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MotorConfig, control_mode_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MotorConfig, outputposmax_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MotorConfig, outputnegmax_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MotorConfig, spposmax_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MotorConfig, spnegmax_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MotorConfig, kp_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MotorConfig, ki_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MotorConfig, kd_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MotorConfig, forwardgain_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MotorConfig, deadband_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MotorConfig, integralposmax_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MotorConfig, integralnegmax_),
   };
-  motorConfig_reflection_ =
+  MotorConfig_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
-      motorConfig_descriptor_,
-      motorConfig::default_instance_,
-      motorConfig_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(motorConfig, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(motorConfig, _unknown_fields_),
+      MotorConfig_descriptor_,
+      MotorConfig::default_instance_,
+      MotorConfig_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MotorConfig, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MotorConfig, _unknown_fields_),
       -1,
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(motorConfig));
-  motorStatus_descriptor_ = file->message_type(1);
-  static const int motorStatus_offsets_[6] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(motorStatus, pwmref_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(motorStatus, position_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(motorStatus, velocity_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(motorStatus, displacement_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(motorStatus, current_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(motorStatus, sensor_),
+      sizeof(MotorConfig));
+  MotorStatus_descriptor_ = file->message_type(1);
+  static const int MotorStatus_offsets_[6] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MotorStatus, pwmref_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MotorStatus, position_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MotorStatus, velocity_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MotorStatus, displacement_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MotorStatus, current_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MotorStatus, sensor_),
   };
-  motorStatus_reflection_ =
+  MotorStatus_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
-      motorStatus_descriptor_,
-      motorStatus::default_instance_,
-      motorStatus_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(motorStatus, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(motorStatus, _unknown_fields_),
+      MotorStatus_descriptor_,
+      MotorStatus::default_instance_,
+      MotorStatus_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MotorStatus, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MotorStatus, _unknown_fields_),
       -1,
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(motorStatus));
+      sizeof(MotorStatus));
+  MotorCommand_descriptor_ = file->message_type(2);
+  static const int MotorCommand_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MotorCommand, motor_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MotorCommand, setpoint_),
+  };
+  MotorCommand_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      MotorCommand_descriptor_,
+      MotorCommand::default_instance_,
+      MotorCommand_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MotorCommand, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MotorCommand, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(MotorCommand));
 }
 
 namespace {
@@ -95,18 +114,22 @@ inline void protobuf_AssignDescriptorsOnce() {
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    motorConfig_descriptor_, &motorConfig::default_instance());
+    MotorConfig_descriptor_, &MotorConfig::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    motorStatus_descriptor_, &motorStatus::default_instance());
+    MotorStatus_descriptor_, &MotorStatus::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    MotorCommand_descriptor_, &MotorCommand::default_instance());
 }
 
 }  // namespace
 
 void protobuf_ShutdownFile_myoFPGA_2eproto() {
-  delete motorConfig::default_instance_;
-  delete motorConfig_reflection_;
-  delete motorStatus::default_instance_;
-  delete motorStatus_reflection_;
+  delete MotorConfig::default_instance_;
+  delete MotorConfig_reflection_;
+  delete MotorStatus::default_instance_;
+  delete MotorStatus_reflection_;
+  delete MotorCommand::default_instance_;
+  delete MotorCommand_reflection_;
 }
 
 void protobuf_AddDesc_myoFPGA_2eproto() {
@@ -116,22 +139,26 @@ void protobuf_AddDesc_myoFPGA_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\rmyoFPGA.proto\022\017MyoFPGAProtobuf\"\356\001\n\013mot"
+    "\n\rmyoFPGA.proto\022\017MyoFPGAProtobuf\"\356\001\n\013Mot"
     "orConfig\022\024\n\014control_mode\030\001 \003(\014\022\024\n\014output"
     "PosMax\030\002 \003(\005\022\024\n\014outputNegMax\030\003 \003(\005\022\020\n\010sp"
     "PosMax\030\004 \003(\005\022\020\n\010spNegMax\030\005 \003(\005\022\n\n\002Kp\030\006 \003"
     "(\r\022\n\n\002Ki\030\007 \003(\r\022\n\n\002Kd\030\010 \003(\r\022\023\n\013forwardGai"
     "n\030\t \003(\r\022\020\n\010deadBand\030\n \003(\r\022\026\n\016IntegralPos"
-    "Max\030\013 \003(\005\022\026\n\016IntegralNegMax\030\014 \003(\005\"x\n\013mot"
+    "Max\030\013 \003(\005\022\026\n\016IntegralNegMax\030\014 \003(\005\"x\n\013Mot"
     "orStatus\022\016\n\006pwmRef\030\001 \003(\005\022\020\n\010position\030\002 \003"
     "(\005\022\020\n\010velocity\030\003 \003(\005\022\024\n\014displacement\030\004 \003"
-    "(\005\022\017\n\007current\030\005 \003(\005\022\016\n\006sensor\030\006 \003(\005", 395);
+    "(\005\022\017\n\007current\030\005 \003(\005\022\016\n\006sensor\030\006 \003(\005\"/\n\014M"
+    "otorCommand\022\r\n\005motor\030\001 \003(\r\022\020\n\010setPoint\030\002"
+    " \003(\005", 444);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "myoFPGA.proto", &protobuf_RegisterTypes);
-  motorConfig::default_instance_ = new motorConfig();
-  motorStatus::default_instance_ = new motorStatus();
-  motorConfig::default_instance_->InitAsDefaultInstance();
-  motorStatus::default_instance_->InitAsDefaultInstance();
+  MotorConfig::default_instance_ = new MotorConfig();
+  MotorStatus::default_instance_ = new MotorStatus();
+  MotorCommand::default_instance_ = new MotorCommand();
+  MotorConfig::default_instance_->InitAsDefaultInstance();
+  MotorStatus::default_instance_->InitAsDefaultInstance();
+  MotorCommand::default_instance_->InitAsDefaultInstance();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_myoFPGA_2eproto);
 }
 
@@ -145,74 +172,74 @@ struct StaticDescriptorInitializer_myoFPGA_2eproto {
 // ===================================================================
 
 #ifndef _MSC_VER
-const int motorConfig::kControlModeFieldNumber;
-const int motorConfig::kOutputPosMaxFieldNumber;
-const int motorConfig::kOutputNegMaxFieldNumber;
-const int motorConfig::kSpPosMaxFieldNumber;
-const int motorConfig::kSpNegMaxFieldNumber;
-const int motorConfig::kKpFieldNumber;
-const int motorConfig::kKiFieldNumber;
-const int motorConfig::kKdFieldNumber;
-const int motorConfig::kForwardGainFieldNumber;
-const int motorConfig::kDeadBandFieldNumber;
-const int motorConfig::kIntegralPosMaxFieldNumber;
-const int motorConfig::kIntegralNegMaxFieldNumber;
+const int MotorConfig::kControlModeFieldNumber;
+const int MotorConfig::kOutputPosMaxFieldNumber;
+const int MotorConfig::kOutputNegMaxFieldNumber;
+const int MotorConfig::kSpPosMaxFieldNumber;
+const int MotorConfig::kSpNegMaxFieldNumber;
+const int MotorConfig::kKpFieldNumber;
+const int MotorConfig::kKiFieldNumber;
+const int MotorConfig::kKdFieldNumber;
+const int MotorConfig::kForwardGainFieldNumber;
+const int MotorConfig::kDeadBandFieldNumber;
+const int MotorConfig::kIntegralPosMaxFieldNumber;
+const int MotorConfig::kIntegralNegMaxFieldNumber;
 #endif  // !_MSC_VER
 
-motorConfig::motorConfig()
+MotorConfig::MotorConfig()
   : ::google::protobuf::Message() {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:MyoFPGAProtobuf.motorConfig)
+  // @@protoc_insertion_point(constructor:MyoFPGAProtobuf.MotorConfig)
 }
 
-void motorConfig::InitAsDefaultInstance() {
+void MotorConfig::InitAsDefaultInstance() {
 }
 
-motorConfig::motorConfig(const motorConfig& from)
+MotorConfig::MotorConfig(const MotorConfig& from)
   : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:MyoFPGAProtobuf.motorConfig)
+  // @@protoc_insertion_point(copy_constructor:MyoFPGAProtobuf.MotorConfig)
 }
 
-void motorConfig::SharedCtor() {
+void MotorConfig::SharedCtor() {
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
-motorConfig::~motorConfig() {
-  // @@protoc_insertion_point(destructor:MyoFPGAProtobuf.motorConfig)
+MotorConfig::~MotorConfig() {
+  // @@protoc_insertion_point(destructor:MyoFPGAProtobuf.MotorConfig)
   SharedDtor();
 }
 
-void motorConfig::SharedDtor() {
+void MotorConfig::SharedDtor() {
   if (this != default_instance_) {
   }
 }
 
-void motorConfig::SetCachedSize(int size) const {
+void MotorConfig::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* motorConfig::descriptor() {
+const ::google::protobuf::Descriptor* MotorConfig::descriptor() {
   protobuf_AssignDescriptorsOnce();
-  return motorConfig_descriptor_;
+  return MotorConfig_descriptor_;
 }
 
-const motorConfig& motorConfig::default_instance() {
+const MotorConfig& MotorConfig::default_instance() {
   if (default_instance_ == NULL) protobuf_AddDesc_myoFPGA_2eproto();
   return *default_instance_;
 }
 
-motorConfig* motorConfig::default_instance_ = NULL;
+MotorConfig* MotorConfig::default_instance_ = NULL;
 
-motorConfig* motorConfig::New() const {
-  return new motorConfig;
+MotorConfig* MotorConfig::New() const {
+  return new MotorConfig;
 }
 
-void motorConfig::Clear() {
+void MotorConfig::Clear() {
   control_mode_.Clear();
   outputposmax_.Clear();
   outputnegmax_.Clear();
@@ -229,11 +256,11 @@ void motorConfig::Clear() {
   mutable_unknown_fields()->Clear();
 }
 
-bool motorConfig::MergePartialFromCodedStream(
+bool MotorConfig::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:MyoFPGAProtobuf.motorConfig)
+  // @@protoc_insertion_point(parse_start:MyoFPGAProtobuf.MotorConfig)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -476,17 +503,17 @@ bool motorConfig::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:MyoFPGAProtobuf.motorConfig)
+  // @@protoc_insertion_point(parse_success:MyoFPGAProtobuf.MotorConfig)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:MyoFPGAProtobuf.motorConfig)
+  // @@protoc_insertion_point(parse_failure:MyoFPGAProtobuf.MotorConfig)
   return false;
 #undef DO_
 }
 
-void motorConfig::SerializeWithCachedSizes(
+void MotorConfig::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:MyoFPGAProtobuf.motorConfig)
+  // @@protoc_insertion_point(serialize_start:MyoFPGAProtobuf.MotorConfig)
   // repeated bytes control_mode = 1;
   for (int i = 0; i < this->control_mode_size(); i++) {
     ::google::protobuf::internal::WireFormatLite::WriteBytes(
@@ -563,12 +590,12 @@ void motorConfig::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
   }
-  // @@protoc_insertion_point(serialize_end:MyoFPGAProtobuf.motorConfig)
+  // @@protoc_insertion_point(serialize_end:MyoFPGAProtobuf.MotorConfig)
 }
 
-::google::protobuf::uint8* motorConfig::SerializeWithCachedSizesToArray(
+::google::protobuf::uint8* MotorConfig::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:MyoFPGAProtobuf.motorConfig)
+  // @@protoc_insertion_point(serialize_to_array_start:MyoFPGAProtobuf.MotorConfig)
   // repeated bytes control_mode = 1;
   for (int i = 0; i < this->control_mode_size(); i++) {
     target = ::google::protobuf::internal::WireFormatLite::
@@ -645,11 +672,11 @@ void motorConfig::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:MyoFPGAProtobuf.motorConfig)
+  // @@protoc_insertion_point(serialize_to_array_end:MyoFPGAProtobuf.MotorConfig)
   return target;
 }
 
-int motorConfig::ByteSize() const {
+int MotorConfig::ByteSize() const {
   int total_size = 0;
 
   // repeated bytes control_mode = 1;
@@ -780,10 +807,10 @@ int motorConfig::ByteSize() const {
   return total_size;
 }
 
-void motorConfig::MergeFrom(const ::google::protobuf::Message& from) {
+void MotorConfig::MergeFrom(const ::google::protobuf::Message& from) {
   GOOGLE_CHECK_NE(&from, this);
-  const motorConfig* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const motorConfig*>(
+  const MotorConfig* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const MotorConfig*>(
       &from);
   if (source == NULL) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
@@ -792,7 +819,7 @@ void motorConfig::MergeFrom(const ::google::protobuf::Message& from) {
   }
 }
 
-void motorConfig::MergeFrom(const motorConfig& from) {
+void MotorConfig::MergeFrom(const MotorConfig& from) {
   GOOGLE_CHECK_NE(&from, this);
   control_mode_.MergeFrom(from.control_mode_);
   outputposmax_.MergeFrom(from.outputposmax_);
@@ -809,24 +836,24 @@ void motorConfig::MergeFrom(const motorConfig& from) {
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
 
-void motorConfig::CopyFrom(const ::google::protobuf::Message& from) {
+void MotorConfig::CopyFrom(const ::google::protobuf::Message& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void motorConfig::CopyFrom(const motorConfig& from) {
+void MotorConfig::CopyFrom(const MotorConfig& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool motorConfig::IsInitialized() const {
+bool MotorConfig::IsInitialized() const {
 
   return true;
 }
 
-void motorConfig::Swap(motorConfig* other) {
+void MotorConfig::Swap(MotorConfig* other) {
   if (other != this) {
     control_mode_.Swap(&other->control_mode_);
     outputposmax_.Swap(&other->outputposmax_);
@@ -846,11 +873,11 @@ void motorConfig::Swap(motorConfig* other) {
   }
 }
 
-::google::protobuf::Metadata motorConfig::GetMetadata() const {
+::google::protobuf::Metadata MotorConfig::GetMetadata() const {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::Metadata metadata;
-  metadata.descriptor = motorConfig_descriptor_;
-  metadata.reflection = motorConfig_reflection_;
+  metadata.descriptor = MotorConfig_descriptor_;
+  metadata.reflection = MotorConfig_reflection_;
   return metadata;
 }
 
@@ -858,67 +885,67 @@ void motorConfig::Swap(motorConfig* other) {
 // ===================================================================
 
 #ifndef _MSC_VER
-const int motorStatus::kPwmRefFieldNumber;
-const int motorStatus::kPositionFieldNumber;
-const int motorStatus::kVelocityFieldNumber;
-const int motorStatus::kDisplacementFieldNumber;
-const int motorStatus::kCurrentFieldNumber;
-const int motorStatus::kSensorFieldNumber;
+const int MotorStatus::kPwmRefFieldNumber;
+const int MotorStatus::kPositionFieldNumber;
+const int MotorStatus::kVelocityFieldNumber;
+const int MotorStatus::kDisplacementFieldNumber;
+const int MotorStatus::kCurrentFieldNumber;
+const int MotorStatus::kSensorFieldNumber;
 #endif  // !_MSC_VER
 
-motorStatus::motorStatus()
+MotorStatus::MotorStatus()
   : ::google::protobuf::Message() {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:MyoFPGAProtobuf.motorStatus)
+  // @@protoc_insertion_point(constructor:MyoFPGAProtobuf.MotorStatus)
 }
 
-void motorStatus::InitAsDefaultInstance() {
+void MotorStatus::InitAsDefaultInstance() {
 }
 
-motorStatus::motorStatus(const motorStatus& from)
+MotorStatus::MotorStatus(const MotorStatus& from)
   : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:MyoFPGAProtobuf.motorStatus)
+  // @@protoc_insertion_point(copy_constructor:MyoFPGAProtobuf.MotorStatus)
 }
 
-void motorStatus::SharedCtor() {
+void MotorStatus::SharedCtor() {
   _cached_size_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
-motorStatus::~motorStatus() {
-  // @@protoc_insertion_point(destructor:MyoFPGAProtobuf.motorStatus)
+MotorStatus::~MotorStatus() {
+  // @@protoc_insertion_point(destructor:MyoFPGAProtobuf.MotorStatus)
   SharedDtor();
 }
 
-void motorStatus::SharedDtor() {
+void MotorStatus::SharedDtor() {
   if (this != default_instance_) {
   }
 }
 
-void motorStatus::SetCachedSize(int size) const {
+void MotorStatus::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* motorStatus::descriptor() {
+const ::google::protobuf::Descriptor* MotorStatus::descriptor() {
   protobuf_AssignDescriptorsOnce();
-  return motorStatus_descriptor_;
+  return MotorStatus_descriptor_;
 }
 
-const motorStatus& motorStatus::default_instance() {
+const MotorStatus& MotorStatus::default_instance() {
   if (default_instance_ == NULL) protobuf_AddDesc_myoFPGA_2eproto();
   return *default_instance_;
 }
 
-motorStatus* motorStatus::default_instance_ = NULL;
+MotorStatus* MotorStatus::default_instance_ = NULL;
 
-motorStatus* motorStatus::New() const {
-  return new motorStatus;
+MotorStatus* MotorStatus::New() const {
+  return new MotorStatus;
 }
 
-void motorStatus::Clear() {
+void MotorStatus::Clear() {
   pwmref_.Clear();
   position_.Clear();
   velocity_.Clear();
@@ -929,11 +956,11 @@ void motorStatus::Clear() {
   mutable_unknown_fields()->Clear();
 }
 
-bool motorStatus::MergePartialFromCodedStream(
+bool MotorStatus::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:MyoFPGAProtobuf.motorStatus)
+  // @@protoc_insertion_point(parse_start:MyoFPGAProtobuf.MotorStatus)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -1067,17 +1094,17 @@ bool motorStatus::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:MyoFPGAProtobuf.motorStatus)
+  // @@protoc_insertion_point(parse_success:MyoFPGAProtobuf.MotorStatus)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:MyoFPGAProtobuf.motorStatus)
+  // @@protoc_insertion_point(parse_failure:MyoFPGAProtobuf.MotorStatus)
   return false;
 #undef DO_
 }
 
-void motorStatus::SerializeWithCachedSizes(
+void MotorStatus::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:MyoFPGAProtobuf.motorStatus)
+  // @@protoc_insertion_point(serialize_start:MyoFPGAProtobuf.MotorStatus)
   // repeated int32 pwmRef = 1;
   for (int i = 0; i < this->pwmref_size(); i++) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(
@@ -1118,12 +1145,12 @@ void motorStatus::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
   }
-  // @@protoc_insertion_point(serialize_end:MyoFPGAProtobuf.motorStatus)
+  // @@protoc_insertion_point(serialize_end:MyoFPGAProtobuf.MotorStatus)
 }
 
-::google::protobuf::uint8* motorStatus::SerializeWithCachedSizesToArray(
+::google::protobuf::uint8* MotorStatus::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:MyoFPGAProtobuf.motorStatus)
+  // @@protoc_insertion_point(serialize_to_array_start:MyoFPGAProtobuf.MotorStatus)
   // repeated int32 pwmRef = 1;
   for (int i = 0; i < this->pwmref_size(); i++) {
     target = ::google::protobuf::internal::WireFormatLite::
@@ -1164,11 +1191,11 @@ void motorStatus::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:MyoFPGAProtobuf.motorStatus)
+  // @@protoc_insertion_point(serialize_to_array_end:MyoFPGAProtobuf.MotorStatus)
   return target;
 }
 
-int motorStatus::ByteSize() const {
+int MotorStatus::ByteSize() const {
   int total_size = 0;
 
   // repeated int32 pwmRef = 1;
@@ -1242,10 +1269,10 @@ int motorStatus::ByteSize() const {
   return total_size;
 }
 
-void motorStatus::MergeFrom(const ::google::protobuf::Message& from) {
+void MotorStatus::MergeFrom(const ::google::protobuf::Message& from) {
   GOOGLE_CHECK_NE(&from, this);
-  const motorStatus* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const motorStatus*>(
+  const MotorStatus* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const MotorStatus*>(
       &from);
   if (source == NULL) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
@@ -1254,7 +1281,7 @@ void motorStatus::MergeFrom(const ::google::protobuf::Message& from) {
   }
 }
 
-void motorStatus::MergeFrom(const motorStatus& from) {
+void MotorStatus::MergeFrom(const MotorStatus& from) {
   GOOGLE_CHECK_NE(&from, this);
   pwmref_.MergeFrom(from.pwmref_);
   position_.MergeFrom(from.position_);
@@ -1265,24 +1292,24 @@ void motorStatus::MergeFrom(const motorStatus& from) {
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
 
-void motorStatus::CopyFrom(const ::google::protobuf::Message& from) {
+void MotorStatus::CopyFrom(const ::google::protobuf::Message& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void motorStatus::CopyFrom(const motorStatus& from) {
+void MotorStatus::CopyFrom(const MotorStatus& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool motorStatus::IsInitialized() const {
+bool MotorStatus::IsInitialized() const {
 
   return true;
 }
 
-void motorStatus::Swap(motorStatus* other) {
+void MotorStatus::Swap(MotorStatus* other) {
   if (other != this) {
     pwmref_.Swap(&other->pwmref_);
     position_.Swap(&other->position_);
@@ -1296,11 +1323,281 @@ void motorStatus::Swap(motorStatus* other) {
   }
 }
 
-::google::protobuf::Metadata motorStatus::GetMetadata() const {
+::google::protobuf::Metadata MotorStatus::GetMetadata() const {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::Metadata metadata;
-  metadata.descriptor = motorStatus_descriptor_;
-  metadata.reflection = motorStatus_reflection_;
+  metadata.descriptor = MotorStatus_descriptor_;
+  metadata.reflection = MotorStatus_reflection_;
+  return metadata;
+}
+
+
+// ===================================================================
+
+#ifndef _MSC_VER
+const int MotorCommand::kMotorFieldNumber;
+const int MotorCommand::kSetPointFieldNumber;
+#endif  // !_MSC_VER
+
+MotorCommand::MotorCommand()
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:MyoFPGAProtobuf.MotorCommand)
+}
+
+void MotorCommand::InitAsDefaultInstance() {
+}
+
+MotorCommand::MotorCommand(const MotorCommand& from)
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:MyoFPGAProtobuf.MotorCommand)
+}
+
+void MotorCommand::SharedCtor() {
+  _cached_size_ = 0;
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+MotorCommand::~MotorCommand() {
+  // @@protoc_insertion_point(destructor:MyoFPGAProtobuf.MotorCommand)
+  SharedDtor();
+}
+
+void MotorCommand::SharedDtor() {
+  if (this != default_instance_) {
+  }
+}
+
+void MotorCommand::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* MotorCommand::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return MotorCommand_descriptor_;
+}
+
+const MotorCommand& MotorCommand::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_myoFPGA_2eproto();
+  return *default_instance_;
+}
+
+MotorCommand* MotorCommand::default_instance_ = NULL;
+
+MotorCommand* MotorCommand::New() const {
+  return new MotorCommand;
+}
+
+void MotorCommand::Clear() {
+  motor_.Clear();
+  setpoint_.Clear();
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool MotorCommand::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:MyoFPGAProtobuf.MotorCommand)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // repeated uint32 motor = 1;
+      case 1: {
+        if (tag == 8) {
+         parse_motor:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 1, 8, input, this->mutable_motor())));
+        } else if (tag == 10) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, this->mutable_motor())));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(8)) goto parse_motor;
+        if (input->ExpectTag(16)) goto parse_setPoint;
+        break;
+      }
+
+      // repeated int32 setPoint = 2;
+      case 2: {
+        if (tag == 16) {
+         parse_setPoint:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 1, 16, input, this->mutable_setpoint())));
+        } else if (tag == 18) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, this->mutable_setpoint())));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(16)) goto parse_setPoint;
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:MyoFPGAProtobuf.MotorCommand)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:MyoFPGAProtobuf.MotorCommand)
+  return false;
+#undef DO_
+}
+
+void MotorCommand::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:MyoFPGAProtobuf.MotorCommand)
+  // repeated uint32 motor = 1;
+  for (int i = 0; i < this->motor_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(
+      1, this->motor(i), output);
+  }
+
+  // repeated int32 setPoint = 2;
+  for (int i = 0; i < this->setpoint_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(
+      2, this->setpoint(i), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:MyoFPGAProtobuf.MotorCommand)
+}
+
+::google::protobuf::uint8* MotorCommand::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:MyoFPGAProtobuf.MotorCommand)
+  // repeated uint32 motor = 1;
+  for (int i = 0; i < this->motor_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteUInt32ToArray(1, this->motor(i), target);
+  }
+
+  // repeated int32 setPoint = 2;
+  for (int i = 0; i < this->setpoint_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteInt32ToArray(2, this->setpoint(i), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:MyoFPGAProtobuf.MotorCommand)
+  return target;
+}
+
+int MotorCommand::ByteSize() const {
+  int total_size = 0;
+
+  // repeated uint32 motor = 1;
+  {
+    int data_size = 0;
+    for (int i = 0; i < this->motor_size(); i++) {
+      data_size += ::google::protobuf::internal::WireFormatLite::
+        UInt32Size(this->motor(i));
+    }
+    total_size += 1 * this->motor_size() + data_size;
+  }
+
+  // repeated int32 setPoint = 2;
+  {
+    int data_size = 0;
+    for (int i = 0; i < this->setpoint_size(); i++) {
+      data_size += ::google::protobuf::internal::WireFormatLite::
+        Int32Size(this->setpoint(i));
+    }
+    total_size += 1 * this->setpoint_size() + data_size;
+  }
+
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void MotorCommand::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const MotorCommand* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const MotorCommand*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void MotorCommand::MergeFrom(const MotorCommand& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  motor_.MergeFrom(from.motor_);
+  setpoint_.MergeFrom(from.setpoint_);
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void MotorCommand::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void MotorCommand::CopyFrom(const MotorCommand& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool MotorCommand::IsInitialized() const {
+
+  return true;
+}
+
+void MotorCommand::Swap(MotorCommand* other) {
+  if (other != this) {
+    motor_.Swap(&other->motor_);
+    setpoint_.Swap(&other->setpoint_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::google::protobuf::Metadata MotorCommand::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = MotorCommand_descriptor_;
+  metadata.reflection = MotorCommand_reflection_;
   return metadata;
 }
 

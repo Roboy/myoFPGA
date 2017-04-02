@@ -53,26 +53,33 @@ CMAKE_BINARY_DIR = /home/roboy/workspace/myoFPGA/myoFPGA/build
 # Include the progress variables for this target.
 include communication/CMakeFiles/communication_generate_messages_eus.dir/progress.make
 
+communication/CMakeFiles/communication_generate_messages_eus: /home/roboy/workspace/myoFPGA/myoFPGA/devel/share/roseus/ros/communication/msg/MotorCommand.l
 communication/CMakeFiles/communication_generate_messages_eus: /home/roboy/workspace/myoFPGA/myoFPGA/devel/share/roseus/ros/communication/msg/MotorConfig.l
 communication/CMakeFiles/communication_generate_messages_eus: /home/roboy/workspace/myoFPGA/myoFPGA/devel/share/roseus/ros/communication/msg/MotorStatus.l
 communication/CMakeFiles/communication_generate_messages_eus: /home/roboy/workspace/myoFPGA/myoFPGA/devel/share/roseus/ros/communication/manifest.l
 
 
+/home/roboy/workspace/myoFPGA/myoFPGA/devel/share/roseus/ros/communication/msg/MotorCommand.l: /opt/ros/kinetic/lib/geneus/gen_eus.py
+/home/roboy/workspace/myoFPGA/myoFPGA/devel/share/roseus/ros/communication/msg/MotorCommand.l: /home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorCommand.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating EusLisp code from communication/MotorCommand.msg"
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build/communication && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorCommand.msg -Icommunication:/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p communication -o /home/roboy/workspace/myoFPGA/myoFPGA/devel/share/roseus/ros/communication/msg
+
 /home/roboy/workspace/myoFPGA/myoFPGA/devel/share/roseus/ros/communication/msg/MotorConfig.l: /opt/ros/kinetic/lib/geneus/gen_eus.py
 /home/roboy/workspace/myoFPGA/myoFPGA/devel/share/roseus/ros/communication/msg/MotorConfig.l: /home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorConfig.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating EusLisp code from communication/MotorConfig.msg"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating EusLisp code from communication/MotorConfig.msg"
 	cd /home/roboy/workspace/myoFPGA/myoFPGA/build/communication && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorConfig.msg -Icommunication:/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p communication -o /home/roboy/workspace/myoFPGA/myoFPGA/devel/share/roseus/ros/communication/msg
 
 /home/roboy/workspace/myoFPGA/myoFPGA/devel/share/roseus/ros/communication/msg/MotorStatus.l: /opt/ros/kinetic/lib/geneus/gen_eus.py
 /home/roboy/workspace/myoFPGA/myoFPGA/devel/share/roseus/ros/communication/msg/MotorStatus.l: /home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorStatus.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating EusLisp code from communication/MotorStatus.msg"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating EusLisp code from communication/MotorStatus.msg"
 	cd /home/roboy/workspace/myoFPGA/myoFPGA/build/communication && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorStatus.msg -Icommunication:/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p communication -o /home/roboy/workspace/myoFPGA/myoFPGA/devel/share/roseus/ros/communication/msg
 
 /home/roboy/workspace/myoFPGA/myoFPGA/devel/share/roseus/ros/communication/manifest.l: /opt/ros/kinetic/lib/geneus/gen_eus.py
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating EusLisp manifest code for communication"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating EusLisp manifest code for communication"
 	cd /home/roboy/workspace/myoFPGA/myoFPGA/build/communication && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py -m -o /home/roboy/workspace/myoFPGA/myoFPGA/devel/share/roseus/ros/communication communication std_msgs std_srvs
 
 communication_generate_messages_eus: communication/CMakeFiles/communication_generate_messages_eus
+communication_generate_messages_eus: /home/roboy/workspace/myoFPGA/myoFPGA/devel/share/roseus/ros/communication/msg/MotorCommand.l
 communication_generate_messages_eus: /home/roboy/workspace/myoFPGA/myoFPGA/devel/share/roseus/ros/communication/msg/MotorConfig.l
 communication_generate_messages_eus: /home/roboy/workspace/myoFPGA/myoFPGA/devel/share/roseus/ros/communication/msg/MotorStatus.l
 communication_generate_messages_eus: /home/roboy/workspace/myoFPGA/myoFPGA/devel/share/roseus/ros/communication/manifest.l

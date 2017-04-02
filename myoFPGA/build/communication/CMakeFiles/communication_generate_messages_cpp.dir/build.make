@@ -53,23 +53,31 @@ CMAKE_BINARY_DIR = /home/roboy/workspace/myoFPGA/myoFPGA/build
 # Include the progress variables for this target.
 include communication/CMakeFiles/communication_generate_messages_cpp.dir/progress.make
 
+communication/CMakeFiles/communication_generate_messages_cpp: /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorCommand.h
 communication/CMakeFiles/communication_generate_messages_cpp: /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorConfig.h
 communication/CMakeFiles/communication_generate_messages_cpp: /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorStatus.h
 
 
+/home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorCommand.h: /opt/ros/kinetic/lib/gencpp/gen_cpp.py
+/home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorCommand.h: /home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorCommand.msg
+/home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorCommand.h: /opt/ros/kinetic/share/gencpp/msg.h.template
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating C++ code from communication/MotorCommand.msg"
+	cd /home/roboy/workspace/myoFPGA/myoFPGA/build/communication && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorCommand.msg -Icommunication:/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p communication -o /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication -e /opt/ros/kinetic/share/gencpp/cmake/..
+
 /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorConfig.h: /opt/ros/kinetic/lib/gencpp/gen_cpp.py
 /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorConfig.h: /home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorConfig.msg
 /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorConfig.h: /opt/ros/kinetic/share/gencpp/msg.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating C++ code from communication/MotorConfig.msg"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating C++ code from communication/MotorConfig.msg"
 	cd /home/roboy/workspace/myoFPGA/myoFPGA/build/communication && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorConfig.msg -Icommunication:/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p communication -o /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication -e /opt/ros/kinetic/share/gencpp/cmake/..
 
 /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorStatus.h: /opt/ros/kinetic/lib/gencpp/gen_cpp.py
 /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorStatus.h: /home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorStatus.msg
 /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorStatus.h: /opt/ros/kinetic/share/gencpp/msg.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating C++ code from communication/MotorStatus.msg"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/roboy/workspace/myoFPGA/myoFPGA/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating C++ code from communication/MotorStatus.msg"
 	cd /home/roboy/workspace/myoFPGA/myoFPGA/build/communication && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs/MotorStatus.msg -Icommunication:/home/roboy/workspace/myoFPGA/myoFPGA/src/communication/msgs -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p communication -o /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication -e /opt/ros/kinetic/share/gencpp/cmake/..
 
 communication_generate_messages_cpp: communication/CMakeFiles/communication_generate_messages_cpp
+communication_generate_messages_cpp: /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorCommand.h
 communication_generate_messages_cpp: /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorConfig.h
 communication_generate_messages_cpp: /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorStatus.h
 communication_generate_messages_cpp: communication/CMakeFiles/communication_generate_messages_cpp.dir/build.make

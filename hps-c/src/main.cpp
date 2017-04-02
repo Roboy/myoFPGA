@@ -98,6 +98,15 @@ int main(int argc, char *argv[]) {
 	    case '8':
 	    	interface.reset();
 		  break;
+	    case ' ':
+			interface.recordTrajectories();
+		  break;
+	    case '\n':
+			interface.playTrajectories();
+		  break;
+	    case '/':
+			interface.setGains();
+		  break;
 	    }
 	    interface.querySensoryData();
 	    *(uint32_t *)h2p_lw_led_addr = ~led_mask;

@@ -1,5 +1,5 @@
 Analysis & Synthesis report for soc_system
-Fri Mar 31 23:44:32 2017
+Sun Apr  2 05:03:06 2017
 Quartus Prime Version 16.1.2 Build 203 01/18/2017 SJ Lite Edition
 
 
@@ -638,7 +638,7 @@ agreement for further details.
 +-------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                  ;
 +---------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Fri Mar 31 23:44:31 2017       ;
+; Analysis & Synthesis Status     ; Successful - Sun Apr  2 05:03:05 2017       ;
 ; Quartus Prime Version           ; 16.1.2 Build 203 01/18/2017 SJ Lite Edition ;
 ; Revision Name                   ; soc_system                                  ;
 ; Top-level Entity Name           ; ghrd                                        ;
@@ -758,9 +758,9 @@ agreement for further details.
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;  22.6%      ;
-;     Processor 3            ;  22.3%      ;
-;     Processor 4            ;  22.1%      ;
+;     Processor 2            ;  22.5%      ;
+;     Processor 3            ;  22.5%      ;
+;     Processor 4            ;  22.3%      ;
 +----------------------------+-------------+
 
 
@@ -2365,8 +2365,8 @@ Encoding Type:  One-Hot
 ; soc_system:u0|soc_system_mm_interconnect_0:mm_interconnect_0|altera_avalon_sc_fifo:intr_capturer_0_avalon_slave_0_agent_rdata_fifo|mem[0][7]                                                                                                     ; Merged with soc_system:u0|soc_system_mm_interconnect_0:mm_interconnect_0|altera_avalon_sc_fifo:intr_capturer_0_avalon_slave_0_agent_rdata_fifo|mem[0][0]                                                                                                  ;
 ; soc_system:u0|soc_system_mm_interconnect_0:mm_interconnect_0|altera_avalon_sc_fifo:intr_capturer_0_avalon_slave_0_agent_rdata_fifo|mem[0][8]                                                                                                     ; Merged with soc_system:u0|soc_system_mm_interconnect_0:mm_interconnect_0|altera_avalon_sc_fifo:intr_capturer_0_avalon_slave_0_agent_rdata_fifo|mem[0][0]                                                                                                  ;
 ; soc_system:u0|soc_system_mm_interconnect_0:mm_interconnect_0|altera_avalon_sc_fifo:intr_capturer_0_avalon_slave_0_agent_rdata_fifo|mem[0][9]                                                                                                     ; Merged with soc_system:u0|soc_system_mm_interconnect_0:mm_interconnect_0|altera_avalon_sc_fifo:intr_capturer_0_avalon_slave_0_agent_rdata_fifo|mem[0][0]                                                                                                  ;
-; soc_system:u0|MYOControl:myocontrol_1|spi_master:spi|core_n_clk                                                                                                                                                                                  ; Merged with soc_system:u0|MYOControl:myocontrol_0|spi_master:spi|core_n_clk                                                                                                                                                                               ;
 ; soc_system:u0|MYOControl:myocontrol_1|spi_master:spi|core_ce                                                                                                                                                                                     ; Merged with soc_system:u0|MYOControl:myocontrol_0|spi_master:spi|core_ce                                                                                                                                                                                  ;
+; soc_system:u0|MYOControl:myocontrol_1|spi_master:spi|core_n_clk                                                                                                                                                                                  ; Merged with soc_system:u0|MYOControl:myocontrol_0|spi_master:spi|core_n_clk                                                                                                                                                                               ;
 ; soc_system:u0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_axi_slave_ni:hps_0_f2h_axi_slave_agent|altera_avalon_sc_fifo:read_rsp_fifo|mem[1][182]                                                                                ; Merged with soc_system:u0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_axi_slave_ni:hps_0_f2h_axi_slave_agent|altera_avalon_sc_fifo:read_rsp_fifo|mem[1][176]                                                                             ;
 ; soc_system:u0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_axi_slave_ni:hps_0_f2h_axi_slave_agent|altera_avalon_sc_fifo:read_rsp_fifo|mem[1][183]                                                                                ; Merged with soc_system:u0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_axi_slave_ni:hps_0_f2h_axi_slave_agent|altera_avalon_sc_fifo:read_rsp_fifo|mem[1][176]                                                                             ;
 ; soc_system:u0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_axi_slave_ni:hps_0_f2h_axi_slave_agent|altera_avalon_sc_fifo:read_rsp_fifo|mem[1][184]                                                                                ; Merged with soc_system:u0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_axi_slave_ni:hps_0_f2h_axi_slave_agent|altera_avalon_sc_fifo:read_rsp_fifo|mem[1][176]                                                                             ;
@@ -3990,8 +3990,8 @@ Encoding Type:  One-Hot
 ; soc_system:u0|soc_system_fpga_only_master:fpga_only_master|altera_reset_controller:rst_controller|altera_reset_synchronizer:alt_rst_sync_uq1|altera_reset_synchronizer_int_chain[0]                                                                                                                                             ; 1       ;
 ; soc_system:u0|altera_reset_controller:rst_controller|r_sync_rst_chain[3]                                                                                                                                                                                                                                                        ; 1       ;
 ; soc_system:u0|MYOControl:myocontrol_0|spi_master:spi|spi_2x_ce                                                                                                                                                                                                                                                                  ; 3       ;
-; soc_system:u0|MYOControl:myocontrol_0|spi_master:spi|core_n_ce                                                                                                                                                                                                                                                                  ; 4       ;
 ; soc_system:u0|MYOControl:myocontrol_1|spi_master:spi|di_req_o_reg                                                                                                                                                                                                                                                               ; 1       ;
+; soc_system:u0|MYOControl:myocontrol_0|spi_master:spi|core_n_ce                                                                                                                                                                                                                                                                  ; 4       ;
 ; soc_system:u0|MYOControl:myocontrol_0|spi_master:spi|di_req_o_reg                                                                                                                                                                                                                                                               ; 1       ;
 ; soc_system:u0|altera_reset_controller:rst_controller|altera_reset_synchronizer_int_chain[1]                                                                                                                                                                                                                                     ; 1       ;
 ; soc_system:u0|soc_system_fpga_only_master:fpga_only_master|altera_reset_controller:rst_controller|altera_reset_synchronizer:alt_rst_sync_uq1|altera_reset_synchronizer_int_chain[1]                                                                                                                                             ; 1       ;
@@ -4063,9 +4063,9 @@ Encoding Type:  One-Hot
 ; 3:1                ; 3 bits    ; 6 LEs         ; 3 LEs                ; 3 LEs                  ; Yes        ; |ghrd|soc_system:u0|MYOControl:myocontrol_1|spi_master:spi|state_reg[3]                                                                                                                                                                                           ;
 ; 9:1                ; 15 bits   ; 90 LEs        ; 60 LEs               ; 30 LEs                 ; Yes        ; |ghrd|soc_system:u0|MYOControl:myocontrol_1|SpiControl:spi_control|Word[2]                                                                                                                                                                                        ;
 ; 4:1                ; 15 bits   ; 30 LEs        ; 0 LEs                ; 30 LEs                 ; Yes        ; |ghrd|soc_system:u0|MYOControl:myocontrol_1|spi_master:spi|sh_reg[10]                                                                                                                                                                                             ;
-; 3:1                ; 3 bits    ; 6 LEs         ; 3 LEs                ; 3 LEs                  ; Yes        ; |ghrd|soc_system:u0|MYOControl:myocontrol_0|spi_master:spi|state_reg[3]                                                                                                                                                                                           ;
+; 3:1                ; 3 bits    ; 6 LEs         ; 3 LEs                ; 3 LEs                  ; Yes        ; |ghrd|soc_system:u0|MYOControl:myocontrol_0|spi_master:spi|state_reg[2]                                                                                                                                                                                           ;
 ; 9:1                ; 15 bits   ; 90 LEs        ; 60 LEs               ; 30 LEs                 ; Yes        ; |ghrd|soc_system:u0|MYOControl:myocontrol_0|SpiControl:spi_control|Word[15]                                                                                                                                                                                       ;
-; 4:1                ; 15 bits   ; 30 LEs        ; 0 LEs                ; 30 LEs                 ; Yes        ; |ghrd|soc_system:u0|MYOControl:myocontrol_0|spi_master:spi|sh_reg[9]                                                                                                                                                                                              ;
+; 4:1                ; 15 bits   ; 30 LEs        ; 0 LEs                ; 30 LEs                 ; Yes        ; |ghrd|soc_system:u0|MYOControl:myocontrol_0|spi_master:spi|sh_reg[3]                                                                                                                                                                                              ;
 ; 4:1                ; 16 bits   ; 32 LEs        ; 32 LEs               ; 0 LEs                  ; Yes        ; |ghrd|soc_system:u0|MYOControl:myocontrol_0|PIDController:pid_controller3|result[4]                                                                                                                                                                               ;
 ; 4:1                ; 16 bits   ; 32 LEs        ; 32 LEs               ; 0 LEs                  ; Yes        ; |ghrd|soc_system:u0|MYOControl:myocontrol_0|PIDController:pid_controller2|result[1]                                                                                                                                                                               ;
 ; 4:1                ; 16 bits   ; 32 LEs        ; 32 LEs               ; 0 LEs                  ; Yes        ; |ghrd|soc_system:u0|MYOControl:myocontrol_0|PIDController:pid_controller1|result[11]                                                                                                                                                                              ;
@@ -14714,7 +14714,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +---------------------------------------+--------------+
 ; Partition Name                        ; Elapsed Time ;
 +---------------------------------------+--------------+
-; Top                                   ; 00:00:24     ;
+; Top                                   ; 00:00:25     ;
 ; soc_system_hps_0_hps_io_border:border ; 00:00:00     ;
 +---------------------------------------+--------------+
 
@@ -14725,7 +14725,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 16.1.2 Build 203 01/18/2017 SJ Lite Edition
-    Info: Processing started: Fri Mar 31 23:40:40 2017
+    Info: Processing started: Sun Apr  2 04:59:08 2017
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off soc_system -c soc_system
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
@@ -15334,7 +15334,7 @@ Warning (12030): Port "result" on the entity instantiation of "pid_controller2" 
 Warning (12030): Port "result" on the entity instantiation of "pid_controller1" is connected to a signal of width 16. The formal width of the signal in the module is 32.  The extra bits will be left dangling without any fan-out logic. File: /home/roboy/workspace/myoFPGA/fpga-rtl/soc_system/synthesis/submodules/MYOControl.v Line: 558
 Warning (12030): Port "result" on the entity instantiation of "pid_controller0" is connected to a signal of width 16. The formal width of the signal in the module is 32.  The extra bits will be left dangling without any fan-out logic. File: /home/roboy/workspace/myoFPGA/fpga-rtl/soc_system/synthesis/submodules/MYOControl.v Line: 537
 Info (11170): Starting IP generation for the debug fabric: alt_sld_fab.
-Info (11172): 2017.03.31.23:41:04 Progress: Loading sldce0f4758/alt_sld_fab_wrapper_hw.tcl
+Info (11172): 2017.04.02.04:59:36 Progress: Loading sldce0f4758/alt_sld_fab_wrapper_hw.tcl
 Info (11172): Alt_sld_fab.alt_sld_fab: SLD fabric agents which did not specify prefer_host were connected to JTAG
 Info (11172): Alt_sld_fab: Generating alt_sld_fab "alt_sld_fab" for QUARTUS_SYNTH
 Info (11172): Alt_sld_fab: "alt_sld_fab" instantiated alt_sld_fab "alt_sld_fab"
@@ -15411,8 +15411,8 @@ Info (12021): Found 1 design units, including 1 entities, in source file db/alts
     Info (12023): Found entity 1: altsyncram_g0n1 File: /home/roboy/workspace/myoFPGA/fpga-rtl/db/altsyncram_g0n1.tdf Line: 28
 Warning (12241): 47 hierarchies have connectivity warnings - see the Connectivity Checks report folder
 Warning (13034): The following nodes have both tri-state and non-tri-state drivers
-    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_0[29]" and its non-tri-state driver. File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 61
-    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_0[31]" and its non-tri-state driver. File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 61
+    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_1[0]" and its non-tri-state driver. File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 62
+    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_1[2]" and its non-tri-state driver. File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 62
     Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_1[29]" and its non-tri-state driver. File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 62
     Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_1[30]" and its non-tri-state driver. File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 62
     Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_1[31]" and its non-tri-state driver. File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 62
@@ -15421,17 +15421,17 @@ Warning (13034): The following nodes have both tri-state and non-tri-state drive
     Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_1[34]" and its non-tri-state driver. File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 62
     Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_1[35]" and its non-tri-state driver. File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 62
 Warning (13039): The following bidirectional pins have no drivers
-    Warning (13040): bidirectional pin "GPIO_0[30]" has no driver File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 61
+    Warning (13040): bidirectional pin "GPIO_1[1]" has no driver File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 62
 Warning (13034): The following nodes have both tri-state and non-tri-state drivers
+    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_0[0]" and its non-tri-state driver. File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 61
+    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_0[1]" and its non-tri-state driver. File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 61
+    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_0[2]" and its non-tri-state driver. File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 61
+    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_0[3]" and its non-tri-state driver. File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 61
+    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_0[4]" and its non-tri-state driver. File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 61
+    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_0[5]" and its non-tri-state driver. File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 61
+    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_0[6]" and its non-tri-state driver. File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 61
     Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_0[33]" and its non-tri-state driver. File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 61
     Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_0[35]" and its non-tri-state driver. File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 61
-    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_1[0]" and its non-tri-state driver. File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 62
-    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_1[1]" and its non-tri-state driver. File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 62
-    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_1[2]" and its non-tri-state driver. File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 62
-    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_1[3]" and its non-tri-state driver. File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 62
-    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_1[4]" and its non-tri-state driver. File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 62
-    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_1[5]" and its non-tri-state driver. File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 62
-    Warning (13035): Inserted always-enabled tri-state buffer between "GPIO_1[6]" and its non-tri-state driver. File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 62
 Warning (13039): The following bidirectional pins have no drivers
     Warning (13040): bidirectional pin "GPIO_0[34]" has no driver File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 61
 Warning (13039): The following bidirectional pins have no drivers
@@ -15452,13 +15452,6 @@ Warning (13039): The following bidirectional pins have no drivers
     Warning (13040): bidirectional pin "ARDUINO_IO[14]" has no driver File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 46
     Warning (13040): bidirectional pin "ARDUINO_IO[15]" has no driver File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 46
     Warning (13040): bidirectional pin "ARDUINO_RESET_N" has no driver File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 47
-    Warning (13040): bidirectional pin "GPIO_0[0]" has no driver File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 61
-    Warning (13040): bidirectional pin "GPIO_0[1]" has no driver File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 61
-    Warning (13040): bidirectional pin "GPIO_0[2]" has no driver File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 61
-    Warning (13040): bidirectional pin "GPIO_0[3]" has no driver File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 61
-    Warning (13040): bidirectional pin "GPIO_0[4]" has no driver File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 61
-    Warning (13040): bidirectional pin "GPIO_0[5]" has no driver File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 61
-    Warning (13040): bidirectional pin "GPIO_0[6]" has no driver File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 61
     Warning (13040): bidirectional pin "GPIO_0[7]" has no driver File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 61
     Warning (13040): bidirectional pin "GPIO_0[8]" has no driver File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 61
     Warning (13040): bidirectional pin "GPIO_0[9]" has no driver File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 61
@@ -15481,7 +15474,14 @@ Warning (13039): The following bidirectional pins have no drivers
     Warning (13040): bidirectional pin "GPIO_0[26]" has no driver File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 61
     Warning (13040): bidirectional pin "GPIO_0[27]" has no driver File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 61
     Warning (13040): bidirectional pin "GPIO_0[28]" has no driver File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 61
+    Warning (13040): bidirectional pin "GPIO_0[29]" has no driver File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 61
+    Warning (13040): bidirectional pin "GPIO_0[30]" has no driver File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 61
+    Warning (13040): bidirectional pin "GPIO_0[31]" has no driver File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 61
     Warning (13040): bidirectional pin "GPIO_0[32]" has no driver File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 61
+    Warning (13040): bidirectional pin "GPIO_1[3]" has no driver File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 62
+    Warning (13040): bidirectional pin "GPIO_1[4]" has no driver File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 62
+    Warning (13040): bidirectional pin "GPIO_1[5]" has no driver File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 62
+    Warning (13040): bidirectional pin "GPIO_1[6]" has no driver File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 62
     Warning (13040): bidirectional pin "GPIO_1[7]" has no driver File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 62
     Warning (13040): bidirectional pin "GPIO_1[8]" has no driver File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 62
     Warning (13040): bidirectional pin "GPIO_1[9]" has no driver File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 62
@@ -15505,8 +15505,8 @@ Warning (13039): The following bidirectional pins have no drivers
     Warning (13040): bidirectional pin "GPIO_1[27]" has no driver File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 62
     Warning (13040): bidirectional pin "GPIO_1[28]" has no driver File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 62
 Warning (13009): TRI or OPNDRN buffers permanently enabled
-    Warning (13010): Node "GPIO_0[29]~synth" File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 61
-    Warning (13010): Node "GPIO_0[31]~synth" File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 61
+    Warning (13010): Node "GPIO_1[0]~synth" File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 62
+    Warning (13010): Node "GPIO_1[2]~synth" File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 62
     Warning (13010): Node "GPIO_1[29]~synth" File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 62
     Warning (13010): Node "GPIO_1[30]~synth" File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 62
     Warning (13010): Node "GPIO_1[31]~synth" File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 62
@@ -15514,15 +15514,15 @@ Warning (13009): TRI or OPNDRN buffers permanently enabled
     Warning (13010): Node "GPIO_1[33]~synth" File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 62
     Warning (13010): Node "GPIO_1[34]~synth" File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 62
     Warning (13010): Node "GPIO_1[35]~synth" File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 62
+    Warning (13010): Node "GPIO_0[0]~synth" File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 61
+    Warning (13010): Node "GPIO_0[1]~synth" File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 61
+    Warning (13010): Node "GPIO_0[2]~synth" File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 61
+    Warning (13010): Node "GPIO_0[3]~synth" File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 61
+    Warning (13010): Node "GPIO_0[4]~synth" File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 61
+    Warning (13010): Node "GPIO_0[5]~synth" File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 61
+    Warning (13010): Node "GPIO_0[6]~synth" File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 61
     Warning (13010): Node "GPIO_0[33]~synth" File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 61
     Warning (13010): Node "GPIO_0[35]~synth" File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 61
-    Warning (13010): Node "GPIO_1[0]~synth" File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 62
-    Warning (13010): Node "GPIO_1[1]~synth" File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 62
-    Warning (13010): Node "GPIO_1[2]~synth" File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 62
-    Warning (13010): Node "GPIO_1[3]~synth" File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 62
-    Warning (13010): Node "GPIO_1[4]~synth" File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 62
-    Warning (13010): Node "GPIO_1[5]~synth" File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 62
-    Warning (13010): Node "GPIO_1[6]~synth" File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 62
     Warning (13010): Node "HPS_CONV_USB_N~synth" File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 66
     Warning (13010): Node "HPS_DDR3_DQ[0]~synth" File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 75
     Warning (13010): Node "HPS_DDR3_DQ[1]~synth" File: /home/roboy/workspace/myoFPGA/fpga-rtl/ghrd.v Line: 75
@@ -15613,10 +15613,10 @@ Info (21057): Implemented 22234 device resources after synthesis - the final res
     Info (21066): Implemented 1 delay-locked loops
     Info (21062): Implemented 112 DSP elements
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 255 warnings
-    Info: Peak virtual memory: 1568 megabytes
-    Info: Processing ended: Fri Mar 31 23:44:32 2017
-    Info: Elapsed time: 00:03:52
-    Info: Total CPU time (on all processors): 00:04:45
+    Info: Peak virtual memory: 1563 megabytes
+    Info: Processing ended: Sun Apr  2 05:03:06 2017
+    Info: Elapsed time: 00:03:58
+    Info: Total CPU time (on all processors): 00:04:52
 
 
 +------------------------------------------+

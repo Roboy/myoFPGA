@@ -7,6 +7,11 @@
 #include <chrono>
 #include <fstream>
 #include "myoControlRegister.hpp"
+#include "timer.hpp"
+#include <unistd.h>
+#include <tinyxml.h>
+#include <string>
+#include <sstream>
 
 using namespace std;
 using namespace std::chrono;
@@ -99,6 +104,11 @@ public:
 	void getPIDcontrollerParams(int &Pgain, int &Igain, int &Dgain, int &forwardGain, int &deadband,
 									int &setPoint, int &setPointMin, int &setPointMax, int motor);
 	/**
+	 * Get the parameters for the PID controller of a motor
+	 * @param motor for this motor
+	 */
+	void setPIDcontrollerParams(uint16_t Pgain, uint16_t Igain, uint16_t Dgain, uint16_t forwardGain, uint16_t deadband, int motor, int mode);
+	/**
 	 * Gets the current control_mode of a motor
 	 * @param motor for this motor
 	 */
@@ -164,6 +174,26 @@ public:
 	 */
 	float getWeight();
 	/**
+	 * records positions of motors in Displacment mode
+	 * @param samplingTime
+	 * @param recordTime
+	 * @param trajectories will be filled with positions
+	 * @param idList record these motors
+	 * @param controlmode in this mode
+	 * @param name filename
+	 */
+	float recordTrajectories(
+	        float samplingTime, float recordTime,
+			map<int,vector<float>> &trajectories, vector<int> &idList,
+	        vector<int> &controlmode, string name);
+
+	/**
+	 * Plays back a trajectory
+	 * @param file
+	 * @return success
+	 */
+	bool playTrajectory(const char* file);
+	/**
 	 * Estimates the spring parameters of a motor by pulling with variable forces
 	 * keeping track of displacement and weight, it will either timeout or stop when the
 	 * requested number of samples was reached
@@ -188,6 +218,7 @@ public:
 	float adc_weight_parameters[2] = {830.7, -0.455};
 	uint numberOfMotors;
 private:
+	Timer timer;
 	vector<int32_t*> myo_base;
 	int iter = 0;
 };

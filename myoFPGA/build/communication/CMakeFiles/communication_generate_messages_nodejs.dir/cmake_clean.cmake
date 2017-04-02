@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/communication_generate_messages_nodejs"
+  "/home/roboy/workspace/myoFPGA/myoFPGA/devel/share/gennodejs/ros/communication/msg/MotorCommand.js"
   "/home/roboy/workspace/myoFPGA/myoFPGA/devel/share/gennodejs/ros/communication/msg/MotorConfig.js"
   "/home/roboy/workspace/myoFPGA/myoFPGA/devel/share/gennodejs/ros/communication/msg/MotorStatus.js"
 )

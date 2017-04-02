@@ -198,6 +198,7 @@ roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/interface.cpp.o
  /home/roboy/Downloads/openPowerLink/stack/include/user/sdoal.h
  /home/roboy/Downloads/openPowerLink/stack/include/user/sdoudp.h
  /home/roboy/Downloads/openPowerLink/stack/proj/linux/liboplkmndrv-pcap/oplkcfg.h
+ /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorCommand.h
  /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorConfig.h
  /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorStatus.h
  /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_managing_node/../powerlink/output/xap.h
@@ -261,6 +262,7 @@ roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/interface.cpp.o
  /opt/ros/kinetic/include/rosconsole/macros_generated.h
  /opt/ros/kinetic/include/xmlrpcpp/XmlRpcDecl.h
  /opt/ros/kinetic/include/xmlrpcpp/XmlRpcValue.h
+ roboy_managing_node/myoFPGA.pb.h
 roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/main.cpp.o
  /home/roboy/Downloads/openPowerLink/apps/common/objdicts/CiA302-4_MN/obdpi.h
  /home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.h
@@ -302,6 +304,7 @@ roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/main.cpp.o
  /home/roboy/Downloads/openPowerLink/stack/include/user/sdoal.h
  /home/roboy/Downloads/openPowerLink/stack/include/user/sdoudp.h
  /home/roboy/Downloads/openPowerLink/stack/proj/linux/liboplkmndrv-pcap/oplkcfg.h
+ /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorCommand.h
  /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorConfig.h
  /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorStatus.h
  /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_managing_node/../powerlink/output/xap.h
@@ -365,6 +368,7 @@ roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/main.cpp.o
  /opt/ros/kinetic/include/rosconsole/macros_generated.h
  /opt/ros/kinetic/include/xmlrpcpp/XmlRpcDecl.h
  /opt/ros/kinetic/include/xmlrpcpp/XmlRpcValue.h
+ roboy_managing_node/myoFPGA.pb.h
 roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/myoMaster.cpp.o
  /home/roboy/Downloads/openPowerLink/apps/common/objdicts/CiA302-4_MN/obdpi.h
  /home/roboy/Downloads/openPowerLink/apps/common/src/eventlog/eventlog.h
@@ -406,6 +410,7 @@ roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/myoMaster.cpp.o
  /home/roboy/Downloads/openPowerLink/stack/include/user/sdoal.h
  /home/roboy/Downloads/openPowerLink/stack/include/user/sdoudp.h
  /home/roboy/Downloads/openPowerLink/stack/proj/linux/liboplkmndrv-pcap/oplkcfg.h
+ /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorCommand.h
  /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorConfig.h
  /home/roboy/workspace/myoFPGA/myoFPGA/devel/include/communication/MotorStatus.h
  /home/roboy/workspace/myoFPGA/myoFPGA/src/roboy_managing_node/../powerlink/output/xap.h
@@ -468,3 +473,4 @@ roboy_managing_node/CMakeFiles/roboy_managing_node.dir/src/myoMaster.cpp.o
  /opt/ros/kinetic/include/rosconsole/macros_generated.h
  /opt/ros/kinetic/include/xmlrpcpp/XmlRpcDecl.h
  /opt/ros/kinetic/include/xmlrpcpp/XmlRpcValue.h
+ roboy_managing_node/myoFPGA.pb.h

@@ -2,7 +2,7 @@ syntax="proto2";
 
 package MyoFPGAProtobuf;
 
-message motorConfig{
+message MotorConfig{
     repeated bytes control_mode = 1; /*!< control mode Position Velocity Displacement*/
     repeated int32 outputPosMax = 2; /*!< maximum control output in the positive direction in counts, max 4000*/
     repeated int32 outputNegMax = 3; /*!< maximum control output in the negative direction in counts, max -4000*/
@@ -17,12 +17,17 @@ message motorConfig{
     repeated int32 IntegralNegMax = 12; /*!<Integral negative component maximum*/
 }
 
-message motorStatus{
+message MotorStatus{
     repeated int32 pwmRef = 1; /*!< pwm to motorboards*/
     repeated int32 position = 2; /*!< motor position in encoder ticks */
     repeated int32 velocity = 3; /*!< motor position in encoder ticks/s */
     repeated int32 displacement = 4;/*<! displacement in encoder ticks */
     repeated int32 current = 5;/*<!  */
     repeated int32 sensor = 6;/*!<  */
+}
+
+message MotorCommand{
+    repeated uint32 motor = 1;
+    repeated int32 setPoint = 2;
 }
 

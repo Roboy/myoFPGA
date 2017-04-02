@@ -32,12 +32,15 @@
 //#define RUN_IN_THREAD
 
 #include "UDPSocket.hpp"
+#include "myoFPGA.pb.h"
 
 #include <thread>
 #include <sys/stat.h>
 #include <ros/ros.h>
 #include <communication/MotorConfig.h>
 #include <communication/MotorStatus.h>
+#include <communication/MotorCommand.h>
+
 
 typedef struct
 {
@@ -88,8 +91,16 @@ public:
      */
     void sendControllerConfig();
 private:
+    /**
+     * This is the callback for motor status
+     * @param msg status message
+     */
     void MotorStatus(const communication::MotorStatus::ConstPtr &msg);
-
+    /**
+     * This is the callback for motor commands
+     * @param msg motor command message
+     */
+    void MotorCommand(const communication::MotorCommand::ConstPtr &msg);
     /**
      * This initializes the process image for openPowerLink
      * @return errorCode
@@ -190,13 +201,12 @@ private:
     static const PI_OUT*    pProcessImageOut_l;
     static bool updateControllerConfig;
     BOOL         fGsOff_l;
-    static UDPSocket *motorConfigSocket, *motorStatusSocket;
+    static UDPSocket *motorCommandSocket;
     static control_Parameters_t MotorConfig;
-    static int32_t setPoints[16];
+    static int32_t setPoints[14];
     std::thread *powerLinkThread;
     static bool fExit;
     ros::NodeHandlePtr nh;
     static ros::Publisher motorConfig;
-    ros::Publisher motorStatus;
-//    ros::Subscriber motorStatus;
+    ros::Subscriber motorStatus, motorCommand;
 };
