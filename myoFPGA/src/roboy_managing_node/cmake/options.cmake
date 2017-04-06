@@ -34,7 +34,7 @@ MESSAGE(STATUS "CMAKE_SYSTEM_PROCESSOR is ${CMAKE_SYSTEM_PROCESSOR}")
 ################################################################################
 # Set global directories
 ################################################################################
-SET(OPLK_BASE_DIR /home/roboy/Downloads/openPowerLink)
+SET(OPLK_BASE_DIR /home/letrend/Documents/openPowerlink)
 SET(COMMON_SOURCE_DIR ${OPLK_BASE_DIR}/apps/common/src)
 SET(OPENCONFIG_PROJ_DIR ${OPLK_BASE_DIR}/apps/common/openCONFIGURATOR_projects)
 SET(CONTRIB_SOURCE_DIR ${OPLK_BASE_DIR}/contrib)
