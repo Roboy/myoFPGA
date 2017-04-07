@@ -1,0 +1,9 @@
+[submodule "myoFPGA/src/roboy_managing_node"]
+	path = myoFPGA/src/roboy_managing_node
+	url = https://github.com/Roboy/roboy_managing_node
+[submodule "myoFPGA/src/roboy_powerlink"]
+	path = myoFPGA/src/roboy_powerlink
+	url = https://github.com/Roboy/roboy_powerlink
+[submodule "myoFPGA/src/roboy_controlled_node_fpga"]
+	path = myoFPGA/src/roboy_controlled_node_fpga
+	url = https://github.com/Roboy/roboy_controlled_node_fpga
