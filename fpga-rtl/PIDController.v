@@ -31,6 +31,7 @@ always @(posedge clock, posedge reset) begin: PID_CONTROLLER_PID_CONTROLLERLOGIC
 	reg signed [31:0] dterm;
 	reg signed [31:0] ffterm;
 	reg update_controller_prev;
+	reg signed [10:0] displacement_offset;
 	
 	if (reset == 1) begin
 		pv <= 0;
@@ -40,15 +41,21 @@ always @(posedge clock, posedge reset) begin: PID_CONTROLLER_PID_CONTROLLERLOGIC
 		err <=0;
 		result <= 0;
 		update_controller_prev <= 0;
+		displacement_offset <= 0;
 	end else begin
 		update_controller_prev <= update_controller;
 		if(update_controller_prev==0 && update_controller==1) begin
-			case(controller)
-				0: err = (sp - position); 
-				1: err = (sp - velocity);
-				2: err = (sp - displacement);
-				default: err = 0;
-			endcase
+			if(controller==0) 
+				err = (sp - position); 
+			else if(controller==1) 
+				err = (sp - velocity);
+			else if(controller==2) begin
+				if(displacement<0) // this should not happen, unless the muscle was in tension when power was turned on
+					displacement_offset = displacement; // we cope with this with an adaptive offset
+				err = (sp - (displacement-displacement_offset));
+			end else
+				err = 0;
+			
 			if (((err > deadBand) || (err < ((-1) * deadBand)))) begin
 				pterm = (Kp * err);
 				if ((pterm < outputPosMax) || (pterm > outputNegMax)) begin  //if the proportional term is not maxed

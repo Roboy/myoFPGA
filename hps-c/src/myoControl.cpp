@@ -297,7 +297,7 @@ float MyoControl::recordTrajectories(
         for (uint m = 0; m < idList.size(); m++) {
             sprintf(motorname, "motor%d", idList[m]);
             outfile << "<trajectory motorid=\"" << idList[m] << "\" controlmode=\""
-                    << controlmode[m] << "\" samplingTime=\"" << samplingTime << "\">"
+                    << controlmode[m] << "\" samplingTime=\"" << samplingTime*1000.0f << "\">"
                     << std::endl;
             outfile << "<waypointlist>" << std::endl;
             for (uint i = 0; i < trajectories[idList[m]].size(); i++)
