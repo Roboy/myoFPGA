@@ -16,6 +16,9 @@
 #include <QFileSystemModel>
 #include "ui_main_window.h"
 #include "roboy_managing_node/myoMaster.hpp"
+#include <tinyxml.h>
+#include <fstream>
+
 #define RUN_IN_THREAD
 #define NUMBER_OF_FPGAS 5
 #define NUMBER_OF_MOTORS_PER_FPGA 14

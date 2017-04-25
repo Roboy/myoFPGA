@@ -36,6 +36,10 @@ include_directories(${catkin_INCLUDE_DIRS})
 
 include_directories(qcustomplot)
 
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(TinyXML REQUIRED)
+include_directories(${TinyXML_INCLUDE_DIRS})
+
 ##############################################################################
 # Qt Environment
 ##############################################################################
@@ -67,6 +71,6 @@ file(GLOB_RECURSE QT_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} FOLLOW_SYMLINK
 ##############################################################################
 
 add_executable(interface ${QT_SOURCES} ${QT_RESOURCES_CPP} ${QT_FORMS_HPP} ${QT_MOC_HPP} )
-target_link_libraries(interface ${QT_LIBRARIES} ${catkin_LIBRARIES} ${PROTOBUF_LIBRARY} roboy_managing_node)
+target_link_libraries(interface ${QT_LIBRARIES} ${catkin_LIBRARIES} ${PROTOBUF_LIBRARY} roboy_managing_node ${TinyXML_LIBRARIES} )
 install(TARGETS interface RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 

@@ -158,6 +158,29 @@ void MainWindow::MotorRecordPack(const communication::MotorRecord::ConstPtr &msg
     msg->id, msg->motor0.size(), msg->recordTime/msg->motor0.size()*1000.0f);
     if(numberOfRecordsToWaitFor==0){
         ROS_INFO("all records received");
+        for(auto const& rec:records) {
+            std::ofstream outfile;
+            outfile.open(ui.movementName->text().toStdString().c_str());
+            if (outfile.is_open()) {
+                outfile << "<?xml version=\"1.0\" ?>"
+                        << std::endl;
+                for(uint motor=0;motor<NUMBER_OF_MOTORS_PER_FPGA;motor++) {
+                    outfile << "<trajectory motorid=\"" << motor << "\" controlmode=\""
+                            << ui.control_mode->text().toStdString() << "\" samplingTime=\""
+                            << atoi(ui.samplingTime->text().toStdString().c_str()) << "\">"
+                            << std::endl;
+                    outfile << "<waypointlist>" << std::endl;
+                    for (uint i = 0; i < rec.second[motor].size(); i++)
+                        outfile << rec.second[motor][i] << " ";
+                    outfile << "</waypointlist>" << std::endl;
+                    outfile << "</trajectory>" << std::endl;
+                }
+
+                outfile << "</roboybehavior>" << std::endl;
+                outfile.close();
+            }
+
+        }
     }
 }
 
