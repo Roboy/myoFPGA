@@ -30,33 +30,420 @@
         <height>0</height>
        </size>
       </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
       <property name="locale">
        <locale language="English" country="Australia"/>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
+      </property>
+      <property name="movable">
+       <bool>true</bool>
       </property>
       <widget class="QWidget" name="tab_status">
        <attribute name="title">
-        <string>Ros Communications</string>
+        <string>movement_control</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <widget class="QGroupBox" name="groupBox_12">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
+         <widget class="QFrame" name="frame_40">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
           </property>
-          <property name="title">
-           <string>Logging</string>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
           </property>
-          <layout class="QGridLayout" name="gridLayout_3">
-           <item row="0" column="0">
-            <widget class="QListView" name="view_logging"/>
-           </item>
-          </layout>
+          <widget class="QPushButton" name="play">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>730</y>
+             <width>99</width>
+             <height>27</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>play</string>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="stop">
+           <property name="geometry">
+            <rect>
+             <x>110</x>
+             <y>730</y>
+             <width>99</width>
+             <height>27</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>stop</string>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="loop">
+           <property name="geometry">
+            <rect>
+             <x>210</x>
+             <y>730</y>
+             <width>99</width>
+             <height>27</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>loop</string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="rewind">
+           <property name="geometry">
+            <rect>
+             <x>310</x>
+             <y>730</y>
+             <width>99</width>
+             <height>27</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>rewind</string>
+           </property>
+          </widget>
+          <widget class="QTreeView" name="movementFolder">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>270</y>
+             <width>401</width>
+             <height>451</height>
+            </rect>
+           </property>
+          </widget>
+          <widget class="QFrame" name="frame_41">
+           <property name="geometry">
+            <rect>
+             <x>410</x>
+             <y>630</y>
+             <width>261</width>
+             <height>31</height>
+            </rect>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <widget class="QLineEdit" name="recordTime">
+            <property name="geometry">
+             <rect>
+              <x>140</x>
+              <y>0</y>
+              <width>121</width>
+              <height>31</height>
+             </rect>
+            </property>
+            <property name="whatsThis">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;record time in seconds,&lt;/p&gt;&lt;p&gt;if -1 will record until stop &lt;/p&gt;&lt;p&gt;is pressed&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_39">
+            <property name="geometry">
+             <rect>
+              <x>40</x>
+              <y>0</y>
+              <width>101</width>
+              <height>31</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>recordTime[s]</string>
+            </property>
+           </widget>
+          </widget>
+          <widget class="QFrame" name="frame_42">
+           <property name="geometry">
+            <rect>
+             <x>410</x>
+             <y>570</y>
+             <width>261</width>
+             <height>31</height>
+            </rect>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <widget class="QLineEdit" name="movementName">
+            <property name="geometry">
+             <rect>
+              <x>140</x>
+              <y>0</y>
+              <width>121</width>
+              <height>31</height>
+             </rect>
+            </property>
+            <property name="whatsThis">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;name of the recorded movement&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="text">
+             <string>test123</string>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_40">
+            <property name="geometry">
+             <rect>
+              <x>60</x>
+              <y>0</y>
+              <width>101</width>
+              <height>31</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>name</string>
+            </property>
+           </widget>
+          </widget>
+          <widget class="QFrame" name="frame_43">
+           <property name="geometry">
+            <rect>
+             <x>410</x>
+             <y>600</y>
+             <width>261</width>
+             <height>31</height>
+            </rect>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <widget class="QLineEdit" name="samplingTime">
+            <property name="geometry">
+             <rect>
+              <x>140</x>
+              <y>0</y>
+              <width>121</width>
+              <height>31</height>
+             </rect>
+            </property>
+            <property name="whatsThis">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;sampling time in milliseconds&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="text">
+             <string>10</string>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_41">
+            <property name="geometry">
+             <rect>
+              <x>10</x>
+              <y>0</y>
+              <width>131</width>
+              <height>31</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>samplingTime[ms]</string>
+            </property>
+           </widget>
+          </widget>
+          <widget class="QFrame" name="frame_44">
+           <property name="geometry">
+            <rect>
+             <x>410</x>
+             <y>660</y>
+             <width>261</width>
+             <height>31</height>
+            </rect>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <widget class="QLabel" name="label_42">
+            <property name="geometry">
+             <rect>
+              <x>10</x>
+              <y>0</y>
+              <width>101</width>
+              <height>31</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>controlMode</string>
+            </property>
+           </widget>
+           <widget class="QSpinBox" name="control_mode_record">
+            <property name="geometry">
+             <rect>
+              <x>110</x>
+              <y>0</y>
+              <width>48</width>
+              <height>31</height>
+             </rect>
+            </property>
+            <property name="whatsThis">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;0 - POSITION&lt;/p&gt;&lt;p&gt;1 - VELOCITY&lt;/p&gt;&lt;p&gt;2 - FORCE&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="maximum">
+             <number>2</number>
+            </property>
+            <property name="value">
+             <number>2</number>
+            </property>
+           </widget>
+           <widget class="QCheckBox" name="passiv">
+            <property name="geometry">
+             <rect>
+              <x>190</x>
+              <y>0</y>
+              <width>71</width>
+              <height>31</height>
+             </rect>
+            </property>
+            <property name="whatsThis">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;if selected, the muscles will hold&lt;/p&gt;&lt;p&gt; the current position&lt;/p&gt;&lt;p&gt;if unselected, the muscles will pull &lt;/p&gt;&lt;p&gt;with a constant force while recording&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="text">
+             <string>passiv</string>
+            </property>
+           </widget>
+          </widget>
+          <widget class="QPushButton" name="record">
+           <property name="geometry">
+            <rect>
+             <x>570</x>
+             <y>730</y>
+             <width>99</width>
+             <height>27</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>record</string>
+           </property>
+          </widget>
+          <widget class="QFrame" name="frame_45">
+           <property name="geometry">
+            <rect>
+             <x>410</x>
+             <y>690</y>
+             <width>261</width>
+             <height>31</height>
+            </rect>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <widget class="QLabel" name="label_43">
+            <property name="geometry">
+             <rect>
+              <x>10</x>
+              <y>0</y>
+              <width>101</width>
+              <height>31</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>fpga</string>
+            </property>
+           </widget>
+           <widget class="QCheckBox" name="record_fpga0">
+            <property name="geometry">
+             <rect>
+              <x>60</x>
+              <y>0</y>
+              <width>41</width>
+              <height>31</height>
+             </rect>
+            </property>
+            <property name="whatsThis">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;if selected, the muscles will hold&lt;/p&gt;&lt;p&gt; the current position&lt;/p&gt;&lt;p&gt;if unselected, the muscles will pull &lt;/p&gt;&lt;p&gt;with a constant force while recording&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+           <widget class="QCheckBox" name="record_fpga1">
+            <property name="geometry">
+             <rect>
+              <x>100</x>
+              <y>0</y>
+              <width>41</width>
+              <height>31</height>
+             </rect>
+            </property>
+            <property name="whatsThis">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;if selected, the muscles will hold&lt;/p&gt;&lt;p&gt; the current position&lt;/p&gt;&lt;p&gt;if unselected, the muscles will pull &lt;/p&gt;&lt;p&gt;with a constant force while recording&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="text">
+             <string>1</string>
+            </property>
+           </widget>
+           <widget class="QCheckBox" name="record_fpga2">
+            <property name="geometry">
+             <rect>
+              <x>140</x>
+              <y>0</y>
+              <width>41</width>
+              <height>31</height>
+             </rect>
+            </property>
+            <property name="whatsThis">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;if selected, the muscles will hold&lt;/p&gt;&lt;p&gt; the current position&lt;/p&gt;&lt;p&gt;if unselected, the muscles will pull &lt;/p&gt;&lt;p&gt;with a constant force while recording&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="text">
+             <string>2</string>
+            </property>
+           </widget>
+           <widget class="QCheckBox" name="record_fpga3">
+            <property name="geometry">
+             <rect>
+              <x>180</x>
+              <y>0</y>
+              <width>41</width>
+              <height>31</height>
+             </rect>
+            </property>
+            <property name="whatsThis">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;if selected, the muscles will hold&lt;/p&gt;&lt;p&gt; the current position&lt;/p&gt;&lt;p&gt;if unselected, the muscles will pull &lt;/p&gt;&lt;p&gt;with a constant force while recording&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="text">
+             <string>3</string>
+            </property>
+           </widget>
+           <widget class="QCheckBox" name="record_fpga4">
+            <property name="geometry">
+             <rect>
+              <x>220</x>
+              <y>0</y>
+              <width>41</width>
+              <height>31</height>
+             </rect>
+            </property>
+            <property name="whatsThis">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;if selected, the muscles will hold&lt;/p&gt;&lt;p&gt; the current position&lt;/p&gt;&lt;p&gt;if unselected, the muscles will pull &lt;/p&gt;&lt;p&gt;with a constant force while recording&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="text">
+             <string>4</string>
+            </property>
+           </widget>
+          </widget>
          </widget>
         </item>
        </layout>
@@ -382,6 +769,9 @@
            <height>31</height>
           </rect>
          </property>
+         <property name="text">
+          <string>1</string>
+         </property>
         </widget>
         <widget class="QLabel" name="label">
          <property name="geometry">
@@ -420,6 +810,9 @@
            <width>121</width>
            <height>31</height>
           </rect>
+         </property>
+         <property name="text">
+          <string>0</string>
          </property>
         </widget>
         <widget class="QLabel" name="label_2">
@@ -460,6 +853,9 @@
            <height>31</height>
           </rect>
          </property>
+         <property name="text">
+          <string>0</string>
+         </property>
         </widget>
         <widget class="QLabel" name="label_3">
          <property name="geometry">
@@ -499,6 +895,9 @@
            <height>31</height>
           </rect>
          </property>
+         <property name="text">
+          <string>0</string>
+         </property>
         </widget>
         <widget class="QLabel" name="label_4">
          <property name="geometry">
@@ -537,6 +936,9 @@
            <width>121</width>
            <height>31</height>
           </rect>
+         </property>
+         <property name="text">
+          <string>0</string>
          </property>
         </widget>
         <widget class="QLabel" name="label_5">
@@ -587,8 +989,11 @@
            <x>180</x>
            <y>0</y>
            <width>48</width>
-           <height>27</height>
+           <height>31</height>
           </rect>
+         </property>
+         <property name="whatsThis">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;0 - POSITION&lt;/p&gt;&lt;p&gt;1 - VELOCITY&lt;/p&gt;&lt;p&gt;2 - FORCE&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="maximum">
           <number>2</number>

@@ -53,8 +53,8 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
     QObject::connect(ui.motor12, SIGNAL(valueChanged(int)), this, SLOT(updateSetPoints(int)));
     QObject::connect(ui.motor13, SIGNAL(valueChanged(int)), this, SLOT(updateSetPoints(int)));
     QObject::connect(ui.allMotors, SIGNAL(valueChanged(int)), this, SLOT(updateSetPointsAll(int)));
-
     QObject::connect(ui.updateController, SIGNAL(clicked()), this, SLOT(updateControllerParams()));
+    QObject::connect(ui.record, SIGNAL(clicked()), this, SLOT(recordMovement()));
 
     nh = ros::NodeHandlePtr(new ros::NodeHandle);
     if (!ros::isInitialized()) {
@@ -67,11 +67,13 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
     }
     motorStatus = nh->subscribe("/roboy/MotorStatus", 1, &MainWindow::MotorStatus, this);
     motorConfig = nh->advertise<communication::MotorConfig>("/roboy/MotorConfig", 1);
+    motorRecordConfig = nh->advertise<communication::MotorRecordConfig>("/roboy/MotorRecordConfig", 1);
+    motorRecord = nh->subscribe("/roboy/MotorRecord", 100, &MainWindow::MotorRecordPack, this);
 
     spinner = boost::shared_ptr<ros::AsyncSpinner>(new ros::AsyncSpinner(1));
     spinner->start();
 
-    for(uint motor=0;motor<14;motor++) {
+    for(uint motor=0;motor<NUMBER_OF_MOTORS_PER_FPGA;motor++) {
         ui.position_plot0->addGraph();
         ui.position_plot0->graph(motor)->setPen(QPen(color_pallette[motor]));
         ui.velocity_plot0->addGraph();
@@ -98,6 +100,9 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
     ui.current_plot0->replot();
 
     updateControllerParams();
+
+    model = new QFileSystemModel;
+    movementPathChanged();
 }
 
 MainWindow::~MainWindow() {}
@@ -116,7 +121,7 @@ void MainWindow::showNoMasterMessage() {
 void MainWindow::MotorStatus(const communication::MotorStatus::ConstPtr &msg){
     ROS_INFO_THROTTLE(5, "receiving motor status");
     time.push_back(counter++);
-    for (uint motor = 0; motor < 14; motor++) {
+    for (uint motor = 0; motor < NUMBER_OF_MOTORS_PER_FPGA; motor++) {
         motorData[msg->id][motor][0].push_back(msg->position[motor]);
         motorData[msg->id][motor][1].push_back(msg->velocity[motor]);
         motorData[msg->id][motor][2].push_back(msg->displacement[motor]);
@@ -133,10 +138,33 @@ void MainWindow::MotorStatus(const communication::MotorStatus::ConstPtr &msg){
     Q_EMIT newData(msg->id);
 }
 
+void MainWindow::MotorRecordPack(const communication::MotorRecord::ConstPtr &msg){
+    numberOfRecordsToWaitFor--;
+    records[msg->id][0] = msg->motor0;
+    records[msg->id][1] = msg->motor1;
+    records[msg->id][2] = msg->motor2;
+    records[msg->id][3] = msg->motor3;
+    records[msg->id][4] = msg->motor4;
+    records[msg->id][5] = msg->motor5;
+    records[msg->id][6] = msg->motor6;
+    records[msg->id][7] = msg->motor7;
+    records[msg->id][8] = msg->motor8;
+    records[msg->id][9] = msg->motor9;
+    records[msg->id][10] = msg->motor10;
+    records[msg->id][11] = msg->motor11;
+    records[msg->id][12] = msg->motor12;
+    records[msg->id][13] = msg->motor13;
+    ROS_INFO("received record from %d of length %d with average sampling time %f ms",
+    msg->id, msg->motor0.size(), msg->recordTime/msg->motor0.size()*1000.0f);
+    if(numberOfRecordsToWaitFor==0){
+        ROS_INFO("all records received");
+    }
+}
+
 void MainWindow::plotData(int id) {
     switch(id){
         case 0:
-            for (uint motor = 0; motor < 14; motor++) {
+            for (uint motor = 0; motor < NUMBER_OF_MOTORS_PER_FPGA; motor++) {
                 ui.position_plot0->graph(motor)->setData(time, motorData[id][motor][0]);
                 ui.velocity_plot0->graph(motor)->setData(time, motorData[id][motor][1]);
                 ui.displacement_plot0->graph(motor)->setData(time, motorData[id][motor][2]);
@@ -160,7 +188,7 @@ void MainWindow::plotData(int id) {
             ui.current_plot0->replot();
             break;
         case 1:
-            for (uint motor = 0; motor < 14; motor++) {
+            for (uint motor = 0; motor < NUMBER_OF_MOTORS_PER_FPGA; motor++) {
                 ui.position_plot1->graph(motor)->setData(time, motorData[id][motor][0]);
                 ui.velocity_plot1->graph(motor)->setData(time, motorData[id][motor][1]);
                 ui.displacement_plot1->graph(motor)->setData(time, motorData[id][motor][2]);
@@ -184,7 +212,7 @@ void MainWindow::plotData(int id) {
             ui.current_plot1->replot();
             break;
         case 2:
-            for (uint motor = 0; motor < 14; motor++) {
+            for (uint motor = 0; motor < NUMBER_OF_MOTORS_PER_FPGA; motor++) {
                 ui.position_plot2->graph(motor)->setData(time, motorData[id][motor][0]);
                 ui.velocity_plot2->graph(motor)->setData(time, motorData[id][motor][1]);
                 ui.displacement_plot2->graph(motor)->setData(time, motorData[id][motor][2]);
@@ -208,7 +236,7 @@ void MainWindow::plotData(int id) {
             ui.current_plot2->replot();
             break;
         case 3:
-            for (uint motor = 0; motor < 14; motor++) {
+            for (uint motor = 0; motor < NUMBER_OF_MOTORS_PER_FPGA; motor++) {
                 ui.position_plot3->graph(motor)->setData(time, motorData[id][motor][0]);
                 ui.velocity_plot3->graph(motor)->setData(time, motorData[id][motor][1]);
                 ui.displacement_plot3->graph(motor)->setData(time, motorData[id][motor][2]);
@@ -232,7 +260,7 @@ void MainWindow::plotData(int id) {
             ui.current_plot3->replot();
             break;
         case 4:
-            for (uint motor = 0; motor < 14; motor++) {
+            for (uint motor = 0; motor < NUMBER_OF_MOTORS_PER_FPGA; motor++) {
                 ui.position_plot4->graph(motor)->setData(time, motorData[id][motor][0]);
                 ui.velocity_plot4->graph(motor)->setData(time, motorData[id][motor][1]);
                 ui.displacement_plot4->graph(motor)->setData(time, motorData[id][motor][2]);
@@ -370,7 +398,7 @@ void MainWindow::updateSetPointsAll(int percent){
 
 void MainWindow::updateControllerParams(){
     communication::MotorConfig msg;
-    for(uint motor=0;motor<14;motor++){
+    for(uint motor=0;motor<NUMBER_OF_MOTORS_PER_FPGA;motor++){
         msg.motors.push_back(motor);
         msg.control_mode.push_back(ui.control_mode->value());
         msg.outputPosMax.push_back(1000); // pwm max
@@ -386,6 +414,42 @@ void MainWindow::updateControllerParams(){
         msg.deadBand.push_back(atoi(ui.deadBand->text().toStdString().c_str()));
     }
     motorConfig.publish(msg);
+}
+
+void MainWindow::movementPathChanged(){
+    model->setRootPath(QDir::currentPath());
+    ui.movementFolder->setModel(model);
+}
+
+void MainWindow::recordMovement(){
+    ROS_INFO("start recording");
+    communication::MotorRecordConfig msg;
+    msg.ids = 0;
+    numberOfRecordsToWaitFor = 0;
+    if(ui.record_fpga0->isChecked()) {
+        msg.ids |= (1 << 0);
+        numberOfRecordsToWaitFor++;
+    }
+    if(ui.record_fpga1->isChecked()){
+        msg.ids |= (1<<1);
+        numberOfRecordsToWaitFor++;
+    }
+    if(ui.record_fpga2->isChecked()){
+        msg.ids |= (1<<2);
+        numberOfRecordsToWaitFor++;
+    }
+    if(ui.record_fpga3->isChecked()){
+        msg.ids |= (1<<3);
+        numberOfRecordsToWaitFor++;
+    }
+    if(ui.record_fpga4->isChecked()){
+        msg.ids |= (1<<4);
+        numberOfRecordsToWaitFor++;
+    }
+
+    msg.samplingTime = atoi(ui.samplingTime->text().toStdString().c_str());
+    msg.recordTime = atoi(ui.recordTime->text().toStdString().c_str());
+    motorRecordConfig.publish(msg);
 }
 
 /*****************************************************************************
