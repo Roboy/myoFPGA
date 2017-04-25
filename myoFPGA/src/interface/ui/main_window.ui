@@ -60,7 +60,7 @@
             <rect>
              <x>10</x>
              <y>730</y>
-             <width>99</width>
+             <width>81</width>
              <height>27</height>
             </rect>
            </property>
@@ -71,9 +71,9 @@
           <widget class="QPushButton" name="stop">
            <property name="geometry">
             <rect>
-             <x>110</x>
+             <x>190</x>
              <y>730</y>
-             <width>99</width>
+             <width>71</width>
              <height>27</height>
             </rect>
            </property>
@@ -84,9 +84,9 @@
           <widget class="QPushButton" name="loop">
            <property name="geometry">
             <rect>
-             <x>210</x>
+             <x>270</x>
              <y>730</y>
-             <width>99</width>
+             <width>71</width>
              <height>27</height>
             </rect>
            </property>
@@ -100,9 +100,9 @@
           <widget class="QPushButton" name="rewind">
            <property name="geometry">
             <rect>
-             <x>310</x>
+             <x>350</x>
              <y>730</y>
-             <width>99</width>
+             <width>71</width>
              <height>27</height>
             </rect>
            </property>
@@ -270,38 +270,6 @@
            <property name="frameShadow">
             <enum>QFrame::Raised</enum>
            </property>
-           <widget class="QLabel" name="label_42">
-            <property name="geometry">
-             <rect>
-              <x>10</x>
-              <y>0</y>
-              <width>101</width>
-              <height>31</height>
-             </rect>
-            </property>
-            <property name="text">
-             <string>controlMode</string>
-            </property>
-           </widget>
-           <widget class="QSpinBox" name="control_mode_record">
-            <property name="geometry">
-             <rect>
-              <x>110</x>
-              <y>0</y>
-              <width>48</width>
-              <height>31</height>
-             </rect>
-            </property>
-            <property name="whatsThis">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;0 - POSITION&lt;/p&gt;&lt;p&gt;1 - VELOCITY&lt;/p&gt;&lt;p&gt;2 - FORCE&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-            </property>
-            <property name="maximum">
-             <number>2</number>
-            </property>
-            <property name="value">
-             <number>2</number>
-            </property>
-           </widget>
            <widget class="QCheckBox" name="passiv">
             <property name="geometry">
              <rect>
@@ -443,6 +411,25 @@
              <string>4</string>
             </property>
            </widget>
+          </widget>
+          <widget class="QPushButton" name="pause">
+           <property name="geometry">
+            <rect>
+             <x>100</x>
+             <y>730</y>
+             <width>81</width>
+             <height>27</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>pause</string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <property name="checked">
+            <bool>false</bool>
+           </property>
           </widget>
          </widget>
         </item>
@@ -770,7 +757,7 @@
           </rect>
          </property>
          <property name="text">
-          <string>1</string>
+          <string>10</string>
          </property>
         </widget>
         <widget class="QLabel" name="label">
@@ -778,7 +765,7 @@
           <rect>
            <x>70</x>
            <y>0</y>
-           <width>101</width>
+           <width>41</width>
            <height>31</height>
           </rect>
          </property>
@@ -820,7 +807,7 @@
           <rect>
            <x>70</x>
            <y>0</y>
-           <width>101</width>
+           <width>41</width>
            <height>31</height>
           </rect>
          </property>
@@ -862,7 +849,7 @@
           <rect>
            <x>70</x>
            <y>0</y>
-           <width>101</width>
+           <width>41</width>
            <height>31</height>
           </rect>
          </property>
@@ -904,7 +891,7 @@
           <rect>
            <x>20</x>
            <y>0</y>
-           <width>101</width>
+           <width>91</width>
            <height>31</height>
           </rect>
          </property>
@@ -946,7 +933,7 @@
           <rect>
            <x>30</x>
            <y>0</y>
-           <width>101</width>
+           <width>81</width>
            <height>31</height>
           </rect>
          </property>

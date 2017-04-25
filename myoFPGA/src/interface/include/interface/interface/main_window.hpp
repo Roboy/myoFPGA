@@ -55,12 +55,17 @@ public Q_SLOTS:
     void movementPathChanged();
     void recordMovement();
     void plotData(int id);
+    bool playMovement();
+    void stopMovement();
+    void rewindMovement();
+    void pauseMovement();
+    void loopMovement();
 Q_SIGNALS:
     void newData(int id);
 private:
 	Ui::MainWindowDesign ui;
     ros::NodeHandlePtr nh;
-    ros::Publisher motorConfig, motorRecordConfig;
+    ros::Publisher motorConfig, motorRecordConfig, motorTrajectory, motorTrajectoryControl;
     ros::Subscriber motorStatus, motorRecord;
     QVector<double> time;
     QVector<double> motorData[NUMBER_OF_FPGAS][NUMBER_OF_MOTORS_PER_FPGA][4];

@@ -55,6 +55,11 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
     QObject::connect(ui.allMotors, SIGNAL(valueChanged(int)), this, SLOT(updateSetPointsAll(int)));
     QObject::connect(ui.updateController, SIGNAL(clicked()), this, SLOT(updateControllerParams()));
     QObject::connect(ui.record, SIGNAL(clicked()), this, SLOT(recordMovement()));
+    QObject::connect(ui.play, SIGNAL(clicked()), this, SLOT(playMovement()));
+    QObject::connect(ui.stop, SIGNAL(clicked()), this, SLOT(stopMovement()));
+    QObject::connect(ui.rewind, SIGNAL(clicked()), this, SLOT(rewindMovement()));
+    QObject::connect(ui.pause, SIGNAL(clicked()), this, SLOT(pauseMovement()));
+    QObject::connect(ui.loop, SIGNAL(clicked()), this, SLOT(loopMovement()));
 
     nh = ros::NodeHandlePtr(new ros::NodeHandle);
     if (!ros::isInitialized()) {
@@ -69,6 +74,8 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
     motorConfig = nh->advertise<communication::MotorConfig>("/roboy/MotorConfig", 1);
     motorRecordConfig = nh->advertise<communication::MotorRecordConfig>("/roboy/MotorRecordConfig", 1);
     motorRecord = nh->subscribe("/roboy/MotorRecord", 100, &MainWindow::MotorRecordPack, this);
+    motorTrajectory = nh->advertise<communication::MotorRecord>("/roboy/MotorTrajectory", 1);
+    motorTrajectoryControl = nh->advertise<communication::MotorTrajectoryControl>("/roboy/MotorTrajectoryControl", 1);
 
     spinner = boost::shared_ptr<ros::AsyncSpinner>(new ros::AsyncSpinner(1));
     spinner->start();
@@ -154,7 +161,7 @@ void MainWindow::MotorRecordPack(const communication::MotorRecord::ConstPtr &msg
     records[msg->id][11] = msg->motor11;
     records[msg->id][12] = msg->motor12;
     records[msg->id][13] = msg->motor13;
-    ROS_INFO("received record from %d of length %d with average sampling time %f ms",
+    ROS_INFO("received record from %d of length %ld with average sampling time %f ms",
     msg->id, msg->motor0.size(), msg->recordTime/msg->motor0.size()*1000.0f);
     if(numberOfRecordsToWaitFor==0){
         ROS_INFO("all records received");
@@ -164,22 +171,19 @@ void MainWindow::MotorRecordPack(const communication::MotorRecord::ConstPtr &msg
             if (outfile.is_open()) {
                 outfile << "<?xml version=\"1.0\" ?>"
                         << std::endl;
+                outfile << "<roboy_trajectory control_mode=\""
+                        << ui.control_mode->text().toStdString() << "\" samplingTime=\""
+                        << atoi(ui.samplingTime->text().toStdString().c_str()) << "\">" << endl;
                 for(uint motor=0;motor<NUMBER_OF_MOTORS_PER_FPGA;motor++) {
-                    outfile << "<trajectory motorid=\"" << motor << "\" controlmode=\""
-                            << ui.control_mode->text().toStdString() << "\" samplingTime=\""
-                            << atoi(ui.samplingTime->text().toStdString().c_str()) << "\">"
+                    outfile << "<trajectory motorid=\"" << motor << "\">"
                             << std::endl;
-                    outfile << "<waypointlist>" << std::endl;
                     for (uint i = 0; i < rec.second[motor].size(); i++)
                         outfile << rec.second[motor][i] << " ";
-                    outfile << "</waypointlist>" << std::endl;
                     outfile << "</trajectory>" << std::endl;
                 }
-
-                outfile << "</roboybehavior>" << std::endl;
+                outfile << "</roboy_trajectory>" << endl;
                 outfile.close();
             }
-
         }
     }
 }
@@ -310,24 +314,160 @@ void MainWindow::plotData(int id) {
 
 }
 
+bool MainWindow::playMovement(){
+    // initialize TiXmlDocument doc with a string
+    QModelIndexList indexList = ui.movementFolder->selectionModel()->selectedIndexes();
+    ROS_INFO_STREAM("loading trajectory " << model->filePath(indexList[0]).toStdString().c_str());
+    TiXmlDocument doc(model->filePath(indexList[0]).toStdString().c_str());
+    if (!doc.LoadFile()) {
+        return false;
+    }
+
+    TiXmlElement *root = doc.RootElement();
+
+    int numberOfSamples, samplingTime, control_mode;
+
+    root->QueryIntAttribute("control_mode", &control_mode);
+    root->QueryIntAttribute("samplingTime",&samplingTime);
+    ROS_INFO("recognized roboy_trajectory in control_mode %d with samplingTime %d", control_mode, samplingTime);
+
+    communication::MotorRecord msg;
+
+    // Constructs the myoMuscles by parsing custom xml.
+    TiXmlElement *trajectory_it = NULL;
+    for (trajectory_it = root->FirstChildElement("trajectory"); trajectory_it;
+         trajectory_it = trajectory_it->NextSiblingElement("trajectory")) {
+        int motor;
+        if (trajectory_it->QueryIntAttribute("motorid", &motor)==TIXML_SUCCESS) {
+
+            stringstream stream(trajectory_it->GetText());
+            while (1) {
+                int n;
+                stream >> n;
+                switch (motor) {
+                    case 0:
+                        msg.motor0.push_back(n);
+                        break;
+                    case 1:
+                        msg.motor1.push_back(n);
+                        break;
+                    case 2:
+                        msg.motor2.push_back(n);
+                        break;
+                    case 3:
+                        msg.motor3.push_back(n);
+                        break;
+                    case 4:
+                        msg.motor4.push_back(n);
+                        break;
+                    case 5:
+                        msg.motor5.push_back(n);
+                        break;
+                    case 6:
+                        msg.motor6.push_back(n);
+                        break;
+                    case 7:
+                        msg.motor7.push_back(n);
+                        break;
+                    case 8:
+                        msg.motor8.push_back(n);
+                        break;
+                    case 9:
+                        msg.motor9.push_back(n);
+                        break;
+                    case 10:
+                        msg.motor10.push_back(n);
+                        break;
+                    case 11:
+                        msg.motor11.push_back(n);
+                        break;
+                    case 12:
+                        msg.motor12.push_back(n);
+                        break;
+                    case 13:
+                        msg.motor13.push_back(n);
+                        break;
+                    default:
+                        ROS_ERROR("motorid %d is not available, aborting. check you recorded trajectory", motor);
+                        return false;
+                }
+
+                if (!stream) {
+                    numberOfSamples = msg.motor0.size();
+                    break;
+                }
+            }
+        }else{
+            ROS_ERROR("trajectory without motorid, aborting. check you trajectory file");
+            return false;
+        }
+    }
+
+    msg.samplingTime = samplingTime;
+    msg.control_mode = control_mode;
+
+    motorTrajectory.publish(msg);
+    return true;
+}
+
+void MainWindow::stopMovement(){
+    ROS_INFO("stop movement");
+    communication::MotorTrajectoryControl msg;
+    msg.play = false;
+    msg.pause = ui.pause->isChecked();
+    msg.rewind = false;
+    msg.loop = ui.loop->isChecked();
+    motorTrajectoryControl.publish(msg);
+}
+
+void MainWindow::rewindMovement(){
+    ROS_INFO("rewind movement");
+    communication::MotorTrajectoryControl msg;
+    msg.play = true;
+    msg.pause = ui.pause->isChecked();
+    msg.rewind = true;
+    msg.loop = ui.loop->isChecked();
+    motorTrajectoryControl.publish(msg);
+}
+
+void MainWindow::pauseMovement(){
+    ROS_INFO("pause movement");
+    communication::MotorTrajectoryControl msg;
+    msg.play = true;
+    msg.pause = ui.pause->isChecked();
+    msg.rewind = false;
+    msg.loop = ui.loop->isChecked();
+    motorTrajectoryControl.publish(msg);
+}
+
+void MainWindow::loopMovement(){
+    ROS_INFO("loop movement");
+    communication::MotorTrajectoryControl msg;
+    msg.play = true;
+    msg.pause = ui.pause->isChecked();
+    msg.rewind = false;
+    msg.loop = ui.loop->isChecked();
+    motorTrajectoryControl.publish(msg);
+}
+
 void MainWindow::updateSetPoints(int percent){
     std::lock_guard<std::mutex> lock(myoMaster->mux);
     switch(ui.control_mode->value()){
         case POSITION:
-            myoMaster->changeSetPoint(0,ui.motor0->value()*100000);
-            myoMaster->changeSetPoint(1,ui.motor1->value()*100000);
-            myoMaster->changeSetPoint(2,ui.motor2->value()*100000);
-            myoMaster->changeSetPoint(3,ui.motor3->value()*100000);
-            myoMaster->changeSetPoint(4,ui.motor4->value()*100000);
-            myoMaster->changeSetPoint(5,ui.motor5->value()*100000);
-            myoMaster->changeSetPoint(6,ui.motor6->value()*100000);
-            myoMaster->changeSetPoint(7,ui.motor7->value()*100000);
-            myoMaster->changeSetPoint(8,ui.motor8->value()*100000);
-            myoMaster->changeSetPoint(9,ui.motor9->value()*100000);
-            myoMaster->changeSetPoint(10,ui.motor10->value()*100000);
-            myoMaster->changeSetPoint(11,ui.motor11->value()*100000);
-            myoMaster->changeSetPoint(12,ui.motor12->value()*100000);
-            myoMaster->changeSetPoint(13,ui.motor13->value()*100000);
+            myoMaster->changeSetPoint(0,ui.motor0->value()*3000);
+            myoMaster->changeSetPoint(1,ui.motor1->value()*3000);
+            myoMaster->changeSetPoint(2,ui.motor2->value()*3000);
+            myoMaster->changeSetPoint(3,ui.motor3->value()*3000);
+            myoMaster->changeSetPoint(4,ui.motor4->value()*3000);
+            myoMaster->changeSetPoint(5,ui.motor5->value()*3000);
+            myoMaster->changeSetPoint(6,ui.motor6->value()*3000);
+            myoMaster->changeSetPoint(7,ui.motor7->value()*3000);
+            myoMaster->changeSetPoint(8,ui.motor8->value()*3000);
+            myoMaster->changeSetPoint(9,ui.motor9->value()*3000);
+            myoMaster->changeSetPoint(10,ui.motor10->value()*3000);
+            myoMaster->changeSetPoint(11,ui.motor11->value()*3000);
+            myoMaster->changeSetPoint(12,ui.motor12->value()*3000);
+            myoMaster->changeSetPoint(13,ui.motor13->value()*3000);
             break;
         case VELOCITY:
             myoMaster->changeSetPoint(0,ui.motor0->value());
@@ -347,20 +487,20 @@ void MainWindow::updateSetPoints(int percent){
             break;
         case DISPLACEMENT:
 //            myoMaster->changeSetPoint(ui.motor0->value()*20);
-            myoMaster->changeSetPoint(0,ui.motor0->value()*20);
-            myoMaster->changeSetPoint(1,ui.motor1->value()*20);
-            myoMaster->changeSetPoint(2,ui.motor2->value()*20);
-            myoMaster->changeSetPoint(3,ui.motor3->value()*20);
-            myoMaster->changeSetPoint(4,ui.motor4->value()*20);
-            myoMaster->changeSetPoint(5,ui.motor5->value()*20);
-            myoMaster->changeSetPoint(6,ui.motor6->value()*20);
-            myoMaster->changeSetPoint(7,ui.motor7->value()*20);
-            myoMaster->changeSetPoint(8,ui.motor8->value()*20);
-            myoMaster->changeSetPoint(9,ui.motor9->value()*20);
-            myoMaster->changeSetPoint(10,ui.motor10->value()*20);
-            myoMaster->changeSetPoint(11,ui.motor11->value()*20);
-            myoMaster->changeSetPoint(12,ui.motor12->value()*20);
-            myoMaster->changeSetPoint(13,ui.motor13->value()*20);
+            myoMaster->changeSetPoint(0,ui.motor0->value());
+            myoMaster->changeSetPoint(1,ui.motor1->value());
+            myoMaster->changeSetPoint(2,ui.motor2->value());
+            myoMaster->changeSetPoint(3,ui.motor3->value());
+            myoMaster->changeSetPoint(4,ui.motor4->value());
+            myoMaster->changeSetPoint(5,ui.motor5->value());
+            myoMaster->changeSetPoint(6,ui.motor6->value());
+            myoMaster->changeSetPoint(7,ui.motor7->value());
+            myoMaster->changeSetPoint(8,ui.motor8->value());
+            myoMaster->changeSetPoint(9,ui.motor9->value());
+            myoMaster->changeSetPoint(10,ui.motor10->value());
+            myoMaster->changeSetPoint(11,ui.motor11->value());
+            myoMaster->changeSetPoint(12,ui.motor12->value());
+            myoMaster->changeSetPoint(13,ui.motor13->value());
             break;
     }
 }
@@ -369,20 +509,20 @@ void MainWindow::updateSetPointsAll(int percent){
     std::lock_guard<std::mutex> lock(myoMaster->mux);
     switch(ui.control_mode->value()){
         case POSITION:
-            myoMaster->changeSetPoint(0,ui.allMotors->value()*100000);
-            myoMaster->changeSetPoint(1,ui.allMotors->value()*100000);
-            myoMaster->changeSetPoint(2,ui.allMotors->value()*100000);
-            myoMaster->changeSetPoint(3,ui.allMotors->value()*100000);
-            myoMaster->changeSetPoint(4,ui.allMotors->value()*100000);
-            myoMaster->changeSetPoint(5,ui.allMotors->value()*100000);
-            myoMaster->changeSetPoint(6,ui.allMotors->value()*100000);
-            myoMaster->changeSetPoint(7,ui.allMotors->value()*100000);
-            myoMaster->changeSetPoint(8,ui.allMotors->value()*100000);
-            myoMaster->changeSetPoint(9,ui.allMotors->value()*100000);
-            myoMaster->changeSetPoint(10,ui.allMotors->value()*100000);
-            myoMaster->changeSetPoint(11,ui.allMotors->value()*100000);
-            myoMaster->changeSetPoint(12,ui.allMotors->value()*100000);
-            myoMaster->changeSetPoint(13,ui.allMotors->value()*100000);
+            myoMaster->changeSetPoint(0,ui.allMotors->value()*3000);
+            myoMaster->changeSetPoint(1,ui.allMotors->value()*3000);
+            myoMaster->changeSetPoint(2,ui.allMotors->value()*3000);
+            myoMaster->changeSetPoint(3,ui.allMotors->value()*3000);
+            myoMaster->changeSetPoint(4,ui.allMotors->value()*3000);
+            myoMaster->changeSetPoint(5,ui.allMotors->value()*3000);
+            myoMaster->changeSetPoint(6,ui.allMotors->value()*3000);
+            myoMaster->changeSetPoint(7,ui.allMotors->value()*3000);
+            myoMaster->changeSetPoint(8,ui.allMotors->value()*3000);
+            myoMaster->changeSetPoint(9,ui.allMotors->value()*3000);
+            myoMaster->changeSetPoint(10,ui.allMotors->value()*3000);
+            myoMaster->changeSetPoint(11,ui.allMotors->value()*3000);
+            myoMaster->changeSetPoint(12,ui.allMotors->value()*3000);
+            myoMaster->changeSetPoint(13,ui.allMotors->value()*3000);
             break;
         case VELOCITY:
             myoMaster->changeSetPoint(0,ui.allMotors->value());
@@ -401,20 +541,20 @@ void MainWindow::updateSetPointsAll(int percent){
             myoMaster->changeSetPoint(13,ui.allMotors->value());
             break;
         case DISPLACEMENT:
-            myoMaster->changeSetPoint(0,ui.allMotors->value()*20);
-            myoMaster->changeSetPoint(1,ui.allMotors->value()*20);
-            myoMaster->changeSetPoint(2,ui.allMotors->value()*20);
-            myoMaster->changeSetPoint(3,ui.allMotors->value()*20);
-            myoMaster->changeSetPoint(4,ui.allMotors->value()*20);
-            myoMaster->changeSetPoint(5,ui.allMotors->value()*20);
-            myoMaster->changeSetPoint(6,ui.allMotors->value()*20);
-            myoMaster->changeSetPoint(7,ui.allMotors->value()*20);
-            myoMaster->changeSetPoint(8,ui.allMotors->value()*20);
-            myoMaster->changeSetPoint(9,ui.allMotors->value()*20);
-            myoMaster->changeSetPoint(10,ui.allMotors->value()*20);
-            myoMaster->changeSetPoint(11,ui.allMotors->value()*20);
-            myoMaster->changeSetPoint(12,ui.allMotors->value()*20);
-            myoMaster->changeSetPoint(13,ui.allMotors->value()*20);
+            myoMaster->changeSetPoint(0,ui.allMotors->value());
+            myoMaster->changeSetPoint(1,ui.allMotors->value());
+            myoMaster->changeSetPoint(2,ui.allMotors->value());
+            myoMaster->changeSetPoint(3,ui.allMotors->value());
+            myoMaster->changeSetPoint(4,ui.allMotors->value());
+            myoMaster->changeSetPoint(5,ui.allMotors->value());
+            myoMaster->changeSetPoint(6,ui.allMotors->value());
+            myoMaster->changeSetPoint(7,ui.allMotors->value());
+            myoMaster->changeSetPoint(8,ui.allMotors->value());
+            myoMaster->changeSetPoint(9,ui.allMotors->value());
+            myoMaster->changeSetPoint(10,ui.allMotors->value());
+            myoMaster->changeSetPoint(11,ui.allMotors->value());
+            myoMaster->changeSetPoint(12,ui.allMotors->value());
+            myoMaster->changeSetPoint(13,ui.allMotors->value());
             break;
     }
 }
@@ -470,6 +610,7 @@ void MainWindow::recordMovement(){
         numberOfRecordsToWaitFor++;
     }
 
+    msg.control_mode = ui.control_mode->value();
     msg.samplingTime = atoi(ui.samplingTime->text().toStdString().c_str());
     msg.recordTime = atoi(ui.recordTime->text().toStdString().c_str());
     motorRecordConfig.publish(msg);
