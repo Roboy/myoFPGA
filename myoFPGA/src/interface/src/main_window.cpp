@@ -36,7 +36,7 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
 	setWindowIcon(QIcon(":/images/icon.png"));
 	ui.tab_manager->setCurrentIndex(0); // ensure the first tab is showing - qt-designer should have this already hardwired, but often loses it (settings?).
 
-    QObject::connect(this, SIGNAL(newData()), this, SLOT(plotData()));
+    QObject::connect(this, SIGNAL(newData(int)), this, SLOT(plotData(int)));
 
     QObject::connect(ui.motor0, SIGNAL(valueChanged(int)), this, SLOT(updateSetPoints(int)));
     QObject::connect(ui.motor1, SIGNAL(valueChanged(int)), this, SLOT(updateSetPoints(int)));
@@ -52,6 +52,7 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
     QObject::connect(ui.motor11, SIGNAL(valueChanged(int)), this, SLOT(updateSetPoints(int)));
     QObject::connect(ui.motor12, SIGNAL(valueChanged(int)), this, SLOT(updateSetPoints(int)));
     QObject::connect(ui.motor13, SIGNAL(valueChanged(int)), this, SLOT(updateSetPoints(int)));
+    QObject::connect(ui.allMotors, SIGNAL(valueChanged(int)), this, SLOT(updateSetPointsAll(int)));
 
     QObject::connect(ui.updateController, SIGNAL(clicked()), this, SLOT(updateControllerParams()));
 
@@ -70,25 +71,31 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
     spinner = boost::shared_ptr<ros::AsyncSpinner>(new ros::AsyncSpinner(1));
     spinner->start();
 
-    ui.position_plot->addGraph();
-    ui.position_plot->xAxis->setLabel("x");
-    ui.position_plot->yAxis->setLabel("ticks");
-    ui.position_plot->replot();
+    for(uint motor=0;motor<14;motor++) {
+        ui.position_plot0->addGraph();
+        ui.position_plot0->graph(motor)->setPen(QPen(color_pallette[motor]));
+        ui.velocity_plot0->addGraph();
+        ui.velocity_plot0->graph(motor)->setPen(QPen(color_pallette[motor]));
+        ui.displacement_plot0->addGraph();
+        ui.displacement_plot0->graph(motor)->setPen(QPen(color_pallette[motor]));
+        ui.current_plot0->addGraph();
+        ui.current_plot0->graph(motor)->setPen(QPen(color_pallette[motor]));
+    }
+    ui.position_plot0->xAxis->setLabel("x");
+    ui.position_plot0->yAxis->setLabel("ticks");
+    ui.position_plot0->replot();
 
-    ui.velocity_plot->addGraph();
-    ui.velocity_plot->xAxis->setLabel("x");
-    ui.velocity_plot->yAxis->setLabel("ticks/s");
-    ui.velocity_plot->replot();
+    ui.velocity_plot0->xAxis->setLabel("x");
+    ui.velocity_plot0->yAxis->setLabel("ticks/s");
+    ui.velocity_plot0->replot();
 
-    ui.displacement_plot->addGraph();
-    ui.displacement_plot->xAxis->setLabel("x");
-    ui.displacement_plot->yAxis->setLabel("ticks");
-    ui.displacement_plot->replot();
+    ui.displacement_plot0->xAxis->setLabel("x");
+    ui.displacement_plot0->yAxis->setLabel("ticks");
+    ui.displacement_plot0->replot();
 
-    ui.current_plot->addGraph();
-    ui.current_plot->xAxis->setLabel("x");
-    ui.current_plot->yAxis->setLabel("mA");
-    ui.current_plot->replot();
+    ui.current_plot0->xAxis->setLabel("x");
+    ui.current_plot0->yAxis->setLabel("mA");
+    ui.current_plot0->replot();
 
     updateControllerParams();
 }
@@ -110,38 +117,146 @@ void MainWindow::MotorStatus(const communication::MotorStatus::ConstPtr &msg){
     ROS_INFO_THROTTLE(5, "receiving motor status");
     time.push_back(counter++);
     for (uint motor = 0; motor < 14; motor++) {
-        motorData[motor][0].push_back(msg->position[motor]);
-        motorData[motor][1].push_back(msg->velocity[motor]);
-        motorData[motor][2].push_back(msg->displacement[motor]);
-        motorData[motor][3].push_back(msg->current[motor]);
-        if(motorData[motor][0].size()>samples_per_plot){
-            motorData[motor][0].pop_front();
-            motorData[motor][1].pop_front();
-            motorData[motor][2].pop_front();
-            motorData[motor][3].pop_front();
+        motorData[msg->id][motor][0].push_back(msg->position[motor]);
+        motorData[msg->id][motor][1].push_back(msg->velocity[motor]);
+        motorData[msg->id][motor][2].push_back(msg->displacement[motor]);
+        motorData[msg->id][motor][3].push_back(msg->current[motor]);
+        if(motorData[msg->id][motor][0].size()>samples_per_plot){
+            motorData[msg->id][motor][0].pop_front();
+            motorData[msg->id][motor][1].pop_front();
+            motorData[msg->id][motor][2].pop_front();
+            motorData[msg->id][motor][3].pop_front();
         }
     }
     if(time.size()>samples_per_plot)
         time.pop_front();
-    Q_EMIT newData();
+    Q_EMIT newData(msg->id);
 }
 
-void MainWindow::plotData() {
-    ui.position_plot->graph(0)->setData(time, motorData[0][0]);
-    ui.position_plot->graph(0)->rescaleAxes();
-    ui.position_plot->replot();
+void MainWindow::plotData(int id) {
+    switch(id){
+        case 0:
+            for (uint motor = 0; motor < 14; motor++) {
+                ui.position_plot0->graph(motor)->setData(time, motorData[id][motor][0]);
+                ui.velocity_plot0->graph(motor)->setData(time, motorData[id][motor][1]);
+                ui.displacement_plot0->graph(motor)->setData(time, motorData[id][motor][2]);
+                ui.current_plot0->graph(motor)->setData(time, motorData[id][motor][3]);
 
-    ui.velocity_plot->graph(0)->setData(time, motorData[0][1]);
-    ui.velocity_plot->graph(0)->rescaleAxes();
-    ui.velocity_plot->replot();
+                if (motor == 0) {
+                    ui.position_plot0->graph(motor)->rescaleAxes();
+                    ui.velocity_plot0->graph(motor)->rescaleAxes();
+                    ui.displacement_plot0->graph(motor)->rescaleAxes();
+                    ui.current_plot0->graph(motor)->rescaleAxes();
+                } else {
+                    ui.position_plot0->graph(motor)->rescaleAxes(true);
+                    ui.velocity_plot0->graph(motor)->rescaleAxes(true);
+                    ui.displacement_plot0->graph(motor)->rescaleAxes(true);
+                    ui.current_plot0->graph(motor)->rescaleAxes(true);
+                }
+            }
+            ui.position_plot0->replot();
+            ui.velocity_plot0->replot();
+            ui.displacement_plot0->replot();
+            ui.current_plot0->replot();
+            break;
+        case 1:
+            for (uint motor = 0; motor < 14; motor++) {
+                ui.position_plot1->graph(motor)->setData(time, motorData[id][motor][0]);
+                ui.velocity_plot1->graph(motor)->setData(time, motorData[id][motor][1]);
+                ui.displacement_plot1->graph(motor)->setData(time, motorData[id][motor][2]);
+                ui.current_plot1->graph(motor)->setData(time, motorData[id][motor][3]);
 
-    ui.displacement_plot->graph(0)->setData(time, motorData[0][2]);
-    ui.displacement_plot->graph(0)->rescaleAxes();
-    ui.displacement_plot->replot();
+                if (motor == 0) {
+                    ui.position_plot1->graph(motor)->rescaleAxes();
+                    ui.velocity_plot1->graph(motor)->rescaleAxes();
+                    ui.displacement_plot1->graph(motor)->rescaleAxes();
+                    ui.current_plot1->graph(motor)->rescaleAxes();
+                } else {
+                    ui.position_plot1->graph(motor)->rescaleAxes(true);
+                    ui.velocity_plot1->graph(motor)->rescaleAxes(true);
+                    ui.displacement_plot1->graph(motor)->rescaleAxes(true);
+                    ui.current_plot1->graph(motor)->rescaleAxes(true);
+                }
+            }
+            ui.position_plot1->replot();
+            ui.velocity_plot1->replot();
+            ui.displacement_plot1->replot();
+            ui.current_plot1->replot();
+            break;
+        case 2:
+            for (uint motor = 0; motor < 14; motor++) {
+                ui.position_plot2->graph(motor)->setData(time, motorData[id][motor][0]);
+                ui.velocity_plot2->graph(motor)->setData(time, motorData[id][motor][1]);
+                ui.displacement_plot2->graph(motor)->setData(time, motorData[id][motor][2]);
+                ui.current_plot2->graph(motor)->setData(time, motorData[id][motor][3]);
 
-    ui.current_plot->graph(0)->setData(time, motorData[0][3]);
-    ui.current_plot->graph(0)->rescaleAxes();
-    ui.current_plot->replot();
+                if (motor == 0) {
+                    ui.position_plot2->graph(motor)->rescaleAxes();
+                    ui.velocity_plot2->graph(motor)->rescaleAxes();
+                    ui.displacement_plot2->graph(motor)->rescaleAxes();
+                    ui.current_plot2->graph(motor)->rescaleAxes();
+                } else {
+                    ui.position_plot2->graph(motor)->rescaleAxes(true);
+                    ui.velocity_plot2->graph(motor)->rescaleAxes(true);
+                    ui.displacement_plot2->graph(motor)->rescaleAxes(true);
+                    ui.current_plot2->graph(motor)->rescaleAxes(true);
+                }
+            }
+            ui.position_plot2->replot();
+            ui.velocity_plot2->replot();
+            ui.displacement_plot2->replot();
+            ui.current_plot2->replot();
+            break;
+        case 3:
+            for (uint motor = 0; motor < 14; motor++) {
+                ui.position_plot3->graph(motor)->setData(time, motorData[id][motor][0]);
+                ui.velocity_plot3->graph(motor)->setData(time, motorData[id][motor][1]);
+                ui.displacement_plot3->graph(motor)->setData(time, motorData[id][motor][2]);
+                ui.current_plot3->graph(motor)->setData(time, motorData[id][motor][3]);
+
+                if (motor == 0) {
+                    ui.position_plot3->graph(motor)->rescaleAxes();
+                    ui.velocity_plot3->graph(motor)->rescaleAxes();
+                    ui.displacement_plot3->graph(motor)->rescaleAxes();
+                    ui.current_plot3->graph(motor)->rescaleAxes();
+                } else {
+                    ui.position_plot3->graph(motor)->rescaleAxes(true);
+                    ui.velocity_plot3->graph(motor)->rescaleAxes(true);
+                    ui.displacement_plot3->graph(motor)->rescaleAxes(true);
+                    ui.current_plot3->graph(motor)->rescaleAxes(true);
+                }
+            }
+            ui.position_plot3->replot();
+            ui.velocity_plot3->replot();
+            ui.displacement_plot3->replot();
+            ui.current_plot3->replot();
+            break;
+        case 4:
+            for (uint motor = 0; motor < 14; motor++) {
+                ui.position_plot4->graph(motor)->setData(time, motorData[id][motor][0]);
+                ui.velocity_plot4->graph(motor)->setData(time, motorData[id][motor][1]);
+                ui.displacement_plot4->graph(motor)->setData(time, motorData[id][motor][2]);
+                ui.current_plot4->graph(motor)->setData(time, motorData[id][motor][3]);
+
+                if (motor == 0) {
+                    ui.position_plot4->graph(motor)->rescaleAxes();
+                    ui.velocity_plot4->graph(motor)->rescaleAxes();
+                    ui.displacement_plot4->graph(motor)->rescaleAxes();
+                    ui.current_plot4->graph(motor)->rescaleAxes();
+                } else {
+                    ui.position_plot4->graph(motor)->rescaleAxes(true);
+                    ui.velocity_plot4->graph(motor)->rescaleAxes(true);
+                    ui.displacement_plot4->graph(motor)->rescaleAxes(true);
+                    ui.current_plot4->graph(motor)->rescaleAxes(true);
+                }
+            }
+            ui.position_plot4->replot();
+            ui.velocity_plot4->replot();
+            ui.displacement_plot4->replot();
+            ui.current_plot4->replot();
+            break;
+    }
+
 }
 
 void MainWindow::updateSetPoints(int percent){
@@ -195,6 +310,60 @@ void MainWindow::updateSetPoints(int percent){
             myoMaster->changeSetPoint(11,ui.motor11->value()*20);
             myoMaster->changeSetPoint(12,ui.motor12->value()*20);
             myoMaster->changeSetPoint(13,ui.motor13->value()*20);
+            break;
+    }
+}
+
+void MainWindow::updateSetPointsAll(int percent){
+    std::lock_guard<std::mutex> lock(myoMaster->mux);
+    switch(ui.control_mode->value()){
+        case POSITION:
+            myoMaster->changeSetPoint(0,ui.allMotors->value()*100000);
+            myoMaster->changeSetPoint(1,ui.allMotors->value()*100000);
+            myoMaster->changeSetPoint(2,ui.allMotors->value()*100000);
+            myoMaster->changeSetPoint(3,ui.allMotors->value()*100000);
+            myoMaster->changeSetPoint(4,ui.allMotors->value()*100000);
+            myoMaster->changeSetPoint(5,ui.allMotors->value()*100000);
+            myoMaster->changeSetPoint(6,ui.allMotors->value()*100000);
+            myoMaster->changeSetPoint(7,ui.allMotors->value()*100000);
+            myoMaster->changeSetPoint(8,ui.allMotors->value()*100000);
+            myoMaster->changeSetPoint(9,ui.allMotors->value()*100000);
+            myoMaster->changeSetPoint(10,ui.allMotors->value()*100000);
+            myoMaster->changeSetPoint(11,ui.allMotors->value()*100000);
+            myoMaster->changeSetPoint(12,ui.allMotors->value()*100000);
+            myoMaster->changeSetPoint(13,ui.allMotors->value()*100000);
+            break;
+        case VELOCITY:
+            myoMaster->changeSetPoint(0,ui.allMotors->value());
+            myoMaster->changeSetPoint(1,ui.allMotors->value());
+            myoMaster->changeSetPoint(2,ui.allMotors->value());
+            myoMaster->changeSetPoint(3,ui.allMotors->value());
+            myoMaster->changeSetPoint(4,ui.allMotors->value());
+            myoMaster->changeSetPoint(5,ui.allMotors->value());
+            myoMaster->changeSetPoint(6,ui.allMotors->value());
+            myoMaster->changeSetPoint(7,ui.allMotors->value());
+            myoMaster->changeSetPoint(8,ui.allMotors->value());
+            myoMaster->changeSetPoint(9,ui.allMotors->value());
+            myoMaster->changeSetPoint(10,ui.allMotors->value());
+            myoMaster->changeSetPoint(11,ui.allMotors->value());
+            myoMaster->changeSetPoint(12,ui.allMotors->value());
+            myoMaster->changeSetPoint(13,ui.allMotors->value());
+            break;
+        case DISPLACEMENT:
+            myoMaster->changeSetPoint(0,ui.allMotors->value()*20);
+            myoMaster->changeSetPoint(1,ui.allMotors->value()*20);
+            myoMaster->changeSetPoint(2,ui.allMotors->value()*20);
+            myoMaster->changeSetPoint(3,ui.allMotors->value()*20);
+            myoMaster->changeSetPoint(4,ui.allMotors->value()*20);
+            myoMaster->changeSetPoint(5,ui.allMotors->value()*20);
+            myoMaster->changeSetPoint(6,ui.allMotors->value()*20);
+            myoMaster->changeSetPoint(7,ui.allMotors->value()*20);
+            myoMaster->changeSetPoint(8,ui.allMotors->value()*20);
+            myoMaster->changeSetPoint(9,ui.allMotors->value()*20);
+            myoMaster->changeSetPoint(10,ui.allMotors->value()*20);
+            myoMaster->changeSetPoint(11,ui.allMotors->value()*20);
+            myoMaster->changeSetPoint(12,ui.allMotors->value()*20);
+            myoMaster->changeSetPoint(13,ui.allMotors->value()*20);
             break;
     }
 }
