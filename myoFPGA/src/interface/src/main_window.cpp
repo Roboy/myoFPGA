@@ -60,6 +60,8 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
     QObject::connect(ui.rewind, SIGNAL(clicked()), this, SLOT(rewindMovement()));
     QObject::connect(ui.pause, SIGNAL(clicked()), this, SLOT(pauseMovement()));
     QObject::connect(ui.loop, SIGNAL(clicked()), this, SLOT(loopMovement()));
+    QObject::connect(ui.stop_button, SIGNAL(clicked()), this, SLOT(stopButtonClicked()));
+    ui.stop_button->setStyleSheet("background-color: red");
 
     nh = ros::NodeHandlePtr(new ros::NodeHandle);
     if (!ros::isInitialized()) {
@@ -450,116 +452,177 @@ void MainWindow::loopMovement(){
     motorTrajectoryControl.publish(msg);
 }
 
+void MainWindow::stopButtonClicked(){
+    ROS_INFO("stop button clicked");
+    if(!ui.stop_button->isChecked()) {
+        updateControllerParams();
+    }else{ // set controller gains to zero
+        communication::MotorConfig msg;
+        for (uint motor = 0; motor < NUMBER_OF_MOTORS_PER_FPGA; motor++) {
+            msg.motors.push_back(motor);
+            msg.control_mode.push_back(2);
+            msg.outputPosMax.push_back(1000); // pwm max
+            msg.outputNegMax.push_back(-1000); // pwm min
+            msg.spPosMax.push_back(100000000);
+            msg.spNegMax.push_back(-100000000);
+            msg.IntegralPosMax.push_back(100);
+            msg.IntegralNegMax.push_back(-100);
+            msg.Kp.push_back(0);
+            msg.Ki.push_back(0);
+            msg.Kd.push_back(0);
+            msg.forwardGain.push_back(0);
+            msg.deadBand.push_back(0);
+        }
+        motorConfig.publish(msg);
+    }
+}
+
 void MainWindow::updateSetPoints(int percent){
     std::lock_guard<std::mutex> lock(myoMaster->mux);
+    int setpoints[NUMBER_OF_MOTORS_PER_FPGA];
     switch(ui.control_mode->value()){
         case POSITION:
-            myoMaster->changeSetPoint(0,ui.motor0->value()*3000);
-            myoMaster->changeSetPoint(1,ui.motor1->value()*3000);
-            myoMaster->changeSetPoint(2,ui.motor2->value()*3000);
-            myoMaster->changeSetPoint(3,ui.motor3->value()*3000);
-            myoMaster->changeSetPoint(4,ui.motor4->value()*3000);
-            myoMaster->changeSetPoint(5,ui.motor5->value()*3000);
-            myoMaster->changeSetPoint(6,ui.motor6->value()*3000);
-            myoMaster->changeSetPoint(7,ui.motor7->value()*3000);
-            myoMaster->changeSetPoint(8,ui.motor8->value()*3000);
-            myoMaster->changeSetPoint(9,ui.motor9->value()*3000);
-            myoMaster->changeSetPoint(10,ui.motor10->value()*3000);
-            myoMaster->changeSetPoint(11,ui.motor11->value()*3000);
-            myoMaster->changeSetPoint(12,ui.motor12->value()*3000);
-            myoMaster->changeSetPoint(13,ui.motor13->value()*3000);
+            setpoints[0] = ui.motor0->value()*3000;
+            setpoints[1] = ui.motor1->value()*3000;
+            setpoints[2] = ui.motor2->value()*3000;
+            setpoints[3] = ui.motor3->value()*3000;
+            setpoints[4] = ui.motor4->value()*3000;
+            setpoints[5] = ui.motor5->value()*3000;
+            setpoints[6] = ui.motor6->value()*3000;
+            setpoints[7] = ui.motor7->value()*3000;
+            setpoints[8] = ui.motor8->value()*3000;
+            setpoints[9] = ui.motor9->value()*3000;
+            setpoints[10] = ui.motor10->value()*3000;
+            setpoints[11] = ui.motor11->value()*3000;
+            setpoints[12] = ui.motor12->value()*3000;
+            setpoints[13] = ui.motor13->value()*3000;
             break;
         case VELOCITY:
-            myoMaster->changeSetPoint(0,ui.motor0->value());
-            myoMaster->changeSetPoint(1,ui.motor1->value());
-            myoMaster->changeSetPoint(2,ui.motor2->value());
-            myoMaster->changeSetPoint(3,ui.motor3->value());
-            myoMaster->changeSetPoint(4,ui.motor4->value());
-            myoMaster->changeSetPoint(5,ui.motor5->value());
-            myoMaster->changeSetPoint(6,ui.motor6->value());
-            myoMaster->changeSetPoint(7,ui.motor7->value());
-            myoMaster->changeSetPoint(8,ui.motor8->value());
-            myoMaster->changeSetPoint(9,ui.motor9->value());
-            myoMaster->changeSetPoint(10,ui.motor10->value());
-            myoMaster->changeSetPoint(11,ui.motor11->value());
-            myoMaster->changeSetPoint(12,ui.motor12->value());
-            myoMaster->changeSetPoint(13,ui.motor13->value());
+            setpoints[0] = ui.motor0->value();
+            setpoints[1] = ui.motor1->value();
+            setpoints[2] = ui.motor2->value();
+            setpoints[3] = ui.motor3->value();
+            setpoints[4] = ui.motor4->value();
+            setpoints[5] = ui.motor5->value();
+            setpoints[6] = ui.motor6->value();
+            setpoints[7] = ui.motor7->value();
+            setpoints[8] = ui.motor8->value();
+            setpoints[9] = ui.motor9->value();
+            setpoints[10] = ui.motor10->value();
+            setpoints[11] = ui.motor11->value();
+            setpoints[12] = ui.motor12->value();
+            setpoints[13] = ui.motor13->value();
             break;
         case DISPLACEMENT:
-//            myoMaster->changeSetPoint(ui.motor0->value()*20);
-            myoMaster->changeSetPoint(0,ui.motor0->value());
-            myoMaster->changeSetPoint(1,ui.motor1->value());
-            myoMaster->changeSetPoint(2,ui.motor2->value());
-            myoMaster->changeSetPoint(3,ui.motor3->value());
-            myoMaster->changeSetPoint(4,ui.motor4->value());
-            myoMaster->changeSetPoint(5,ui.motor5->value());
-            myoMaster->changeSetPoint(6,ui.motor6->value());
-            myoMaster->changeSetPoint(7,ui.motor7->value());
-            myoMaster->changeSetPoint(8,ui.motor8->value());
-            myoMaster->changeSetPoint(9,ui.motor9->value());
-            myoMaster->changeSetPoint(10,ui.motor10->value());
-            myoMaster->changeSetPoint(11,ui.motor11->value());
-            myoMaster->changeSetPoint(12,ui.motor12->value());
-            myoMaster->changeSetPoint(13,ui.motor13->value());
+            setpoints[0] = ui.motor0->value();
+            setpoints[1] = ui.motor1->value();
+            setpoints[2] = ui.motor2->value();
+            setpoints[3] = ui.motor3->value();
+            setpoints[4] = ui.motor4->value();
+            setpoints[5] = ui.motor5->value();
+            setpoints[6] = ui.motor6->value();
+            setpoints[7] = ui.motor7->value();
+            setpoints[8] = ui.motor8->value();
+            setpoints[9] = ui.motor9->value();
+            setpoints[10] = ui.motor10->value();
+            setpoints[11] = ui.motor11->value();
+            setpoints[12] = ui.motor12->value();
+            setpoints[13] = ui.motor13->value();
             break;
     }
+    for(int motor=0;motor<NUMBER_OF_MOTORS_PER_FPGA;motor++){
+        myoMaster->changeSetPoint(motor,setpoints[motor]);
+    }
+    ui.setPoint_motor0->setText(QString::number(setpoints[0]));
+    ui.setPoint_motor1->setText(QString::number(setpoints[1]));
+    ui.setPoint_motor2->setText(QString::number(setpoints[2]));
+    ui.setPoint_motor3->setText(QString::number(setpoints[3]));
+    ui.setPoint_motor4->setText(QString::number(setpoints[4]));
+    ui.setPoint_motor5->setText(QString::number(setpoints[5]));
+    ui.setPoint_motor6->setText(QString::number(setpoints[6]));
+    ui.setPoint_motor7->setText(QString::number(setpoints[7]));
+    ui.setPoint_motor8->setText(QString::number(setpoints[8]));
+    ui.setPoint_motor9->setText(QString::number(setpoints[9]));
+    ui.setPoint_motor10->setText(QString::number(setpoints[10]));
+    ui.setPoint_motor11->setText(QString::number(setpoints[11]));
+    ui.setPoint_motor12->setText(QString::number(setpoints[12]));
+    ui.setPoint_motor13->setText(QString::number(setpoints[13]));
 }
 
 void MainWindow::updateSetPointsAll(int percent){
     std::lock_guard<std::mutex> lock(myoMaster->mux);
+    int setpoints[NUMBER_OF_MOTORS_PER_FPGA];
     switch(ui.control_mode->value()){
         case POSITION:
-            myoMaster->changeSetPoint(0,ui.allMotors->value()*3000);
-            myoMaster->changeSetPoint(1,ui.allMotors->value()*3000);
-            myoMaster->changeSetPoint(2,ui.allMotors->value()*3000);
-            myoMaster->changeSetPoint(3,ui.allMotors->value()*3000);
-            myoMaster->changeSetPoint(4,ui.allMotors->value()*3000);
-            myoMaster->changeSetPoint(5,ui.allMotors->value()*3000);
-            myoMaster->changeSetPoint(6,ui.allMotors->value()*3000);
-            myoMaster->changeSetPoint(7,ui.allMotors->value()*3000);
-            myoMaster->changeSetPoint(8,ui.allMotors->value()*3000);
-            myoMaster->changeSetPoint(9,ui.allMotors->value()*3000);
-            myoMaster->changeSetPoint(10,ui.allMotors->value()*3000);
-            myoMaster->changeSetPoint(11,ui.allMotors->value()*3000);
-            myoMaster->changeSetPoint(12,ui.allMotors->value()*3000);
-            myoMaster->changeSetPoint(13,ui.allMotors->value()*3000);
+            setpoints[0] = ui.allMotors->value()*3000;
+            setpoints[1] = ui.allMotors->value()*3000;
+            setpoints[2] = ui.allMotors->value()*3000;
+            setpoints[3] = ui.allMotors->value()*3000;
+            setpoints[4] = ui.allMotors->value()*3000;
+            setpoints[5] = ui.allMotors->value()*3000;
+            setpoints[6] = ui.allMotors->value()*3000;
+            setpoints[7] = ui.allMotors->value()*3000;
+            setpoints[8] = ui.allMotors->value()*3000;
+            setpoints[9] = ui.allMotors->value()*3000;
+            setpoints[10] = ui.allMotors->value()*3000;
+            setpoints[11] = ui.allMotors->value()*3000;
+            setpoints[12] = ui.allMotors->value()*3000;
+            setpoints[13] = ui.allMotors->value()*3000;
             break;
         case VELOCITY:
-            myoMaster->changeSetPoint(0,ui.allMotors->value());
-            myoMaster->changeSetPoint(1,ui.allMotors->value());
-            myoMaster->changeSetPoint(2,ui.allMotors->value());
-            myoMaster->changeSetPoint(3,ui.allMotors->value());
-            myoMaster->changeSetPoint(4,ui.allMotors->value());
-            myoMaster->changeSetPoint(5,ui.allMotors->value());
-            myoMaster->changeSetPoint(6,ui.allMotors->value());
-            myoMaster->changeSetPoint(7,ui.allMotors->value());
-            myoMaster->changeSetPoint(8,ui.allMotors->value());
-            myoMaster->changeSetPoint(9,ui.allMotors->value());
-            myoMaster->changeSetPoint(10,ui.allMotors->value());
-            myoMaster->changeSetPoint(11,ui.allMotors->value());
-            myoMaster->changeSetPoint(12,ui.allMotors->value());
-            myoMaster->changeSetPoint(13,ui.allMotors->value());
+            setpoints[0] = ui.allMotors->value();
+            setpoints[1] = ui.allMotors->value();
+            setpoints[2] = ui.allMotors->value();
+            setpoints[3] = ui.allMotors->value();
+            setpoints[4] = ui.allMotors->value();
+            setpoints[5] = ui.allMotors->value();
+            setpoints[6] = ui.allMotors->value();
+            setpoints[7] = ui.allMotors->value();
+            setpoints[8] = ui.allMotors->value();
+            setpoints[9] = ui.allMotors->value();
+            setpoints[10] = ui.allMotors->value();
+            setpoints[11] = ui.allMotors->value();
+            setpoints[12] = ui.allMotors->value();
+            setpoints[13] = ui.allMotors->value();
             break;
         case DISPLACEMENT:
-            myoMaster->changeSetPoint(0,ui.allMotors->value());
-            myoMaster->changeSetPoint(1,ui.allMotors->value());
-            myoMaster->changeSetPoint(2,ui.allMotors->value());
-            myoMaster->changeSetPoint(3,ui.allMotors->value());
-            myoMaster->changeSetPoint(4,ui.allMotors->value());
-            myoMaster->changeSetPoint(5,ui.allMotors->value());
-            myoMaster->changeSetPoint(6,ui.allMotors->value());
-            myoMaster->changeSetPoint(7,ui.allMotors->value());
-            myoMaster->changeSetPoint(8,ui.allMotors->value());
-            myoMaster->changeSetPoint(9,ui.allMotors->value());
-            myoMaster->changeSetPoint(10,ui.allMotors->value());
-            myoMaster->changeSetPoint(11,ui.allMotors->value());
-            myoMaster->changeSetPoint(12,ui.allMotors->value());
-            myoMaster->changeSetPoint(13,ui.allMotors->value());
+            setpoints[0] = ui.allMotors->value();
+            setpoints[1] = ui.allMotors->value();
+            setpoints[2] = ui.allMotors->value();
+            setpoints[3] = ui.allMotors->value();
+            setpoints[4] = ui.allMotors->value();
+            setpoints[5] = ui.allMotors->value();
+            setpoints[6] = ui.allMotors->value();
+            setpoints[7] = ui.allMotors->value();
+            setpoints[8] = ui.allMotors->value();
+            setpoints[9] = ui.allMotors->value();
+            setpoints[10] = ui.allMotors->value();
+            setpoints[11] = ui.allMotors->value();
+            setpoints[12] = ui.allMotors->value();
+            setpoints[13] = ui.allMotors->value();
             break;
     }
+    for(int motor=0;motor<NUMBER_OF_MOTORS_PER_FPGA;motor++){
+        myoMaster->changeSetPoint(motor,setpoints[motor]);
+    }
+    ui.setPoint_motor0->setText(QString::number(setpoints[0]));
+    ui.setPoint_motor1->setText(QString::number(setpoints[1]));
+    ui.setPoint_motor2->setText(QString::number(setpoints[2]));
+    ui.setPoint_motor3->setText(QString::number(setpoints[3]));
+    ui.setPoint_motor4->setText(QString::number(setpoints[4]));
+    ui.setPoint_motor5->setText(QString::number(setpoints[5]));
+    ui.setPoint_motor6->setText(QString::number(setpoints[6]));
+    ui.setPoint_motor7->setText(QString::number(setpoints[7]));
+    ui.setPoint_motor8->setText(QString::number(setpoints[8]));
+    ui.setPoint_motor9->setText(QString::number(setpoints[9]));
+    ui.setPoint_motor10->setText(QString::number(setpoints[10]));
+    ui.setPoint_motor11->setText(QString::number(setpoints[11]));
+    ui.setPoint_motor12->setText(QString::number(setpoints[12]));
+    ui.setPoint_motor13->setText(QString::number(setpoints[13]));
 }
 
 void MainWindow::updateControllerParams(){
+    ui.stop_button->setChecked(false);
     communication::MotorConfig msg;
     for(uint motor=0;motor<NUMBER_OF_MOTORS_PER_FPGA;motor++){
         msg.motors.push_back(motor);

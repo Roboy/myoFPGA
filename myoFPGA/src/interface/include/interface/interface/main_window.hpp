@@ -60,6 +60,7 @@ public Q_SLOTS:
     void rewindMovement();
     void pauseMovement();
     void loopMovement();
+    void stopButtonClicked();
 Q_SIGNALS:
     void newData(int id);
 private:

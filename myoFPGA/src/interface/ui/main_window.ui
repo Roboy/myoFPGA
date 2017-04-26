@@ -115,7 +115,7 @@
             <rect>
              <x>10</x>
              <y>270</y>
-             <width>401</width>
+             <width>561</width>
              <height>451</height>
             </rect>
            </property>
@@ -123,7 +123,7 @@
           <widget class="QFrame" name="frame_41">
            <property name="geometry">
             <rect>
-             <x>410</x>
+             <x>670</x>
              <y>630</y>
              <width>261</width>
              <height>31</height>
@@ -168,7 +168,7 @@
           <widget class="QFrame" name="frame_42">
            <property name="geometry">
             <rect>
-             <x>410</x>
+             <x>670</x>
              <y>570</y>
              <width>261</width>
              <height>31</height>
@@ -213,7 +213,7 @@
           <widget class="QFrame" name="frame_43">
            <property name="geometry">
             <rect>
-             <x>410</x>
+             <x>670</x>
              <y>600</y>
              <width>261</width>
              <height>31</height>
@@ -258,7 +258,7 @@
           <widget class="QFrame" name="frame_44">
            <property name="geometry">
             <rect>
-             <x>410</x>
+             <x>670</x>
              <y>660</y>
              <width>261</width>
              <height>31</height>
@@ -290,7 +290,7 @@
           <widget class="QPushButton" name="record">
            <property name="geometry">
             <rect>
-             <x>570</x>
+             <x>830</x>
              <y>730</y>
              <width>99</width>
              <height>27</height>
@@ -303,7 +303,7 @@
           <widget class="QFrame" name="frame_45">
            <property name="geometry">
             <rect>
-             <x>410</x>
+             <x>670</x>
              <y>690</y>
              <width>261</width>
              <height>31</height>
@@ -757,7 +757,7 @@
           </rect>
          </property>
          <property name="text">
-          <string>10</string>
+          <string>80</string>
          </property>
         </widget>
         <widget class="QLabel" name="label">
@@ -1008,9 +1008,9 @@
         <widget class="QSlider" name="motor0">
          <property name="geometry">
           <rect>
-           <x>70</x>
+           <x>130</x>
            <y>0</y>
-           <width>231</width>
+           <width>171</width>
            <height>31</height>
           </rect>
          </property>
@@ -1037,6 +1037,19 @@
           <string>motor0</string>
          </property>
         </widget>
+        <widget class="QLineEdit" name="setPoint_motor0">
+         <property name="geometry">
+          <rect>
+           <x>70</x>
+           <y>0</y>
+           <width>61</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
        </widget>
        <widget class="QFrame" name="frame_9">
         <property name="geometry">
@@ -1056,9 +1069,9 @@
         <widget class="QSlider" name="motor1">
          <property name="geometry">
           <rect>
-           <x>70</x>
+           <x>130</x>
            <y>0</y>
-           <width>231</width>
+           <width>171</width>
            <height>31</height>
           </rect>
          </property>
@@ -1085,6 +1098,19 @@
           <string>motor1</string>
          </property>
         </widget>
+        <widget class="QLineEdit" name="setPoint_motor1">
+         <property name="geometry">
+          <rect>
+           <x>70</x>
+           <y>0</y>
+           <width>61</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
        </widget>
        <widget class="QFrame" name="frame_10">
         <property name="geometry">
@@ -1104,9 +1130,9 @@
         <widget class="QSlider" name="motor2">
          <property name="geometry">
           <rect>
-           <x>70</x>
+           <x>130</x>
            <y>0</y>
-           <width>231</width>
+           <width>171</width>
            <height>31</height>
           </rect>
          </property>
@@ -1175,6 +1201,19 @@
           </property>
          </widget>
         </widget>
+        <widget class="QLineEdit" name="setPoint_motor2">
+         <property name="geometry">
+          <rect>
+           <x>70</x>
+           <y>0</y>
+           <width>61</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
        </widget>
        <widget class="QFrame" name="frame_12">
         <property name="geometry">
@@ -1194,9 +1233,9 @@
         <widget class="QSlider" name="motor3">
          <property name="geometry">
           <rect>
-           <x>70</x>
+           <x>130</x>
            <y>0</y>
-           <width>231</width>
+           <width>171</width>
            <height>31</height>
           </rect>
          </property>
@@ -1265,6 +1304,19 @@
           </property>
          </widget>
         </widget>
+        <widget class="QLineEdit" name="setPoint_motor3">
+         <property name="geometry">
+          <rect>
+           <x>70</x>
+           <y>0</y>
+           <width>61</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
        </widget>
        <widget class="QFrame" name="frame_14">
         <property name="geometry">
@@ -1284,9 +1336,9 @@
         <widget class="QSlider" name="motor4">
          <property name="geometry">
           <rect>
-           <x>70</x>
+           <x>130</x>
            <y>0</y>
-           <width>231</width>
+           <width>171</width>
            <height>31</height>
           </rect>
          </property>
@@ -1355,6 +1407,19 @@
           </property>
          </widget>
         </widget>
+        <widget class="QLineEdit" name="setPoint_motor4">
+         <property name="geometry">
+          <rect>
+           <x>70</x>
+           <y>0</y>
+           <width>61</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
        </widget>
        <widget class="QFrame" name="frame_16">
         <property name="geometry">
@@ -1374,9 +1439,9 @@
         <widget class="QSlider" name="motor5">
          <property name="geometry">
           <rect>
-           <x>70</x>
+           <x>130</x>
            <y>0</y>
-           <width>231</width>
+           <width>171</width>
            <height>31</height>
           </rect>
          </property>
@@ -1445,6 +1510,19 @@
           </property>
          </widget>
         </widget>
+        <widget class="QLineEdit" name="setPoint_motor5">
+         <property name="geometry">
+          <rect>
+           <x>70</x>
+           <y>0</y>
+           <width>61</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
        </widget>
        <widget class="QFrame" name="frame_18">
         <property name="geometry">
@@ -1464,9 +1542,9 @@
         <widget class="QSlider" name="motor6">
          <property name="geometry">
           <rect>
-           <x>70</x>
+           <x>130</x>
            <y>0</y>
-           <width>231</width>
+           <width>171</width>
            <height>31</height>
           </rect>
          </property>
@@ -1535,6 +1613,19 @@
           </property>
          </widget>
         </widget>
+        <widget class="QLineEdit" name="setPoint_motor6">
+         <property name="geometry">
+          <rect>
+           <x>70</x>
+           <y>0</y>
+           <width>61</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
        </widget>
        <widget class="QFrame" name="frame_20">
         <property name="geometry">
@@ -1554,9 +1645,9 @@
         <widget class="QSlider" name="motor7">
          <property name="geometry">
           <rect>
-           <x>70</x>
+           <x>130</x>
            <y>0</y>
-           <width>231</width>
+           <width>171</width>
            <height>31</height>
           </rect>
          </property>
@@ -1625,6 +1716,19 @@
           </property>
          </widget>
         </widget>
+        <widget class="QLineEdit" name="setPoint_motor7">
+         <property name="geometry">
+          <rect>
+           <x>70</x>
+           <y>0</y>
+           <width>61</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
        </widget>
        <widget class="QFrame" name="frame_22">
         <property name="geometry">
@@ -1644,9 +1748,9 @@
         <widget class="QSlider" name="motor8">
          <property name="geometry">
           <rect>
-           <x>70</x>
+           <x>130</x>
            <y>0</y>
-           <width>231</width>
+           <width>171</width>
            <height>31</height>
           </rect>
          </property>
@@ -1715,6 +1819,19 @@
           </property>
          </widget>
         </widget>
+        <widget class="QLineEdit" name="setPoint_motor8">
+         <property name="geometry">
+          <rect>
+           <x>70</x>
+           <y>0</y>
+           <width>61</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
        </widget>
        <widget class="QFrame" name="frame_24">
         <property name="geometry">
@@ -1734,9 +1851,9 @@
         <widget class="QSlider" name="motor9">
          <property name="geometry">
           <rect>
-           <x>70</x>
+           <x>130</x>
            <y>0</y>
-           <width>231</width>
+           <width>171</width>
            <height>31</height>
           </rect>
          </property>
@@ -1805,6 +1922,19 @@
           </property>
          </widget>
         </widget>
+        <widget class="QLineEdit" name="setPoint_motor9">
+         <property name="geometry">
+          <rect>
+           <x>70</x>
+           <y>0</y>
+           <width>61</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
        </widget>
        <widget class="QFrame" name="frame_26">
         <property name="geometry">
@@ -1824,9 +1954,9 @@
         <widget class="QSlider" name="motor10">
          <property name="geometry">
           <rect>
-           <x>70</x>
+           <x>130</x>
            <y>0</y>
-           <width>231</width>
+           <width>171</width>
            <height>31</height>
           </rect>
          </property>
@@ -1895,6 +2025,19 @@
           </property>
          </widget>
         </widget>
+        <widget class="QLineEdit" name="setPoint_motor10">
+         <property name="geometry">
+          <rect>
+           <x>70</x>
+           <y>0</y>
+           <width>61</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
        </widget>
        <widget class="QFrame" name="frame_28">
         <property name="geometry">
@@ -1914,9 +2057,9 @@
         <widget class="QSlider" name="motor11">
          <property name="geometry">
           <rect>
-           <x>70</x>
+           <x>130</x>
            <y>0</y>
-           <width>231</width>
+           <width>171</width>
            <height>31</height>
           </rect>
          </property>
@@ -1985,6 +2128,19 @@
           </property>
          </widget>
         </widget>
+        <widget class="QLineEdit" name="setPoint_motor11">
+         <property name="geometry">
+          <rect>
+           <x>70</x>
+           <y>0</y>
+           <width>61</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
        </widget>
        <widget class="QFrame" name="frame_30">
         <property name="geometry">
@@ -2004,9 +2160,9 @@
         <widget class="QSlider" name="motor12">
          <property name="geometry">
           <rect>
-           <x>70</x>
+           <x>130</x>
            <y>0</y>
-           <width>231</width>
+           <width>171</width>
            <height>31</height>
           </rect>
          </property>
@@ -2075,6 +2231,19 @@
           </property>
          </widget>
         </widget>
+        <widget class="QLineEdit" name="setPoint_motor12">
+         <property name="geometry">
+          <rect>
+           <x>70</x>
+           <y>0</y>
+           <width>61</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
        </widget>
        <widget class="QFrame" name="frame_32">
         <property name="geometry">
@@ -2094,9 +2263,9 @@
         <widget class="QSlider" name="motor13">
          <property name="geometry">
           <rect>
-           <x>70</x>
+           <x>130</x>
            <y>0</y>
-           <width>231</width>
+           <width>171</width>
            <height>31</height>
           </rect>
          </property>
@@ -2249,14 +2418,27 @@
           </widget>
          </widget>
         </widget>
+        <widget class="QLineEdit" name="setPoint_motor13">
+         <property name="geometry">
+          <rect>
+           <x>70</x>
+           <y>0</y>
+           <width>61</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
        </widget>
-       <widget class="QPushButton" name="quit_button">
+       <widget class="QPushButton" name="stop_button">
         <property name="geometry">
          <rect>
           <x>0</x>
           <y>700</y>
           <width>307</width>
-          <height>27</height>
+          <height>91</height>
          </rect>
         </property>
         <property name="sizePolicy">
@@ -2266,7 +2448,10 @@
          </sizepolicy>
         </property>
         <property name="text">
-         <string>Quit</string>
+         <string>STOP</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
         </property>
        </widget>
        <widget class="QFrame" name="frame_36">
@@ -2287,9 +2472,9 @@
         <widget class="QSlider" name="allMotors">
          <property name="geometry">
           <rect>
-           <x>70</x>
+           <x>130</x>
            <y>0</y>
-           <width>231</width>
+           <width>171</width>
            <height>31</height>
           </rect>
          </property>
@@ -2442,6 +2627,19 @@
           </widget>
          </widget>
         </widget>
+        <widget class="QLineEdit" name="setPoint_motorAll">
+         <property name="geometry">
+          <rect>
+           <x>70</x>
+           <y>0</y>
+           <width>61</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
        </widget>
       </widget>
      </item>
@@ -2486,38 +2684,5 @@
  <resources>
   <include location="../resources/images.qrc"/>
  </resources>
- <connections>
-  <connection>
-   <sender>action_Quit</sender>
-   <signal>triggered()</signal>
-   <receiver>MainWindowDesign</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>399</x>
-     <y>299</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>quit_button</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindowDesign</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>859</x>
-     <y>552</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>469</x>
-     <y>299</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>
