@@ -31,7 +31,7 @@ always @(posedge clock, posedge reset) begin: PID_CONTROLLER_PID_CONTROLLERLOGIC
 	reg signed [31:0] dterm;
 	reg signed [31:0] ffterm;
 	reg update_controller_prev;
-	reg signed [10:0] displacement_offset;
+	reg signed [15:0] displacement_offset;
 	
 	if (reset == 1) begin
 		pv <= 0;
@@ -51,8 +51,9 @@ always @(posedge clock, posedge reset) begin: PID_CONTROLLER_PID_CONTROLLERLOGIC
 				err = (sp - velocity);
 			else if(controller==2) begin
 				if(displacement<0) // this should not happen, unless the muscle was in tension when power was turned on
-					displacement_offset = displacement; // we cope with this with an adaptive offset
-				err = (sp - (displacement-displacement_offset));
+					err = 0;
+				else 
+					err = (sp - displacement);
 			end else
 				err = 0;
 			
