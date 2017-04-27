@@ -1,0 +1,11 @@
+/home/roboy/Downloads/openPowerLink/stack/lib/linux/x86_64/./liboplkmn_d.a
+/home/roboy/Downloads/openPowerLink/stack/lib/linux/x86_64/./liboplkmnapp-userintf_d.a
+/home/roboy/Downloads/openPowerLink/stack/lib/linux/x86_64/./liboplkmnapp-kernelintf_d.a
+/home/roboy/Downloads/openPowerLink/stack/lib/linux/x86_64/./liboplkmnapp-kernelpcp_d.a
+/home/roboy/Downloads/openPowerLink/stack/lib/linux/x86_64/./liboplkmndrv-pcap_d.a
+/home/roboy/Downloads/openPowerLink/stack/lib/linux/x86_64/./liboplkmn-sim_d.a
+/home/roboy/Downloads/openPowerLink/stack/lib/linux/x86_64/./liboplkcn_d.a
+/home/roboy/Downloads/openPowerLink/stack/lib/linux/x86_64/./liboplkcnapp-userintf_d.a
+/home/roboy/Downloads/openPowerLink/stack/lib/linux/x86_64/./liboplkcnapp-kernelintf_d.a
+/home/roboy/Downloads/openPowerLink/stack/lib/linux/x86_64/./liboplkcndrv-pcap_d.a
+/home/roboy/Downloads/openPowerLink/stack/lib/linux/x86_64/./liboplkcn-sim_d.a
