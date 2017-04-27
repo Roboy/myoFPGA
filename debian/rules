@@ -32,9 +32,7 @@ override_dh_auto_configure:
 		-DCMAKE_INSTALL_PREFIX="/opt/ros/kinetic" \
 		-DCMAKE_PREFIX_PATH="/opt/ros/kinetic"
 	cd myoFPGA/src/roboy_controlled_node_fpga && tar -xf ros_catkin_ws.tar.gz
-	cd openPowerLink/stack/build/linux && cmake -DCMAKE_BUILD_TYPE=Debug ../.. && make && make install
-	cd openPowerLink/stack/build/linux && cmake -DCMAKE_BUILD_TYPE=Release ../.. && make && make install
-
+	tar -xf openPowerLink.tar.gz
 override_dh_auto_build:
 	if [ -f "/opt/ros/kinetic/setup.sh" ]; then . "/opt/ros/kinetic/setup.sh"; fi && \
 	/home/roboy/altera/16.1/embedded/embedded_command_shell.sh && cd myoFPGA/ && catkin_make_isolated 
