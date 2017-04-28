@@ -34,8 +34,6 @@ override_dh_auto_configure:
 	cd myoFPGA/src/roboy_controlled_node_fpga && tar -xf ros_catkin_ws.tar.gz
 	tar -xf openPowerLink.tar.gz
 override_dh_auto_build:
-	if [ -f "/opt/ros/kinetic/setup.sh" ]; then . "/opt/ros/kinetic/setup.sh"; fi && \
-	/home/roboy/altera/16.1/embedded/embedded_command_shell.sh && cd myoFPGA/ && catkin_make_isolated 
 override_dh_auto_test:
 
 override_dh_shlibdeps:
@@ -45,6 +43,6 @@ override_dh_auto_install:
 	# in the install tree that was dropped by catkin, and source it.  It will
 	# set things like CMAKE_PREFIX_PATH, PKG_CONFIG_PATH, and PYTHONPATH.
 	if [ -f "/opt/ros/kinetic/setup.sh" ]; then . "/opt/ros/kinetic/setup.sh"; fi && \
-	/home/roboy/altera/16.1/embedded/embedded_command_shell.sh && cd myoFPGA/ && catkin_make_isolated --install --install-space=${CURDIR}/debian/myofpga/opt/ros/kinetic -DCMAKE_BUILD_TYPE=Release
+	/home/roboy/altera/16.1/embedded/embedded_command_shell.sh && cd myoFPGA/ && catkin_make_isolated --install --install-space=${CURDIR}/../debian/myofpga/opt/ros/kinetic -DCMAKE_BUILD_TYPE=Release
 	find ${CURDIR}/debian/myofpga/opt/ros/kinetic -type f -maxdepth 1 -delete
 	cp ${CURDIR}/hps-c/spi_control ${CURDIR}/../debian/myofpga/opt/ros/kinetic/bin
