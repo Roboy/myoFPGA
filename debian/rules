@@ -19,8 +19,6 @@ export PKG_CONFIG_PATH=/opt/ros/kinetic/lib/pkgconfig
 # 	https://github.com/ros-infrastructure/bloom/issues/327
 export DEB_CXXFLAGS_MAINT_APPEND=-DNDEBUG
 
-export SOCEDS_DEST_ROOT=/home/roboy/altera/16.1/embedded
-
 %:
 	dh  $@
 
@@ -33,8 +31,6 @@ override_dh_auto_configure:
 		-DCATKIN_BUILD_BINARY_PACKAGE="1" \
 		-DCMAKE_INSTALL_PREFIX="/opt/ros/kinetic" \
 		-DCMAKE_PREFIX_PATH="/opt/ros/kinetic"
-	cd myoFPGA/src/roboy_controlled_node_fpga && tar -xf ros_catkin_ws.tar.gz
-	tar -xf openPowerLink.tar.gz
 override_dh_auto_build:
 override_dh_auto_test:
 
