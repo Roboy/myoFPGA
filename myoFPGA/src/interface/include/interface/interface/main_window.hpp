@@ -16,18 +16,22 @@
 #include <QFileSystemModel>
 #include "ui_main_window.h"
 #include "roboy_managing_node/myoMaster.hpp"
+#include <roboy_communication_middleware/JointStatus.h>
 #include <tinyxml.h>
 #include <fstream>
 
 #define RUN_IN_THREAD
 #define NUMBER_OF_FPGAS 5
 #define NUMBER_OF_MOTORS_PER_FPGA 14
+#define NUMBER_OF_JOINT_SENSORS 4
 
 #endif
 
 /*****************************************************************************
 ** Namespace
 *****************************************************************************/
+
+enum PLOTDATA{ MOTOR, JOINT};
 
 namespace interface {
 
@@ -45,8 +49,9 @@ public:
 	void showNoMasterMessage();
     MyoMaster *myoMaster;
 private:
-    void MotorStatus(const communication::MotorStatus::ConstPtr &msg);
-    void MotorRecordPack(const communication::MotorRecord::ConstPtr &msg);
+    void MotorStatus(const roboy_communication_middleware::MotorStatus::ConstPtr &msg);
+    void JointStatus(const roboy_communication_middleware::JointStatus::ConstPtr &msg);
+    void MotorRecordPack(const roboy_communication_middleware::MotorRecord::ConstPtr &msg);
 public Q_SLOTS:
 	void on_actionAbout_triggered();
     void updateSetPoints(int percent);
@@ -67,9 +72,11 @@ private:
 	Ui::MainWindowDesign ui;
     ros::NodeHandlePtr nh;
     ros::Publisher motorConfig, motorRecordConfig, motorTrajectory, motorTrajectoryControl;
-    ros::Subscriber motorStatus, motorRecord;
+    ros::Subscriber motorStatus, motorRecord, jointStatus;
     QVector<double> time;
     QVector<double> motorData[NUMBER_OF_FPGAS][NUMBER_OF_MOTORS_PER_FPGA][4];
+	QVector<double> jointData[NUMBER_OF_FPGAS][NUMBER_OF_JOINT_SENSORS][4];
+	bool motorConnected[NUMBER_OF_FPGAS][NUMBER_OF_MOTORS_PER_FPGA];
     long int counter = 0;
     int samples_per_plot = 300;
     boost::shared_ptr<ros::AsyncSpinner> spinner;

@@ -4,16 +4,16 @@
 module PIDController (
 	input clock,
 	input reset,
-	input unsigned [15:0] Kp,
-	input unsigned [15:0] Kd,
-	input unsigned [15:0] Ki,
+	input signed [15:0] Kp,
+	input signed [15:0] Kd,
+	input signed [15:0] Ki,
 	input signed [31:0] sp,
 	input signed [15:0] forwardGain,
 	input signed [15:0] outputPosMax,
 	input signed [15:0] outputNegMax,
 	input signed [15:0] IntegralNegMax,
 	input signed [15:0] IntegralPosMax,
-	input unsigned [15:0] deadBand,
+	input signed [15:0] deadBand,
 	input unsigned [1:0] controller, // position velocity displacement
 	input signed [31:0] position,
 	input signed [15:0] velocity,
@@ -31,50 +31,53 @@ always @(posedge clock, posedge reset) begin: PID_CONTROLLER_PID_CONTROLLERLOGIC
 	reg signed [31:0] dterm;
 	reg signed [31:0] ffterm;
 	reg update_controller_prev;
-	reg signed [15:0] displacement_offset;
 	
 	if (reset == 1) begin
 		pv <= 0;
 		integral <= 0;
 		lastError <= 0;
-		result <= 0;
 		err <=0;
 		result <= 0;
 		update_controller_prev <= 0;
-		displacement_offset <= 0;
 	end else begin
 		update_controller_prev <= update_controller;
 		if(update_controller_prev==0 && update_controller==1) begin
-			if(controller==0) 
-				err = (sp - position); 
-			else if(controller==1) 
-				err = (sp - velocity);
-			else if(controller==2) begin
-				if(displacement<0) // this should not happen, unless the muscle was in tension when power was turned on
-					err = 0;
-				else 
-					err = (sp - displacement);
-			end else
-				err = 0;
+			case(controller) 
+				2'b00: err = (sp - position); 
+				2'b01: err = (sp - velocity);
+				2'b10: begin
+							if(displacement&16'h4000) begin  // this should not happen, unless the muscle was in tension when power was turned on
+//							if((displacement& 16'h7fff)<0) begin
+								err = 0;
+							end else begin
+								err = (sp - (displacement& 16'h7fff));
+							end
+						end
+				default: err = 0;
+			endcase;
 			
-			if (((err > deadBand) || (err < ((-1) * deadBand)))) begin
+			if (((err >= deadBand) || (err <= ((-1) * deadBand)))) begin
 				pterm = (Kp * err);
-				if ((pterm < outputPosMax) || (pterm > outputNegMax)) begin  //if the proportional term is not maxed
-					integral = integral + (Ki * err); //add to the integral
-					if (integral > IntegralPosMax) 
-						integral = IntegralPosMax;
-					else if (integral < IntegralNegMax) 
-						integral = IntegralNegMax;
-				end
-				dterm = ((err - lastError) * Kd);
-				ffterm = (forwardGain * sp);
-				result = (((ffterm + pterm) + integral) + dterm);
-				if ((result < outputNegMax)) 
+//				if ((pterm < outputPosMax) || (pterm > outputNegMax)) begin  //if the proportional term is not maxed
+//					integral = integral + (Ki * err); //add to the integral
+//					if (integral > IntegralPosMax) begin
+//						integral = IntegralPosMax;
+//					end else if (integral < IntegralNegMax) begin
+//						integral = IntegralNegMax;
+//					end
+//				end
+//				dterm = ((err - lastError) * Kd);
+//				ffterm = (forwardGain * sp);
+//				result = (((ffterm + pterm) + integral) + dterm);
+				result = pterm;
+				if ((result < outputNegMax)) begin
 					 result = outputNegMax;
-				else if ((result > outputPosMax)) 
+				end else if ((result > outputPosMax)) begin
 					 result = outputPosMax;
-			end else 
+				end
+			end else begin
 				result = integral;
+			end
 			lastError = err;
 		end
 	end 

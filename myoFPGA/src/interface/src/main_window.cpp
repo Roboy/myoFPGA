@@ -72,41 +72,68 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
                           ros::init_options::AnonymousName|
                           ros::init_options::NoRosout);
     }
-    motorStatus = nh->subscribe("/roboy/MotorStatus", 1, &MainWindow::MotorStatus, this);
-    motorConfig = nh->advertise<communication::MotorConfig>("/roboy/MotorConfig", 1);
-    motorRecordConfig = nh->advertise<communication::MotorRecordConfig>("/roboy/MotorRecordConfig", 1);
-    motorRecord = nh->subscribe("/roboy/MotorRecord", 100, &MainWindow::MotorRecordPack, this);
-    motorTrajectory = nh->advertise<communication::MotorRecord>("/roboy/MotorTrajectory", 1);
-    motorTrajectoryControl = nh->advertise<communication::MotorTrajectoryControl>("/roboy/MotorTrajectoryControl", 1);
+    motorStatus = nh->subscribe("/roboy/middleware/MotorStatus", 1, &MainWindow::MotorStatus, this);
+    jointStatus = nh->subscribe("/roboy/middleware/JointStatus", 1, &MainWindow::JointStatus, this);
+    motorConfig = nh->advertise<roboy_communication_middleware::MotorConfig>("/roboy/middleware/MotorConfig", 1);
+    motorRecordConfig = nh->advertise<roboy_communication_middleware::MotorRecordConfig>("/roboy/middleware/MotorRecordConfig", 1);
+    motorRecord = nh->subscribe("/roboy/middleware/MotorRecord", 100, &MainWindow::MotorRecordPack, this);
+    motorTrajectory = nh->advertise<roboy_communication_middleware::MotorRecord>("/roboy/middleware/MotorTrajectory", 1);
+    motorTrajectoryControl = nh->advertise<roboy_communication_middleware::MotorTrajectoryControl>("/roboy/middleware/MotorTrajectoryControl", 1);
 
     spinner = boost::shared_ptr<ros::AsyncSpinner>(new ros::AsyncSpinner(1));
     spinner->start();
 
     for(uint motor=0;motor<NUMBER_OF_MOTORS_PER_FPGA;motor++) {
-        ui.position_plot0->addGraph();
-        ui.position_plot0->graph(motor)->setPen(QPen(color_pallette[motor]));
-        ui.velocity_plot0->addGraph();
-        ui.velocity_plot0->graph(motor)->setPen(QPen(color_pallette[motor]));
-        ui.displacement_plot0->addGraph();
-        ui.displacement_plot0->graph(motor)->setPen(QPen(color_pallette[motor]));
-        ui.current_plot0->addGraph();
-        ui.current_plot0->graph(motor)->setPen(QPen(color_pallette[motor]));
+        ui.position_plot->addGraph();
+        ui.position_plot->graph(motor)->setPen(QPen(color_pallette[motor]));
+        ui.velocity_plot->addGraph();
+        ui.velocity_plot->graph(motor)->setPen(QPen(color_pallette[motor]));
+        ui.displacement_plot->addGraph();
+        ui.displacement_plot->graph(motor)->setPen(QPen(color_pallette[motor]));
+        ui.current_plot->addGraph();
+        ui.current_plot->graph(motor)->setPen(QPen(color_pallette[motor]));
     }
-    ui.position_plot0->xAxis->setLabel("x");
-    ui.position_plot0->yAxis->setLabel("ticks");
-    ui.position_plot0->replot();
+    ui.position_plot->xAxis->setLabel("x");
+    ui.position_plot->yAxis->setLabel("ticks");
+    ui.position_plot->replot();
 
-    ui.velocity_plot0->xAxis->setLabel("x");
-    ui.velocity_plot0->yAxis->setLabel("ticks/s");
-    ui.velocity_plot0->replot();
+    ui.velocity_plot->xAxis->setLabel("x");
+    ui.velocity_plot->yAxis->setLabel("ticks/s");
+    ui.velocity_plot->replot();
 
-    ui.displacement_plot0->xAxis->setLabel("x");
-    ui.displacement_plot0->yAxis->setLabel("ticks");
-    ui.displacement_plot0->replot();
+    ui.displacement_plot->xAxis->setLabel("x");
+    ui.displacement_plot->yAxis->setLabel("ticks");
+    ui.displacement_plot->replot();
 
-    ui.current_plot0->xAxis->setLabel("x");
-    ui.current_plot0->yAxis->setLabel("mA");
-    ui.current_plot0->replot();
+    ui.current_plot->xAxis->setLabel("x");
+    ui.current_plot->yAxis->setLabel("mA");
+    ui.current_plot->replot();
+
+    for(uint joint=0;joint<NUMBER_OF_JOINT_SENSORS;joint++) {
+        ui.absAngle_plot->addGraph();
+        ui.absAngle_plot->graph(joint)->setPen(QPen(color_pallette[joint]));
+        ui.relAngle_plot->addGraph();
+        ui.relAngle_plot->graph(joint)->setPen(QPen(color_pallette[joint]));
+        ui.agcGain_plot->addGraph();
+        ui.agcGain_plot->graph(joint)->setPen(QPen(color_pallette[joint]));
+        ui.tacho_plot->addGraph();
+        ui.tacho_plot->graph(joint)->setPen(QPen(color_pallette[joint]));
+    }
+    ui.absAngle_plot->xAxis->setLabel("x");
+    ui.absAngle_plot->yAxis->setLabel("ticks");
+    ui.absAngle_plot->replot();
+
+    ui.relAngle_plot->xAxis->setLabel("x");
+    ui.relAngle_plot->yAxis->setLabel("ticks");
+    ui.relAngle_plot->replot();
+
+    ui.agcGain_plot->xAxis->setLabel("x");
+    ui.agcGain_plot->yAxis->setLabel("1");
+    ui.agcGain_plot->replot();
+
+    ui.tacho_plot->xAxis->setLabel("x");
+    ui.tacho_plot->yAxis->setLabel("ticks/s");
+    ui.tacho_plot->replot();
 
     updateControllerParams();
 
@@ -127,27 +154,65 @@ void MainWindow::showNoMasterMessage() {
     close();
 }
 
-void MainWindow::MotorStatus(const communication::MotorStatus::ConstPtr &msg){
+void MainWindow::MotorStatus(const roboy_communication_middleware::MotorStatus::ConstPtr &msg){
     ROS_INFO_THROTTLE(5, "receiving motor status");
     time.push_back(counter++);
     for (uint motor = 0; motor < NUMBER_OF_MOTORS_PER_FPGA; motor++) {
         motorData[msg->id][motor][0].push_back(msg->position[motor]);
         motorData[msg->id][motor][1].push_back(msg->velocity[motor]);
         motorData[msg->id][motor][2].push_back(msg->displacement[motor]);
-        motorData[msg->id][motor][3].push_back(msg->current[motor]);
-        if(motorData[msg->id][motor][0].size()>samples_per_plot){
+        motorData[msg->id][motor][3].push_back(msg->pwmRef[motor]);
+        if (motorData[msg->id][motor][0].size() > samples_per_plot) {
             motorData[msg->id][motor][0].pop_front();
             motorData[msg->id][motor][1].pop_front();
             motorData[msg->id][motor][2].pop_front();
             motorData[msg->id][motor][3].pop_front();
         }
+        if(msg->current[motor]!=0) {
+            motorConnected[msg->id][motor] = true;
+        }else{
+            motorConnected[msg->id][motor] = false;
+            switch(motor) {
+                case 0:   ui.setPoint_motor0->setText("dead"); break;
+                case 1:   ui.setPoint_motor1->setText("dead"); break;
+                case 2:   ui.setPoint_motor2->setText("dead"); break;
+                case 3:   ui.setPoint_motor3->setText("dead"); break;
+                case 4:   ui.setPoint_motor4->setText("dead"); break;
+                case 5:   ui.setPoint_motor5->setText("dead"); break;
+                case 6:   ui.setPoint_motor6->setText("dead"); break;
+                case 7:   ui.setPoint_motor7->setText("dead"); break;
+                case 8:   ui.setPoint_motor8->setText("dead"); break;
+                case 9:   ui.setPoint_motor9->setText("dead"); break;
+                case 10:   ui.setPoint_motor10->setText("dead"); break;
+                case 11:   ui.setPoint_motor11->setText("dead"); break;
+                case 12:   ui.setPoint_motor12->setText("dead"); break;
+                case 13:   ui.setPoint_motor13->setText("dead"); break;
+            }
+        }
     }
     if(time.size()>samples_per_plot)
         time.pop_front();
-    Q_EMIT newData(msg->id);
+    Q_EMIT newData(MOTOR);
 }
 
-void MainWindow::MotorRecordPack(const communication::MotorRecord::ConstPtr &msg){
+void MainWindow::JointStatus(const roboy_communication_middleware::JointStatus::ConstPtr &msg){
+    ROS_INFO_THROTTLE(5, "receiving joint status");
+    for (uint joint = 0; joint < NUMBER_OF_JOINT_SENSORS; joint++) {
+//        jointData[msg->id][joint][0].push_back(msg->absAngles[joint]);
+        jointData[msg->id][joint][1].push_back(msg->relAngles[joint]);
+//        jointData[msg->id][joint][2].push_back(msg->tacho[joint]);
+//        jointData[msg->id][joint][3].push_back(msg->agcGain[joint]);
+        if (jointData[msg->id][joint][1].size() > samples_per_plot) {
+//            jointData[msg->id][joint][0].pop_front();
+            jointData[msg->id][joint][1].pop_front();
+//            jointData[msg->id][joint][2].pop_front();
+//            jointData[msg->id][joint][3].pop_front();
+        }
+    }
+    Q_EMIT newData(JOINT);
+}
+
+void MainWindow::MotorRecordPack(const roboy_communication_middleware::MotorRecord::ConstPtr &msg){
     numberOfRecordsToWaitFor--;
     records[msg->id][0] = msg->motor0;
     records[msg->id][1] = msg->motor1;
@@ -190,127 +255,55 @@ void MainWindow::MotorRecordPack(const communication::MotorRecord::ConstPtr &msg
     }
 }
 
-void MainWindow::plotData(int id) {
-    switch(id){
-        case 0:
+void MainWindow::plotData(int type) {
+    switch(type) {
+        case MOTOR:
             for (uint motor = 0; motor < NUMBER_OF_MOTORS_PER_FPGA; motor++) {
-                ui.position_plot0->graph(motor)->setData(time, motorData[id][motor][0]);
-                ui.velocity_plot0->graph(motor)->setData(time, motorData[id][motor][1]);
-                ui.displacement_plot0->graph(motor)->setData(time, motorData[id][motor][2]);
-                ui.current_plot0->graph(motor)->setData(time, motorData[id][motor][3]);
+                ui.position_plot->graph(motor)->setData(time, motorData[0][motor][0]);
+                ui.velocity_plot->graph(motor)->setData(time, motorData[0][motor][1]);
+                ui.displacement_plot->graph(motor)->setData(time, motorData[0][motor][2]);
+                ui.current_plot->graph(motor)->setData(time, motorData[0][motor][3]);
 
                 if (motor == 0) {
-                    ui.position_plot0->graph(motor)->rescaleAxes();
-                    ui.velocity_plot0->graph(motor)->rescaleAxes();
-                    ui.displacement_plot0->graph(motor)->rescaleAxes();
-                    ui.current_plot0->graph(motor)->rescaleAxes();
+                    ui.position_plot->graph(motor)->rescaleAxes();
+                    ui.velocity_plot->graph(motor)->rescaleAxes();
+                    ui.displacement_plot->graph(motor)->rescaleAxes();
+                    ui.current_plot->graph(motor)->rescaleAxes();
                 } else {
-                    ui.position_plot0->graph(motor)->rescaleAxes(true);
-                    ui.velocity_plot0->graph(motor)->rescaleAxes(true);
-                    ui.displacement_plot0->graph(motor)->rescaleAxes(true);
-                    ui.current_plot0->graph(motor)->rescaleAxes(true);
+                    ui.position_plot->graph(motor)->rescaleAxes(true);
+                    ui.velocity_plot->graph(motor)->rescaleAxes(true);
+                    ui.displacement_plot->graph(motor)->rescaleAxes(true);
+                    ui.current_plot->graph(motor)->rescaleAxes(true);
                 }
             }
-            ui.position_plot0->replot();
-            ui.velocity_plot0->replot();
-            ui.displacement_plot0->replot();
-            ui.current_plot0->replot();
+            ui.position_plot->replot();
+            ui.velocity_plot->replot();
+            ui.displacement_plot->replot();
+            ui.current_plot->replot();
             break;
-        case 1:
-            for (uint motor = 0; motor < NUMBER_OF_MOTORS_PER_FPGA; motor++) {
-                ui.position_plot1->graph(motor)->setData(time, motorData[id][motor][0]);
-                ui.velocity_plot1->graph(motor)->setData(time, motorData[id][motor][1]);
-                ui.displacement_plot1->graph(motor)->setData(time, motorData[id][motor][2]);
-                ui.current_plot1->graph(motor)->setData(time, motorData[id][motor][3]);
+        case JOINT:
+            for (uint joint = 0; joint < NUMBER_OF_JOINT_SENSORS; joint++) {
+//                ui.absAngle_plot->graph(joint)->setData(time, jointData[0][joint][0]);
+                ui.relAngle_plot->graph(joint)->setData(time, jointData[0][joint][1]);
+//                ui.tacho_plot->graph(joint)->setData(time, jointData[0][joint][2]);
+//                ui.agcGain_plot->graph(joint)->setData(time, jointData[0][joint][3]);
 
-                if (motor == 0) {
-                    ui.position_plot1->graph(motor)->rescaleAxes();
-                    ui.velocity_plot1->graph(motor)->rescaleAxes();
-                    ui.displacement_plot1->graph(motor)->rescaleAxes();
-                    ui.current_plot1->graph(motor)->rescaleAxes();
+                if (joint == 0) {
+//                    ui.absAngle_plot->graph(joint)->rescaleAxes();
+                    ui.relAngle_plot->graph(joint)->rescaleAxes();
+//                    ui.tacho_plot->graph(joint)->rescaleAxes();
+//                    ui.agcGain_plot->graph(joint)->rescaleAxes();
                 } else {
-                    ui.position_plot1->graph(motor)->rescaleAxes(true);
-                    ui.velocity_plot1->graph(motor)->rescaleAxes(true);
-                    ui.displacement_plot1->graph(motor)->rescaleAxes(true);
-                    ui.current_plot1->graph(motor)->rescaleAxes(true);
+//                    ui.absAngle_plot->graph(joint)->rescaleAxes(true);
+                    ui.relAngle_plot->graph(joint)->rescaleAxes(true);
+//                    ui.tacho_plot->graph(joint)->rescaleAxes(true);
+//                    ui.agcGain_plot->graph(joint)->rescaleAxes(true);
                 }
             }
-            ui.position_plot1->replot();
-            ui.velocity_plot1->replot();
-            ui.displacement_plot1->replot();
-            ui.current_plot1->replot();
-            break;
-        case 2:
-            for (uint motor = 0; motor < NUMBER_OF_MOTORS_PER_FPGA; motor++) {
-                ui.position_plot2->graph(motor)->setData(time, motorData[id][motor][0]);
-                ui.velocity_plot2->graph(motor)->setData(time, motorData[id][motor][1]);
-                ui.displacement_plot2->graph(motor)->setData(time, motorData[id][motor][2]);
-                ui.current_plot2->graph(motor)->setData(time, motorData[id][motor][3]);
-
-                if (motor == 0) {
-                    ui.position_plot2->graph(motor)->rescaleAxes();
-                    ui.velocity_plot2->graph(motor)->rescaleAxes();
-                    ui.displacement_plot2->graph(motor)->rescaleAxes();
-                    ui.current_plot2->graph(motor)->rescaleAxes();
-                } else {
-                    ui.position_plot2->graph(motor)->rescaleAxes(true);
-                    ui.velocity_plot2->graph(motor)->rescaleAxes(true);
-                    ui.displacement_plot2->graph(motor)->rescaleAxes(true);
-                    ui.current_plot2->graph(motor)->rescaleAxes(true);
-                }
-            }
-            ui.position_plot2->replot();
-            ui.velocity_plot2->replot();
-            ui.displacement_plot2->replot();
-            ui.current_plot2->replot();
-            break;
-        case 3:
-            for (uint motor = 0; motor < NUMBER_OF_MOTORS_PER_FPGA; motor++) {
-                ui.position_plot3->graph(motor)->setData(time, motorData[id][motor][0]);
-                ui.velocity_plot3->graph(motor)->setData(time, motorData[id][motor][1]);
-                ui.displacement_plot3->graph(motor)->setData(time, motorData[id][motor][2]);
-                ui.current_plot3->graph(motor)->setData(time, motorData[id][motor][3]);
-
-                if (motor == 0) {
-                    ui.position_plot3->graph(motor)->rescaleAxes();
-                    ui.velocity_plot3->graph(motor)->rescaleAxes();
-                    ui.displacement_plot3->graph(motor)->rescaleAxes();
-                    ui.current_plot3->graph(motor)->rescaleAxes();
-                } else {
-                    ui.position_plot3->graph(motor)->rescaleAxes(true);
-                    ui.velocity_plot3->graph(motor)->rescaleAxes(true);
-                    ui.displacement_plot3->graph(motor)->rescaleAxes(true);
-                    ui.current_plot3->graph(motor)->rescaleAxes(true);
-                }
-            }
-            ui.position_plot3->replot();
-            ui.velocity_plot3->replot();
-            ui.displacement_plot3->replot();
-            ui.current_plot3->replot();
-            break;
-        case 4:
-            for (uint motor = 0; motor < NUMBER_OF_MOTORS_PER_FPGA; motor++) {
-                ui.position_plot4->graph(motor)->setData(time, motorData[id][motor][0]);
-                ui.velocity_plot4->graph(motor)->setData(time, motorData[id][motor][1]);
-                ui.displacement_plot4->graph(motor)->setData(time, motorData[id][motor][2]);
-                ui.current_plot4->graph(motor)->setData(time, motorData[id][motor][3]);
-
-                if (motor == 0) {
-                    ui.position_plot4->graph(motor)->rescaleAxes();
-                    ui.velocity_plot4->graph(motor)->rescaleAxes();
-                    ui.displacement_plot4->graph(motor)->rescaleAxes();
-                    ui.current_plot4->graph(motor)->rescaleAxes();
-                } else {
-                    ui.position_plot4->graph(motor)->rescaleAxes(true);
-                    ui.velocity_plot4->graph(motor)->rescaleAxes(true);
-                    ui.displacement_plot4->graph(motor)->rescaleAxes(true);
-                    ui.current_plot4->graph(motor)->rescaleAxes(true);
-                }
-            }
-            ui.position_plot4->replot();
-            ui.velocity_plot4->replot();
-            ui.displacement_plot4->replot();
-            ui.current_plot4->replot();
+//            ui.absAngle_plot->replot();
+            ui.relAngle_plot->replot();
+//            ui.tacho_plot->replot();
+//            ui.agcGain_plot->replot();
             break;
     }
 
@@ -333,7 +326,7 @@ bool MainWindow::playMovement(){
     root->QueryIntAttribute("samplingTime",&samplingTime);
     ROS_INFO("recognized roboy_trajectory in control_mode %d with samplingTime %d", control_mode, samplingTime);
 
-    communication::MotorRecord msg;
+    roboy_communication_middleware::MotorRecord msg;
 
     // Constructs the myoMuscles by parsing custom xml.
     TiXmlElement *trajectory_it = NULL;
@@ -414,7 +407,7 @@ bool MainWindow::playMovement(){
 
 void MainWindow::stopMovement(){
     ROS_INFO("stop movement");
-    communication::MotorTrajectoryControl msg;
+    roboy_communication_middleware::MotorTrajectoryControl msg;
     msg.play = false;
     msg.pause = ui.pause->isChecked();
     msg.rewind = false;
@@ -424,7 +417,7 @@ void MainWindow::stopMovement(){
 
 void MainWindow::rewindMovement(){
     ROS_INFO("rewind movement");
-    communication::MotorTrajectoryControl msg;
+    roboy_communication_middleware::MotorTrajectoryControl msg;
     msg.play = true;
     msg.pause = ui.pause->isChecked();
     msg.rewind = true;
@@ -434,7 +427,7 @@ void MainWindow::rewindMovement(){
 
 void MainWindow::pauseMovement(){
     ROS_INFO("pause movement");
-    communication::MotorTrajectoryControl msg;
+    roboy_communication_middleware::MotorTrajectoryControl msg;
     msg.play = true;
     msg.pause = ui.pause->isChecked();
     msg.rewind = false;
@@ -444,7 +437,7 @@ void MainWindow::pauseMovement(){
 
 void MainWindow::loopMovement(){
     ROS_INFO("loop movement");
-    communication::MotorTrajectoryControl msg;
+    roboy_communication_middleware::MotorTrajectoryControl msg;
     msg.play = true;
     msg.pause = ui.pause->isChecked();
     msg.rewind = false;
@@ -457,7 +450,7 @@ void MainWindow::stopButtonClicked(){
     if(!ui.stop_button->isChecked()) {
         updateControllerParams();
     }else{ // set controller gains to zero
-        communication::MotorConfig msg;
+        roboy_communication_middleware::MotorConfig msg;
         for (uint motor = 0; motor < NUMBER_OF_MOTORS_PER_FPGA; motor++) {
             msg.motors.push_back(motor);
             msg.control_mode.push_back(2);
@@ -514,20 +507,20 @@ void MainWindow::updateSetPoints(int percent){
             setpoints[13] = ui.motor13->value();
             break;
         case DISPLACEMENT:
-            setpoints[0] = ui.motor0->value();
-            setpoints[1] = ui.motor1->value();
-            setpoints[2] = ui.motor2->value();
-            setpoints[3] = ui.motor3->value();
-            setpoints[4] = ui.motor4->value();
-            setpoints[5] = ui.motor5->value();
-            setpoints[6] = ui.motor6->value();
-            setpoints[7] = ui.motor7->value();
-            setpoints[8] = ui.motor8->value();
-            setpoints[9] = ui.motor9->value();
-            setpoints[10] = ui.motor10->value();
-            setpoints[11] = ui.motor11->value();
-            setpoints[12] = ui.motor12->value();
-            setpoints[13] = ui.motor13->value();
+            setpoints[0] = (ui.motor0->value()+50)*10;
+            setpoints[1] = (ui.motor1->value()+50)*10;
+            setpoints[2] = (ui.motor2->value()+50)*10;
+            setpoints[3] = (ui.motor3->value()+50)*10;
+            setpoints[4] = (ui.motor4->value()+50)*10;
+            setpoints[5] = (ui.motor5->value()+50)*10;
+            setpoints[6] = (ui.motor6->value()+50)*10;
+            setpoints[7] = (ui.motor7->value()+50)*10;
+            setpoints[8] = (ui.motor8->value()+50)*10;
+            setpoints[9] = (ui.motor9->value()+50)*10;
+            setpoints[10] = (ui.motor10->value()+50)*10;
+            setpoints[11] = (ui.motor11->value()+50)*10;
+            setpoints[12] = (ui.motor12->value()+50)*10;
+            setpoints[13] = (ui.motor13->value()+50)*10;
             break;
     }
     for(int motor=0;motor<NUMBER_OF_MOTORS_PER_FPGA;motor++){
@@ -586,20 +579,20 @@ void MainWindow::updateSetPointsAll(int percent){
             setpoints[13] = ui.allMotors->value();
             break;
         case DISPLACEMENT:
-            setpoints[0] = ui.allMotors->value();
-            setpoints[1] = ui.allMotors->value();
-            setpoints[2] = ui.allMotors->value();
-            setpoints[3] = ui.allMotors->value();
-            setpoints[4] = ui.allMotors->value();
-            setpoints[5] = ui.allMotors->value();
-            setpoints[6] = ui.allMotors->value();
-            setpoints[7] = ui.allMotors->value();
-            setpoints[8] = ui.allMotors->value();
-            setpoints[9] = ui.allMotors->value();
-            setpoints[10] = ui.allMotors->value();
-            setpoints[11] = ui.allMotors->value();
-            setpoints[12] = ui.allMotors->value();
-            setpoints[13] = ui.allMotors->value();
+            setpoints[0] = (ui.allMotors->value()+50)*10;
+            setpoints[1] = (ui.allMotors->value()+50)*10;
+            setpoints[2] = (ui.allMotors->value()+50)*10;
+            setpoints[3] = (ui.allMotors->value()+50)*10;
+            setpoints[4] = (ui.allMotors->value()+50)*10;
+            setpoints[5] = (ui.allMotors->value()+50)*10;
+            setpoints[6] = (ui.allMotors->value()+50)*10;
+            setpoints[7] = (ui.allMotors->value()+50)*10;
+            setpoints[8] = (ui.allMotors->value()+50)*10;
+            setpoints[9] = (ui.allMotors->value()+50)*10;
+            setpoints[10] = (ui.allMotors->value()+50)*10;
+            setpoints[11] = (ui.allMotors->value()+50)*10;
+            setpoints[12] = (ui.allMotors->value()+50)*10;
+            setpoints[13] = (ui.allMotors->value()+50)*10;
             break;
     }
     for(int motor=0;motor<NUMBER_OF_MOTORS_PER_FPGA;motor++){
@@ -623,7 +616,7 @@ void MainWindow::updateSetPointsAll(int percent){
 
 void MainWindow::updateControllerParams(){
     ui.stop_button->setChecked(false);
-    communication::MotorConfig msg;
+    roboy_communication_middleware::MotorConfig msg;
     for(uint motor=0;motor<NUMBER_OF_MOTORS_PER_FPGA;motor++){
         msg.motors.push_back(motor);
         msg.control_mode.push_back(ui.control_mode->value());
@@ -649,7 +642,7 @@ void MainWindow::movementPathChanged(){
 
 void MainWindow::recordMovement(){
     ROS_INFO("start recording");
-    communication::MotorRecordConfig msg;
+    roboy_communication_middleware::MotorRecordConfig msg;
     msg.ids = 0;
     numberOfRecordsToWaitFor = 0;
     if(ui.record_fpga0->isChecked()) {

@@ -77,13 +77,17 @@
 			myocontrol_0_miso                     : in    std_logic                     := 'X';             -- miso
 			myocontrol_0_mosi                     : out   std_logic;                                        -- mosi
 			myocontrol_0_sck                      : out   std_logic;                                        -- sck
-			myocontrol_0_ss_n                     : out   std_logic_vector(7 downto 0);                     -- ss_n
+			myocontrol_0_ss_n                     : out   std_logic_vector(6 downto 0);                     -- ss_n
 			myocontrol_1_miso                     : in    std_logic                     := 'X';             -- miso
 			myocontrol_1_mosi                     : out   std_logic;                                        -- mosi
 			myocontrol_1_sck                      : out   std_logic;                                        -- sck
-			myocontrol_1_ss_n                     : out   std_logic_vector(7 downto 0);                     -- ss_n
+			myocontrol_1_ss_n                     : out   std_logic_vector(6 downto 0);                     -- ss_n
 			pio_led_external_connection_export    : out   std_logic_vector(7 downto 0);                     -- export
-			reset_reset_n                         : in    std_logic                     := 'X'              -- reset_n
+			reset_reset_n                         : in    std_logic                     := 'X';             -- reset_n
+			i2c_1_scl                             : inout std_logic                     := 'X';             -- scl
+			i2c_1_sda                             : inout std_logic                     := 'X';             -- sda
+			i2c_0_scl                             : inout std_logic                     := 'X';             -- scl
+			i2c_0_sda                             : inout std_logic                     := 'X'              -- sda
 		);
 	end component soc_system;
 
@@ -172,6 +176,10 @@
 			myocontrol_1_sck                      => CONNECTED_TO_myocontrol_1_sck,                      --                            .sck
 			myocontrol_1_ss_n                     => CONNECTED_TO_myocontrol_1_ss_n,                     --                            .ss_n
 			pio_led_external_connection_export    => CONNECTED_TO_pio_led_external_connection_export,    -- pio_led_external_connection.export
-			reset_reset_n                         => CONNECTED_TO_reset_reset_n                          --                       reset.reset_n
+			reset_reset_n                         => CONNECTED_TO_reset_reset_n,                         --                       reset.reset_n
+			i2c_1_scl                             => CONNECTED_TO_i2c_1_scl,                             --                       i2c_1.scl
+			i2c_1_sda                             => CONNECTED_TO_i2c_1_sda,                             --                            .sda
+			i2c_0_scl                             => CONNECTED_TO_i2c_0_scl,                             --                       i2c_0.scl
+			i2c_0_sda                             => CONNECTED_TO_i2c_0_sda                              --                            .sda
 		);
 

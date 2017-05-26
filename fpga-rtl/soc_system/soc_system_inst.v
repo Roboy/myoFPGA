@@ -82,6 +82,10 @@
 		.myocontrol_1_sck                      (<connected-to-myocontrol_1_sck>),                      //                            .sck
 		.myocontrol_1_ss_n                     (<connected-to-myocontrol_1_ss_n>),                     //                            .ss_n
 		.pio_led_external_connection_export    (<connected-to-pio_led_external_connection_export>),    // pio_led_external_connection.export
-		.reset_reset_n                         (<connected-to-reset_reset_n>)                          //                       reset.reset_n
+		.reset_reset_n                         (<connected-to-reset_reset_n>),                         //                       reset.reset_n
+		.i2c_1_scl                             (<connected-to-i2c_1_scl>),                             //                       i2c_1.scl
+		.i2c_1_sda                             (<connected-to-i2c_1_sda>),                             //                            .sda
+		.i2c_0_scl                             (<connected-to-i2c_0_scl>),                             //                       i2c_0.scl
+		.i2c_0_sda                             (<connected-to-i2c_0_sda>)                              //                            .sda
 	);
 

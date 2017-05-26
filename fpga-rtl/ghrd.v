@@ -34,7 +34,7 @@
 `define ENABLE_HPS
 //`define ENABLE_CLK
 
-module ghrd(                                              
+module ghrd(                                               
 
       ///////// ADC /////////
       output             ADC_CONVST,
@@ -157,6 +157,11 @@ module ghrd(
 		.myocontrol_1_miso(GPIO_1[1]), 
 		.myocontrol_1_sck(GPIO_1[2]),
 		.myocontrol_1_ss_n(GPIO_1[35:29]), 
+		// angle sensors 
+		.i2c_0_scl(GPIO_0[24]),
+		.i2c_0_sda(GPIO_0[25]),
+		.i2c_1_scl(GPIO_1[24]),
+		.i2c_1_sda(GPIO_1[25]),
 		//Clock&Reset
 	  .clk_clk                               (FPGA_CLK1_50 ),                        //  clk.clk
 	  .reset_reset_n                         (1'b1         ),                        //  reset.reset_n

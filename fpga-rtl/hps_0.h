@@ -60,9 +60,9 @@
  */
 #define MYOCONTROL_1_COMPONENT_TYPE MYOControl
 #define MYOCONTROL_1_COMPONENT_NAME MYOControl_1
-#define MYOCONTROL_1_BASE 0x800
+#define MYOCONTROL_1_BASE 0x0
 #define MYOCONTROL_1_SPAN 1024
-#define MYOCONTROL_1_END 0xbff
+#define MYOCONTROL_1_END 0x3ff
 
 /*
  * Macros for device 'MYOControl_0', class 'MYOControl'
@@ -71,9 +71,31 @@
  */
 #define MYOCONTROL_0_COMPONENT_TYPE MYOControl
 #define MYOCONTROL_0_COMPONENT_NAME MYOControl_0
-#define MYOCONTROL_0_BASE 0xc00
+#define MYOCONTROL_0_BASE 0x400
 #define MYOCONTROL_0_SPAN 1024
-#define MYOCONTROL_0_END 0xfff
+#define MYOCONTROL_0_END 0x7ff
+
+/*
+ * Macros for device 'I2C_0', class 'I2C'
+ * The macros are prefixed with 'I2C_0_'.
+ * The prefix is the slave descriptor.
+ */
+#define I2C_0_COMPONENT_TYPE I2C
+#define I2C_0_COMPONENT_NAME I2C_0
+#define I2C_0_BASE 0x800
+#define I2C_0_SPAN 32
+#define I2C_0_END 0x81f
+
+/*
+ * Macros for device 'I2C_1', class 'I2C'
+ * The macros are prefixed with 'I2C_1_'.
+ * The prefix is the slave descriptor.
+ */
+#define I2C_1_COMPONENT_TYPE I2C
+#define I2C_1_COMPONENT_NAME I2C_1
+#define I2C_1_BASE 0x820
+#define I2C_1_SPAN 32
+#define I2C_1_END 0x83f
 
 /*
  * Macros for device 'adc_0', class 'altera_up_avalon_adc'
@@ -82,9 +104,9 @@
  */
 #define ADC_0_COMPONENT_TYPE altera_up_avalon_adc
 #define ADC_0_COMPONENT_NAME adc_0
-#define ADC_0_BASE 0x1000
+#define ADC_0_BASE 0x840
 #define ADC_0_SPAN 32
-#define ADC_0_END 0x101f
+#define ADC_0_END 0x85f
 
 /*
  * Macros for device 'pio_led', class 'altera_avalon_pio'
@@ -93,9 +115,9 @@
  */
 #define PIO_LED_COMPONENT_TYPE altera_avalon_pio
 #define PIO_LED_COMPONENT_NAME pio_led
-#define PIO_LED_BASE 0x1020
+#define PIO_LED_BASE 0x860
 #define PIO_LED_SPAN 16
-#define PIO_LED_END 0x102f
+#define PIO_LED_END 0x86f
 #define PIO_LED_BIT_CLEARING_EDGE_REGISTER 0
 #define PIO_LED_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define PIO_LED_CAPTURE 0
@@ -121,7 +143,7 @@
 #define SYSID_QSYS_SPAN 8
 #define SYSID_QSYS_END 0x10007
 #define SYSID_QSYS_ID 2899645186
-#define SYSID_QSYS_TIMESTAMP 1490996344
+#define SYSID_QSYS_TIMESTAMP 1495751615
 
 /*
  * Macros for device 'jtag_uart', class 'altera_avalon_jtag_uart'

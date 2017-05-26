@@ -2,12 +2,6 @@
 WORK > DEFAULT
 DEFAULT:               ./libraries/work/                 
 work:                  ./libraries/work/                 
-onchip_memory2_0:      ./libraries/onchip_memory2_0/     
-jtag_uart:             ./libraries/jtag_uart/            
-intr_capturer_0:       ./libraries/intr_capturer_0/      
-hps_0:                 ./libraries/hps_0/                
-fpga_only_master:      ./libraries/fpga_only_master/     
-adc_0:                 ./libraries/adc_0/                
 altera_ver:            ./libraries/altera_ver/           
 lpm_ver:               ./libraries/lpm_ver/              
 sgate_ver:             ./libraries/sgate_ver/            

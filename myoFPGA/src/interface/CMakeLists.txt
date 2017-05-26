@@ -26,12 +26,12 @@ protobuf_generate_cpp(PROTO_SRCS PROTO_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/../roboy
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 # qt_build provides the qt cmake glue, roscpp the comms for a default talker
-find_package(catkin REQUIRED COMPONENTS qt_build roscpp communication roboy_managing_node)
+find_package(catkin REQUIRED COMPONENTS qt_build roscpp roboy_communication_middleware roboy_managing_node)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../roboy_powerlink/powerlink/output)
 # Use this to define what the package will export (e.g. libs, headers).
 # Since the default here is to produce only a binary, we don't worry about
 # exporting anything. 
-catkin_package(CATKIN_DEPENDS roboy_managing_node communication )
+catkin_package(CATKIN_DEPENDS roboy_managing_node roboy_communication_middleware )
 include_directories(${catkin_INCLUDE_DIRS})
 
 include_directories(qcustomplot)
@@ -71,6 +71,7 @@ file(GLOB_RECURSE QT_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} FOLLOW_SYMLINK
 ##############################################################################
 
 add_executable(interface ${QT_SOURCES} ${QT_RESOURCES_CPP} ${QT_FORMS_HPP} ${QT_MOC_HPP} )
+add_dependencies(interface roboy_communication_middleware_gencpp)
 target_link_libraries(interface ${QT_LIBRARIES} ${catkin_LIBRARIES} ${PROTOBUF_LIBRARY} roboy_managing_node ${tinyxml_LIBRARIES} )
 ##############################################################################
 # Installation

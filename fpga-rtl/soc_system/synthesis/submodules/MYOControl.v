@@ -25,29 +25,29 @@ module MYOControl (
 
 // gains and shit
 // p gains
-reg unsigned [15:0] Kp0;
-reg unsigned [15:0] Kp1;
-reg unsigned [15:0] Kp2;
-reg unsigned [15:0] Kp3;
-reg unsigned [15:0] Kp4;
-reg unsigned [15:0] Kp5;
-reg unsigned [15:0] Kp6;
+reg signed [15:0] Kp0;
+reg signed [15:0] Kp1;
+reg signed [15:0] Kp2;
+reg signed [15:0] Kp3;
+reg signed [15:0] Kp4;
+reg signed [15:0] Kp5;
+reg signed [15:0] Kp6;
 // d gains
-reg unsigned [15:0] Kd0;
-reg unsigned [15:0] Kd1;
-reg unsigned [15:0] Kd2;
-reg unsigned [15:0] Kd3;
-reg unsigned [15:0] Kd4;
-reg unsigned [15:0] Kd5;
-reg unsigned [15:0] Kd6;
+reg signed [15:0] Kd0;
+reg signed [15:0] Kd1;
+reg signed [15:0] Kd2;
+reg signed [15:0] Kd3;
+reg signed [15:0] Kd4;
+reg signed [15:0] Kd5;
+reg signed [15:0] Kd6;
 // i gains
-reg unsigned [15:0] Ki0;
-reg unsigned [15:0] Ki1;
-reg unsigned [15:0] Ki2;
-reg unsigned [15:0] Ki3;
-reg unsigned [15:0] Ki4;
-reg unsigned [15:0] Ki5;
-reg unsigned [15:0] Ki6;
+reg signed [15:0] Ki0;
+reg signed [15:0] Ki1;
+reg signed [15:0] Ki2;
+reg signed [15:0] Ki3;
+reg signed [15:0] Ki4;
+reg signed [15:0] Ki5;
+reg signed [15:0] Ki6;
 // setpoints
 reg signed [31:0] sp0;
 reg signed [31:0] sp1;
@@ -97,13 +97,13 @@ reg signed [15:0] IntegralPosMax4;
 reg signed [15:0] IntegralPosMax5;
 reg signed [15:0] IntegralPosMax6;
 // deadband
-reg unsigned [15:0] deadBand0;
-reg unsigned [15:0] deadBand1;
-reg unsigned [15:0] deadBand2;
-reg unsigned [15:0] deadBand3;
-reg unsigned [15:0] deadBand4;
-reg unsigned [15:0] deadBand5;
-reg unsigned [15:0] deadBand6;
+reg signed [15:0] deadBand0;
+reg signed [15:0] deadBand1;
+reg signed [15:0] deadBand2;
+reg signed [15:0] deadBand3;
+reg signed [15:0] deadBand4;
+reg signed [15:0] deadBand5;
+reg signed [15:0] deadBand6;
 // control mode
 reg unsigned [1:0] controller0;
 reg unsigned [1:0] controller1;
@@ -238,13 +238,13 @@ assign readdata =
 	((address == 128))? pwmRef6:
 	32'hDEAD_BEEF;
 
-wire signed [0:15] pwmRef0;
-wire signed [0:15] pwmRef1;
-wire signed [0:15] pwmRef2;
-wire signed [0:15] pwmRef3;
-wire signed [0:15] pwmRef4;
-wire signed [0:15] pwmRef5;
-wire signed [0:15] pwmRef6;
+wire signed [0:31] pwmRef0;
+wire signed [0:31] pwmRef1;
+wire signed [0:31] pwmRef2;
+wire signed [0:31] pwmRef3;
+wire signed [0:31] pwmRef4;
+wire signed [0:31] pwmRef5;
+wire signed [0:31] pwmRef6;
 
 // positions for the eight motors
 reg signed [31:0] position0;
@@ -450,7 +450,7 @@ end
 wire di_req, wr_ack, do_valid, wren, spi_done, ss_n;
 wire [0:15] Word;
 wire [15:0] data_out;
-wire [0:15] pwmRef;
+wire signed [0:31] pwmRef;
 wire signed [0:31] position; 
 wire signed [0:15] velocity;
 wire signed [0:15] current;

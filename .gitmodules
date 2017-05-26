@@ -7,3 +7,9 @@
 [submodule "myoFPGA/src/roboy_controlled_node_fpga"]
 	path = myoFPGA/src/roboy_controlled_node_fpga
 	url = https://github.com/Roboy/roboy_controlled_node_fpga
+[submodule "myoFPGA/src/roboy_communication"]
+	path = myoFPGA/src/roboy_communication
+	url = https://github.com/Roboy/roboy_communication
+[submodule "myoFPGA/src/common_utilities"]
+	path = myoFPGA/src/common_utilities
+	url = https://github.com/Roboy/common_utilities

@@ -12,7 +12,7 @@
 # or its authorized distributors. Please refer to the applicable 
 # agreement for further details.
 
-# ACDS 16.1 203 linux 2017.03.03.18:33:56
+# ACDS 17.0 595 linux 2017.05.26.00:24:17
 
 # ----------------------------------------
 # vcsmx - auto-generated simulation script
@@ -101,12 +101,12 @@
 # within the Quartus project, and generate a unified
 # script which supports all the Altera IP within the design.
 # ----------------------------------------
-# ACDS 16.1 203 linux 2017.03.03.18:33:56
+# ACDS 17.0 595 linux 2017.05.26.00:24:17
 # ----------------------------------------
 # initialize variables
 TOP_LEVEL_NAME="soc_system"
 QSYS_SIMDIR="./../../"
-QUARTUS_INSTALL_DIR="/home/roboy/altera/16.1/quartus/"
+QUARTUS_INSTALL_DIR="/home/roboy/intelFPGA/17.0/quartus/"
 SKIP_FILE_COPY=0
 SKIP_DEV_COM=0
 SKIP_COM=0
@@ -141,12 +141,6 @@ fi
 # ----------------------------------------
 # create compilation libraries
 mkdir -p ./libraries/work/
-mkdir -p ./libraries/onchip_memory2_0/
-mkdir -p ./libraries/jtag_uart/
-mkdir -p ./libraries/intr_capturer_0/
-mkdir -p ./libraries/hps_0/
-mkdir -p ./libraries/fpga_only_master/
-mkdir -p ./libraries/adc_0/
 mkdir -p ./libraries/altera_ver/
 mkdir -p ./libraries/lpm_ver/
 mkdir -p ./libraries/sgate_ver/
@@ -158,9 +152,6 @@ mkdir -p ./libraries/cyclonev_pcie_hip_ver/
 
 # ----------------------------------------
 # copy RAM/ROM files to simulation directory
-if [ $SKIP_FILE_COPY -eq 0 ]; then
-  cp -f $QSYS_SIMDIR/submodules/soc_system_onchip_memory2_0.hex ./
-fi
 
 # ----------------------------------------
 # compile device library files
@@ -182,14 +173,7 @@ fi
 # ----------------------------------------
 # compile design files in correct order
 if [ $SKIP_COM -eq 0 ]; then
-  vlogan +v2k $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/submodules/soc_system_onchip_memory2_0.v" -work onchip_memory2_0
-  vlogan +v2k $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/submodules/soc_system_jtag_uart.v"        -work jtag_uart       
-  vlogan +v2k $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/submodules/intr_capturer.v"               -work intr_capturer_0 
-  vlogan +v2k $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/submodules/soc_system_hps_0.v"            -work hps_0           
-  vlogan +v2k $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/submodules/soc_system_fpga_only_master.v" -work fpga_only_master
-  vlogan +v2k $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/submodules/altera_up_avalon_adv_adc.v"    -work adc_0           
-  vlogan +v2k $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/submodules/soc_system_adc_0.v"            -work adc_0           
-  vlogan +v2k $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/soc_system.v"                                                   
+  vlogan +v2k $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/soc_system.v"
 fi
 
 # ----------------------------------------

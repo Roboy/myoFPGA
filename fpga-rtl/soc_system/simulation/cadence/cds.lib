@@ -9,12 +9,6 @@ DEFINE ncinternal            $CDS_ROOT/tools/inca/files/NCINTERNAL/
 DEFINE ncmodels              $CDS_ROOT/tools/inca/files/NCMODELS/      
 DEFINE cds_assertions        $CDS_ROOT/tools/inca/files/CDS_ASSERTIONS/
 DEFINE work                  ./libraries/work/                         
-DEFINE onchip_memory2_0      ./libraries/onchip_memory2_0/             
-DEFINE jtag_uart             ./libraries/jtag_uart/                    
-DEFINE intr_capturer_0       ./libraries/intr_capturer_0/              
-DEFINE hps_0                 ./libraries/hps_0/                        
-DEFINE fpga_only_master      ./libraries/fpga_only_master/             
-DEFINE adc_0                 ./libraries/adc_0/                        
 DEFINE altera_ver            ./libraries/altera_ver/                   
 DEFINE lpm_ver               ./libraries/lpm_ver/                      
 DEFINE sgate_ver             ./libraries/sgate_ver/                    

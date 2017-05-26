@@ -1,37 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <simPackage>
- <file
-   path="simulation/submodules/soc_system_onchip_memory2_0.hex"
-   type="HEX"
-   library="onchip_memory2_0" />
- <file
-   path="simulation/submodules/soc_system_onchip_memory2_0.v"
-   type="VERILOG"
-   library="onchip_memory2_0" />
- <file
-   path="simulation/submodules/soc_system_jtag_uart.v"
-   type="VERILOG"
-   library="jtag_uart" />
- <file
-   path="simulation/submodules/intr_capturer.v"
-   type="VERILOG"
-   library="intr_capturer_0" />
- <file
-   path="simulation/submodules/soc_system_hps_0.v"
-   type="VERILOG"
-   library="hps_0" />
- <file
-   path="simulation/submodules/soc_system_fpga_only_master.v"
-   type="VERILOG"
-   library="fpga_only_master" />
- <file
-   path="simulation/submodules/altera_up_avalon_adv_adc.v"
-   type="VERILOG"
-   library="adc_0" />
- <file
-   path="simulation/submodules/soc_system_adc_0.v"
-   type="VERILOG"
-   library="adc_0" />
  <file path="simulation/soc_system.v" type="VERILOG" />
  <topLevel name="soc_system" />
  <deviceFamily name="cyclonev" />

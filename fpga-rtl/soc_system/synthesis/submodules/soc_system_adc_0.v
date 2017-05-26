@@ -19,14 +19,6 @@
 // FROM, OUT OF OR IN CONNECTION WITH THIS FILE OR THE USE OR OTHER DEALINGS
 // IN THIS FILE.
 
-/******************************************************************************
- *                                                                            *
- * This module is designed for use on an Altera DE0-Nano Development Board.   *
- *  It allows a user to interface with the on-board Analog-to-Digital         *
- *  Converter.                                                                *
- *                                                                            *
- ******************************************************************************/
- 
 module soc_system_adc_0 (
 	clock, 
 	reset, 
@@ -50,6 +42,8 @@ parameter tsclk = 8'd6;
 parameter numch = 4'd7;
 parameter board = "DE1-SoC";
 parameter board_rev = "Autodetect";
+parameter max10pllmultby = 1;
+parameter max10plldivby = 10;
 /*****************************************************************************
  *                             Port Declarations                             *
  *****************************************************************************/
@@ -70,7 +64,7 @@ parameter board_rev = "Autodetect";
 	wire done;
 	wire [11:0] outs [7:0];
 
-	defparam ADC_CTRL.T_SCLK = tsclk, ADC_CTRL.NUM_CH = numch, ADC_CTRL.BOARD = board, ADC_CTRL.BOARD_REV = board_rev;
+	defparam ADC_CTRL.T_SCLK = tsclk, ADC_CTRL.NUM_CH = numch, ADC_CTRL.BOARD = board, ADC_CTRL.BOARD_REV = board_rev, ADC_CTRL.MAX10_PLL_MULTIPLY_BY = max10pllmultby, ADC_CTRL.MAX10_PLL_MULTIPLY_BY = max10plldivby;
 	altera_up_avalon_adv_adc ADC_CTRL (clock, reset, go, adc_sclk, adc_cs_n, adc_din, adc_dout, done, outs[0],
 						 outs[1], outs[2], outs[3], outs[4], outs [5], outs[6], outs[7]);
 // - - - - - - - readdata & waitrequest - - - - - - -

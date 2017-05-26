@@ -12,7 +12,7 @@
 # or its authorized distributors. Please refer to the applicable 
 # agreement for further details.
 
-# ACDS 16.1 203 linux 2017.03.03.18:33:56
+# ACDS 17.0 595 linux 2017.05.26.00:24:17
 
 # ----------------------------------------
 # vcs - auto-generated simulation script
@@ -94,12 +94,12 @@
 # within the Quartus project, and generate a unified
 # script which supports all the Altera IP within the design.
 # ----------------------------------------
-# ACDS 16.1 203 linux 2017.03.03.18:33:56
+# ACDS 17.0 595 linux 2017.05.26.00:24:17
 # ----------------------------------------
 # initialize variables
 TOP_LEVEL_NAME="soc_system"
 QSYS_SIMDIR="./../../"
-QUARTUS_INSTALL_DIR="/home/roboy/altera/16.1/quartus/"
+QUARTUS_INSTALL_DIR="/home/roboy/intelFPGA/17.0/quartus/"
 SKIP_FILE_COPY=0
 SKIP_SIM=0
 USER_DEFINED_ELAB_OPTIONS=""
@@ -129,9 +129,6 @@ fi
 
 # ----------------------------------------
 # copy RAM/ROM files to simulation directory
-if [ $SKIP_FILE_COPY -eq 0 ]; then
-  cp -f $QSYS_SIMDIR/submodules/soc_system_onchip_memory2_0.hex ./
-fi
 
 vcs -lca -timescale=1ps/1ps -sverilog +verilog2001ext+.v -ntb_opts dtm $ELAB_OPTIONS $USER_DEFINED_ELAB_OPTIONS \
   -v $QUARTUS_INSTALL_DIR/eda/sim_lib/altera_primitives.v \
@@ -146,13 +143,6 @@ vcs -lca -timescale=1ps/1ps -sverilog +verilog2001ext+.v -ntb_opts dtm $ELAB_OPT
   -v $QUARTUS_INSTALL_DIR/eda/sim_lib/cyclonev_hssi_atoms.v \
   -v $QUARTUS_INSTALL_DIR/eda/sim_lib/synopsys/cyclonev_pcie_hip_atoms_ncrypt.v \
   -v $QUARTUS_INSTALL_DIR/eda/sim_lib/cyclonev_pcie_hip_atoms.v \
-  $QSYS_SIMDIR/submodules/soc_system_onchip_memory2_0.v \
-  $QSYS_SIMDIR/submodules/soc_system_jtag_uart.v \
-  $QSYS_SIMDIR/submodules/intr_capturer.v \
-  $QSYS_SIMDIR/submodules/soc_system_hps_0.v \
-  $QSYS_SIMDIR/submodules/soc_system_fpga_only_master.v \
-  $QSYS_SIMDIR/submodules/altera_up_avalon_adv_adc.v \
-  $QSYS_SIMDIR/submodules/soc_system_adc_0.v \
   $QSYS_SIMDIR/soc_system.v \
   -top $TOP_LEVEL_NAME
 # ----------------------------------------

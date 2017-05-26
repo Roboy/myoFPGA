@@ -37,7 +37,7 @@
        <locale language="English" country="Australia"/>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <property name="movable">
        <bool>true</bool>
@@ -437,9 +437,9 @@
       </widget>
       <widget class="QWidget" name="tab_motorControl">
        <attribute name="title">
-        <string>fpga#0</string>
+        <string>MotorStatus</string>
        </attribute>
-       <widget class="QCustomPlot" name="position_plot0" native="true">
+       <widget class="QCustomPlot" name="position_plot" native="true">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -449,7 +449,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QCustomPlot" name="velocity_plot0" native="true">
+       <widget class="QCustomPlot" name="velocity_plot" native="true">
         <property name="geometry">
          <rect>
           <x>480</x>
@@ -459,7 +459,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QCustomPlot" name="displacement_plot0" native="true">
+       <widget class="QCustomPlot" name="displacement_plot" native="true">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -469,7 +469,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QCustomPlot" name="current_plot0" native="true">
+       <widget class="QCustomPlot" name="current_plot" native="true">
         <property name="geometry">
          <rect>
           <x>480</x>
@@ -480,21 +480,11 @@
         </property>
        </widget>
       </widget>
-      <widget class="QWidget" name="tab">
+      <widget class="QWidget" name="tab_5">
        <attribute name="title">
-        <string>fpga#1</string>
+        <string>JointStatus</string>
        </attribute>
-       <widget class="QCustomPlot" name="velocity_plot1" native="true">
-        <property name="geometry">
-         <rect>
-          <x>480</x>
-          <y>0</y>
-          <width>481</width>
-          <height>391</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QCustomPlot" name="current_plot1" native="true">
+       <widget class="QCustomPlot" name="agcGain_plot" native="true">
         <property name="geometry">
          <rect>
           <x>480</x>
@@ -504,7 +494,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QCustomPlot" name="position_plot1" native="true">
+       <widget class="QCustomPlot" name="absAngle_plot" native="true">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -514,22 +504,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QCustomPlot" name="displacement_plot1" native="true">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>390</y>
-          <width>481</width>
-          <height>391</height>
-         </rect>
-        </property>
-       </widget>
-      </widget>
-      <widget class="QWidget" name="tab_2">
-       <attribute name="title">
-        <string>fpga#2</string>
-       </attribute>
-       <widget class="QCustomPlot" name="velocity_plot2" native="true">
+       <widget class="QCustomPlot" name="relAngle_plot" native="true">
         <property name="geometry">
          <rect>
           <x>480</x>
@@ -539,117 +514,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QCustomPlot" name="current_plot2" native="true">
-        <property name="geometry">
-         <rect>
-          <x>480</x>
-          <y>390</y>
-          <width>481</width>
-          <height>391</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QCustomPlot" name="position_plot2" native="true">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>481</width>
-          <height>391</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QCustomPlot" name="displacement_plot2" native="true">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>390</y>
-          <width>481</width>
-          <height>391</height>
-         </rect>
-        </property>
-       </widget>
-      </widget>
-      <widget class="QWidget" name="tab_4">
-       <attribute name="title">
-        <string>fpga#3</string>
-       </attribute>
-       <widget class="QCustomPlot" name="velocity_plot3" native="true">
-        <property name="geometry">
-         <rect>
-          <x>480</x>
-          <y>0</y>
-          <width>481</width>
-          <height>391</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QCustomPlot" name="current_plot3" native="true">
-        <property name="geometry">
-         <rect>
-          <x>480</x>
-          <y>390</y>
-          <width>481</width>
-          <height>391</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QCustomPlot" name="position_plot3" native="true">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>481</width>
-          <height>391</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QCustomPlot" name="displacement_plot3" native="true">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>390</y>
-          <width>481</width>
-          <height>391</height>
-         </rect>
-        </property>
-       </widget>
-      </widget>
-      <widget class="QWidget" name="tab_3">
-       <attribute name="title">
-        <string>fpga#4</string>
-       </attribute>
-       <widget class="QCustomPlot" name="velocity_plot4" native="true">
-        <property name="geometry">
-         <rect>
-          <x>480</x>
-          <y>0</y>
-          <width>481</width>
-          <height>391</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QCustomPlot" name="current_plot4" native="true">
-        <property name="geometry">
-         <rect>
-          <x>480</x>
-          <y>390</y>
-          <width>481</width>
-          <height>391</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QCustomPlot" name="position_plot4" native="true">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>481</width>
-          <height>391</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QCustomPlot" name="displacement_plot4" native="true">
+       <widget class="QCustomPlot" name="tacho_plot" native="true">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -1020,6 +885,9 @@
          <property name="maximum">
           <number>50</number>
          </property>
+         <property name="value">
+          <number>-50</number>
+         </property>
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -1081,6 +949,9 @@
          <property name="maximum">
           <number>50</number>
          </property>
+         <property name="value">
+          <number>-50</number>
+         </property>
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -1141,6 +1012,9 @@
          </property>
          <property name="maximum">
           <number>50</number>
+         </property>
+         <property name="value">
+          <number>-50</number>
          </property>
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -1245,6 +1119,9 @@
          <property name="maximum">
           <number>50</number>
          </property>
+         <property name="value">
+          <number>-50</number>
+         </property>
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -1347,6 +1224,9 @@
          </property>
          <property name="maximum">
           <number>50</number>
+         </property>
+         <property name="value">
+          <number>-50</number>
          </property>
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -1451,6 +1331,9 @@
          <property name="maximum">
           <number>50</number>
          </property>
+         <property name="value">
+          <number>-50</number>
+         </property>
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -1553,6 +1436,9 @@
          </property>
          <property name="maximum">
           <number>50</number>
+         </property>
+         <property name="value">
+          <number>-50</number>
          </property>
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -1657,6 +1543,9 @@
          <property name="maximum">
           <number>50</number>
          </property>
+         <property name="value">
+          <number>-50</number>
+         </property>
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -1759,6 +1648,9 @@
          </property>
          <property name="maximum">
           <number>50</number>
+         </property>
+         <property name="value">
+          <number>-50</number>
          </property>
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -1863,6 +1755,9 @@
          <property name="maximum">
           <number>50</number>
          </property>
+         <property name="value">
+          <number>-50</number>
+         </property>
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -1965,6 +1860,9 @@
          </property>
          <property name="maximum">
           <number>50</number>
+         </property>
+         <property name="value">
+          <number>-50</number>
          </property>
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -2069,6 +1967,9 @@
          <property name="maximum">
           <number>50</number>
          </property>
+         <property name="value">
+          <number>-50</number>
+         </property>
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -2172,6 +2073,9 @@
          <property name="maximum">
           <number>50</number>
          </property>
+         <property name="value">
+          <number>-50</number>
+         </property>
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -2274,6 +2178,9 @@
          </property>
          <property name="maximum">
           <number>50</number>
+         </property>
+         <property name="value">
+          <number>-50</number>
          </property>
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
