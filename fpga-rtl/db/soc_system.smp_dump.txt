@@ -67,6 +67,30 @@ state.READ_DATA_WAIT 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1
 state.READ_SEND_ISSUE 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
 state.READ_SEND_WAIT 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
 
+State Machine - |ghrd|soc_system:u0|I2C_avalon_bridge:i2c_1|i2c_master:i2c|state
+Name state.stop state.mstr_ack state.slv_ack2 state.rd state.wr state.slv_ack1 state.command state.start state.ready 
+state.ready 0 0 0 0 0 0 0 0 0 
+state.start 0 0 0 0 0 0 0 1 1 
+state.command 0 0 0 0 0 0 1 0 1 
+state.slv_ack1 0 0 0 0 0 1 0 0 1 
+state.wr 0 0 0 0 1 0 0 0 1 
+state.rd 0 0 0 1 0 0 0 0 1 
+state.slv_ack2 0 0 1 0 0 0 0 0 1 
+state.mstr_ack 0 1 0 0 0 0 0 0 1 
+state.stop 1 0 0 0 0 0 0 0 1 
+
+State Machine - |ghrd|soc_system:u0|I2C_avalon_bridge:i2c_0|i2c_master:i2c|state
+Name state.stop state.mstr_ack state.slv_ack2 state.rd state.wr state.slv_ack1 state.command state.start state.ready 
+state.ready 0 0 0 0 0 0 0 0 0 
+state.start 0 0 0 0 0 0 0 1 1 
+state.command 0 0 0 0 0 0 1 0 1 
+state.slv_ack1 0 0 0 0 0 1 0 0 1 
+state.wr 0 0 0 0 1 0 0 0 1 
+state.rd 0 0 0 1 0 0 0 0 1 
+state.slv_ack2 0 0 1 0 0 0 0 0 1 
+state.mstr_ack 0 1 0 0 0 0 0 0 1 
+state.stop 1 0 0 0 0 0 0 0 1 
+
 State Machine - |ghrd|altera_edge_detector:pulse_debug_reset|state
 Name state.IDLE state.CAPT state.ARM 
 state.IDLE 0 0 0 
@@ -95,37 +119,6 @@ currState.pauseState 0 0 1 0 0 0 1
 currState.initCtrlRegState 0 1 0 0 0 0 1 
 currState.pauseStateNoAddrIncr 1 0 0 0 0 0 1 
 
-State Machine - |ghrd|soc_system:u0|I2C_avalon_bridge:i2c_1|i2c_master:i2c|state
-Name state.stop state.mstr_ack state.slv_ack2 state.rd state.wr state.slv_ack1 state.command state.start state.ready 
-state.ready 0 0 0 0 0 0 0 0 0 
-state.start 0 0 0 0 0 0 0 1 1 
-state.command 0 0 0 0 0 0 1 0 1 
-state.slv_ack1 0 0 0 0 0 1 0 0 1 
-state.wr 0 0 0 0 1 0 0 0 1 
-state.rd 0 0 0 1 0 0 0 0 1 
-state.slv_ack2 0 0 1 0 0 0 0 0 1 
-state.mstr_ack 0 1 0 0 0 0 0 0 1 
-state.stop 1 0 0 0 0 0 0 0 1 
-
-State Machine - |ghrd|soc_system:u0|I2C_avalon_bridge:i2c_0|i2c_master:i2c|state
-Name state.stop state.mstr_ack state.slv_ack2 state.rd state.wr state.slv_ack1 state.command state.start state.ready 
-state.ready 0 0 0 0 0 0 0 0 0 
-state.start 0 0 0 0 0 0 0 1 1 
-state.command 0 0 0 0 0 0 1 0 1 
-state.slv_ack1 0 0 0 0 0 1 0 0 1 
-state.wr 0 0 0 0 1 0 0 0 1 
-state.rd 0 0 0 1 0 0 0 0 1 
-state.slv_ack2 0 0 1 0 0 0 0 0 1 
-state.mstr_ack 0 1 0 0 0 0 0 0 1 
-state.stop 1 0 0 0 0 0 0 0 1 
-
-State Machine - |ghrd|soc_system:u0|soc_system_mm_interconnect_0:mm_interconnect_0|altera_merlin_burst_adapter:jtag_uart_avalon_jtag_slave_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|state
-Name state.ST_IDLE state.ST_UNCOMP_WR_SUBBURST state.ST_UNCOMP_TRANS state.ST_COMP_TRANS 
-state.ST_IDLE 0 0 0 0 
-state.ST_COMP_TRANS 1 0 0 1 
-state.ST_UNCOMP_TRANS 1 0 1 0 
-state.ST_UNCOMP_WR_SUBBURST 1 1 0 0 
-
 State Machine - |ghrd|soc_system:u0|soc_system_fpga_only_master:hps_only_master|altera_avalon_packets_to_master:transacto|packets_to_master:p2m|state
 Name state.READ_SEND_WAIT state.READ_SEND_ISSUE state.READ_DATA_WAIT state.READ_CMD_WAIT state.READ_ASSERT state.RETURN_PACKET state.WRITE_WAIT state.GET_WRITE_DATA state.GET_ADDR4 state.GET_ADDR3 state.GET_ADDR2 state.GET_ADDR1 state.GET_SIZE2 state.GET_SIZE1 state.GET_EXTRA state.0000 
 state.0000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
@@ -144,6 +137,13 @@ state.READ_CMD_WAIT 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1
 state.READ_DATA_WAIT 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 
 state.READ_SEND_ISSUE 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
 state.READ_SEND_WAIT 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - |ghrd|soc_system:u0|soc_system_mm_interconnect_0:mm_interconnect_0|altera_merlin_burst_adapter:jtag_uart_avalon_jtag_slave_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|state
+Name state.ST_IDLE state.ST_UNCOMP_WR_SUBBURST state.ST_UNCOMP_TRANS state.ST_COMP_TRANS 
+state.ST_IDLE 0 0 0 0 
+state.ST_COMP_TRANS 1 0 0 1 
+state.ST_UNCOMP_TRANS 1 0 1 0 
+state.ST_UNCOMP_WR_SUBBURST 1 1 0 0 
 
 State Machine - |ghrd|soc_system:u0|soc_system_mm_interconnect_0:mm_interconnect_0|altera_merlin_burst_adapter:onchip_memory2_0_s1_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|state
 Name state.ST_IDLE state.ST_UNCOMP_WR_SUBBURST state.ST_UNCOMP_TRANS state.ST_COMP_TRANS 

@@ -54,8 +54,10 @@ private:
     void MotorRecordPack(const roboy_communication_middleware::MotorRecord::ConstPtr &msg);
 public Q_SLOTS:
 	void on_actionAbout_triggered();
-    void updateSetPoints(int percent);
-    void updateSetPointsAll(int percent);
+    void updateSetPointsMotorControl(int percent);
+    void updateSetPointsMotorControlAll(int percent);
+    void updateSetPointsJointControl(int percent);
+    void updateSetPointsJointControlAll(int percent);
 	void updateControllerParams();
     void movementPathChanged();
     void recordMovement();
@@ -76,7 +78,7 @@ private:
     QVector<double> time;
     QVector<double> motorData[NUMBER_OF_FPGAS][NUMBER_OF_MOTORS_PER_FPGA][4];
 	QVector<double> jointData[NUMBER_OF_FPGAS][NUMBER_OF_JOINT_SENSORS][4];
-	bool motorConnected[NUMBER_OF_FPGAS][NUMBER_OF_MOTORS_PER_FPGA];
+	bool motorConnected[NUMBER_OF_FPGAS][NUMBER_OF_MOTORS_PER_FPGA], jointControl = false, motorControl = false;
     long int counter = 0;
     int samples_per_plot = 300;
     boost::shared_ptr<ros::AsyncSpinner> spinner;

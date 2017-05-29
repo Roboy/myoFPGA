@@ -73,7 +73,6 @@ always @(posedge clock, posedge reset) begin: PID_CONTROLLER_PID_CONTROLLERLOGIC
 				dterm = ((err - lastError) * Kd);
 				ffterm = (forwardGain * sp);
 				result = (((ffterm + pterm) + integral) + dterm);
-				result = pterm;
 				if ((result < outputNegMax)) begin
 					 result = outputNegMax;
 				end else if ((result > outputPosMax)) begin

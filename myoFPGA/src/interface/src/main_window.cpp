@@ -38,21 +38,26 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
 
     QObject::connect(this, SIGNAL(newData(int)), this, SLOT(plotData(int)));
 
-    QObject::connect(ui.motor0, SIGNAL(valueChanged(int)), this, SLOT(updateSetPoints(int)));
-    QObject::connect(ui.motor1, SIGNAL(valueChanged(int)), this, SLOT(updateSetPoints(int)));
-    QObject::connect(ui.motor2, SIGNAL(valueChanged(int)), this, SLOT(updateSetPoints(int)));
-    QObject::connect(ui.motor3, SIGNAL(valueChanged(int)), this, SLOT(updateSetPoints(int)));
-    QObject::connect(ui.motor4, SIGNAL(valueChanged(int)), this, SLOT(updateSetPoints(int)));
-    QObject::connect(ui.motor5, SIGNAL(valueChanged(int)), this, SLOT(updateSetPoints(int)));
-    QObject::connect(ui.motor6, SIGNAL(valueChanged(int)), this, SLOT(updateSetPoints(int)));
-    QObject::connect(ui.motor7, SIGNAL(valueChanged(int)), this, SLOT(updateSetPoints(int)));
-    QObject::connect(ui.motor8, SIGNAL(valueChanged(int)), this, SLOT(updateSetPoints(int)));
-    QObject::connect(ui.motor9, SIGNAL(valueChanged(int)), this, SLOT(updateSetPoints(int)));
-    QObject::connect(ui.motor10, SIGNAL(valueChanged(int)), this, SLOT(updateSetPoints(int)));
-    QObject::connect(ui.motor11, SIGNAL(valueChanged(int)), this, SLOT(updateSetPoints(int)));
-    QObject::connect(ui.motor12, SIGNAL(valueChanged(int)), this, SLOT(updateSetPoints(int)));
-    QObject::connect(ui.motor13, SIGNAL(valueChanged(int)), this, SLOT(updateSetPoints(int)));
-    QObject::connect(ui.allMotors, SIGNAL(valueChanged(int)), this, SLOT(updateSetPointsAll(int)));
+    QObject::connect(ui.motor0, SIGNAL(valueChanged(int)), this, SLOT(updateSetPointsMotorControl(int)));
+    QObject::connect(ui.motor1, SIGNAL(valueChanged(int)), this, SLOT(updateSetPointsMotorControl(int)));
+    QObject::connect(ui.motor2, SIGNAL(valueChanged(int)), this, SLOT(updateSetPointsMotorControl(int)));
+    QObject::connect(ui.motor3, SIGNAL(valueChanged(int)), this, SLOT(updateSetPointsMotorControl(int)));
+    QObject::connect(ui.motor4, SIGNAL(valueChanged(int)), this, SLOT(updateSetPointsMotorControl(int)));
+    QObject::connect(ui.motor5, SIGNAL(valueChanged(int)), this, SLOT(updateSetPointsMotorControl(int)));
+    QObject::connect(ui.motor6, SIGNAL(valueChanged(int)), this, SLOT(updateSetPointsMotorControl(int)));
+    QObject::connect(ui.motor7, SIGNAL(valueChanged(int)), this, SLOT(updateSetPointsMotorControl(int)));
+    QObject::connect(ui.motor8, SIGNAL(valueChanged(int)), this, SLOT(updateSetPointsMotorControl(int)));
+    QObject::connect(ui.motor9, SIGNAL(valueChanged(int)), this, SLOT(updateSetPointsMotorControl(int)));
+    QObject::connect(ui.motor10, SIGNAL(valueChanged(int)), this, SLOT(updateSetPointsMotorControl(int)));
+    QObject::connect(ui.motor11, SIGNAL(valueChanged(int)), this, SLOT(updateSetPointsMotorControl(int)));
+    QObject::connect(ui.motor12, SIGNAL(valueChanged(int)), this, SLOT(updateSetPointsMotorControl(int)));
+    QObject::connect(ui.motor13, SIGNAL(valueChanged(int)), this, SLOT(updateSetPointsMotorControl(int)));
+    QObject::connect(ui.allMotors, SIGNAL(valueChanged(int)), this, SLOT(updateSetPointsMotorControlAll(int)));
+    QObject::connect(ui.joint0, SIGNAL(valueChanged(int)), this, SLOT(updateSetPointsJointControl(int)));
+    QObject::connect(ui.joint1, SIGNAL(valueChanged(int)), this, SLOT(updateSetPointsJointControl(int)));
+    QObject::connect(ui.joint2, SIGNAL(valueChanged(int)), this, SLOT(updateSetPointsJointControl(int)));
+    QObject::connect(ui.joint3, SIGNAL(valueChanged(int)), this, SLOT(updateSetPointsJointControl(int)));
+    QObject::connect(ui.allJoints, SIGNAL(valueChanged(int)), this, SLOT(updateSetPointsJointControlAll(int)));
     QObject::connect(ui.updateController, SIGNAL(clicked()), this, SLOT(updateControllerParams()));
     QObject::connect(ui.record, SIGNAL(clicked()), this, SLOT(recordMovement()));
     QObject::connect(ui.play, SIGNAL(clicked()), this, SLOT(playMovement()));
@@ -60,8 +65,10 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
     QObject::connect(ui.rewind, SIGNAL(clicked()), this, SLOT(rewindMovement()));
     QObject::connect(ui.pause, SIGNAL(clicked()), this, SLOT(pauseMovement()));
     QObject::connect(ui.loop, SIGNAL(clicked()), this, SLOT(loopMovement()));
-    QObject::connect(ui.stop_button, SIGNAL(clicked()), this, SLOT(stopButtonClicked()));
-    ui.stop_button->setStyleSheet("background-color: red");
+    QObject::connect(ui.stop_button_motorControl, SIGNAL(clicked()), this, SLOT(stopButtonClicked()));
+    QObject::connect(ui.stop_button_jointControl, SIGNAL(clicked()), this, SLOT(stopButtonClicked()));
+    ui.stop_button_motorControl->setStyleSheet("background-color: red");
+    ui.stop_button_jointControl->setStyleSheet("background-color: red");
 
     nh = ros::NodeHandlePtr(new ros::NodeHandle);
     if (!ros::isInitialized()) {
@@ -109,31 +116,34 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
     ui.current_plot->yAxis->setLabel("mA");
     ui.current_plot->replot();
 
-    for(uint joint=0;joint<NUMBER_OF_JOINT_SENSORS;joint++) {
-        ui.absAngle_plot->addGraph();
-        ui.absAngle_plot->graph(joint)->setPen(QPen(color_pallette[joint]));
-        ui.relAngle_plot->addGraph();
-        ui.relAngle_plot->graph(joint)->setPen(QPen(color_pallette[joint]));
-        ui.agcGain_plot->addGraph();
-        ui.agcGain_plot->graph(joint)->setPen(QPen(color_pallette[joint]));
-        ui.tacho_plot->addGraph();
-        ui.tacho_plot->graph(joint)->setPen(QPen(color_pallette[joint]));
-    }
-    ui.absAngle_plot->xAxis->setLabel("x");
-    ui.absAngle_plot->yAxis->setLabel("ticks");
-    ui.absAngle_plot->replot();
+    ui.relAngle0_plot->addGraph();
+    ui.relAngle0_plot->graph(0)->setPen(QPen(color_pallette[0]));
+    ui.relAngle0_plot->xAxis->setLabel("x");
+    ui.relAngle0_plot->yAxis->setLabel("degrees");
+    ui.relAngle0_plot->yAxis->setRange(0,360);
 
-    ui.relAngle_plot->xAxis->setLabel("x");
-    ui.relAngle_plot->yAxis->setLabel("ticks");
-    ui.relAngle_plot->replot();
+    ui.relAngle1_plot->addGraph();
+    ui.relAngle1_plot->graph(0)->setPen(QPen(color_pallette[1]));
+    ui.relAngle1_plot->xAxis->setLabel("x");
+    ui.relAngle1_plot->yAxis->setLabel("degrees");
+    ui.relAngle1_plot->yAxis->setRange(0,360);
 
-    ui.agcGain_plot->xAxis->setLabel("x");
-    ui.agcGain_plot->yAxis->setLabel("1");
-    ui.agcGain_plot->replot();
+    ui.relAngle2_plot->addGraph();
+    ui.relAngle2_plot->graph(0)->setPen(QPen(color_pallette[2]));
+    ui.relAngle2_plot->xAxis->setLabel("x");
+    ui.relAngle2_plot->yAxis->setLabel("degrees");
+    ui.relAngle2_plot->yAxis->setRange(0,360);
 
-    ui.tacho_plot->xAxis->setLabel("x");
-    ui.tacho_plot->yAxis->setLabel("ticks/s");
-    ui.tacho_plot->replot();
+    ui.relAngle3_plot->addGraph();
+    ui.relAngle3_plot->graph(0)->setPen(QPen(color_pallette[3]));
+    ui.relAngle3_plot->xAxis->setLabel("x");
+    ui.relAngle3_plot->yAxis->setLabel("degrees");
+    ui.relAngle3_plot->yAxis->setRange(0,360);
+
+    ui.relAngle0_plot->replot();
+    ui.relAngle1_plot->replot();
+    ui.relAngle2_plot->replot();
+    ui.relAngle3_plot->replot();
 
     updateControllerParams();
 
@@ -192,24 +202,122 @@ void MainWindow::MotorStatus(const roboy_communication_middleware::MotorStatus::
     }
     if(time.size()>samples_per_plot)
         time.pop_front();
-    Q_EMIT newData(MOTOR);
+    static int counter = 0;
+    if((counter++)%3==0)
+        Q_EMIT newData(MOTOR);
 }
 
 void MainWindow::JointStatus(const roboy_communication_middleware::JointStatus::ConstPtr &msg){
     ROS_INFO_THROTTLE(5, "receiving joint status");
+    float jointAngles[NUMBER_OF_JOINT_SENSORS];
     for (uint joint = 0; joint < NUMBER_OF_JOINT_SENSORS; joint++) {
-//        jointData[msg->id][joint][0].push_back(msg->absAngles[joint]);
-        jointData[msg->id][joint][1].push_back(msg->relAngles[joint]);
-//        jointData[msg->id][joint][2].push_back(msg->tacho[joint]);
-//        jointData[msg->id][joint][3].push_back(msg->agcGain[joint]);
+        jointAngles[joint] = msg->relAngles[joint] / 4096.0 * 360.0;
+        jointData[msg->id][joint][1].push_back(jointAngles[joint]);
         if (jointData[msg->id][joint][1].size() > samples_per_plot) {
-//            jointData[msg->id][joint][0].pop_front();
             jointData[msg->id][joint][1].pop_front();
-//            jointData[msg->id][joint][2].pop_front();
-//            jointData[msg->id][joint][3].pop_front();
         }
     }
-    Q_EMIT newData(JOINT);
+
+    if(jointControl){
+        ROS_INFO_THROTTLE(5,"joint control active");
+        std::lock_guard<std::mutex> lock(myoMaster->mux);
+        float error[NUMBER_OF_JOINT_SENSORS];
+        float integral[NUMBER_OF_JOINT_SENSORS];
+        float integral_max = 360;
+        for (uint joint = 0; joint < NUMBER_OF_JOINT_SENSORS; joint++) {
+
+            static float error_previous[NUMBER_OF_JOINT_SENSORS] = {0.0f, 0.0f, 0.0f, 0.0f};
+            switch (joint) {
+                case 0:
+                    error[joint] = ui.joint0->value() - jointAngles[joint];
+                    break;
+                case 1:
+                    error[joint] = ui.joint1->value() - jointAngles[joint];
+                    break;
+                case 2:
+                    error[joint] = ui.joint2->value() - jointAngles[joint];
+                    break;
+                case 3:
+                    error[joint] = ui.joint3->value() - jointAngles[joint];
+                    break;
+            }
+            switch (joint) {
+                case 0: {
+                    float pterm = atoi(ui.Kp_jointControl->text().toStdString().c_str()) * error[joint];
+                    float dterm = atoi(ui.Kd_jointControl->text().toStdString().c_str()) *
+                                  (error[joint] - error_previous[joint]);
+                    integral[joint] += atoi(ui.Ki_jointControl->text().toStdString().c_str())  * error[joint];
+                    float result = pterm + dterm + integral[joint];
+                    if (result >= 0.0f) {
+                        myoMaster->changeSetPoint(4,result + 20);
+                        myoMaster->changeSetPoint(6,5);
+                    } else if (result < 0.0f) {
+                        myoMaster->changeSetPoint(4,5);
+                        myoMaster->changeSetPoint(6,fabsf(result) + 20);
+                    }
+                    error_previous[joint] = error[joint];
+                    break;
+                }
+                case 1:{
+                    float pterm = atoi(ui.Kp_jointControl->text().toStdString().c_str()) * error[joint];
+                    float dterm = atoi(ui.Kd_jointControl->text().toStdString().c_str()) *
+                                  (error[joint] - error_previous[joint]);
+                    integral[joint] += atoi(ui.Ki_jointControl->text().toStdString().c_str())  * error[joint];
+                    float result = pterm + dterm + integral[joint];
+                    if (result >= 0.0f) {
+                        myoMaster->changeSetPoint(1,result + 20);
+                        myoMaster->changeSetPoint(3,5);
+                    } else if (result < 0.0f) {
+                        myoMaster->changeSetPoint(1,5);
+                        myoMaster->changeSetPoint(3,fabsf(result) + 20);
+                    }
+                    error_previous[joint] = error[joint];
+                    break;
+                }
+                case 2:{
+                    float pterm = atoi(ui.Kp_jointControl->text().toStdString().c_str()) * error[joint];
+                    float dterm = atoi(ui.Kd_jointControl->text().toStdString().c_str()) *
+                                  (error[joint] - error_previous[joint]);
+                    integral[joint] += (float)atoi(ui.Ki_jointControl->text().toStdString().c_str())  * error[joint];
+                    float result = pterm + dterm + integral[joint];
+                    ROS_INFO_THROTTLE(1,"\npterm %f\ndterm %f\niterm %f\nresult %f", pterm, dterm, integral[joint], result);
+                    if (result >= 0.0f) {
+                        myoMaster->changeSetPoint(12,result + 20);
+                        myoMaster->changeSetPoint(10,20);
+                    } else if (result < 0.0f) {
+                        myoMaster->changeSetPoint(12,20);
+                        myoMaster->changeSetPoint(10,fabsf(result) + 20);
+                    }
+                    error_previous[joint] = error[joint];
+                    break;
+                }
+                case 3:{
+                    float pterm = atoi(ui.Kp_jointControl->text().toStdString().c_str()) * error[joint];
+                    float dterm = atoi(ui.Kd_jointControl->text().toStdString().c_str()) *
+                                  (error[joint] - error_previous[joint]);
+                    integral[joint] += atoi(ui.Ki_jointControl->text().toStdString().c_str())  * error[joint];
+                    if(integral[joint]>=integral_max){
+                        integral[joint] = integral_max;
+                    }else if(integral[joint]<=integral_max){
+                        integral[joint] = -integral_max;
+                    }
+                    float result = pterm + dterm + integral[joint];
+                    if (result >= 0.0f) {
+                        myoMaster->changeSetPoint(13,result + 20);
+                        myoMaster->changeSetPoint(8,5);
+                    } else if (result < 0.0f) {
+                        myoMaster->changeSetPoint(13,5);
+                        myoMaster->changeSetPoint(8,fabsf(result) + 20);
+                    }
+                    error_previous[joint] = error[joint];
+                    break;
+                }
+            }
+        }
+    }
+    static int counter = 0;
+    if((counter++)%3==0)
+        Q_EMIT newData(JOINT);
 }
 
 void MainWindow::MotorRecordPack(const roboy_communication_middleware::MotorRecord::ConstPtr &msg){
@@ -282,28 +390,21 @@ void MainWindow::plotData(int type) {
             ui.current_plot->replot();
             break;
         case JOINT:
-            for (uint joint = 0; joint < NUMBER_OF_JOINT_SENSORS; joint++) {
-//                ui.absAngle_plot->graph(joint)->setData(time, jointData[0][joint][0]);
-                ui.relAngle_plot->graph(joint)->setData(time, jointData[0][joint][1]);
-//                ui.tacho_plot->graph(joint)->setData(time, jointData[0][joint][2]);
-//                ui.agcGain_plot->graph(joint)->setData(time, jointData[0][joint][3]);
+            ui.relAngle0_plot->graph(0)->setData(time, jointData[0][0][1]);
+            ui.relAngle0_plot->xAxis->rescale();
+            ui.relAngle0_plot->replot();
 
-                if (joint == 0) {
-//                    ui.absAngle_plot->graph(joint)->rescaleAxes();
-                    ui.relAngle_plot->graph(joint)->rescaleAxes();
-//                    ui.tacho_plot->graph(joint)->rescaleAxes();
-//                    ui.agcGain_plot->graph(joint)->rescaleAxes();
-                } else {
-//                    ui.absAngle_plot->graph(joint)->rescaleAxes(true);
-                    ui.relAngle_plot->graph(joint)->rescaleAxes(true);
-//                    ui.tacho_plot->graph(joint)->rescaleAxes(true);
-//                    ui.agcGain_plot->graph(joint)->rescaleAxes(true);
-                }
-            }
-//            ui.absAngle_plot->replot();
-            ui.relAngle_plot->replot();
-//            ui.tacho_plot->replot();
-//            ui.agcGain_plot->replot();
+            ui.relAngle1_plot->graph(0)->setData(time, jointData[0][1][1]);
+            ui.relAngle1_plot->xAxis->rescale();
+            ui.relAngle1_plot->replot();
+
+            ui.relAngle2_plot->graph(0)->setData(time, jointData[0][2][1]);
+            ui.relAngle2_plot->xAxis->rescale();
+            ui.relAngle2_plot->replot();
+
+            ui.relAngle3_plot->graph(0)->setData(time, jointData[0][3][1]);
+            ui.relAngle3_plot->xAxis->rescale();
+            ui.relAngle3_plot->replot();
             break;
     }
 
@@ -447,9 +548,11 @@ void MainWindow::loopMovement(){
 
 void MainWindow::stopButtonClicked(){
     ROS_INFO("stop button clicked");
-    if(!ui.stop_button->isChecked()) {
+    if(!ui.stop_button_motorControl->isChecked() && !ui.stop_button_jointControl->isChecked()) {
         updateControllerParams();
     }else{ // set controller gains to zero
+        jointControl = false;
+        motorControl = false;
         roboy_communication_middleware::MotorConfig msg;
         for (uint motor = 0; motor < NUMBER_OF_MOTORS_PER_FPGA; motor++) {
             msg.motors.push_back(motor);
@@ -470,8 +573,10 @@ void MainWindow::stopButtonClicked(){
     }
 }
 
-void MainWindow::updateSetPoints(int percent){
+void MainWindow::updateSetPointsMotorControl(int percent){
     std::lock_guard<std::mutex> lock(myoMaster->mux);
+    motorControl = true;
+    jointControl = false;
     int setpoints[NUMBER_OF_MOTORS_PER_FPGA];
     switch(ui.control_mode->value()){
         case POSITION:
@@ -542,8 +647,10 @@ void MainWindow::updateSetPoints(int percent){
     ui.setPoint_motor13->setText(QString::number(setpoints[13]));
 }
 
-void MainWindow::updateSetPointsAll(int percent){
+void MainWindow::updateSetPointsMotorControlAll(int percent){
     std::lock_guard<std::mutex> lock(myoMaster->mux);
+    jointControl = false;
+    motorControl = true;
     int setpoints[NUMBER_OF_MOTORS_PER_FPGA];
     switch(ui.control_mode->value()){
         case POSITION:
@@ -614,8 +721,44 @@ void MainWindow::updateSetPointsAll(int percent){
     ui.setPoint_motor13->setText(QString::number(setpoints[13]));
 }
 
+void MainWindow::updateSetPointsJointControl(int val){
+    jointControl = true;
+    int setpoints[NUMBER_OF_JOINT_SENSORS];
+
+    setpoints[0] = ui.joint0->value();
+    setpoints[1] = ui.joint1->value();
+    setpoints[2] = ui.joint2->value();
+    setpoints[3] = ui.joint3->value();
+
+//    for(int motor=0;motor<NUMBER_OF_JOINT_SENSORS;motor++){
+//        myoMaster->changeSetPoint(motor,setpoints[motor]);
+//    }
+    ui.setPoint_joint0->setText(QString::number(setpoints[0]));
+    ui.setPoint_joint1->setText(QString::number(setpoints[1]));
+    ui.setPoint_joint2->setText(QString::number(setpoints[2]));
+    ui.setPoint_joint3->setText(QString::number(setpoints[3]));
+}
+
+void MainWindow::updateSetPointsJointControlAll(int val){
+    jointControl = true;
+    int setpoints[NUMBER_OF_JOINT_SENSORS];
+
+    setpoints[0] = ui.allJoints->value();
+    setpoints[1] = ui.allJoints->value();
+    setpoints[2] = ui.allJoints->value();
+    setpoints[3] = ui.allJoints->value();
+
+//    for(int motor=0;motor<NUMBER_OF_MOTORS_PER_FPGA;motor++){
+//        myoMaster->changeSetPoint(motor,setpoints[motor]);
+//    }
+    ui.setPoint_joint0->setText(QString::number(setpoints[0]));
+    ui.setPoint_joint1->setText(QString::number(setpoints[1]));
+    ui.setPoint_joint2->setText(QString::number(setpoints[2]));
+    ui.setPoint_joint3->setText(QString::number(setpoints[3]));
+}
+
 void MainWindow::updateControllerParams(){
-    ui.stop_button->setChecked(false);
+    ui.stop_button_motorControl->setChecked(false);
     roboy_communication_middleware::MotorConfig msg;
     for(uint motor=0;motor<NUMBER_OF_MOTORS_PER_FPGA;motor++){
         msg.motors.push_back(motor);
