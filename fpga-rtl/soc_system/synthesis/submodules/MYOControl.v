@@ -238,13 +238,13 @@ assign readdata =
 	((address == 128))? pwmRef6:
 	32'hDEAD_BEEF;
 
-wire signed [0:31] pwmRef0;
-wire signed [0:31] pwmRef1;
-wire signed [0:31] pwmRef2;
-wire signed [0:31] pwmRef3;
-wire signed [0:31] pwmRef4;
-wire signed [0:31] pwmRef5;
-wire signed [0:31] pwmRef6;
+wire signed [0:15] pwmRef0;
+wire signed [0:15] pwmRef1;
+wire signed [0:15] pwmRef2;
+wire signed [0:15] pwmRef3;
+wire signed [0:15] pwmRef4;
+wire signed [0:15] pwmRef5;
+wire signed [0:15] pwmRef6;
 
 // positions for the eight motors
 reg signed [31:0] position0;
@@ -271,13 +271,13 @@ reg signed [15:0] current4;
 reg signed [15:0] current5;
 reg signed [15:0] current6;
 // displacements for the eight motors
-reg signed [15:0] displacement0;
-reg signed [15:0] displacement1;
-reg signed [15:0] displacement2;
-reg signed [15:0] displacement3;
-reg signed [15:0] displacement4;
-reg signed [15:0] displacement5;
-reg signed [15:0] displacement6;
+reg [15:0] displacement0;
+reg [15:0] displacement1;
+reg [15:0] displacement2;
+reg [15:0] displacement3;
+reg [15:0] displacement4;
+reg [15:0] displacement5;
+reg [15:0] displacement6;
 	
 reg reset_myo_control;
 reg spi_activated;
@@ -450,11 +450,11 @@ end
 wire di_req, wr_ack, do_valid, wren, spi_done, ss_n;
 wire [0:15] Word;
 wire [15:0] data_out;
-wire signed [0:31] pwmRef;
+wire signed [0:15] pwmRef;
 wire signed [0:31] position; 
 wire signed [0:15] velocity;
 wire signed [0:15] current;
-wire signed [0:15] displacement;
+wire [0:15] displacement;
 wire signed [0:15] sensor1;
 wire signed [0:15] sensor2;
 
@@ -533,7 +533,7 @@ PIDController pid_controller0(
 	.velocity(velocity0),
 	.displacement(displacement0),
 	.update_controller(pid_update==0 && update_controller),
-	.result(pwmRef0)
+	.pwmRef(pwmRef0)
 );
 
 PIDController pid_controller1(
@@ -554,7 +554,7 @@ PIDController pid_controller1(
 	.velocity(velocity1),
 	.displacement(displacement1),
 	.update_controller(pid_update==1 && update_controller),
-	.result(pwmRef1)
+	.pwmRef(pwmRef1)
 );
 
 PIDController pid_controller2(
@@ -575,7 +575,7 @@ PIDController pid_controller2(
 	.velocity(velocity2),
 	.displacement(displacement2),
 	.update_controller(pid_update==2 && update_controller),
-	.result(pwmRef2)
+	.pwmRef(pwmRef2)
 );
 
 PIDController pid_controller3(
@@ -596,7 +596,7 @@ PIDController pid_controller3(
 	.velocity(velocity3),
 	.displacement(displacement3),
 	.update_controller(pid_update==3 && update_controller),
-	.result(pwmRef3)
+	.pwmRef(pwmRef3)
 );
 
 PIDController pid_controller4(
@@ -617,7 +617,7 @@ PIDController pid_controller4(
 	.velocity(velocity4),
 	.displacement(displacement4),
 	.update_controller(pid_update==4 && update_controller),
-	.result(pwmRef4)
+	.pwmRef(pwmRef4)
 );
 
 PIDController pid_controller5(
@@ -638,7 +638,7 @@ PIDController pid_controller5(
 	.velocity(velocity5),
 	.displacement(displacement5),
 	.update_controller(pid_update==5 && update_controller),
-	.result(pwmRef5)
+	.pwmRef(pwmRef5)
 );
 
 PIDController pid_controller6(
@@ -659,7 +659,7 @@ PIDController pid_controller6(
 	.velocity(velocity6),
 	.displacement(displacement6),
 	.update_controller(pid_update==6 && update_controller),
-	.result(pwmRef6)
+	.pwmRef(pwmRef6)
 );
 
 endmodule

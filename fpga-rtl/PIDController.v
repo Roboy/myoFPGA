@@ -17,9 +17,9 @@ module PIDController (
 	input unsigned [1:0] controller, // position velocity displacement
 	input signed [31:0] position,
 	input signed [15:0] velocity,
-	input signed [15:0] displacement,
+	input wire [15:0] displacement,
 	input update_controller,
-	output reg signed [31:0] result
+	output reg signed [15:0] pwmRef
 	);
 
 always @(posedge clock, posedge reset) begin: PID_CONTROLLER_PID_CONTROLLERLOGIC
@@ -30,7 +30,9 @@ always @(posedge clock, posedge reset) begin: PID_CONTROLLER_PID_CONTROLLERLOGIC
 	reg signed [31:0] pterm;
 	reg signed [31:0] dterm;
 	reg signed [31:0] ffterm;
+	reg signed [14:0] displacement_for_real;
 	reg update_controller_prev;
+	reg signed [31:0] result;
 	
 	if (reset == 1) begin
 		pv <= 0;
@@ -39,6 +41,7 @@ always @(posedge clock, posedge reset) begin: PID_CONTROLLER_PID_CONTROLLERLOGIC
 		err <=0;
 		result <= 0;
 		update_controller_prev <= 0;
+		displacement_for_real = 0;
 	end else begin
 		update_controller_prev <= update_controller;
 		if(update_controller_prev==0 && update_controller==1) begin
@@ -46,29 +49,30 @@ always @(posedge clock, posedge reset) begin: PID_CONTROLLER_PID_CONTROLLERLOGIC
 				2'b00: err = (sp - position); 
 				2'b01: err = (sp - velocity);
 				2'b10: begin
-							if(displacement&16'h4000) begin  // this should not happen, unless the muscle was in tension when power was turned on
-//							if((displacement& 16'h7fff)<0) begin
-								err = 0;
+							displacement_for_real = $signed(displacement[14:0]);
+							if ((displacement_for_real>=0) && (sp>0)) begin  // this should not happen, unless the muscle was in tension when power was turned on
+								err = (sp - displacement_for_real);
 							end else begin
-								err = (sp - (displacement& 16'h7fff));
+								err = 0;
 							end
+							
 						end
 				default: err = 0;
 			endcase;
 			
 			if (((err >= deadBand) || (err <= ((-1) * deadBand)))) begin
 				pterm = (Kp * err);
-//				if ((pterm < outputPosMax) || (pterm > outputNegMax)) begin  //if the proportional term is not maxed
-//					integral = integral + (Ki * err); //add to the integral
-//					if (integral > IntegralPosMax) begin
-//						integral = IntegralPosMax;
-//					end else if (integral < IntegralNegMax) begin
-//						integral = IntegralNegMax;
-//					end
-//				end
-//				dterm = ((err - lastError) * Kd);
-//				ffterm = (forwardGain * sp);
-//				result = (((ffterm + pterm) + integral) + dterm);
+				if ((pterm < outputPosMax) || (pterm > outputNegMax)) begin  //if the proportional term is not maxed
+					integral = integral + (Ki * err); //add to the integral
+					if (integral > IntegralPosMax) begin
+						integral = IntegralPosMax;
+					end else if (integral < IntegralNegMax) begin
+						integral = IntegralNegMax;
+					end
+				end
+				dterm = ((err - lastError) * Kd);
+				ffterm = (forwardGain * sp);
+				result = (((ffterm + pterm) + integral) + dterm);
 				result = pterm;
 				if ((result < outputNegMax)) begin
 					 result = outputNegMax;
@@ -78,6 +82,7 @@ always @(posedge clock, posedge reset) begin: PID_CONTROLLER_PID_CONTROLLERLOGIC
 			end else begin
 				result = integral;
 			end
+			pwmRef = result;
 			lastError = err;
 		end
 	end 

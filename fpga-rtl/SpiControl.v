@@ -8,7 +8,7 @@ module SpiControl (
 	input data_read_valid,
 	input [0:15] data_read,
 	input start,
-	input signed [0:31] pwmRef,
+	input signed [0:15] pwmRef,
 	input ss_n,
 	output reg [0:15] Word,
 	output reg wren,
