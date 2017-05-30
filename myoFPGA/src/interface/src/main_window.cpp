@@ -225,92 +225,133 @@ void MainWindow::JointStatus(const roboy_communication_middleware::JointStatus::
         float integral[NUMBER_OF_JOINT_SENSORS];
         float integral_max = 360;
         for (uint joint = 0; joint < NUMBER_OF_JOINT_SENSORS; joint++) {
+            auto joins[2][4] = {
+                    {
+                            ui.joint0,
+                            ui.joint1,
+                            ui.joint2,
+                            ui.joint3
+                    },
+                    {
+                            ui.joint0_cali,
+                            ui.joint1_cali,
+                            ui.joint2_cali,
+                            ui.joint3_cali
+                    }
+            };
+            auto kds[2] = {
+                    ui.Kd_jointControl,
+                    ui.Kd_jointControl_cali
+            };
+            auto kps[2] = {
+                    ui.Kp_jointControl,
+                    ui.Kp_jointControl_cali
+            };
+            auto kis[2] = {
+                    ui.Kp_jointControl,
+                    ui.Kp_jointControl_cali
+            };
 
-            static float error_previous[NUMBER_OF_JOINT_SENSORS] = {0.0f, 0.0f, 0.0f, 0.0f};
-            switch (joint) {
-                case 0:
-                    error[joint] = ui.joint0->value() - jointAngles[joint];
-                    break;
-                case 1:
-                    error[joint] = ui.joint1->value() - jointAngles[joint];
-                    break;
-                case 2:
-                    error[joint] = ui.joint2->value() - jointAngles[joint];
-                    break;
-                case 3:
-                    error[joint] = ui.joint3->value() - jointAngles[joint];
-                    break;
-            }
-            switch (joint) {
-                case 0: {
-                    float pterm = atoi(ui.Kp_jointControl->text().toStdString().c_str()) * error[joint];
-                    float dterm = atoi(ui.Kd_jointControl->text().toStdString().c_str()) *
-                                  (error[joint] - error_previous[joint]);
-                    integral[joint] += atoi(ui.Ki_jointControl->text().toStdString().c_str())  * error[joint];
-                    float result = pterm + dterm + integral[joint];
-                    if (result >= 0.0f) {
-                        myoMaster->changeSetPoint(4,result + 20);
-                        myoMaster->changeSetPoint(6,5);
-                    } else if (result < 0.0f) {
-                        myoMaster->changeSetPoint(4,5);
-                        myoMaster->changeSetPoint(6,fabsf(result) + 20);
-                    }
-                    error_previous[joint] = error[joint];
-                    break;
+            for (uint i = 0; i < 2; i++) {
+                static float error_previous[NUMBER_OF_JOINT_SENSORS] = {0.0f, 0.0f, 0.0f, 0.0f};
+
+                auto joint0 = joins[i][0];
+                auto joint1 = joins[i][1];
+                auto joint2 = joins[i][2];
+                auto joint3 = joins[i][3];
+
+                auto Ki_jointControl = kis[i];
+                auto Kd_jointControl = kds[i];
+                auto Kp_jointControl = kps[i];
+
+
+                switch (joint) {
+                    case 0:
+                        error[joint] = joint0->value() - jointAngles[joint];
+                        break;
+                    case 1:
+                        error[joint] = joint1->value() - jointAngles[joint];
+                        break;
+                    case 2:
+                        error[joint] = joint2->value() - jointAngles[joint];
+                        break;
+                    case 3:
+                        error[joint] = joint3->value() - jointAngles[joint];
+                        break;
                 }
-                case 1:{
-                    float pterm = atoi(ui.Kp_jointControl->text().toStdString().c_str()) * error[joint];
-                    float dterm = atoi(ui.Kd_jointControl->text().toStdString().c_str()) *
-                                  (error[joint] - error_previous[joint]);
-                    integral[joint] += atoi(ui.Ki_jointControl->text().toStdString().c_str())  * error[joint];
-                    float result = pterm + dterm + integral[joint];
-                    if (result >= 0.0f) {
-                        myoMaster->changeSetPoint(1,result + 20);
-                        myoMaster->changeSetPoint(3,5);
-                    } else if (result < 0.0f) {
-                        myoMaster->changeSetPoint(1,5);
-                        myoMaster->changeSetPoint(3,fabsf(result) + 20);
+                switch (joint) {
+                    case 0: {
+                        float pterm = atoi(Kp_jointControl->text().toStdString().c_str()) * error[joint];
+                        float dterm = atoi(Kd_jointControl->text().toStdString().c_str()) *
+                                      (error[joint] - error_previous[joint]);
+                        integral[joint] += atoi(Ki_jointControl->text().toStdString().c_str()) * error[joint];
+                        float result = pterm + dterm + integral[joint];
+                        if (result >= 0.0f) {
+                            myoMaster->changeSetPoint(4, result + 20);
+                            myoMaster->changeSetPoint(6, 5);
+                        } else if (result < 0.0f) {
+                            myoMaster->changeSetPoint(4, 5);
+                            myoMaster->changeSetPoint(6, fabsf(result) + 20);
+                        }
+                        error_previous[joint] = error[joint];
+                        break;
                     }
-                    error_previous[joint] = error[joint];
-                    break;
-                }
-                case 2:{
-                    float pterm = atoi(ui.Kp_jointControl->text().toStdString().c_str()) * error[joint];
-                    float dterm = atoi(ui.Kd_jointControl->text().toStdString().c_str()) *
-                                  (error[joint] - error_previous[joint]);
-                    integral[joint] += (float)atoi(ui.Ki_jointControl->text().toStdString().c_str())  * error[joint];
-                    float result = pterm + dterm + integral[joint];
-                    ROS_INFO_THROTTLE(1,"\npterm %f\ndterm %f\niterm %f\nresult %f", pterm, dterm, integral[joint], result);
-                    if (result >= 0.0f) {
-                        myoMaster->changeSetPoint(12,result + 20);
-                        myoMaster->changeSetPoint(10,20);
-                    } else if (result < 0.0f) {
-                        myoMaster->changeSetPoint(12,20);
-                        myoMaster->changeSetPoint(10,fabsf(result) + 20);
+                    case 1: {
+                        float pterm = atoi(Kp_jointControl->text().toStdString().c_str()) * error[joint];
+                        float dterm = atoi(Kd_jointControl->text().toStdString().c_str()) *
+                                      (error[joint] - error_previous[joint]);
+                        integral[joint] += atoi(Ki_jointControl->text().toStdString().c_str()) * error[joint];
+                        float result = pterm + dterm + integral[joint];
+                        if (result >= 0.0f) {
+                            myoMaster->changeSetPoint(1, result + 20);
+                            myoMaster->changeSetPoint(3, 5);
+                        } else if (result < 0.0f) {
+                            myoMaster->changeSetPoint(1, 5);
+                            myoMaster->changeSetPoint(3, fabsf(result) + 20);
+                        }
+                        error_previous[joint] = error[joint];
+                        break;
                     }
-                    error_previous[joint] = error[joint];
-                    break;
-                }
-                case 3:{
-                    float pterm = atoi(ui.Kp_jointControl->text().toStdString().c_str()) * error[joint];
-                    float dterm = atoi(ui.Kd_jointControl->text().toStdString().c_str()) *
-                                  (error[joint] - error_previous[joint]);
-                    integral[joint] += atoi(ui.Ki_jointControl->text().toStdString().c_str())  * error[joint];
-                    if(integral[joint]>=integral_max){
-                        integral[joint] = integral_max;
-                    }else if(integral[joint]<=integral_max){
-                        integral[joint] = -integral_max;
+                    case 2: {
+                        float pterm = atoi(Kp_jointControl->text().toStdString().c_str()) * error[joint];
+                        float dterm = atoi(Kd_jointControl->text().toStdString().c_str()) *
+                                      (error[joint] - error_previous[joint]);
+                        integral[joint] +=
+                                (float) atoi(Ki_jointControl->text().toStdString().c_str()) * error[joint];
+                        float result = pterm + dterm + integral[joint];
+                        ROS_INFO_THROTTLE(1, "\npterm %f\ndterm %f\niterm %f\nresult %f", pterm, dterm, integral[joint],
+                                          result);
+                        if (result >= 0.0f) {
+                            myoMaster->changeSetPoint(12, result + 20);
+                            myoMaster->changeSetPoint(10, 20);
+                        } else if (result < 0.0f) {
+                            myoMaster->changeSetPoint(12, 20);
+                            myoMaster->changeSetPoint(10, fabsf(result) + 20);
+                        }
+                        error_previous[joint] = error[joint];
+                        break;
                     }
-                    float result = pterm + dterm + integral[joint];
-                    if (result >= 0.0f) {
-                        myoMaster->changeSetPoint(13,result + 20);
-                        myoMaster->changeSetPoint(8,5);
-                    } else if (result < 0.0f) {
-                        myoMaster->changeSetPoint(13,5);
-                        myoMaster->changeSetPoint(8,fabsf(result) + 20);
+                    case 3: {
+                        float pterm = atoi(Kp_jointControl->text().toStdString().c_str()) * error[joint];
+                        float dterm = atoi(Kd_jointControl->text().toStdString().c_str()) *
+                                      (error[joint] - error_previous[joint]);
+                        integral[joint] += atoi(Ki_jointControl->text().toStdString().c_str()) * error[joint];
+                        if (integral[joint] >= integral_max) {
+                            integral[joint] = integral_max;
+                        } else if (integral[joint] <= integral_max) {
+                            integral[joint] = -integral_max;
+                        }
+                        float result = pterm + dterm + integral[joint];
+                        if (result >= 0.0f) {
+                            myoMaster->changeSetPoint(13, result + 20);
+                            myoMaster->changeSetPoint(8, 5);
+                        } else if (result < 0.0f) {
+                            myoMaster->changeSetPoint(13, 5);
+                            myoMaster->changeSetPoint(8, fabsf(result) + 20);
+                        }
+                        error_previous[joint] = error[joint];
+                        break;
                     }
-                    error_previous[joint] = error[joint];
-                    break;
                 }
             }
         }

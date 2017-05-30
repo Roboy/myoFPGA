@@ -37,7 +37,7 @@
        <locale language="English" country="Australia"/>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>3</number>
       </property>
       <property name="movable">
        <bool>true</bool>
@@ -525,6 +525,11 @@
         </property>
        </widget>
       </widget>
+      <widget class="QWidget" name="tab_3">
+       <attribute name="title">
+        <string>Calibration</string>
+       </attribute>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -535,7 +540,7 @@
      <x>0</x>
      <y>0</y>
      <width>1305</width>
-     <height>19</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
@@ -579,7 +584,7 @@
      <item>
       <widget class="QTabWidget" name="tabWidget">
        <property name="currentIndex">
-        <number>1</number>
+        <number>2</number>
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
@@ -2970,6 +2975,370 @@
           </property>
          </widget>
          <widget class="QLabel" name="label_50">
+          <property name="geometry">
+           <rect>
+            <x>70</x>
+            <y>0</y>
+            <width>41</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Kp</string>
+          </property>
+         </widget>
+        </widget>
+       </widget>
+       <widget class="QWidget" name="tab_4">
+        <attribute name="title">
+         <string>Calibration</string>
+        </attribute>
+        <widget class="QFrame" name="frame_93">
+         <property name="geometry">
+          <rect>
+           <x>40</x>
+           <y>50</y>
+           <width>231</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <widget class="QLineEdit" name="Ki_jointControl_cali">
+          <property name="geometry">
+           <rect>
+            <x>110</x>
+            <y>0</y>
+            <width>121</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>0</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_97">
+          <property name="geometry">
+           <rect>
+            <x>70</x>
+            <y>0</y>
+            <width>41</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Ki</string>
+          </property>
+         </widget>
+        </widget>
+        <widget class="QFrame" name="frame_94">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>140</y>
+           <width>311</width>
+           <height>371</height>
+          </rect>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <widget class="QLineEdit" name="setPoint_joint0_cali">
+          <property name="geometry">
+           <rect>
+            <x>70</x>
+            <y>20</y>
+            <width>61</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>223</string>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+         <widget class="QSlider" name="joint0_cali">
+          <property name="geometry">
+           <rect>
+            <x>130</x>
+            <y>20</y>
+            <width>171</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="minimum">
+           <number>0</number>
+          </property>
+          <property name="maximum">
+           <number>360</number>
+          </property>
+          <property name="value">
+           <number>223</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_98">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>20</y>
+            <width>61</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>joint0</string>
+          </property>
+         </widget>
+         <widget class="QSlider" name="joint1_cali">
+          <property name="geometry">
+           <rect>
+            <x>130</x>
+            <y>60</y>
+            <width>171</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="minimum">
+           <number>0</number>
+          </property>
+          <property name="maximum">
+           <number>360</number>
+          </property>
+          <property name="value">
+           <number>313</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_99">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>60</y>
+            <width>61</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>joint1</string>
+          </property>
+         </widget>
+         <widget class="QLineEdit" name="setPoint_joint1_cali">
+          <property name="geometry">
+           <rect>
+            <x>70</x>
+            <y>60</y>
+            <width>61</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>313</string>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+         <widget class="QSlider" name="joint2_cali">
+          <property name="geometry">
+           <rect>
+            <x>130</x>
+            <y>100</y>
+            <width>171</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="minimum">
+           <number>0</number>
+          </property>
+          <property name="maximum">
+           <number>360</number>
+          </property>
+          <property name="value">
+           <number>205</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+         <widget class="QLineEdit" name="setPoint_joint2_cali">
+          <property name="geometry">
+           <rect>
+            <x>70</x>
+            <y>100</y>
+            <width>61</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>205</string>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_100">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>100</y>
+            <width>61</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>joint2</string>
+          </property>
+         </widget>
+         <widget class="QSlider" name="joint3_cali">
+          <property name="geometry">
+           <rect>
+            <x>130</x>
+            <y>140</y>
+            <width>171</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="minimum">
+           <number>0</number>
+          </property>
+          <property name="maximum">
+           <number>360</number>
+          </property>
+          <property name="value">
+           <number>284</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+         <widget class="QLineEdit" name="setPoint_joint3_cali">
+          <property name="geometry">
+           <rect>
+            <x>70</x>
+            <y>140</y>
+            <width>61</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>284</string>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_101">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>140</y>
+            <width>61</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>joint3</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="cali_submit">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>270</y>
+            <width>291</width>
+            <height>91</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Just do it!</string>
+          </property>
+         </widget>
+        </widget>
+        <widget class="QFrame" name="frame_95">
+         <property name="geometry">
+          <rect>
+           <x>40</x>
+           <y>80</y>
+           <width>231</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <widget class="QLineEdit" name="Kd_jointControl_cali">
+          <property name="geometry">
+           <rect>
+            <x>110</x>
+            <y>0</y>
+            <width>121</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>80</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_103">
+          <property name="geometry">
+           <rect>
+            <x>70</x>
+            <y>0</y>
+            <width>41</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Kd</string>
+          </property>
+         </widget>
+        </widget>
+        <widget class="QFrame" name="frame_96">
+         <property name="geometry">
+          <rect>
+           <x>40</x>
+           <y>20</y>
+           <width>231</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <widget class="QLineEdit" name="Kp_jointControl_cali">
+          <property name="geometry">
+           <rect>
+            <x>110</x>
+            <y>0</y>
+            <width>121</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>20</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_104">
           <property name="geometry">
            <rect>
             <x>70</x>
