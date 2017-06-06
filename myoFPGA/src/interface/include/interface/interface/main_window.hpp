@@ -68,10 +68,15 @@ public Q_SLOTS:
     void pauseMovement();
     void loopMovement();
     void stopButtonClicked();
-    void submitCalibrationJoints();
-    void updateCalibrationSetPointsJointControl(int val);
     void submitWaitJoints();
     void submitRunJoints();
+
+    void setActivatedButtonStyle(QPushButton * button);
+    void setDeactivatedButtonStyle(QPushButton * button);
+
+    void startDance1();
+    void handleDance1();
+
 Q_SIGNALS:
     void newData(int id);
 private:
@@ -91,7 +96,13 @@ private:
     QFileSystemModel *model;
     int numberOfRecordsToWaitFor = 0;
     map<int, vector<int32_t>[NUMBER_OF_MOTORS_PER_FPGA]> records;
+    ros::Time t0 = ros::Time(0), t1 = ros::Time(0);
+    int currentDanceStep;
+
+
 };
+
+
 
 }  // namespace interface
 

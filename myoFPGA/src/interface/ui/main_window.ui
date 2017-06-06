@@ -2581,7 +2581,7 @@
            <x>0</x>
            <y>130</y>
            <width>311</width>
-           <height>301</height>
+           <height>371</height>
           </rect>
          </property>
          <property name="frameShape">
@@ -2863,6 +2863,19 @@
           </property>
           <property name="text">
            <string>Wait</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="button_start_dance_1">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>300</y>
+            <width>271</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Dance Move 1</string>
           </property>
          </widget>
         </widget>
