@@ -26,6 +26,9 @@ using namespace Qt;
 ** Implementation [MainWindow]
 *****************************************************************************/
 
+bool shouldUpdateSyncCalibrationJoints = false;
+bool ignoreJointCommands = false;
+
 MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
 	: QMainWindow(parent)
 {
@@ -57,6 +60,10 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
     QObject::connect(ui.joint1, SIGNAL(valueChanged(int)), this, SLOT(updateSetPointsJointControl(int)));
     QObject::connect(ui.joint2, SIGNAL(valueChanged(int)), this, SLOT(updateSetPointsJointControl(int)));
     QObject::connect(ui.joint3, SIGNAL(valueChanged(int)), this, SLOT(updateSetPointsJointControl(int)));
+    QObject::connect(ui.cali_joint0, SIGNAL(valueChanged(int)), this, SLOT(updateCalibrationSetPointsJointControl(int)));
+    QObject::connect(ui.cali_joint1, SIGNAL(valueChanged(int)), this, SLOT(updateCalibrationSetPointsJointControl(int)));
+    QObject::connect(ui.cali_joint2, SIGNAL(valueChanged(int)), this, SLOT(updateCalibrationSetPointsJointControl(int)));
+    QObject::connect(ui.cali_joint3, SIGNAL(valueChanged(int)), this, SLOT(updateCalibrationSetPointsJointControl(int)));
     QObject::connect(ui.allJoints, SIGNAL(valueChanged(int)), this, SLOT(updateSetPointsJointControlAll(int)));
     QObject::connect(ui.updateController, SIGNAL(clicked()), this, SLOT(updateControllerParams()));
     QObject::connect(ui.record, SIGNAL(clicked()), this, SLOT(recordMovement()));
@@ -67,8 +74,14 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
     QObject::connect(ui.loop, SIGNAL(clicked()), this, SLOT(loopMovement()));
     QObject::connect(ui.stop_button_motorControl, SIGNAL(clicked()), this, SLOT(stopButtonClicked()));
     QObject::connect(ui.stop_button_jointControl, SIGNAL(clicked()), this, SLOT(stopButtonClicked()));
+    QObject::connect(ui.cali_submit_jointControl, SIGNAL(clicked()), this, SLOT(submitCalibrationJoints()));
+    QObject::connect(ui.wait_button_joint_control, SIGNAL(clicked()), this, SLOT(submitWaitJoints()));
+    QObject::connect(ui.run_button_joint_control, SIGNAL(clicked()), this, SLOT(submitRunJoints()));
     ui.stop_button_motorControl->setStyleSheet("background-color: red");
+    ui.wait_button_joint_control->setStyleSheet("background-color: red");
+    ui.run_button_joint_control->setStyleSheet("background-color: green");
     ui.stop_button_jointControl->setStyleSheet("background-color: red");
+    ui.cali_submit_jointControl->setStyleSheet("background-color: green");
 
     nh = ros::NodeHandlePtr(new ros::NodeHandle);
     if (!ros::isInitialized()) {
@@ -149,6 +162,8 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
 
     model = new QFileSystemModel;
     movementPathChanged();
+
+    shouldUpdateSyncCalibrationJoints = false;
 }
 
 MainWindow::~MainWindow() {}
@@ -208,6 +223,8 @@ void MainWindow::MotorStatus(const roboy_communication_middleware::MotorStatus::
 }
 
 void MainWindow::JointStatus(const roboy_communication_middleware::JointStatus::ConstPtr &msg){
+    if (ignoreJointCommands) return;
+
     ROS_INFO_THROTTLE(5, "receiving joint status");
     float jointAngles[NUMBER_OF_JOINT_SENSORS];
     for (uint joint = 0; joint < NUMBER_OF_JOINT_SENSORS; joint++) {
@@ -224,35 +241,46 @@ void MainWindow::JointStatus(const roboy_communication_middleware::JointStatus::
         float error[NUMBER_OF_JOINT_SENSORS];
         float integral[NUMBER_OF_JOINT_SENSORS];
         float integral_max = 360;
-        for (uint joint = 0; joint < NUMBER_OF_JOINT_SENSORS; joint++) {
-            auto joins[2][4] = {
-                    {
-                            ui.joint0,
-                            ui.joint1,
-                            ui.joint2,
-                            ui.joint3
-                    },
-                    {
-                            ui.joint0_cali,
-                            ui.joint1_cali,
-                            ui.joint2_cali,
-                            ui.joint3_cali
-                    }
-            };
-            auto kds[2] = {
-                    ui.Kd_jointControl,
-                    ui.Kd_jointControl_cali
-            };
-            auto kps[2] = {
-                    ui.Kp_jointControl,
-                    ui.Kp_jointControl_cali
-            };
-            auto kis[2] = {
-                    ui.Kp_jointControl,
-                    ui.Kp_jointControl_cali
-            };
+        QSlider * joins[2][4] = {
+                {
+                        ui.joint0,
+                        ui.joint1,
+                        ui.joint2,
+                        ui.joint3
+                },
+                {
+                        ui.cali_joint0,
+                        ui.cali_joint1,
+                        ui.cali_joint2,
+                        ui.cali_joint3
+                }
+        };
+        QLineEdit * kds[2] = {
+                ui.Kd_jointControl,
+                ui.cali_Kd_jointControl
+        };
+        QLineEdit * kps[2] = {
+                ui.Kp_jointControl,
+                ui.cali_Kp_jointControl
+        };
+        QLineEdit * kis[2] = {
+                ui.Kp_jointControl,
+                ui.cali_Kp_jointControl
+        };
 
-            for (uint i = 0; i < 2; i++) {
+        for (uint i = 0; i < 1; i++) {
+            // skip updating calibration joints if button is not pressed yet
+            if (i == 1) {
+
+                if (!shouldUpdateSyncCalibrationJoints) {
+                    ROS_INFO_THROTTLE(1, shouldUpdateSyncCalibrationJoints ? "Update joints!!"
+                                                                           : "Do not update joints :-( ");
+                    continue;
+                } else
+                    ROS_INFO_THROTTLE(1, "ROS SHOULD START calibration joints");
+            }
+            for (uint joint = 0; joint < NUMBER_OF_JOINT_SENSORS; joint++) {
+
                 static float error_previous[NUMBER_OF_JOINT_SENSORS] = {0.0f, 0.0f, 0.0f, 0.0f};
 
                 auto joint0 = joins[i][0];
@@ -354,6 +382,10 @@ void MainWindow::JointStatus(const roboy_communication_middleware::JointStatus::
                     }
                 }
             }
+            // joints has been updated and update flag must therefore be deactivated again to wait for the next button click
+            if (i == 1) {
+                shouldUpdateSyncCalibrationJoints = false;
+            }
         }
     }
     static int counter = 0;
@@ -402,6 +434,14 @@ void MainWindow::MotorRecordPack(const roboy_communication_middleware::MotorReco
             }
         }
     }
+}
+
+void MainWindow::submitWaitJoints() {
+    ignoreJointCommands = true;
+}
+
+void MainWindow::submitRunJoints() {
+    ignoreJointCommands = false;
 }
 
 void MainWindow::plotData(int type) {
@@ -585,6 +625,12 @@ void MainWindow::loopMovement(){
     msg.rewind = false;
     msg.loop = ui.loop->isChecked();
     motorTrajectoryControl.publish(msg);
+}
+
+void MainWindow::submitCalibrationJoints(){
+    ROS_INFO_THROTTLE(1, "Submit calibration clicked");
+    shouldUpdateSyncCalibrationJoints = true;
+    jointControl = true;
 }
 
 void MainWindow::stopButtonClicked(){
@@ -778,6 +824,25 @@ void MainWindow::updateSetPointsJointControl(int val){
     ui.setPoint_joint1->setText(QString::number(setpoints[1]));
     ui.setPoint_joint2->setText(QString::number(setpoints[2]));
     ui.setPoint_joint3->setText(QString::number(setpoints[3]));
+}
+
+void MainWindow::updateCalibrationSetPointsJointControl(int val){
+    /*jointControl = true;
+    int setpoints[NUMBER_OF_JOINT_SENSORS];
+
+    setpoints[0] = ui.cali_joint0->value();
+    setpoints[1] = ui.cali_joint1->value();
+    setpoints[2] = ui.cali_joint2->value();
+    setpoints[3] = ui.cali_joint3->value();
+
+//    for(int motor=0;motor<NUMBER_OF_JOINT_SENSORS;motor++){
+//        myoMaster->changeSetPoint(motor,setpoints[motor]);
+//    }
+    ui.cali_setPoint_joint0->setText(QString::number(setpoints[0]));
+    ui.cali_setPoint_joint1->setText(QString::number(setpoints[1]));
+    ui.cali_setPoint_joint2->setText(QString::number(setpoints[2]));
+    ui.cali_setPoint_joint3->setText(QString::number(setpoints[3]));
+     */
 }
 
 void MainWindow::updateSetPointsJointControlAll(int val){

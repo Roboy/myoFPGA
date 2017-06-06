@@ -68,6 +68,10 @@ public Q_SLOTS:
     void pauseMovement();
     void loopMovement();
     void stopButtonClicked();
+    void submitCalibrationJoints();
+    void updateCalibrationSetPointsJointControl(int val);
+    void submitWaitJoints();
+    void submitRunJoints();
 Q_SIGNALS:
     void newData(int id);
 private:

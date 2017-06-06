@@ -584,7 +584,7 @@
      <item>
       <widget class="QTabWidget" name="tabWidget">
        <property name="currentIndex">
-        <number>2</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
@@ -2581,7 +2581,7 @@
            <x>0</x>
            <y>130</y>
            <width>311</width>
-           <height>221</height>
+           <height>301</height>
           </rect>
          </property>
          <property name="frameShape">
@@ -2839,6 +2839,32 @@
            <enum>Qt::Horizontal</enum>
           </property>
          </widget>
+         <widget class="QPushButton" name="run_button_joint_control">
+          <property name="geometry">
+           <rect>
+            <x>158</x>
+            <y>260</y>
+            <width>131</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Run</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="wait_button_joint_control">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>260</y>
+            <width>131</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Wait</string>
+          </property>
+         </widget>
         </widget>
         <widget class="QPushButton" name="stop_button_jointControl">
          <property name="geometry">
@@ -3008,7 +3034,7 @@
          <property name="frameShadow">
           <enum>QFrame::Raised</enum>
          </property>
-         <widget class="QLineEdit" name="Ki_jointControl_cali">
+         <widget class="QLineEdit" name="cali_Ki_jointControl">
           <property name="geometry">
            <rect>
             <x>110</x>
@@ -3050,7 +3076,7 @@
          <property name="frameShadow">
           <enum>QFrame::Raised</enum>
          </property>
-         <widget class="QLineEdit" name="setPoint_joint0_cali">
+         <widget class="QLineEdit" name="cali_setPoint_joint0">
           <property name="geometry">
            <rect>
             <x>70</x>
@@ -3066,7 +3092,7 @@
            <bool>true</bool>
           </property>
          </widget>
-         <widget class="QSlider" name="joint0_cali">
+         <widget class="QSlider" name="cali_joint0">
           <property name="geometry">
            <rect>
             <x>130</x>
@@ -3101,7 +3127,7 @@
            <string>joint0</string>
           </property>
          </widget>
-         <widget class="QSlider" name="joint1_cali">
+         <widget class="QSlider" name="cali_joint1">
           <property name="geometry">
            <rect>
             <x>130</x>
@@ -3136,7 +3162,7 @@
            <string>joint1</string>
           </property>
          </widget>
-         <widget class="QLineEdit" name="setPoint_joint1_cali">
+         <widget class="QLineEdit" name="cali_setPoint_joint1">
           <property name="geometry">
            <rect>
             <x>70</x>
@@ -3152,7 +3178,7 @@
            <bool>true</bool>
           </property>
          </widget>
-         <widget class="QSlider" name="joint2_cali">
+         <widget class="QSlider" name="cali_joint2">
           <property name="geometry">
            <rect>
             <x>130</x>
@@ -3174,7 +3200,7 @@
            <enum>Qt::Horizontal</enum>
           </property>
          </widget>
-         <widget class="QLineEdit" name="setPoint_joint2_cali">
+         <widget class="QLineEdit" name="cali_setPoint_joint2">
           <property name="geometry">
            <rect>
             <x>70</x>
@@ -3203,7 +3229,7 @@
            <string>joint2</string>
           </property>
          </widget>
-         <widget class="QSlider" name="joint3_cali">
+         <widget class="QSlider" name="cali_joint3">
           <property name="geometry">
            <rect>
             <x>130</x>
@@ -3225,7 +3251,7 @@
            <enum>Qt::Horizontal</enum>
           </property>
          </widget>
-         <widget class="QLineEdit" name="setPoint_joint3_cali">
+         <widget class="QLineEdit" name="cali_setPoint_joint3">
           <property name="geometry">
            <rect>
             <x>70</x>
@@ -3254,7 +3280,7 @@
            <string>joint3</string>
           </property>
          </widget>
-         <widget class="QPushButton" name="cali_submit">
+         <widget class="QPushButton" name="cali_submit_jointControl">
           <property name="geometry">
            <rect>
             <x>10</x>
@@ -3283,7 +3309,7 @@
          <property name="frameShadow">
           <enum>QFrame::Raised</enum>
          </property>
-         <widget class="QLineEdit" name="Kd_jointControl_cali">
+         <widget class="QLineEdit" name="cali_Kd_jointControl">
           <property name="geometry">
            <rect>
             <x>110</x>
@@ -3325,7 +3351,7 @@
          <property name="frameShadow">
           <enum>QFrame::Raised</enum>
          </property>
-         <widget class="QLineEdit" name="Kp_jointControl_cali">
+         <widget class="QLineEdit" name="cali_Kp_jointControl">
           <property name="geometry">
            <rect>
             <x>110</x>
