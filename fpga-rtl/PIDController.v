@@ -31,6 +31,7 @@ always @(posedge clock, posedge reset) begin: PID_CONTROLLER_PID_CONTROLLERLOGIC
 	reg signed [31:0] dterm;
 	reg signed [31:0] ffterm;
 	reg signed [14:0] displacement_for_real;
+	reg signed [14:0] displacement_offset;
 	reg update_controller_prev;
 	reg signed [31:0] result;
 	
@@ -50,12 +51,16 @@ always @(posedge clock, posedge reset) begin: PID_CONTROLLER_PID_CONTROLLERLOGIC
 				2'b01: err = (sp - velocity);
 				2'b10: begin
 							displacement_for_real = $signed(displacement[14:0]);
-							if ((displacement_for_real>=0) && (sp>0)) begin  // this should not happen, unless the muscle was in tension when power was turned on
-								err = (sp - displacement_for_real);
+							if(displacement_for_real<0) begin
+								displacement_offset = displacement_for_real;
+							end else begin
+								displacement_offset = 0;
+							end
+							if (sp>0) begin
+								err = (sp - (displacement_for_real-displacement_offset));
 							end else begin
 								err = 0;
 							end
-							
 						end
 				default: err = 0;
 			endcase;
