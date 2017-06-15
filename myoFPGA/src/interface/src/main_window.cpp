@@ -256,14 +256,14 @@ void MainWindow::JointStatus(const roboy_communication_middleware::JointStatus::
                     }
                     float result = pterm + dterm + integral[joint];
                     if (result <= -smooth_distance) {
-                        myoMaster->changeSetPoint(6, offset - result);
-                        myoMaster->changeSetPoint(4, offset);
+                        myoMaster->changeSetPoint(5, offset - result);
+                        myoMaster->changeSetPoint(3, offset);
                     } else if (result < smooth_distance) {
-                        myoMaster->changeSetPoint(6, offset + powf(result-smooth_distance, 2.0f)/(4.0f * smooth_distance));
-                        myoMaster->changeSetPoint(4, offset + powf(result+smooth_distance, 2.0f)/(4.0f * smooth_distance));
+                        myoMaster->changeSetPoint(5, offset + powf(result-smooth_distance, 2.0f)/(4.0f * smooth_distance));
+                        myoMaster->changeSetPoint(3, offset + powf(result+smooth_distance, 2.0f)/(4.0f * smooth_distance));
                     } else {
-                        myoMaster->changeSetPoint(6, offset);
-                        myoMaster->changeSetPoint(4, offset + result);
+                        myoMaster->changeSetPoint(5, offset);
+                        myoMaster->changeSetPoint(3, offset + result);
                     }
                     error_previous[joint] = error[joint];
                     break;
@@ -280,19 +280,19 @@ void MainWindow::JointStatus(const roboy_communication_middleware::JointStatus::
                     }
                     float result = pterm + dterm + integral[joint];
                     if (result <= -smooth_distance) {
-                        myoMaster->changeSetPoint(3, offset - result);
-                        myoMaster->changeSetPoint(1, offset);
+                        myoMaster->changeSetPoint(6, offset - result);
+                        myoMaster->changeSetPoint(4, offset);
                     } else if (result < smooth_distance) {
-                        myoMaster->changeSetPoint(3, offset + powf(result-smooth_distance, 2.0f)/(4.0f * smooth_distance));
-                        myoMaster->changeSetPoint(1, offset + powf(result+smooth_distance, 2.0f)/(4.0f * smooth_distance));
+                        myoMaster->changeSetPoint(6, offset + powf(result-smooth_distance, 2.0f)/(4.0f * smooth_distance));
+                        myoMaster->changeSetPoint(4, offset + powf(result+smooth_distance, 2.0f)/(4.0f * smooth_distance));
                     } else {
-                        myoMaster->changeSetPoint(3, offset);
-                        myoMaster->changeSetPoint(1, offset + result);
+                        myoMaster->changeSetPoint(6, offset);
+                        myoMaster->changeSetPoint(4, offset + result);
                     }
                     error_previous[joint] = error[joint];
                     break;
                 }
-                case 2:{
+                case 3:{
                     float pterm = atoi(ui.Kp_jointControl->text().toStdString().c_str()) * error[joint];
                     float dterm = atoi(ui.Kd_jointControl->text().toStdString().c_str()) *
                                   (error[joint] - error_previous[joint]);
@@ -317,7 +317,7 @@ void MainWindow::JointStatus(const roboy_communication_middleware::JointStatus::
                     error_previous[joint] = error[joint];
                     break;
                 }
-                case 3:{
+                case 2:{
                     float pterm = atoi(ui.Kp_jointControl->text().toStdString().c_str()) * error[joint];
                     float dterm = atoi(ui.Kd_jointControl->text().toStdString().c_str()) *
                                   (error[joint] - error_previous[joint]);

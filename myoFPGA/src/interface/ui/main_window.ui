@@ -535,7 +535,7 @@
      <x>0</x>
      <y>0</y>
      <width>1305</width>
-     <height>19</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
@@ -2595,7 +2595,7 @@
            </rect>
           </property>
           <property name="text">
-           <string>223</string>
+           <string>86</string>
           </property>
           <property name="readOnly">
            <bool>true</bool>
@@ -2617,7 +2617,7 @@
            <number>360</number>
           </property>
           <property name="value">
-           <number>223</number>
+           <number>86</number>
           </property>
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -2652,7 +2652,7 @@
            <number>360</number>
           </property>
           <property name="value">
-           <number>313</number>
+           <number>270</number>
           </property>
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -2681,7 +2681,7 @@
            </rect>
           </property>
           <property name="text">
-           <string>313</string>
+           <string>270</string>
           </property>
           <property name="readOnly">
            <bool>true</bool>
@@ -2703,7 +2703,7 @@
            <number>360</number>
           </property>
           <property name="value">
-           <number>205</number>
+           <number>133</number>
           </property>
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -2719,7 +2719,7 @@
            </rect>
           </property>
           <property name="text">
-           <string>205</string>
+           <string>133</string>
           </property>
           <property name="readOnly">
            <bool>true</bool>
@@ -2754,7 +2754,7 @@
            <number>360</number>
           </property>
           <property name="value">
-           <number>284</number>
+           <number>128</number>
           </property>
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -2770,7 +2770,7 @@
            </rect>
           </property>
           <property name="text">
-           <string>284</string>
+           <string>128</string>
           </property>
           <property name="readOnly">
            <bool>true</bool>
