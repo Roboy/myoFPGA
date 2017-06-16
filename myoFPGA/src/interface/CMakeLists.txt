@@ -34,7 +34,15 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../roboy_powerlink/powerlink/out
 catkin_package(CATKIN_DEPENDS roboy_managing_node roboy_communication_middleware )
 include_directories(${catkin_INCLUDE_DIRS})
 
+# Eigen
+find_package(PkgConfig)
+pkg_check_modules(EIGEN3 REQUIRED eigen3)
+include_directories(${EIGEN3_INCLUDE_DIRS})
+
 include_directories(qcustomplot)
+
+# OpenCV
+find_package(OpenCV COMPONENTS opencv_core opencv_highgui REQUIRED)
 
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(tinyxml REQUIRED tinyxml)

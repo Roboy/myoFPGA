@@ -67,8 +67,10 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
     QObject::connect(ui.loop, SIGNAL(clicked()), this, SLOT(loopMovement()));
     QObject::connect(ui.stop_button_motorControl, SIGNAL(clicked()), this, SLOT(stopButtonClicked()));
     QObject::connect(ui.stop_button_jointControl, SIGNAL(clicked()), this, SLOT(stopButtonClicked()));
+    QObject::connect(ui.dance_bitch, SIGNAL(clicked()), this, SLOT(danceBitch()));
     ui.stop_button_motorControl->setStyleSheet("background-color: red");
     ui.stop_button_jointControl->setStyleSheet("background-color: red");
+    ui.dance_bitch->setStyleSheet("background-color: green");
 
     nh = ros::NodeHandlePtr(new ros::NodeHandle);
     if (!ros::isInitialized()) {
@@ -81,11 +83,15 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
     }
     motorStatus = nh->subscribe("/roboy/middleware/MotorStatus", 1, &MainWindow::MotorStatus, this);
     jointStatus = nh->subscribe("/roboy/middleware/JointStatus", 1, &MainWindow::JointStatus, this);
+    jointCommand = nh->subscribe("/roboy/middleware/JointCommand", 1, &MainWindow::JointCommand, this);
+    realsense = nh->subscribe("/roboy/middleware/realsense", 1, &MainWindow::DisplayImage, this);
+    arucoPose = nh->subscribe("/roboy/middleware/ArucoPose", 1, &MainWindow::ArucoPose, this);
     motorConfig = nh->advertise<roboy_communication_middleware::MotorConfig>("/roboy/middleware/MotorConfig", 1);
     motorRecordConfig = nh->advertise<roboy_communication_middleware::MotorRecordConfig>("/roboy/middleware/MotorRecordConfig", 1);
     motorRecord = nh->subscribe("/roboy/middleware/MotorRecord", 100, &MainWindow::MotorRecordPack, this);
     motorTrajectory = nh->advertise<roboy_communication_middleware::MotorRecord>("/roboy/middleware/MotorTrajectory", 1);
     motorTrajectoryControl = nh->advertise<roboy_communication_middleware::MotorTrajectoryControl>("/roboy/middleware/MotorTrajectoryControl", 1);
+    hipCenter_pub = nh->advertise<geometry_msgs::Pose>("/roboy/middleware/HipCenter", 1);
 
     spinner = boost::shared_ptr<ros::AsyncSpinner>(new ros::AsyncSpinner(1));
     spinner->start();
@@ -149,6 +155,14 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
 
     model = new QFileSystemModel;
     movementPathChanged();
+
+    angle.resize(4);
+    jointAngleOffset.resize(4);
+    setPointAngle.resize(4);
+    setPointAngle[0] = 155;
+    setPointAngle[1] = 124;
+    setPointAngle[2] = 45;
+    setPointAngle[3] = 248;
 }
 
 MainWindow::~MainWindow() {}
@@ -256,14 +270,14 @@ void MainWindow::JointStatus(const roboy_communication_middleware::JointStatus::
                     }
                     float result = pterm + dterm + integral[joint];
                     if (result <= -smooth_distance) {
-                        myoMaster->changeSetPoint(5, offset - result);
-                        myoMaster->changeSetPoint(3, offset);
-                    } else if (result < smooth_distance) {
-                        myoMaster->changeSetPoint(5, offset + powf(result-smooth_distance, 2.0f)/(4.0f * smooth_distance));
-                        myoMaster->changeSetPoint(3, offset + powf(result+smooth_distance, 2.0f)/(4.0f * smooth_distance));
-                    } else {
+                        myoMaster->changeSetPoint(3, offset - result);
                         myoMaster->changeSetPoint(5, offset);
-                        myoMaster->changeSetPoint(3, offset + result);
+                    } else if (result < smooth_distance) {
+                        myoMaster->changeSetPoint(3, offset + powf(result-smooth_distance, 2.0f)/(4.0f * smooth_distance));
+                        myoMaster->changeSetPoint(5, offset + powf(result+smooth_distance, 2.0f)/(4.0f * smooth_distance));
+                    } else {
+                        myoMaster->changeSetPoint(3, offset);
+                        myoMaster->changeSetPoint(5, offset + result);
                     }
                     error_previous[joint] = error[joint];
                     break;
@@ -292,31 +306,6 @@ void MainWindow::JointStatus(const roboy_communication_middleware::JointStatus::
                     error_previous[joint] = error[joint];
                     break;
                 }
-                case 3:{
-                    float pterm = atoi(ui.Kp_jointControl->text().toStdString().c_str()) * error[joint];
-                    float dterm = atoi(ui.Kd_jointControl->text().toStdString().c_str()) *
-                                  (error[joint] - error_previous[joint]);
-                    integral[joint] += (float)atoi(ui.Ki_jointControl->text().toStdString().c_str())  * error[joint];
-                    if(integral[joint]>=integral_max){
-                        integral[joint] = integral_max;
-                    }else if(integral[joint]<=integral_max){
-                        integral[joint] = -integral_max;
-                    }
-                    float result = pterm + dterm + integral[joint];
-//                    ROS_INFO_THROTTLE(1,"\npterm %f\ndterm %f\niterm %f\nresult %f", pterm, dterm, integral[joint], result);
-                    if (result <= -smooth_distance) {
-                        myoMaster->changeSetPoint(10, offset - result);
-                        myoMaster->changeSetPoint(12, offset);
-                    } else if (result < smooth_distance) {
-                        myoMaster->changeSetPoint(10, offset + powf(result-smooth_distance, 2.0f)/(4.0f * smooth_distance));
-                        myoMaster->changeSetPoint(12, offset + powf(result+smooth_distance, 2.0f)/(4.0f * smooth_distance));
-                    } else {
-                        myoMaster->changeSetPoint(10, offset);
-                        myoMaster->changeSetPoint(12, offset + result);
-                    }
-                    error_previous[joint] = error[joint];
-                    break;
-                }
                 case 2:{
                     float pterm = atoi(ui.Kp_jointControl->text().toStdString().c_str()) * error[joint];
                     float dterm = atoi(ui.Kd_jointControl->text().toStdString().c_str()) *
@@ -337,6 +326,144 @@ void MainWindow::JointStatus(const roboy_communication_middleware::JointStatus::
                     } else {
                         myoMaster->changeSetPoint(8, offset);
                         myoMaster->changeSetPoint(11, offset + result);
+                    }
+                    error_previous[joint] = error[joint];
+                    break;
+                }
+                case 3:{
+                    float pterm = atoi(ui.Kp_jointControl->text().toStdString().c_str()) * error[joint];
+                    float dterm = atoi(ui.Kd_jointControl->text().toStdString().c_str()) *
+                                  (error[joint] - error_previous[joint]);
+                    integral[joint] += (float)atoi(ui.Ki_jointControl->text().toStdString().c_str())  * error[joint];
+                    if(integral[joint]>=integral_max){
+                        integral[joint] = integral_max;
+                    }else if(integral[joint]<=integral_max){
+                        integral[joint] = -integral_max;
+                    }
+                    float result = pterm + dterm + integral[joint];
+//                    ROS_INFO_THROTTLE(1,"\npterm %f\ndterm %f\niterm %f\nresult %f", pterm, dterm, integral[joint], result);
+                    if (result <= -smooth_distance) {
+                        myoMaster->changeSetPoint(12, offset - result);
+                        myoMaster->changeSetPoint(10, offset);
+                    } else if (result < smooth_distance) {
+                        myoMaster->changeSetPoint(12, offset + powf(result-smooth_distance, 2.0f)/(4.0f * smooth_distance));
+                        myoMaster->changeSetPoint(10, offset + powf(result+smooth_distance, 2.0f)/(4.0f * smooth_distance));
+                    } else {
+                        myoMaster->changeSetPoint(12, offset);
+                        myoMaster->changeSetPoint(10, offset + result);
+                    }
+                    error_previous[joint] = error[joint];
+                    break;
+                }
+            }
+        }
+    }
+    if(dance){
+        ROS_INFO_THROTTLE(5,"dance control active");
+        std::lock_guard<std::mutex> lock(myoMaster->mux);
+        float error[NUMBER_OF_JOINT_SENSORS];
+        float integral[NUMBER_OF_JOINT_SENSORS];
+        float integral_max = 360;
+        const float smooth_distance = 50;
+        const float offset = 20;
+        for (uint joint = 0; joint < NUMBER_OF_JOINT_SENSORS; joint++) {
+            static float error_previous[NUMBER_OF_JOINT_SENSORS] = {0.0f, 0.0f, 0.0f, 0.0f};
+            error[joint] = setPointAngle[joint] - (jointAngles[joint]+jointAngleOffset[joint]);
+            ROS_INFO("setpoint %f\tjointAngle %f\terror %f",setPointAngle[joint],(jointAngles[joint]+jointAngleOffset[joint]),error[joint]);
+            switch (joint) {
+                case 0: {
+                    float pterm = atoi(ui.Kp_danceControl->text().toStdString().c_str()) * error[joint];
+                    float dterm = atoi(ui.Kd_danceControl->text().toStdString().c_str()) *
+                                  (error[joint] - error_previous[joint]);
+                    integral[joint] += atoi(ui.Ki_danceControl->text().toStdString().c_str())  * error[joint];
+                    if(integral[joint]>=integral_max){
+                        integral[joint] = integral_max;
+                    }else if(integral[joint]<=integral_max){
+                        integral[joint] = -integral_max;
+                    }
+                    float result = pterm + dterm + integral[joint];
+                    if (result <= -smooth_distance) {
+                        myoMaster->changeSetPoint(3, offset - result);
+                        myoMaster->changeSetPoint(5, offset);
+                    } else if (result < smooth_distance) {
+                        myoMaster->changeSetPoint(3, offset + powf(result-smooth_distance, 2.0f)/(4.0f * smooth_distance));
+                        myoMaster->changeSetPoint(5, offset + powf(result+smooth_distance, 2.0f)/(4.0f * smooth_distance));
+                    } else {
+                        myoMaster->changeSetPoint(3, offset);
+                        myoMaster->changeSetPoint(5, offset + result);
+                    }
+                    error_previous[joint] = error[joint];
+                    break;
+                }
+                case 1:{
+                    float pterm = atoi(ui.Kp_danceControl->text().toStdString().c_str()) * error[joint];
+                    float dterm = atoi(ui.Kd_danceControl->text().toStdString().c_str()) *
+                                  (error[joint] - error_previous[joint]);
+                    integral[joint] += atoi(ui.Ki_danceControl->text().toStdString().c_str())  * error[joint];
+                    if(integral[joint]>=integral_max){
+                        integral[joint] = integral_max;
+                    }else if(integral[joint]<=integral_max){
+                        integral[joint] = -integral_max;
+                    }
+                    float result = pterm + dterm + integral[joint];
+                    if (result <= -smooth_distance) {
+                        myoMaster->changeSetPoint(6, offset - result);
+                        myoMaster->changeSetPoint(4, offset);
+                    } else if (result < smooth_distance) {
+                        myoMaster->changeSetPoint(6, offset + powf(result-smooth_distance, 2.0f)/(4.0f * smooth_distance));
+                        myoMaster->changeSetPoint(4, offset + powf(result+smooth_distance, 2.0f)/(4.0f * smooth_distance));
+                    } else {
+                        myoMaster->changeSetPoint(6, offset);
+                        myoMaster->changeSetPoint(4, offset + result);
+                    }
+                    error_previous[joint] = error[joint];
+                    break;
+                }
+                case 2:{
+                    float pterm = atoi(ui.Kp_danceControl->text().toStdString().c_str()) * error[joint];
+                    float dterm = atoi(ui.Kd_danceControl->text().toStdString().c_str()) *
+                                  (error[joint] - error_previous[joint]);
+                    integral[joint] += atoi(ui.Ki_danceControl->text().toStdString().c_str())  * error[joint];
+                    if(integral[joint]>=integral_max){
+                        integral[joint] = integral_max;
+                    }else if(integral[joint]<=integral_max){
+                        integral[joint] = -integral_max;
+                    }
+                    float result = pterm + dterm + integral[joint];
+                    if (result <= -smooth_distance) {
+                        myoMaster->changeSetPoint(8, offset - result);
+                        myoMaster->changeSetPoint(11, offset);
+                    } else if (result < smooth_distance) {
+                        myoMaster->changeSetPoint(8, offset + powf(result-smooth_distance, 2.0f)/(4.0f * smooth_distance));
+                        myoMaster->changeSetPoint(11, offset + powf(result+smooth_distance, 2.0f)/(4.0f * smooth_distance));
+                    } else {
+                        myoMaster->changeSetPoint(8, offset);
+                        myoMaster->changeSetPoint(11, offset + result);
+                    }
+                    error_previous[joint] = error[joint];
+                    break;
+                }
+                case 3:{
+                    float pterm = atoi(ui.Kp_danceControl->text().toStdString().c_str()) * error[joint];
+                    float dterm = atoi(ui.Kd_danceControl->text().toStdString().c_str()) *
+                                  (error[joint] - error_previous[joint]);
+                    integral[joint] += (float)atoi(ui.Ki_danceControl->text().toStdString().c_str())  * error[joint];
+                    if(integral[joint]>=integral_max){
+                        integral[joint] = integral_max;
+                    }else if(integral[joint]<=integral_max){
+                        integral[joint] = -integral_max;
+                    }
+                    float result = pterm + dterm + integral[joint];
+//                    ROS_INFO_THROTTLE(1,"\npterm %f\ndterm %f\niterm %f\nresult %f", pterm, dterm, integral[joint], result);
+                    if (result <= -smooth_distance) {
+                        myoMaster->changeSetPoint(12, offset - result);
+                        myoMaster->changeSetPoint(10, offset);
+                    } else if (result < smooth_distance) {
+                        myoMaster->changeSetPoint(12, offset + powf(result-smooth_distance, 2.0f)/(4.0f * smooth_distance));
+                        myoMaster->changeSetPoint(10, offset + powf(result+smooth_distance, 2.0f)/(4.0f * smooth_distance));
+                    } else {
+                        myoMaster->changeSetPoint(12, offset);
+                        myoMaster->changeSetPoint(10, offset + result);
                     }
                     error_previous[joint] = error[joint];
                     break;
@@ -600,6 +727,57 @@ void MainWindow::stopButtonClicked(){
         }
         motorConfig.publish(msg);
     }
+}
+
+void MainWindow::danceBitch(){
+    ROS_INFO("dance button clicked");
+    dance = ui.dance_bitch->isChecked();
+    if(dance)
+        jointControl = false;
+        motorControl = false;
+}
+
+void MainWindow::DisplayImage(const sensor_msgs::ImageConstPtr &msg){
+//    try {
+//        cv_ptr = cv_bridge::toCvCopy(msg, "mono8");
+//        cv_ptr->image.copyTo(img);
+//        flip(img,img,1);
+//    } catch (cv_bridge::Exception &e) {
+//        ROS_ERROR("cv_bridge exception: %s", e.what());
+//    }
+//    QLabel *camimage = this->findChild<QLabel *>("camimage");
+//    int w = img.cols;
+//    int h = img.rows;
+//    QImage qim(w, h, QImage::Format_RGB32);
+//    QRgb pixel;
+//    for (int i = 0; i < w; i++) {
+//        for (int j = 0; j < h; j++) {
+//            int gray = (int) img.at < unsigned char > (j, i);
+//            pixel = qRgb(gray, gray, gray);
+//            qim.setPixel(i, j, pixel);
+//        }
+//    }
+//    QPixmap pixmap = QPixmap::fromImage(qim);
+//    camimage->setPixmap(pixmap);
+//    camimage->repaint();
+}
+
+void MainWindow::JointCommand(const roboy_communication_middleware::JointCommand::ConstPtr& msg) {
+    for(uint joint=0;joint<msg->dq.size();joint++)
+        setPointAngle[joint] = jointData[0][joint][1].back() + msg->dq[joint];
+}
+
+void MainWindow::ArucoPose(const roboy_communication_middleware::ArucoPose::ConstPtr& msg){
+    ROS_INFO_THROTTLE(10, "receiving aruco pose");
+    for(uint i=0;i<msg->id.size();i++)
+        arucoMarkerPosition[msg->id[i]] = Vector3f(msg->pose[i].position.x, msg->pose[i].position.y, msg->pose[i].position.z);
+
+    Vector3f hipCenter = (arucoMarkerPosition[282]+(arucoMarkerPosition[754]-arucoMarkerPosition[282])/2.0f)-arucoMarkerPosition[429];
+    geometry_msgs::Pose hipCenterPose;
+    hipCenterPose.position.x = hipCenter[0];
+    hipCenterPose.position.y = -hipCenter[1];
+    hipCenterPose.position.z = hipCenter[2];
+    hipCenter_pub.publish(hipCenterPose);
 }
 
 void MainWindow::updateSetPointsMotorControl(int percent){

@@ -13,3 +13,6 @@
 [submodule "myoFPGA/src/common_utilities"]
 	path = myoFPGA/src/common_utilities
 	url = https://github.com/Roboy/common_utilities
+[submodule "myoFPGA/src/roboy_realsense"]
+	path = myoFPGA/src/roboy_realsense
+	url = https://github.com/Roboy/roboy_realsense
