@@ -20,8 +20,9 @@
 
 int main(int argc, char **argv) {
 
-    MyoMaster myoMaster(argc,argv);
-    myoMaster.initialize();
+    MyoMaster myoMaster;
+    myoMaster.initialize(argc,argv);
+    myoMaster.start();
 
     /*********************
     ** Qt

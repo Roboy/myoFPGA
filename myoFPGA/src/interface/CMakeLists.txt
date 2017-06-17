@@ -6,33 +6,23 @@ cmake_minimum_required(VERSION 2.8.0)
 project(interface)
 
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -O0 -g")
-
-##############################################################################
-# Catkin
-##############################################################################
-
 SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/../roboy_managing_node/cmake)
 include(${CMAKE_CURRENT_SOURCE_DIR}/../roboy_managing_node/cmake/options.cmake)
 include_directories(
         ${OPLK_BASE_DIR}/stack/proj/linux/liboplkmndrv-pcap
         ${OPLK_BASE_DIR}/apps/common/objdicts/CiA302-4_MN
+        ${CMAKE_CURRENT_SOURCE_DIR}/../roboy_powerlink/powerlink/output
 )
 
-# protobuf
-find_package(Protobuf REQUIRED)
-include_directories(${PROTOBUF_INCLUDE_DIR})
-message(STATUS ${PROTOBUF_INCLUDE_DIR})
-protobuf_generate_cpp(PROTO_SRCS PROTO_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/../roboy_powerlink/protobuf/myoFPGA.proto)
-include_directories(${CMAKE_CURRENT_BINARY_DIR})
+##############################################################################
+# Catkin
+##############################################################################
 
 # qt_build provides the qt cmake glue, roscpp the comms for a default talker
-find_package(catkin REQUIRED COMPONENTS qt_build roscpp roboy_communication_middleware roboy_managing_node)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../roboy_powerlink/powerlink/output)
-# Use this to define what the package will export (e.g. libs, headers).
-# Since the default here is to produce only a binary, we don't worry about
-# exporting anything. 
+find_package(catkin REQUIRED COMPONENTS qt_build roscpp roboy_communication_middleware cv_bridge roboy_managing_node)
 catkin_package(CATKIN_DEPENDS roboy_managing_node roboy_communication_middleware )
 include_directories(${catkin_INCLUDE_DIRS})
+
 
 # Eigen
 find_package(PkgConfig)

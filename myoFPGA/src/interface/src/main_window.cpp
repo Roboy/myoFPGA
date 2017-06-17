@@ -37,6 +37,7 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
 	ui.tab_manager->setCurrentIndex(0); // ensure the first tab is showing - qt-designer should have this already hardwired, but often loses it (settings?).
 
     QObject::connect(this, SIGNAL(newData(int)), this, SLOT(plotData(int)));
+    QObject::connect(this, SIGNAL(drawImage()), this, SLOT(displayImage()));
 
     QObject::connect(ui.motor0, SIGNAL(valueChanged(int)), this, SLOT(updateSetPointsMotorControl(int)));
     QObject::connect(ui.motor1, SIGNAL(valueChanged(int)), this, SLOT(updateSetPointsMotorControl(int)));
@@ -84,7 +85,7 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
     motorStatus = nh->subscribe("/roboy/middleware/MotorStatus", 1, &MainWindow::MotorStatus, this);
     jointStatus = nh->subscribe("/roboy/middleware/JointStatus", 1, &MainWindow::JointStatus, this);
     jointCommand = nh->subscribe("/roboy/middleware/JointCommand", 1, &MainWindow::JointCommand, this);
-    realsense = nh->subscribe("/roboy/middleware/realsense", 1, &MainWindow::DisplayImage, this);
+    realsense = nh->subscribe("/roboy/middleware/realsense", 1, &MainWindow::receiveImage, this);
     arucoPose = nh->subscribe("/roboy/middleware/ArucoPose", 1, &MainWindow::ArucoPose, this);
     motorConfig = nh->advertise<roboy_communication_middleware::MotorConfig>("/roboy/middleware/MotorConfig", 1);
     motorRecordConfig = nh->advertise<roboy_communication_middleware::MotorRecordConfig>("/roboy/middleware/MotorRecordConfig", 1);
@@ -92,6 +93,8 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
     motorTrajectory = nh->advertise<roboy_communication_middleware::MotorRecord>("/roboy/middleware/MotorTrajectory", 1);
     motorTrajectoryControl = nh->advertise<roboy_communication_middleware::MotorTrajectoryControl>("/roboy/middleware/MotorTrajectoryControl", 1);
     hipCenter_pub = nh->advertise<geometry_msgs::Pose>("/roboy/middleware/HipCenter", 1);
+    jointCommand_pub = nh->advertise<roboy_communication_middleware::JointCommand>("/roboy/middleware/JointCommand", 1);
+    jointAnglesOffset_pub = nh->advertise<roboy_communication_middleware::JointAngle>("/roboy/middleware/JointAngleOffset", 1);
 
     spinner = boost::shared_ptr<ros::AsyncSpinner>(new ros::AsyncSpinner(1));
     spinner->start();
@@ -126,25 +129,25 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
     ui.relAngle0_plot->graph(0)->setPen(QPen(color_pallette[0]));
     ui.relAngle0_plot->xAxis->setLabel("x");
     ui.relAngle0_plot->yAxis->setLabel("degrees");
-    ui.relAngle0_plot->yAxis->setRange(0,360);
+    ui.relAngle0_plot->yAxis->setRange(-360,360);
 
     ui.relAngle1_plot->addGraph();
     ui.relAngle1_plot->graph(0)->setPen(QPen(color_pallette[1]));
     ui.relAngle1_plot->xAxis->setLabel("x");
     ui.relAngle1_plot->yAxis->setLabel("degrees");
-    ui.relAngle1_plot->yAxis->setRange(0,360);
+    ui.relAngle1_plot->yAxis->setRange(-360,360);
 
     ui.relAngle2_plot->addGraph();
     ui.relAngle2_plot->graph(0)->setPen(QPen(color_pallette[2]));
     ui.relAngle2_plot->xAxis->setLabel("x");
     ui.relAngle2_plot->yAxis->setLabel("degrees");
-    ui.relAngle2_plot->yAxis->setRange(0,360);
+    ui.relAngle2_plot->yAxis->setRange(-360,360);
 
     ui.relAngle3_plot->addGraph();
     ui.relAngle3_plot->graph(0)->setPen(QPen(color_pallette[3]));
     ui.relAngle3_plot->xAxis->setLabel("x");
     ui.relAngle3_plot->yAxis->setLabel("degrees");
-    ui.relAngle3_plot->yAxis->setRange(0,360);
+    ui.relAngle3_plot->yAxis->setRange(-360,360);
 
     ui.relAngle0_plot->replot();
     ui.relAngle1_plot->replot();
@@ -163,6 +166,16 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
     setPointAngle[1] = 124;
     setPointAngle[2] = 45;
     setPointAngle[3] = 248;
+
+    joint_command_msg.link_name.push_back("hip_1");
+    joint_command_msg.link_name.push_back("knee_1");
+    joint_command_msg.link_name.push_back("hip_2");
+    joint_command_msg.link_name.push_back("knee_2");
+
+    joint_command_msg.angle.push_back(0);
+    joint_command_msg.angle.push_back(0);
+    joint_command_msg.angle.push_back(0);
+    joint_command_msg.angle.push_back(0);
 }
 
 MainWindow::~MainWindow() {}
@@ -226,7 +239,7 @@ void MainWindow::JointStatus(const roboy_communication_middleware::JointStatus::
     float jointAngles[NUMBER_OF_JOINT_SENSORS];
     for (uint joint = 0; joint < NUMBER_OF_JOINT_SENSORS; joint++) {
         jointAngles[joint] = msg->relAngles[joint] / 4096.0 * 360.0;
-        jointData[msg->id][joint][1].push_back(jointAngles[joint]);
+        jointData[msg->id][joint][1].push_back(sign[joint]*(jointAngles[joint]+jointAngleOffset[joint]));
         if (jointData[msg->id][joint][1].size() > samples_per_plot) {
             jointData[msg->id][joint][1].pop_front();
         }
@@ -474,6 +487,54 @@ void MainWindow::JointStatus(const roboy_communication_middleware::JointStatus::
     static int counter = 0;
     if((counter++)%3==0)
         Q_EMIT newData(JOINT);
+
+    if(!initializeJointAngles){ // if we are initialized publish the corrected joint angles
+        ROS_INFO_THROTTLE(1,"joint angles corrected: \n%f\t%f\t%f\t%f", jointAngles[0]+jointAngleOffset[0],
+                          jointAngles[1]+jointAngleOffset[1], jointAngles[2]+jointAngleOffset[2],
+                          jointAngles[3]+jointAngleOffset[3]);
+//        joint_command_msg.angle[0] = degreesToRadians(jointData[0][0][1].back());
+//        joint_command_msg.angle[1] = degreesToRadians(jointData[0][1][1].back());
+//        joint_command_msg.angle[2] = degreesToRadians(jointData[0][2][1].back());
+//        joint_command_msg.angle[3] = degreesToRadians(jointData[0][3][1].back());
+//        jointCommand_pub.publish(joint_command_msg);
+    }else{
+        float anglebetween[4];
+        anglebetween[0] = 90.0f -calculateAngleBetween(868, 576, 282, 754);
+        anglebetween[1] = -calculateAngleBetween(429, 260, 868, 576);
+        anglebetween[2] = -90.0f + calculateAngleBetween(282, 754, 1007, 422);
+        anglebetween[3] = calculateAngleBetween(1007, 422, 120, 100);
+
+        sign[0] = -1.0f;
+        sign[1] = -1.0f;
+        sign[2] = 1.0f;
+        sign[3] = 1.0f;
+
+        joint_command_msg.angle[0] = degreesToRadians(anglebetween[0]);
+        joint_command_msg.angle[1] = degreesToRadians(anglebetween[1]);
+        joint_command_msg.angle[2] = degreesToRadians(anglebetween[2]);
+        joint_command_msg.angle[3] = degreesToRadians(anglebetween[3]);
+        jointCommand_pub.publish(joint_command_msg);
+
+        jointAngleOffset[0] = anglebetween[0] - jointAngles[0];
+        jointAngleOffset[1] = anglebetween[1] - jointAngles[1];
+        jointAngleOffset[2] = anglebetween[2] - jointAngles[2];
+        jointAngleOffset[3] = anglebetween[3] - jointAngles[3];
+        ROS_WARN_THROTTLE(1,"angle between 868, 576, 282, 754:    %f \t\tsensor measures %f", anglebetween[0],jointData[0][0][1].back());
+        ROS_WARN_THROTTLE(1,"angle between 429, 260, 868, 576:    %f \t\tsensor measures %f", anglebetween[1],jointData[0][1][1].back());
+        ROS_WARN_THROTTLE(1,"angle between 282, 754, 1007, 422:   %f \t\tsensor measures %f", anglebetween[2],jointData[0][2][1].back());
+        ROS_WARN_THROTTLE(1,"angle between 1007, 422, 120, 100:   %f \t\tsensor measures %f", anglebetween[3],jointData[0][3][1].back());
+    }
+
+    if(initializeJointAngles && jointAngles[0]!=0 && jointAngles[1]!=0 &&
+            jointAngles[2]!=0 && jointAngles[3]!=0 && counter>20) { // wait until 20 messages have arrived
+        initializeJointAngles = false;
+        roboy_communication_middleware::JointAngle angleOffset_msg;
+        for (uint joint = 0; joint < NUMBER_OF_JOINT_SENSORS; joint++) {
+            angleOffset_msg.angle.push_back(jointAngleOffset[joint]);
+        }
+        jointAnglesOffset_pub.publish(angleOffset_msg);
+    }else
+        counter++;
 }
 
 void MainWindow::MotorRecordPack(const roboy_communication_middleware::MotorRecord::ConstPtr &msg){
@@ -737,40 +798,88 @@ void MainWindow::danceBitch(){
         motorControl = false;
 }
 
-void MainWindow::DisplayImage(const sensor_msgs::ImageConstPtr &msg){
-//    try {
-//        cv_ptr = cv_bridge::toCvCopy(msg, "mono8");
-//        cv_ptr->image.copyTo(img);
-//        flip(img,img,1);
-//    } catch (cv_bridge::Exception &e) {
-//        ROS_ERROR("cv_bridge exception: %s", e.what());
-//    }
-//    QLabel *camimage = this->findChild<QLabel *>("camimage");
-//    int w = img.cols;
-//    int h = img.rows;
-//    QImage qim(w, h, QImage::Format_RGB32);
-//    QRgb pixel;
-//    for (int i = 0; i < w; i++) {
-//        for (int j = 0; j < h; j++) {
-//            int gray = (int) img.at < unsigned char > (j, i);
-//            pixel = qRgb(gray, gray, gray);
-//            qim.setPixel(i, j, pixel);
-//        }
-//    }
-//    QPixmap pixmap = QPixmap::fromImage(qim);
-//    camimage->setPixmap(pixmap);
-//    camimage->repaint();
+void MainWindow::receiveImage(const sensor_msgs::ImageConstPtr &msg){
+    try {
+        cv_ptr = cv_bridge::toCvCopy(msg, "bgr8");
+        cv_ptr->image.copyTo(img);
+        cv::resize(img, img, Size(), image_scale, image_scale, INTER_CUBIC);
+    } catch (cv_bridge::Exception &e) {
+        ROS_ERROR("cv_bridge exception: %s", e.what());
+    }
+
+    {
+        Point pt1(arucoMarkerCenter[260][0], arucoMarkerCenter[260][1]);
+        Point pt2(arucoMarkerCenter[429][0], arucoMarkerCenter[429][1]);
+        cv::line(img, pt1, pt2, CV_RGB(0, 0, 255), 5);
+    }
+    {
+        Point pt1(arucoMarkerCenter[868][0], arucoMarkerCenter[868][1]);
+        Point pt2(arucoMarkerCenter[576][0], arucoMarkerCenter[576][1]);
+        cv::line(img, pt1, pt2, CV_RGB(0, 0, 255), 5);
+    }
+    {
+        Point pt1(arucoMarkerCenter[282][0], arucoMarkerCenter[282][1]);
+        Point pt2(arucoMarkerCenter[754][0], arucoMarkerCenter[754][1]);
+        cv::line(img, pt1, pt2, CV_RGB(0, 0, 255), 5);
+    }
+    {
+        Point pt1(arucoMarkerCenter[1007][0], arucoMarkerCenter[1007][1]);
+        Point pt2(arucoMarkerCenter[422][0], arucoMarkerCenter[422][1]);
+        cv::line(img, pt1, pt2, CV_RGB(0, 0, 255), 5);
+    }
+    {
+        Point pt1(arucoMarkerCenter[120][0], arucoMarkerCenter[120][1]);
+        Point pt2(arucoMarkerCenter[100][0], arucoMarkerCenter[100][1]);
+        cv::line(img, pt1, pt2, CV_RGB(0, 0, 255), 5);
+    }
+    Q_EMIT drawImage();
+}
+
+void MainWindow::displayImage(){
+    int w = img.cols;
+    int h = img.rows;
+    QImage qim(w, h, QImage::Format_RGB32);
+    QRgb pixel;
+    for (int i = 0; i < w; i++) {
+        for (int j = 0; j < h; j++) {
+            cv::Vec3b rgb = img.at <cv::Vec3b> (j, i);
+            pixel = qRgb(rgb[2], rgb[1], rgb[0]);
+            qim.setPixel(i, j, pixel);
+        }
+    }
+    pixmap = QPixmap::fromImage(qim);
+    ui.camera_image->setPixmap(pixmap);
+    ui.camera_image->repaint();
 }
 
 void MainWindow::JointCommand(const roboy_communication_middleware::JointCommand::ConstPtr& msg) {
-    for(uint joint=0;joint<msg->dq.size();joint++)
-        setPointAngle[joint] = jointData[0][joint][1].back() + msg->dq[joint];
+    for(uint joint=0;joint<msg->angle.size();joint++)
+        setPointAngle[joint] = msg->angle[joint];
+}
+
+float MainWindow::calculateAngleBetween(int aruco0, int aruco1, int aruco2, int aruco3){
+    Vector3f line0 = arucoMarkerPosition[aruco1]-arucoMarkerPosition[aruco0];
+    Vector3f line1 = arucoMarkerPosition[aruco3]-arucoMarkerPosition[aruco2];
+
+    float len1 = sqrtf(line0[0] * line0[0] + line0[1] * line0[1] + line0[2] * line0[2]);
+    float len2 = sqrtf(line1[0] * line1[0] + line1[1] * line1[1] + line1[2] * line1[2]);
+
+    float dot = line0[0] * line1[0] + line0[1] * line1[1] + line0[2] * line1[2];
+
+    float a = dot / (len1 * len2);
+
+    return acos(a)*180.0f/(float)M_PI; // 0..PI
 }
 
 void MainWindow::ArucoPose(const roboy_communication_middleware::ArucoPose::ConstPtr& msg){
     ROS_INFO_THROTTLE(10, "receiving aruco pose");
-    for(uint i=0;i<msg->id.size();i++)
-        arucoMarkerPosition[msg->id[i]] = Vector3f(msg->pose[i].position.x, msg->pose[i].position.y, msg->pose[i].position.z);
+    for(uint i=0;i<msg->id.size();i++) {
+        arucoMarkerPosition[msg->id[i]] = Vector3f(msg->pose[i].position.x, msg->pose[i].position.y,
+                                                   msg->pose[i].position.z);
+        arucoMarkerCenter[msg->id[i]] = Vector2f(msg->center[i].x, msg->center[i].y)*image_scale;
+    }
+
+    Q_EMIT drawImage();
 
     Vector3f hipCenter = (arucoMarkerPosition[282]+(arucoMarkerPosition[754]-arucoMarkerPosition[282])/2.0f)-arucoMarkerPosition[429];
     geometry_msgs::Pose hipCenterPose;
