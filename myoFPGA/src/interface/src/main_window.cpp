@@ -12,7 +12,7 @@
 #include <QtGui>
 #include <QMessageBox>
 #include <iostream>
-#include "../include/interface/interface/main_window.hpp"
+#include "interface/main_window.hpp"
 
 /*****************************************************************************
 ** Namespaces
@@ -84,7 +84,8 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
     }
     motorStatus = nh->subscribe("/roboy/middleware/MotorStatus", 1, &MainWindow::MotorStatus, this);
     jointStatus = nh->subscribe("/roboy/middleware/JointStatus", 1, &MainWindow::JointStatus, this);
-    jointCommand = nh->subscribe("/roboy/middleware/JointCommand", 1, &MainWindow::JointCommand, this);
+//    jointCommand = nh->subscribe("/roboy/middleware/JointCommand", 1, &MainWindow::JointCommand, this);
+    danceCommand = nh->subscribe("/roboy/middleware/DanceCommand", 1, &MainWindow::DanceCommand, this);
     realsense = nh->subscribe("/roboy/middleware/realsense", 1, &MainWindow::receiveImage, this);
     arucoPose = nh->subscribe("/roboy/middleware/ArucoPose", 1, &MainWindow::ArucoPose, this);
     motorConfig = nh->advertise<roboy_communication_middleware::MotorConfig>("/roboy/middleware/MotorConfig", 1);
@@ -161,11 +162,12 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
 
     angle.resize(4);
     jointAngleOffset.resize(4);
+
     setPointAngle.resize(4);
-    setPointAngle[0] = 155;
-    setPointAngle[1] = 124;
-    setPointAngle[2] = 45;
-    setPointAngle[3] = 248;
+    setPointAngle[0] = 80;
+    setPointAngle[1] = -80;
+    setPointAngle[2] = -80;
+    setPointAngle[3] = 80;
 
     joint_command_msg.link_name.push_back("hip_1");
     joint_command_msg.link_name.push_back("knee_1");
@@ -382,7 +384,6 @@ void MainWindow::JointStatus(const roboy_communication_middleware::JointStatus::
         for (uint joint = 0; joint < NUMBER_OF_JOINT_SENSORS; joint++) {
             static float error_previous[NUMBER_OF_JOINT_SENSORS] = {0.0f, 0.0f, 0.0f, 0.0f};
             error[joint] = setPointAngle[joint] - (jointAngles[joint]+jointAngleOffset[joint]);
-            ROS_INFO("setpoint %f\tjointAngle %f\terror %f",setPointAngle[joint],(jointAngles[joint]+jointAngleOffset[joint]),error[joint]);
             switch (joint) {
                 case 0: {
                     float pterm = atoi(ui.Kp_danceControl->text().toStdString().c_str()) * error[joint];
@@ -483,26 +484,39 @@ void MainWindow::JointStatus(const roboy_communication_middleware::JointStatus::
                 }
             }
         }
+        ROS_WARN_THROTTLE(1,"\nsetpoint %f\tjointAngle %f\terror %f"
+                "\nsetpoint %f\tjointAngle %f\terror %f"
+                "\nsetpoint %f\tjointAngle %f\terror %f"
+                "\nsetpoint %f\tjointAngle %f\terror %f",
+                          setPointAngle[0],(jointAngles[0]+jointAngleOffset[0]),error[0],
+                          setPointAngle[1],(jointAngles[1]+jointAngleOffset[1]),error[1],
+                          setPointAngle[2],(jointAngles[2]+jointAngleOffset[2]),error[2],
+                          setPointAngle[3],(jointAngles[3]+jointAngleOffset[3]),error[3]);
     }
     static int counter = 0;
     if((counter++)%3==0)
         Q_EMIT newData(JOINT);
 
     if(!initializeJointAngles){ // if we are initialized publish the corrected joint angles
-        ROS_INFO_THROTTLE(1,"joint angles corrected: \n%f\t%f\t%f\t%f", jointAngles[0]+jointAngleOffset[0],
+        ROS_INFO_THROTTLE(10,"joint angles corrected: \n%f\t%f\t%f\t%f", jointAngles[0]+jointAngleOffset[0],
                           jointAngles[1]+jointAngleOffset[1], jointAngles[2]+jointAngleOffset[2],
                           jointAngles[3]+jointAngleOffset[3]);
-//        joint_command_msg.angle[0] = degreesToRadians(jointData[0][0][1].back());
-//        joint_command_msg.angle[1] = degreesToRadians(jointData[0][1][1].back());
-//        joint_command_msg.angle[2] = degreesToRadians(jointData[0][2][1].back());
-//        joint_command_msg.angle[3] = degreesToRadians(jointData[0][3][1].back());
-//        jointCommand_pub.publish(joint_command_msg);
+        joint_command_msg.angle[0] = degreesToRadians(jointData[0][0][1].back());
+        joint_command_msg.angle[1] = degreesToRadians(jointData[0][1][1].back());
+        joint_command_msg.angle[2] = degreesToRadians(jointData[0][2][1].back());
+        joint_command_msg.angle[3] = degreesToRadians(jointData[0][3][1].back());
+        jointCommand_pub.publish(joint_command_msg);
     }else{
         float anglebetween[4];
-        anglebetween[0] = 90.0f -calculateAngleBetween(868, 576, 282, 754);
-        anglebetween[1] = -calculateAngleBetween(429, 260, 868, 576);
-        anglebetween[2] = -90.0f + calculateAngleBetween(282, 754, 1007, 422);
-        anglebetween[3] = calculateAngleBetween(1007, 422, 120, 100);
+//        anglebetween[0] = 90.0f -calculateAngleBetween(868, 576, 282, 754);
+//        anglebetween[1] = -calculateAngleBetween(429, 260, 868, 576);
+//        anglebetween[2] = -90.0f + calculateAngleBetween(282, 754, 1007, 422);
+//        anglebetween[3] = calculateAngleBetween(1007, 422, 120, 100);
+
+        anglebetween[0] = 80.0f;
+        anglebetween[1] = -80.0f;
+        anglebetween[2] = -80.0f;
+        anglebetween[3] = 80.0f;
 
         sign[0] = -1.0f;
         sign[1] = -1.0f;
@@ -523,18 +537,14 @@ void MainWindow::JointStatus(const roboy_communication_middleware::JointStatus::
         ROS_WARN_THROTTLE(1,"angle between 429, 260, 868, 576:    %f \t\tsensor measures %f", anglebetween[1],jointData[0][1][1].back());
         ROS_WARN_THROTTLE(1,"angle between 282, 754, 1007, 422:   %f \t\tsensor measures %f", anglebetween[2],jointData[0][2][1].back());
         ROS_WARN_THROTTLE(1,"angle between 1007, 422, 120, 100:   %f \t\tsensor measures %f", anglebetween[3],jointData[0][3][1].back());
-    }
 
-    if(initializeJointAngles && jointAngles[0]!=0 && jointAngles[1]!=0 &&
-            jointAngles[2]!=0 && jointAngles[3]!=0 && counter>20) { // wait until 20 messages have arrived
-        initializeJointAngles = false;
         roboy_communication_middleware::JointAngle angleOffset_msg;
         for (uint joint = 0; joint < NUMBER_OF_JOINT_SENSORS; joint++) {
             angleOffset_msg.angle.push_back(jointAngleOffset[joint]);
         }
         jointAnglesOffset_pub.publish(angleOffset_msg);
-    }else
-        counter++;
+        initializeJointAngles = false;
+    }
 }
 
 void MainWindow::MotorRecordPack(const roboy_communication_middleware::MotorRecord::ConstPtr &msg){
@@ -871,6 +881,67 @@ float MainWindow::calculateAngleBetween(int aruco0, int aruco1, int aruco2, int 
     return acos(a)*180.0f/(float)M_PI; // 0..PI
 }
 
+void MainWindow::DanceCommand(const roboy_communication_middleware::DanceCommand::ConstPtr &msg){
+    vector<double> q = {degreesToRadians(jointData[0][1][1].back()),
+                        degreesToRadians(jointData[0][0][1].back()),
+                        degreesToRadians(jointData[0][2][1].back()),
+                        degreesToRadians(jointData[0][3][1].back())};
+
+    Vector4d setPoint(1.3,0,msg->x, msg->y);
+    printf("setpoint %lf\t%lf\t%lf\t%lf\n", setPoint[0],setPoint[1],setPoint[2],setPoint[3]);
+    Vector3d x;
+    double data[3];
+    printf("theta0 %lf\ttheta1 %lf\ttheta2 %lf\ttheta3 %lf\n",q[0],q[1],q[2],q[3]);
+    ankle_left(x.data(),q[0],q[1],q[2],q[3]);
+    printf("ankle_left \t\t%lf\t%lf\t%lf\n", x[0], x[1], x[2]);
+    knee_left(x.data(),q[0],q[1],q[2],q[3]);
+    printf("knee_left \t\t%lf\t%lf\t%lf\n", x[0], x[1], x[2]);
+    hip_left(x.data(),q[0],q[1],q[2],q[3]);
+    printf("hip_left \t\t%lf\t%lf\t%lf\n", x[0], x[1], x[2]);
+    hip_center(x.data(),q[0],q[1],q[2],q[3]);
+    printf("hip_center \t\t%lf\t%lf\t%lf\n", x[0], x[1], x[2]);
+    hip_right(x.data(),q[0],q[1],q[2],q[3]);
+    printf("hip_right \t\t%lf\t%lf\t%lf\n", x[0], x[1], x[2]);
+    knee_right(x.data(),q[0],q[1],q[2],q[3]);
+    printf("knee_right \t\t%lf\t%lf\t%lf\n", x[0], x[1], x[2]);
+    ankle_right(x.data(),q[0],q[1],q[2],q[3]);
+    printf("ankle_right \t\t%lf\t%lf\t%lf\n", x[0], x[1], x[2]);
+
+    double kp = 0.1;
+
+    boost::numeric::odeint::runge_kutta4<vector<double>> stepper;
+    for(uint i=0;i<500;i++) {
+        // do 1 step of integration of DiffModel() at current time
+        stepper.do_step([setPoint, kp, i](const vector<double> &q, vector<double> &dq, const double) {
+            // This lambda function implements the inverse kinematics for PaBiLegs
+            // q - joint angles
+            // dq - joint angles derivatives
+            Matrix4d J, Jpinv;
+            double data[16];
+            Jacobian(data,q[0],q[1],q[2],q[3]);
+            J = Eigen::Map<Eigen::MatrixXd>(data, 4, 4);
+            Vector4d angles(q.data());
+            Vector4d x_current;
+            ankle_right_hip_center(x_current.data(),q[0],q[1],q[2],q[3]);
+            Jpinv = pseudoInverse<Matrix4d>(J);
+            Vector4d dangles = Jpinv * (kp * (setPoint - x_current));
+            memcpy(dq.data(), dangles.data(), 4 * sizeof(double));
+            if(i%20==0)
+                printf("x  %f\t%f\t%f\t%f\n", x_current[0], x_current[1], x_current[2], x_current[3]);
+
+        }, q, 0.01, 0.01);
+    }
+
+    Vector4d x_current;
+    ankle_right_hip_center(x_current.data(),q[0],q[1],q[2],q[3]);
+    printf("result: \t\t%f\t%f\t>%f\t%f \t\t error: %f\n",x_current[0],x_current[1],x_current[2],x_current[3], (x_current-setPoint).norm());
+
+    setPointAngle[0] = radiansToDegrees(q[0]);
+    setPointAngle[1] = radiansToDegrees(q[1]);
+    setPointAngle[2] = radiansToDegrees(q[2]);
+    setPointAngle[3] = radiansToDegrees(q[3]);
+}
+
 void MainWindow::ArucoPose(const roboy_communication_middleware::ArucoPose::ConstPtr& msg){
     ROS_INFO_THROTTLE(10, "receiving aruco pose");
     for(uint i=0;i<msg->id.size();i++) {
@@ -1079,8 +1150,8 @@ void MainWindow::updateControllerParams(){
     for(uint motor=0;motor<NUMBER_OF_MOTORS_PER_FPGA;motor++){
         msg.motors.push_back(motor);
         msg.control_mode.push_back(ui.control_mode->value());
-        msg.outputPosMax.push_back(1000); // pwm max
-        msg.outputNegMax.push_back(-1000); // pwm min
+        msg.outputPosMax.push_back(2000); // pwm max
+        msg.outputNegMax.push_back(-2000); // pwm min
         msg.spPosMax.push_back(100000000);
         msg.spNegMax.push_back(-100000000);
         msg.IntegralPosMax.push_back(100);

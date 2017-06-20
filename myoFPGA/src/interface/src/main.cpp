@@ -11,7 +11,7 @@
 
 #include <QtGui>
 #include <QApplication>
-#include "../include/interface/interface/main_window.hpp"
+#include "interface/main_window.hpp"
 #include "roboy_managing_node/myoMaster.hpp"
 
 /*****************************************************************************

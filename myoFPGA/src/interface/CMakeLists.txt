@@ -12,6 +12,7 @@ include_directories(
         ${OPLK_BASE_DIR}/stack/proj/linux/liboplkmndrv-pcap
         ${OPLK_BASE_DIR}/apps/common/objdicts/CiA302-4_MN
         ${CMAKE_CURRENT_SOURCE_DIR}/../roboy_powerlink/powerlink/output
+        include
 )
 
 ##############################################################################
