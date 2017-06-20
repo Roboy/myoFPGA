@@ -9,22 +9,21 @@ git clone https://github.com/Roboy/myoFPGA
 cd myoFPGA/
 git checkout openPowerlink
 ```
-### Install Quartus 16.1 and SoC-EDS
-* Download [Quartus 16.1](http://dl.altera.com/?edition=lite), the updated version and install to ~/altera
-* Download [SoC-EDS](https://dl.altera.com/soceds/) and install to ~/altera/16.1
+### Install Quartus 17.0 and SoC-EDS 17.0
+* Download [Quartus 17.0](http://dl.altera.com/?edition=lite), the updated version and install to ~/intelFPGA
+* Download [SoC-EDS](https://dl.altera.com/soceds/) and install to ~/intelFPGA
 * Get the [free license key](https://developer.arm.com/products/software-development-tools/ds-5-development-studio/editions/customized-editions/altera/community-edition/)
 * The installation of ds-5 will fail because of missing permissions. 
 * Simply run the the following script as root after installation: ~/altera/16.1/embedded/ds-5_installer/install.sh. 
 * If you have missing dependencies run the script: ds-deps-ubuntu_64.sh
-* Install to: ~/altera/16.1/embedded/ds-5
+* Install to: ~/intelFPGA/17.0/embedded/ds-5
 
 You now have a full development suite for fpga and arm compilation.
 
 ### Install [ROS kinetic](http://wiki.ros.org/kinetic/Installation/Ubuntu)
 ### Intall OpenPowerLink
-* Download [openPowerLink](https://sourceforge.net/projects/openpowerlink/)
 * install pcap: sudo apt install libpcap-dev
-* [Build the libs](http://openpowerlink.sourceforge.net/doc/2.5/2.5.1/page_build_stack.html) (both debug and release)
+* cd /path/to/myoFPGA/src/roboy_powerlink/stack/build/linux && cmake ../.. -DCMAKE_BUILD_TYPE=Debug && sudo make install && cmake ../.. -DCMAKE_BUILD_TYPE=Release && sudo make install
 * edit myoFPGA/myoFPGA/src/roboy_managing_node/cmake/options.cmake according to your path to openPowerLink
   * SET(OPLK_BASE_DIR /home/roboy/Downloads/openPowerLink)
 
@@ -33,15 +32,8 @@ You now have a full development suite for fpga and arm compilation.
 ```
 #!/bin/bash
 cd myoFPGA/myoFPGA
-~/altera/16.1/embedded/embedded_command_shell.sh
+~/intelFPGA/17.0/embedded/embedded_command_shell.sh
 catkin_make
-```
-### Build host managing node only
-```
-#!/bin/bash
-cd myoFPGA/myoFPGA
-~/altera/16.1/embedded/embedded_command_shell.sh
-catkin_make --pkg 
 ```
 ## Run controlled node
 The controlled node runs on the SoC arm core of the fpga. You probably already have a running fpga so login to it via:
