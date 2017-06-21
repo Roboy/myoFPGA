@@ -20,7 +20,7 @@ include_directories(
 ##############################################################################
 
 # qt_build provides the qt cmake glue, roscpp the comms for a default talker
-find_package(catkin REQUIRED COMPONENTS qt_build roscpp roboy_communication_middleware cv_bridge roboy_managing_node)
+find_package(catkin REQUIRED COMPONENTS qt_build roscpp pcl_ros roboy_communication_middleware cv_bridge roboy_managing_node)
 catkin_package(CATKIN_DEPENDS roboy_managing_node roboy_communication_middleware )
 include_directories(${catkin_INCLUDE_DIRS})
 
@@ -53,7 +53,7 @@ rosbuild_prepare_qt4(QtCore QtGui) # Add the appropriate components to the compo
 
 file(GLOB QT_FORMS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ui/*.ui)
 file(GLOB QT_RESOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} resources/*.qrc)
-file(GLOB_RECURSE QT_MOC RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} FOLLOW_SYMLINKS include/interface/*.hpp qcustomplot/qcustomplot.h)
+set(QT_MOC include/interface/main_window.hpp qcustomplot/qcustomplot.h)
 
 QT4_ADD_RESOURCES(QT_RESOURCES_CPP ${QT_RESOURCES})
 QT4_WRAP_UI(QT_FORMS_HPP ${QT_FORMS})
@@ -63,7 +63,7 @@ QT4_WRAP_CPP(QT_MOC_HPP ${QT_MOC})
 # Sources
 ##############################################################################
 
-file(GLOB_RECURSE QT_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} FOLLOW_SYMLINKS src/*.cpp qcustomplot/qcustomplot.cpp)
+set(QT_SOURCES src/main_window.cpp src/main.cpp qcustomplot/qcustomplot.cpp)
 
 ##############################################################################
 # Binaries
@@ -72,6 +72,11 @@ file(GLOB_RECURSE QT_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} FOLLOW_SYMLINK
 add_executable(interface ${QT_SOURCES} ${QT_RESOURCES_CPP} ${QT_FORMS_HPP} ${QT_MOC_HPP} )
 add_dependencies(interface roboy_communication_middleware_gencpp)
 target_link_libraries(interface ${QT_LIBRARIES} ${catkin_LIBRARIES} ${PROTOBUF_LIBRARY} roboy_managing_node ${tinyxml_LIBRARIES} )
+
+add_executable(pabiroboy_inverse_kinematics src/PaBiRoboy_inverse_kinematics.cpp )
+add_dependencies(pabiroboy_inverse_kinematics roboy_communication_middleware_gencpp)
+target_link_libraries(pabiroboy_inverse_kinematics ${catkin_LIBRARIES} )
+
 ##############################################################################
 # Installation
 ##############################################################################

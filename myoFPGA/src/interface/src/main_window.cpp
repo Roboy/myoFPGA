@@ -96,8 +96,9 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
     hipCenter_pub = nh->advertise<geometry_msgs::Pose>("/roboy/middleware/HipCenter", 1);
     jointCommand_pub = nh->advertise<roboy_communication_middleware::JointCommand>("/roboy/middleware/JointCommand", 1);
     jointAnglesOffset_pub = nh->advertise<roboy_communication_middleware::JointAngle>("/roboy/middleware/JointAngleOffset", 1);
+    ik_srv = nh->serviceClient<roboy_communication_middleware::InverseKinematics>("/roboy/middleware/PaBiRoboy/inverseKinematics");
 
-    spinner = boost::shared_ptr<ros::AsyncSpinner>(new ros::AsyncSpinner(1));
+    spinner = boost::shared_ptr<ros::AsyncSpinner>(new ros::AsyncSpinner(5));
     spinner->start();
 
     for(uint motor=0;motor<NUMBER_OF_MOTORS_PER_FPGA;motor++) {
@@ -178,6 +179,7 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
     joint_command_msg.angle.push_back(0);
     joint_command_msg.angle.push_back(0);
     joint_command_msg.angle.push_back(0);
+
 }
 
 MainWindow::~MainWindow() {}
@@ -508,15 +510,15 @@ void MainWindow::JointStatus(const roboy_communication_middleware::JointStatus::
         jointCommand_pub.publish(joint_command_msg);
     }else{
         float anglebetween[4];
-//        anglebetween[0] = 90.0f -calculateAngleBetween(868, 576, 282, 754);
-//        anglebetween[1] = -calculateAngleBetween(429, 260, 868, 576);
-//        anglebetween[2] = -90.0f + calculateAngleBetween(282, 754, 1007, 422);
-//        anglebetween[3] = calculateAngleBetween(1007, 422, 120, 100);
+        anglebetween[0] = 90.0f -calculateAngleBetween(868, 576, 282, 754);
+        anglebetween[1] = -calculateAngleBetween(429, 260, 868, 576);
+        anglebetween[2] = -90.0f + calculateAngleBetween(282, 754, 1007, 422);
+        anglebetween[3] = calculateAngleBetween(1007, 422, 120, 100);
 
-        anglebetween[0] = 80.0f;
-        anglebetween[1] = -80.0f;
-        anglebetween[2] = -80.0f;
-        anglebetween[3] = 80.0f;
+//        anglebetween[0] = 80.0f;
+//        anglebetween[1] = -80.0f;
+//        anglebetween[2] = -80.0f;
+//        anglebetween[3] = 80.0f;
 
         sign[0] = -1.0f;
         sign[1] = -1.0f;
@@ -882,64 +884,22 @@ float MainWindow::calculateAngleBetween(int aruco0, int aruco1, int aruco2, int 
 }
 
 void MainWindow::DanceCommand(const roboy_communication_middleware::DanceCommand::ConstPtr &msg){
-    vector<double> q = {degreesToRadians(jointData[0][1][1].back()),
-                        degreesToRadians(jointData[0][0][1].back()),
-                        degreesToRadians(jointData[0][2][1].back()),
-                        degreesToRadians(jointData[0][3][1].back())};
-
-    Vector4d setPoint(1.3,0,msg->x, msg->y);
-    printf("setpoint %lf\t%lf\t%lf\t%lf\n", setPoint[0],setPoint[1],setPoint[2],setPoint[3]);
-    Vector3d x;
-    double data[3];
-    printf("theta0 %lf\ttheta1 %lf\ttheta2 %lf\ttheta3 %lf\n",q[0],q[1],q[2],q[3]);
-    ankle_left(x.data(),q[0],q[1],q[2],q[3]);
-    printf("ankle_left \t\t%lf\t%lf\t%lf\n", x[0], x[1], x[2]);
-    knee_left(x.data(),q[0],q[1],q[2],q[3]);
-    printf("knee_left \t\t%lf\t%lf\t%lf\n", x[0], x[1], x[2]);
-    hip_left(x.data(),q[0],q[1],q[2],q[3]);
-    printf("hip_left \t\t%lf\t%lf\t%lf\n", x[0], x[1], x[2]);
-    hip_center(x.data(),q[0],q[1],q[2],q[3]);
-    printf("hip_center \t\t%lf\t%lf\t%lf\n", x[0], x[1], x[2]);
-    hip_right(x.data(),q[0],q[1],q[2],q[3]);
-    printf("hip_right \t\t%lf\t%lf\t%lf\n", x[0], x[1], x[2]);
-    knee_right(x.data(),q[0],q[1],q[2],q[3]);
-    printf("knee_right \t\t%lf\t%lf\t%lf\n", x[0], x[1], x[2]);
-    ankle_right(x.data(),q[0],q[1],q[2],q[3]);
-    printf("ankle_right \t\t%lf\t%lf\t%lf\n", x[0], x[1], x[2]);
-
-    double kp = 0.1;
-
-    boost::numeric::odeint::runge_kutta4<vector<double>> stepper;
-    for(uint i=0;i<500;i++) {
-        // do 1 step of integration of DiffModel() at current time
-        stepper.do_step([setPoint, kp, i](const vector<double> &q, vector<double> &dq, const double) {
-            // This lambda function implements the inverse kinematics for PaBiLegs
-            // q - joint angles
-            // dq - joint angles derivatives
-            Matrix4d J, Jpinv;
-            double data[16];
-            Jacobian(data,q[0],q[1],q[2],q[3]);
-            J = Eigen::Map<Eigen::MatrixXd>(data, 4, 4);
-            Vector4d angles(q.data());
-            Vector4d x_current;
-            ankle_right_hip_center(x_current.data(),q[0],q[1],q[2],q[3]);
-            Jpinv = pseudoInverse<Matrix4d>(J);
-            Vector4d dangles = Jpinv * (kp * (setPoint - x_current));
-            memcpy(dq.data(), dangles.data(), 4 * sizeof(double));
-            if(i%20==0)
-                printf("x  %f\t%f\t%f\t%f\n", x_current[0], x_current[1], x_current[2], x_current[3]);
-
-        }, q, 0.01, 0.01);
+    roboy_communication_middleware::InverseKinematics service_msg;
+    service_msg.request.targetPosition.x = msg->x;
+    service_msg.request.targetPosition.y = msg->y;
+    service_msg.request.targetPosition.z = 0;
+    service_msg.request.initial_angles.push_back(jointData[0][1][1].back());
+    service_msg.request.initial_angles.push_back(jointData[0][0][1].back());
+    service_msg.request.initial_angles.push_back(jointData[0][2][1].back());
+    service_msg.request.initial_angles.push_back(jointData[0][3][1].back());
+    if(ik_srv.call(service_msg)){
+        setPointAngle[0] = service_msg.response.angles[0];
+        setPointAngle[1] = service_msg.response.angles[1];
+        setPointAngle[2] = service_msg.response.angles[2];
+        setPointAngle[3] = service_msg.response.angles[3];
+    }else{
+        ROS_WARN("Inverse Kinematics failed, is the target point reachable?");
     }
-
-    Vector4d x_current;
-    ankle_right_hip_center(x_current.data(),q[0],q[1],q[2],q[3]);
-    printf("result: \t\t%f\t%f\t>%f\t%f \t\t error: %f\n",x_current[0],x_current[1],x_current[2],x_current[3], (x_current-setPoint).norm());
-
-    setPointAngle[0] = radiansToDegrees(q[0]);
-    setPointAngle[1] = radiansToDegrees(q[1]);
-    setPointAngle[2] = radiansToDegrees(q[2]);
-    setPointAngle[3] = radiansToDegrees(q[3]);
 }
 
 void MainWindow::ArucoPose(const roboy_communication_middleware::ArucoPose::ConstPtr& msg){
@@ -949,8 +909,6 @@ void MainWindow::ArucoPose(const roboy_communication_middleware::ArucoPose::Cons
                                                    msg->pose[i].position.z);
         arucoMarkerCenter[msg->id[i]] = Vector2f(msg->center[i].x, msg->center[i].y)*image_scale;
     }
-
-    Q_EMIT drawImage();
 
     Vector3f hipCenter = (arucoMarkerPosition[282]+(arucoMarkerPosition[754]-arucoMarkerPosition[282])/2.0f)-arucoMarkerPosition[429];
     geometry_msgs::Pose hipCenterPose;
