@@ -510,15 +510,15 @@ void MainWindow::JointStatus(const roboy_communication_middleware::JointStatus::
         jointCommand_pub.publish(joint_command_msg);
     }else{
         float anglebetween[4];
-        anglebetween[0] = 90.0f -calculateAngleBetween(868, 576, 282, 754);
-        anglebetween[1] = -calculateAngleBetween(429, 260, 868, 576);
-        anglebetween[2] = -90.0f + calculateAngleBetween(282, 754, 1007, 422);
-        anglebetween[3] = calculateAngleBetween(1007, 422, 120, 100);
+//        anglebetween[0] = 90.0f -calculateAngleBetween(868, 576, 282, 754);
+//        anglebetween[1] = -calculateAngleBetween(429, 260, 868, 576);
+//        anglebetween[2] = -90.0f + calculateAngleBetween(282, 754, 1007, 422);
+//        anglebetween[3] = calculateAngleBetween(1007, 422, 120, 100);
 
-//        anglebetween[0] = 80.0f;
-//        anglebetween[1] = -80.0f;
-//        anglebetween[2] = -80.0f;
-//        anglebetween[3] = 80.0f;
+        anglebetween[0] = 80.0f;
+        anglebetween[1] = -80.0f;
+        anglebetween[2] = -80.0f;
+        anglebetween[3] = 80.0f;
 
         sign[0] = -1.0f;
         sign[1] = -1.0f;
