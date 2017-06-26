@@ -162,13 +162,9 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
     movementPathChanged();
 
     angle.resize(4);
-    jointAngleOffset.resize(4);
+    jointAngleOffset.resize(4,-180);
 
     setPointAngle.resize(4);
-    setPointAngle[0] = 80;
-    setPointAngle[1] = -80;
-    setPointAngle[2] = -80;
-    setPointAngle[3] = 80;
 
     joint_command_msg.link_name.push_back("hip_1");
     joint_command_msg.link_name.push_back("knee_1");
@@ -262,16 +258,16 @@ void MainWindow::JointStatus(const roboy_communication_middleware::JointStatus::
             static float error_previous[NUMBER_OF_JOINT_SENSORS] = {0.0f, 0.0f, 0.0f, 0.0f};
             switch (joint) {
                 case 0:
-                    error[joint] = ui.joint0->value() - jointAngles[joint];
+                    error[joint] = ui.joint0->value() - jointData[msg->id][joint][1].back();
                     break;
                 case 1:
-                    error[joint] = ui.joint1->value() - jointAngles[joint];
+                    error[joint] = ui.joint1->value() - jointData[msg->id][joint][1].back();
                     break;
                 case 2:
-                    error[joint] = ui.joint2->value() - jointAngles[joint];
+                    error[joint] = ui.joint2->value() - jointData[msg->id][joint][1].back();
                     break;
                 case 3:
-                    error[joint] = ui.joint3->value() - jointAngles[joint];
+                    error[joint] = ui.joint3->value() - jointData[msg->id][joint][1].back();
                     break;
             }
             switch (joint) {
@@ -287,14 +283,14 @@ void MainWindow::JointStatus(const roboy_communication_middleware::JointStatus::
                     }
                     float result = pterm + dterm + integral[joint];
                     if (result <= -smooth_distance) {
-                        myoMaster->changeSetPoint(3, offset - result);
-                        myoMaster->changeSetPoint(5, offset);
-                    } else if (result < smooth_distance) {
-                        myoMaster->changeSetPoint(3, offset + powf(result-smooth_distance, 2.0f)/(4.0f * smooth_distance));
-                        myoMaster->changeSetPoint(5, offset + powf(result+smooth_distance, 2.0f)/(4.0f * smooth_distance));
-                    } else {
+                        myoMaster->changeSetPoint(5, offset - result);
                         myoMaster->changeSetPoint(3, offset);
-                        myoMaster->changeSetPoint(5, offset + result);
+                    } else if (result < smooth_distance) {
+                        myoMaster->changeSetPoint(5, offset + powf(result-smooth_distance, 2.0f)/(4.0f * smooth_distance));
+                        myoMaster->changeSetPoint(3, offset + powf(result+smooth_distance, 2.0f)/(4.0f * smooth_distance));
+                    } else {
+                        myoMaster->changeSetPoint(5, offset);
+                        myoMaster->changeSetPoint(3, offset + result);
                     }
                     error_previous[joint] = error[joint];
                     break;
@@ -311,14 +307,14 @@ void MainWindow::JointStatus(const roboy_communication_middleware::JointStatus::
                     }
                     float result = pterm + dterm + integral[joint];
                     if (result <= -smooth_distance) {
-                        myoMaster->changeSetPoint(6, offset - result);
-                        myoMaster->changeSetPoint(4, offset);
-                    } else if (result < smooth_distance) {
-                        myoMaster->changeSetPoint(6, offset + powf(result-smooth_distance, 2.0f)/(4.0f * smooth_distance));
-                        myoMaster->changeSetPoint(4, offset + powf(result+smooth_distance, 2.0f)/(4.0f * smooth_distance));
-                    } else {
+                        myoMaster->changeSetPoint(4, offset - result);
                         myoMaster->changeSetPoint(6, offset);
-                        myoMaster->changeSetPoint(4, offset + result);
+                    } else if (result < smooth_distance) {
+                        myoMaster->changeSetPoint(4, offset + powf(result-smooth_distance, 2.0f)/(4.0f * smooth_distance));
+                        myoMaster->changeSetPoint(6, offset + powf(result+smooth_distance, 2.0f)/(4.0f * smooth_distance));
+                    } else {
+                        myoMaster->changeSetPoint(4, offset);
+                        myoMaster->changeSetPoint(6, offset + result);
                     }
                     error_previous[joint] = error[joint];
                     break;
@@ -374,6 +370,14 @@ void MainWindow::JointStatus(const roboy_communication_middleware::JointStatus::
                 }
             }
         }
+        ROS_WARN_THROTTLE(1,"\nsetpoint %f\tjointAngle %f\terror %f"
+                "\nsetpoint %f\tjointAngle %f\terror %f"
+                "\nsetpoint %f\tjointAngle %f\terror %f"
+                "\nsetpoint %f\tjointAngle %f\terror %f",
+                          (float)ui.joint0->value(),jointData[msg->id][0][1].back(),error[0],
+                          (float)ui.joint1->value(),jointData[msg->id][1][1].back(),error[1],
+                          (float)ui.joint2->value(),jointData[msg->id][2][1].back(),error[2],
+                          (float)ui.joint3->value(),jointData[msg->id][3][1].back(),error[3]);
     }
     if(dance){
         ROS_INFO_THROTTLE(5,"dance control active");
@@ -385,7 +389,7 @@ void MainWindow::JointStatus(const roboy_communication_middleware::JointStatus::
         const float offset = 20;
         for (uint joint = 0; joint < NUMBER_OF_JOINT_SENSORS; joint++) {
             static float error_previous[NUMBER_OF_JOINT_SENSORS] = {0.0f, 0.0f, 0.0f, 0.0f};
-            error[joint] = setPointAngle[joint] - (jointAngles[joint]+jointAngleOffset[joint]);
+            error[joint] = setPointAngle[joint] - jointData[msg->id][joint][1].back();
             switch (joint) {
                 case 0: {
                     float pterm = atoi(ui.Kp_danceControl->text().toStdString().c_str()) * error[joint];
@@ -399,14 +403,14 @@ void MainWindow::JointStatus(const roboy_communication_middleware::JointStatus::
                     }
                     float result = pterm + dterm + integral[joint];
                     if (result <= -smooth_distance) {
-                        myoMaster->changeSetPoint(3, offset - result);
-                        myoMaster->changeSetPoint(5, offset);
-                    } else if (result < smooth_distance) {
-                        myoMaster->changeSetPoint(3, offset + powf(result-smooth_distance, 2.0f)/(4.0f * smooth_distance));
-                        myoMaster->changeSetPoint(5, offset + powf(result+smooth_distance, 2.0f)/(4.0f * smooth_distance));
-                    } else {
+                        myoMaster->changeSetPoint(5, offset - result);
                         myoMaster->changeSetPoint(3, offset);
-                        myoMaster->changeSetPoint(5, offset + result);
+                    } else if (result < smooth_distance) {
+                        myoMaster->changeSetPoint(5, offset + powf(result-smooth_distance, 2.0f)/(4.0f * smooth_distance));
+                        myoMaster->changeSetPoint(3, offset + powf(result+smooth_distance, 2.0f)/(4.0f * smooth_distance));
+                    } else {
+                        myoMaster->changeSetPoint(5, offset);
+                        myoMaster->changeSetPoint(3, offset + result);
                     }
                     error_previous[joint] = error[joint];
                     break;
@@ -423,14 +427,14 @@ void MainWindow::JointStatus(const roboy_communication_middleware::JointStatus::
                     }
                     float result = pterm + dterm + integral[joint];
                     if (result <= -smooth_distance) {
-                        myoMaster->changeSetPoint(6, offset - result);
-                        myoMaster->changeSetPoint(4, offset);
-                    } else if (result < smooth_distance) {
-                        myoMaster->changeSetPoint(6, offset + powf(result-smooth_distance, 2.0f)/(4.0f * smooth_distance));
-                        myoMaster->changeSetPoint(4, offset + powf(result+smooth_distance, 2.0f)/(4.0f * smooth_distance));
-                    } else {
+                        myoMaster->changeSetPoint(4, offset - result);
                         myoMaster->changeSetPoint(6, offset);
-                        myoMaster->changeSetPoint(4, offset + result);
+                    } else if (result < smooth_distance) {
+                        myoMaster->changeSetPoint(4, offset + powf(result-smooth_distance, 2.0f)/(4.0f * smooth_distance));
+                        myoMaster->changeSetPoint(6, offset + powf(result+smooth_distance, 2.0f)/(4.0f * smooth_distance));
+                    } else {
+                        myoMaster->changeSetPoint(4, offset);
+                        myoMaster->changeSetPoint(6, offset + result);
                     }
                     error_previous[joint] = error[joint];
                     break;
@@ -490,10 +494,10 @@ void MainWindow::JointStatus(const roboy_communication_middleware::JointStatus::
                 "\nsetpoint %f\tjointAngle %f\terror %f"
                 "\nsetpoint %f\tjointAngle %f\terror %f"
                 "\nsetpoint %f\tjointAngle %f\terror %f",
-                          setPointAngle[0],(jointAngles[0]+jointAngleOffset[0]),error[0],
-                          setPointAngle[1],(jointAngles[1]+jointAngleOffset[1]),error[1],
-                          setPointAngle[2],(jointAngles[2]+jointAngleOffset[2]),error[2],
-                          setPointAngle[3],(jointAngles[3]+jointAngleOffset[3]),error[3]);
+                          setPointAngle[0],jointData[msg->id][0][1].back(),error[0],
+                          setPointAngle[1],jointData[msg->id][1][1].back(),error[1],
+                          setPointAngle[2],jointData[msg->id][2][1].back(),error[2],
+                          setPointAngle[3],jointData[msg->id][3][1].back(),error[3]);
     }
     static int counter = 0;
     if((counter++)%3==0)
@@ -515,13 +519,18 @@ void MainWindow::JointStatus(const roboy_communication_middleware::JointStatus::
 //        anglebetween[2] = -90.0f + calculateAngleBetween(282, 754, 1007, 422);
 //        anglebetween[3] = calculateAngleBetween(1007, 422, 120, 100);
 
-        anglebetween[0] = 80.0f;
-        anglebetween[1] = -80.0f;
-        anglebetween[2] = -80.0f;
-        anglebetween[3] = 80.0f;
+//        anglebetween[0] = -80.0f;
+//        anglebetween[1] = 80.0f;
+//        anglebetween[2] = -80.0f;
+//        anglebetween[3] = 80.0f;
 
-        sign[0] = -1.0f;
-        sign[1] = -1.0f;
+//        anglebetween[0] = 0;
+//        anglebetween[1] = 0;
+//        anglebetween[2] = 0;
+//        anglebetween[3] = 0;
+
+        sign[0] = 1.0f;
+        sign[1] = 1.0f;
         sign[2] = 1.0f;
         sign[3] = 1.0f;
 
@@ -531,10 +540,10 @@ void MainWindow::JointStatus(const roboy_communication_middleware::JointStatus::
         joint_command_msg.angle[3] = degreesToRadians(anglebetween[3]);
         jointCommand_pub.publish(joint_command_msg);
 
-        jointAngleOffset[0] = anglebetween[0] - jointAngles[0];
-        jointAngleOffset[1] = anglebetween[1] - jointAngles[1];
-        jointAngleOffset[2] = anglebetween[2] - jointAngles[2];
-        jointAngleOffset[3] = anglebetween[3] - jointAngles[3];
+//        jointAngleOffset[0] = anglebetween[0] - jointAngles[0];
+//        jointAngleOffset[1] = anglebetween[1] - jointAngles[1];
+//        jointAngleOffset[2] = anglebetween[2] - jointAngles[2];
+//        jointAngleOffset[3] = anglebetween[3] - jointAngles[3];
         ROS_WARN_THROTTLE(1,"angle between 868, 576, 282, 754:    %f \t\tsensor measures %f", anglebetween[0],jointData[0][0][1].back());
         ROS_WARN_THROTTLE(1,"angle between 429, 260, 868, 576:    %f \t\tsensor measures %f", anglebetween[1],jointData[0][1][1].back());
         ROS_WARN_THROTTLE(1,"angle between 282, 754, 1007, 422:   %f \t\tsensor measures %f", anglebetween[2],jointData[0][2][1].back());
@@ -805,9 +814,19 @@ void MainWindow::stopButtonClicked(){
 void MainWindow::danceBitch(){
     ROS_INFO("dance button clicked");
     dance = ui.dance_bitch->isChecked();
-    if(dance)
+    if(dance) {
         jointControl = false;
         motorControl = false;
+
+        setPointAngle[0] = -80;
+        setPointAngle[1] = 80;
+        setPointAngle[2] = -80;
+        setPointAngle[3] = 80;
+//    setPointAngle[0] = 0;
+//    setPointAngle[1] = 0;
+//    setPointAngle[2] = 0;
+//    setPointAngle[3] = 0;
+    }
 }
 
 void MainWindow::receiveImage(const sensor_msgs::ImageConstPtr &msg){
@@ -888,16 +907,21 @@ void MainWindow::DanceCommand(const roboy_communication_middleware::DanceCommand
     service_msg.request.targetPosition.x = msg->x;
     service_msg.request.targetPosition.y = msg->y;
     service_msg.request.targetPosition.z = 0;
-    service_msg.request.initial_angles.push_back(jointData[0][1][1].back());
     service_msg.request.initial_angles.push_back(jointData[0][0][1].back());
+    service_msg.request.initial_angles.push_back(jointData[0][1][1].back());
     service_msg.request.initial_angles.push_back(jointData[0][2][1].back());
     service_msg.request.initial_angles.push_back(jointData[0][3][1].back());
+    service_msg.request.inspect = true;
     if(ik_srv.call(service_msg)){
         setPointAngle[0] = service_msg.response.angles[0];
         setPointAngle[1] = service_msg.response.angles[1];
         setPointAngle[2] = service_msg.response.angles[2];
         setPointAngle[3] = service_msg.response.angles[3];
     }else{
+        setPointAngle[0] = -80;
+        setPointAngle[1] = 80;
+        setPointAngle[2] = -80;
+        setPointAngle[3] = 80;
         ROS_WARN("Inverse Kinematics failed, is the target point reachable?");
     }
 }
@@ -957,20 +981,20 @@ void MainWindow::updateSetPointsMotorControl(int percent){
             setpoints[13] = ui.motor13->value();
             break;
         case DISPLACEMENT:
-            setpoints[0] = (ui.motor0->value()+50)*10;
-            setpoints[1] = (ui.motor1->value()+50)*10;
-            setpoints[2] = (ui.motor2->value()+50)*10;
-            setpoints[3] = (ui.motor3->value()+50)*10;
-            setpoints[4] = (ui.motor4->value()+50)*10;
-            setpoints[5] = (ui.motor5->value()+50)*10;
-            setpoints[6] = (ui.motor6->value()+50)*10;
-            setpoints[7] = (ui.motor7->value()+50)*10;
-            setpoints[8] = (ui.motor8->value()+50)*10;
-            setpoints[9] = (ui.motor9->value()+50)*10;
-            setpoints[10] = (ui.motor10->value()+50)*10;
-            setpoints[11] = (ui.motor11->value()+50)*10;
-            setpoints[12] = (ui.motor12->value()+50)*10;
-            setpoints[13] = (ui.motor13->value()+50)*10;
+            setpoints[0] = (ui.motor0->value()+50)*20;
+            setpoints[1] = (ui.motor1->value()+50)*20;
+            setpoints[2] = (ui.motor2->value()+50)*20;
+            setpoints[3] = (ui.motor3->value()+50)*20;
+            setpoints[4] = (ui.motor4->value()+50)*20;
+            setpoints[5] = (ui.motor5->value()+50)*20;
+            setpoints[6] = (ui.motor6->value()+50)*20;
+            setpoints[7] = (ui.motor7->value()+50)*20;
+            setpoints[8] = (ui.motor8->value()+50)*20;
+            setpoints[9] = (ui.motor9->value()+50)*20;
+            setpoints[10] = (ui.motor10->value()+50)*20;
+            setpoints[11] = (ui.motor11->value()+50)*20;
+            setpoints[12] = (ui.motor12->value()+50)*20;
+            setpoints[13] = (ui.motor13->value()+50)*20;
             break;
     }
     for(int motor=0;motor<NUMBER_OF_MOTORS_PER_FPGA;motor++){
@@ -1031,20 +1055,20 @@ void MainWindow::updateSetPointsMotorControlAll(int percent){
             setpoints[13] = ui.allMotors->value();
             break;
         case DISPLACEMENT:
-            setpoints[0] = (ui.allMotors->value()+50)*10;
-            setpoints[1] = (ui.allMotors->value()+50)*10;
-            setpoints[2] = (ui.allMotors->value()+50)*10;
-            setpoints[3] = (ui.allMotors->value()+50)*10;
-            setpoints[4] = (ui.allMotors->value()+50)*10;
-            setpoints[5] = (ui.allMotors->value()+50)*10;
-            setpoints[6] = (ui.allMotors->value()+50)*10;
-            setpoints[7] = (ui.allMotors->value()+50)*10;
-            setpoints[8] = (ui.allMotors->value()+50)*10;
-            setpoints[9] = (ui.allMotors->value()+50)*10;
-            setpoints[10] = (ui.allMotors->value()+50)*10;
-            setpoints[11] = (ui.allMotors->value()+50)*10;
-            setpoints[12] = (ui.allMotors->value()+50)*10;
-            setpoints[13] = (ui.allMotors->value()+50)*10;
+            setpoints[0] = (ui.allMotors->value()+50)*20;
+            setpoints[1] = (ui.allMotors->value()+50)*20;
+            setpoints[2] = (ui.allMotors->value()+50)*20;
+            setpoints[3] = (ui.allMotors->value()+50)*20;
+            setpoints[4] = (ui.allMotors->value()+50)*20;
+            setpoints[5] = (ui.allMotors->value()+50)*20;
+            setpoints[6] = (ui.allMotors->value()+50)*20;
+            setpoints[7] = (ui.allMotors->value()+50)*20;
+            setpoints[8] = (ui.allMotors->value()+50)*20;
+            setpoints[9] = (ui.allMotors->value()+50)*20;
+            setpoints[10] = (ui.allMotors->value()+50)*20;
+            setpoints[11] = (ui.allMotors->value()+50)*20;
+            setpoints[12] = (ui.allMotors->value()+50)*20;
+            setpoints[13] = (ui.allMotors->value()+50)*0;
             break;
     }
     for(int motor=0;motor<NUMBER_OF_MOTORS_PER_FPGA;motor++){
@@ -1108,8 +1132,8 @@ void MainWindow::updateControllerParams(){
     for(uint motor=0;motor<NUMBER_OF_MOTORS_PER_FPGA;motor++){
         msg.motors.push_back(motor);
         msg.control_mode.push_back(ui.control_mode->value());
-        msg.outputPosMax.push_back(2000); // pwm max
-        msg.outputNegMax.push_back(-2000); // pwm min
+        msg.outputPosMax.push_back(1000); // pwm max
+        msg.outputNegMax.push_back(-1000); // pwm min
         msg.spPosMax.push_back(100000000);
         msg.spNegMax.push_back(-100000000);
         msg.IntegralPosMax.push_back(100);

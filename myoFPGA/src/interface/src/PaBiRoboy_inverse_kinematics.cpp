@@ -40,11 +40,11 @@ bool PaBiRoboyInverseKinematics::inverseKinematics(roboy_communication_middlewar
     ankle_right(initial_position["ankle_right"].data(),q[0],q[1],q[2],q[3],q[4]);
 
     // we are trying to keep the ankle_right where it is
-    Vector4d setPoint(initial_position["ankle_right"][0], initial_position["ankle_right"][1],req.targetPosition.x, req.targetPosition.y);
+    Vector4d setPoint(initial_position["ankle_right"][0], 0,req.targetPosition.x, req.targetPosition.y);
 
     Matrix4d kp;
-    kp << 1, 0, 0,  0,
-          0, 1, 0,  0,
+    kp << 10, 0, 0,  0,
+          0, 10, 0,  0,
           0, 0, 10, 0,
           0, 0, 0,  10;
 
@@ -97,6 +97,11 @@ bool PaBiRoboyInverseKinematics::inverseKinematics(roboy_communication_middlewar
     if(error > error_threshold)
         return false;
 
+    // check joint limits
+    if(abs(radiansToDegrees(q[0]))>80.0 || abs(radiansToDegrees(q[1]))>80.0 ||
+            abs(radiansToDegrees(q[2]))>80.0 || abs(radiansToDegrees(q[3]))>80.0)
+        return false;
+
     res.angles.push_back(radiansToDegrees(q[0]));
     res.angles.push_back(radiansToDegrees(q[1]));
     res.angles.push_back(radiansToDegrees(q[2]));
@@ -105,67 +110,67 @@ bool PaBiRoboyInverseKinematics::inverseKinematics(roboy_communication_middlewar
 }
 
 void PaBiRoboyInverseKinematics::Jacobian(double *out, double theta0, double theta1, double theta2, double theta3, double phi) {
-   out[0] = -l1*cos(-phi + theta0 + theta1 + theta2 + theta3) + l2*cos(phi - theta0) - l2*cos(-phi + theta0 + theta1 + theta2) - l3*sin(-phi + theta0 + theta1);
-   out[1] = -l1*cos(-phi + theta0 + theta1 + theta2 + theta3) - l2*cos(-phi + theta0 + theta1 + theta2) - l3*sin(-phi + theta0 + theta1);
-   out[2] = -l1*cos(-phi + theta0 + theta1 + theta2 + theta3) - l2*cos(-phi + theta0 + theta1 + theta2);
-   out[3] = -l1*cos(-phi + theta0 + theta1 + theta2 + theta3);
-   out[4] = l1*cos(-phi + theta0 + theta1 + theta2 + theta3) - l1*cos(phi) - l2*cos(phi - theta0) + l2*cos(-phi + theta0 + theta1 + theta2) + l3*sin(-phi + theta0 + theta1);
-   out[5] = l1*sin(-phi + theta0 + theta1 + theta2 + theta3) + l2*sin(phi - theta0) + l2*sin(-phi + theta0 + theta1 + theta2) - l3*cos(-phi + theta0 + theta1);
-   out[6] = l1*sin(-phi + theta0 + theta1 + theta2 + theta3) + l2*sin(-phi + theta0 + theta1 + theta2) - l3*cos(-phi + theta0 + theta1);
-   out[7] = l1*sin(-phi + theta0 + theta1 + theta2 + theta3) + l2*sin(-phi + theta0 + theta1 + theta2);
-   out[8] = l1*sin(-phi + theta0 + theta1 + theta2 + theta3);
-   out[9] = -l1*sin(-phi + theta0 + theta1 + theta2 + theta3) - l1*sin(phi) - l2*sin(phi - theta0) - l2*sin(-phi + theta0 + theta1 + theta2) + l3*cos(-phi + theta0 + theta1);
-   out[10] = l2*cos(phi - theta0) - 1.0L/2.0L*l3*sin(-phi + theta0 + theta1);
-   out[11] = -1.0L/2.0L*l3*sin(-phi + theta0 + theta1);
-   out[12] = 0;
-   out[13] = 0;
-   out[14] = -l1*cos(phi) - l2*cos(phi - theta0) + (1.0L/2.0L)*l3*sin(-phi + theta0 + theta1);
-   out[15] = l2*sin(phi - theta0) - 1.0L/2.0L*l3*cos(-phi + theta0 + theta1);
-   out[16] = -1.0L/2.0L*l3*cos(-phi + theta0 + theta1);
-   out[17] = 0;
-   out[18] = 0;
-   out[19] = -l1*sin(phi) - l2*sin(phi - theta0) + (1.0L/2.0L)*l3*cos(-phi + theta0 + theta1);
+    out[0] = l1*cos(phi + theta0 + theta1 - theta2 - theta3) - l2*cos(phi + theta0) + l2*cos(phi + theta0 + theta1 - theta2) - l3*sin(phi + theta0 + theta1);
+    out[1] = l1*cos(phi + theta0 + theta1 - theta2 - theta3) + l2*cos(phi + theta0 + theta1 - theta2) - l3*sin(phi + theta0 + theta1);
+    out[2] = -l1*cos(phi + theta0 + theta1 - theta2 - theta3) - l2*cos(phi + theta0 + theta1 - theta2);
+    out[3] = -l1*cos(phi + theta0 + theta1 - theta2 - theta3);
+    out[4] = l1*cos(phi + theta0 + theta1 - theta2 - theta3) - l1*cos(phi) - l2*cos(phi + theta0) + l2*cos(phi + theta0 + theta1 - theta2) - l3*sin(phi + theta0 + theta1);
+    out[5] = l1*sin(phi + theta0 + theta1 - theta2 - theta3) - l2*sin(phi + theta0) + l2*sin(phi + theta0 + theta1 - theta2) + l3*cos(phi + theta0 + theta1);
+    out[6] = l1*sin(phi + theta0 + theta1 - theta2 - theta3) + l2*sin(phi + theta0 + theta1 - theta2) + l3*cos(phi + theta0 + theta1);
+    out[7] = -l1*sin(phi + theta0 + theta1 - theta2 - theta3) - l2*sin(phi + theta0 + theta1 - theta2);
+    out[8] = -l1*sin(phi + theta0 + theta1 - theta2 - theta3);
+    out[9] = l1*sin(phi + theta0 + theta1 - theta2 - theta3) - l1*sin(phi) - l2*sin(phi + theta0) + l2*sin(phi + theta0 + theta1 - theta2) + l3*cos(phi + theta0 + theta1);
+    out[10] = -l2*cos(phi + theta0) - 1.0L/2.0L*l3*sin(phi + theta0 + theta1);
+    out[11] = -1.0L/2.0L*l3*sin(phi + theta0 + theta1);
+    out[12] = 0;
+    out[13] = 0;
+    out[14] = -l1*cos(phi) - l2*cos(phi + theta0) - 1.0L/2.0L*l3*sin(phi + theta0 + theta1);
+    out[15] = -l2*sin(phi + theta0) + (1.0L/2.0L)*l3*cos(phi + theta0 + theta1);
+    out[16] = (1.0L/2.0L)*l3*cos(phi + theta0 + theta1);
+    out[17] = 0;
+    out[18] = 0;
+    out[19] = -l1*sin(phi) - l2*sin(phi + theta0) + (1.0L/2.0L)*l3*cos(phi + theta0 + theta1);
 }
 void PaBiRoboyInverseKinematics::ankle_right_hip_center(double *out, double theta0, double theta1, double theta2, double theta3, double phi) {
-   out[0] = -l1*sin(-phi + theta0 + theta1 + theta2 + theta3) - l1*sin(phi) - l2*sin(phi - theta0) - l2*sin(-phi + theta0 + theta1 + theta2) + l3*cos(-phi + theta0 + theta1);
-   out[1] = -l1*cos(-phi + theta0 + theta1 + theta2 + theta3) + l1*cos(phi) + l2*cos(phi - theta0) - l2*cos(-phi + theta0 + theta1 + theta2) - l3*sin(-phi + theta0 + theta1);
-   out[2] = -l1*sin(phi) - l2*sin(phi - theta0) + (1.0L/2.0L)*l3*cos(-phi + theta0 + theta1);
-   out[3] = l1*cos(phi) + l2*cos(phi - theta0) - 1.0L/2.0L*l3*sin(-phi + theta0 + theta1);
+    out[0] = l1*sin(phi + theta0 + theta1 - theta2 - theta3) - l1*sin(phi) - l2*sin(phi + theta0) + l2*sin(phi + theta0 + theta1 - theta2) + l3*cos(phi + theta0 + theta1);
+    out[1] = -l1*cos(phi + theta0 + theta1 - theta2 - theta3) + l1*cos(phi) + l2*cos(phi + theta0) - l2*cos(phi + theta0 + theta1 - theta2) + l3*sin(phi + theta0 + theta1);
+    out[2] = -l1*sin(phi) - l2*sin(phi + theta0) + (1.0L/2.0L)*l3*cos(phi + theta0 + theta1);
+    out[3] = l1*cos(phi) + l2*cos(phi + theta0) + (1.0L/2.0L)*l3*sin(phi + theta0 + theta1);
 }
 void PaBiRoboyInverseKinematics::ankle_left(double *out, double theta0, double theta1, double theta2, double theta3, double phi) {
-   out[0] = 0;
-   out[1] = 0;
-   out[2] = 0;
+    out[0] = 0;
+    out[1] = 0;
+    out[2] = 0;
 }
 void PaBiRoboyInverseKinematics::knee_left(double *out, double theta0, double theta1, double theta2, double theta3, double phi) {
-   out[0] = -l1*sin(phi);
-   out[1] = l1*cos(phi);
-   out[2] = 0;
+    out[0] = -l1*sin(phi);
+    out[1] = l1*cos(phi);
+    out[2] = 0;
 }
 void PaBiRoboyInverseKinematics::hip_left(double *out, double theta0, double theta1, double theta2, double theta3, double phi) {
-   out[0] = -l1*sin(phi) - l2*sin(phi - theta0);
-   out[1] = l1*cos(phi) + l2*cos(phi - theta0);
-   out[2] = 0;
+    out[0] = -l1*sin(phi) - l2*sin(phi + theta0);
+    out[1] = l1*cos(phi) + l2*cos(phi + theta0);
+    out[2] = 0;
 }
 void PaBiRoboyInverseKinematics::hip_center(double *out, double theta0, double theta1, double theta2, double theta3, double phi) {
-   out[0] = -l1*sin(phi) - l2*sin(phi - theta0) + (1.0L/2.0L)*l3*cos(-phi + theta0 + theta1);
-   out[1] = l1*cos(phi) + l2*cos(phi - theta0) - 1.0L/2.0L*l3*sin(-phi + theta0 + theta1);
-   out[2] = 0;
+    out[0] = -l1*sin(phi) - l2*sin(phi + theta0) + (1.0L/2.0L)*l3*cos(phi + theta0 + theta1);
+    out[1] = l1*cos(phi) + l2*cos(phi + theta0) + (1.0L/2.0L)*l3*sin(phi + theta0 + theta1);
+    out[2] = 0;
 }
 void PaBiRoboyInverseKinematics::hip_right(double *out, double theta0, double theta1, double theta2, double theta3, double phi) {
-   out[0] = -l1*sin(phi) - l2*sin(phi - theta0) + l3*cos(-phi + theta0 + theta1);
-   out[1] = l1*cos(phi) + l2*cos(phi - theta0) - l3*sin(-phi + theta0 + theta1);
-   out[2] = 0;
+    out[0] = -l1*sin(phi) - l2*sin(phi + theta0) + l3*cos(phi + theta0 + theta1);
+    out[1] = l1*cos(phi) + l2*cos(phi + theta0) + l3*sin(phi + theta0 + theta1);
+    out[2] = 0;
 }
 void PaBiRoboyInverseKinematics::knee_right(double *out, double theta0, double theta1, double theta2, double theta3, double phi) {
-   out[0] = -l1*sin(phi) - l2*sin(phi - theta0) - l2*sin(-phi + theta0 + theta1 + theta2) + l3*cos(-phi + theta0 + theta1);
-   out[1] = l1*cos(phi) + l2*cos(phi - theta0) - l2*cos(-phi + theta0 + theta1 + theta2) - l3*sin(-phi + theta0 + theta1);
-   out[2] = 0;
+    out[0] = -l1*sin(phi) - l2*sin(phi + theta0) + l2*sin(phi + theta0 + theta1 - theta2) + l3*cos(phi + theta0 + theta1);
+    out[1] = l1*cos(phi) + l2*cos(phi + theta0) - l2*cos(phi + theta0 + theta1 - theta2) + l3*sin(phi + theta0 + theta1);
+    out[2] = 0;
 }
 void PaBiRoboyInverseKinematics::ankle_right(double *out, double theta0, double theta1, double theta2, double theta3, double phi) {
-   out[0] = -l1*sin(-phi + theta0 + theta1 + theta2 + theta3) - l1*sin(phi) - l2*sin(phi - theta0) - l2*sin(-phi + theta0 + theta1 + theta2) + l3*cos(-phi + theta0 + theta1);
-   out[1] = -l1*cos(-phi + theta0 + theta1 + theta2 + theta3) + l1*cos(phi) + l2*cos(phi - theta0) - l2*cos(-phi + theta0 + theta1 + theta2) - l3*sin(-phi + theta0 + theta1);
-   out[2] = 0;
+    out[0] = l1*sin(phi + theta0 + theta1 - theta2 - theta3) - l1*sin(phi) - l2*sin(phi + theta0) + l2*sin(phi + theta0 + theta1 - theta2) + l3*cos(phi + theta0 + theta1);
+    out[1] = -l1*cos(phi + theta0 + theta1 - theta2 - theta3) + l1*cos(phi) + l2*cos(phi + theta0) - l2*cos(phi + theta0 + theta1 - theta2) + l3*sin(phi + theta0 + theta1);
+    out[2] = 0;
 }
 
 void PaBiRoboyInverseKinematics::visualize(){

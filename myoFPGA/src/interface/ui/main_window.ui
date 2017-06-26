@@ -553,7 +553,7 @@
      <x>0</x>
      <y>0</y>
      <width>1305</width>
-     <height>25</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
@@ -2613,7 +2613,7 @@
            </rect>
           </property>
           <property name="text">
-           <string>155</string>
+           <string>-80</string>
           </property>
           <property name="readOnly">
            <bool>true</bool>
@@ -2629,13 +2629,13 @@
            </rect>
           </property>
           <property name="minimum">
-           <number>0</number>
+           <number>-180</number>
           </property>
           <property name="maximum">
-           <number>360</number>
+           <number>180</number>
           </property>
           <property name="value">
-           <number>155</number>
+           <number>-80</number>
           </property>
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -2664,13 +2664,13 @@
            </rect>
           </property>
           <property name="minimum">
-           <number>0</number>
+           <number>-180</number>
           </property>
           <property name="maximum">
-           <number>360</number>
+           <number>180</number>
           </property>
           <property name="value">
-           <number>124</number>
+           <number>80</number>
           </property>
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -2699,7 +2699,7 @@
            </rect>
           </property>
           <property name="text">
-           <string>124</string>
+           <string>80</string>
           </property>
           <property name="readOnly">
            <bool>true</bool>
@@ -2715,13 +2715,13 @@
            </rect>
           </property>
           <property name="minimum">
-           <number>0</number>
+           <number>-180</number>
           </property>
           <property name="maximum">
-           <number>360</number>
+           <number>180</number>
           </property>
           <property name="value">
-           <number>45</number>
+           <number>-80</number>
           </property>
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -2737,7 +2737,7 @@
            </rect>
           </property>
           <property name="text">
-           <string>45</string>
+           <string>-80</string>
           </property>
           <property name="readOnly">
            <bool>true</bool>
@@ -2766,13 +2766,13 @@
            </rect>
           </property>
           <property name="minimum">
-           <number>0</number>
+           <number>-180</number>
           </property>
           <property name="maximum">
-           <number>360</number>
+           <number>180</number>
           </property>
           <property name="value">
-           <number>248</number>
+           <number>80</number>
           </property>
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -2788,7 +2788,7 @@
            </rect>
           </property>
           <property name="text">
-           <string>248</string>
+           <string>80</string>
           </property>
           <property name="readOnly">
            <bool>true</bool>

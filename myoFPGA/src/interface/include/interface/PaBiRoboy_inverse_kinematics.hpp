@@ -131,9 +131,9 @@ public:
 private:
     ros::NodeHandlePtr nh;
     ros::ServiceServer ik_srv;
-    const double l1 = 0.42;
-    const double l2 = 0.54;
-    const double l3 = 0.20;
+    const double l1 = 0.32;
+    const double l2 = 0.39;
+    const double l3 = 0.18;
     const double error_threshold = 0.005, max_number_iterations = 1000;
     boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer;
     map<string,Vector3d> initial_position, result_position;
